@@ -1,0 +1,37 @@
+/**
+ * @overview default layout for <i>ccm</i> component for user inputs
+ * @author André Kless <andre.kless@web.de.de> 2016
+ * @license The MIT License (MIT)
+ * @version 1.0.0
+ */
+
+.ccm-input {
+  font-family: Arial, sans-serif;
+  overflow-x: auto;
+  background-color: white;
+}
+
+.ccm-input > form > fieldset > input[type=submit],
+.ccm-input > form > input[type=submit] {
+  cursor: pointer;
+}
+
+.ccm-input .inputs {
+  display: table;
+  width: 100%;
+}
+
+.ccm-input .inputs > .entry {
+  display: table-row;
+}
+
+.ccm-input .inputs > .entry > .input {
+  display: table-cell;
+  padding-bottom: 0.5em;
+  vertical-align: top;
+}
+
+.ccm-input .inputs > .entry > .input:first-child {
+  padding-top: 0.15em;
+  padding-right: 0.5em;
+}
