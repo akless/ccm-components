@@ -3,6 +3,8 @@
  * @author André Kless <andre.kless@web.de> 2015-2016
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
+ * @changes
+ * version 1.0.0 (27.07.2016)
  */
 
 ccm.component( /** @lends ccm.components.input */ {
@@ -114,8 +116,7 @@ ccm.component( /** @lends ccm.components.input */ {
 
           if ( dataset.inputs )
             if ( Array.isArray( dataset.inputs ) )
-              for ( var i = 0; i < dataset.inputs.length; i++ )
-                addInput( dataset.inputs[ i ] );
+              dataset.inputs.map( addInput );
             else
               addInput( dataset.inputs );
 
