@@ -1,6 +1,68 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="http://akless.github.io/ccm-developer/libs/ccm.min.js"></script>-->
+<script src="http://akless.github.io/ccm-developer/libs/ccm.min.js"></script>
 <script>
-  ccm.render( 'ccm.input.js' );
+  var data = {
+    test: 'Test!',
+    foo: {
+      bar: 'FooBar!',
+      baz: 'FooBaz!'
+    },
+    abc: {
+      xyz: 'AbcXyz!'
+    },
+    a: {
+      b: {
+        c: {
+          d: {
+            e: {
+              f: {
+                g: {
+                  h: {
+                    i: {
+                      j: {
+                        k: {
+                          l: {
+                            m: {
+                              n: {
+                                o: {
+                                  p: {
+                                    q: {
+                                      r: {
+                                        s: {
+                                          t: {
+                                            u: {
+                                              v: {
+                                                w: {
+                                                  x: {
+                                                    y: {
+                                                      z: 'Alphabet!'
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+  //ccm.render( 'versions/ccm.input-1.1.0.js', { key: 'test', data: data }, console.log );
+  ccm.render( 'ccm.input.js', {}, console.log );
 </script>

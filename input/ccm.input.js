@@ -2,8 +2,11 @@
  * @overview <i>ccm</i> component for user inputs
  * @author André Kless <andre.kless@web.de> 2015-2016
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version latest (1.1.0)
  * @changes
+ * version 1.1.0 (11.08.2016)
+ * - support value attribute for textareas
+ * - little documentation changes
  * version 1.0.0 (27.07.2016)
  */
 
@@ -141,6 +144,7 @@ ccm.component( /** @lends ccm.components.input */ {
               case 'select':
               case 'textarea':
                 input.tag = input.input;
+                if ( input.value && !input.inner ) { input.inner = input.value; delete input.value; }
                 break;
               default:
                 input.tag = 'input';
@@ -419,7 +423,6 @@ ccm.component( /** @lends ccm.components.input */ {
    * @summary <i>ccm</i> instance configuration
    * @typedef {ccm.types.config} ccm.components.input.types.config
    * @property {ccm.types.element} element - <i>ccm</i> instance website area
-   * @property {ccm.types.dependency} html - <i>ccm</i> datastore for HTML templates
    * @property {ccm.types.dependency} style - CSS for own website area
    * @property {string} classes - HTML classes for own website area
    * @property {ccm.types.dependency} store - <i>ccm</i> datastore that contains the [dataset for rendering]{@link ccm.components.input.types.dataset}
@@ -428,7 +431,6 @@ ccm.component( /** @lends ccm.components.input */ {
    * @property {ccm.components.input.types.onSubmit} onSubmit - callback for submit event of the HTML form
    * @example {
    *   element:  jQuery( 'body' ),
-   *   html:     [ ccm.store, '../input/templates.json' ],
    *   style:    [ ccm.load, '../input/layout.css' ],
    *   classes:  'ccm-input',
    *   store:    [ ccm.store, '../input/datastore.json' ],
@@ -473,14 +475,14 @@ ccm.component( /** @lends ccm.components.input */ {
    *       "maxlength": "5",
    *       "size": "3",
    *       "required": true
-   *     },
+   *     }
    *   ]
    * }
    */
 
   /**
    * @summary input field entry
-   * @description Every additional string property will be set as HTML attribute. See the demo dataset in the public datastore.json file to see more examples which addition properties could also be set.
+   * @description Every additional string property will be set as HTML attribute.
    * @typedef {object} ccm.components.input.types.entry
    * @property {string} label - label of input field entry
    * @property {string} name -  value for HTML input attribute 'name'
