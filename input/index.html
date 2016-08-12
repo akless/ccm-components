@@ -68,10 +68,10 @@
       }
     }
   };
-  ccm.render( 'versions/ccm.input-2.0.0.js', jQuery( '#demo' ), console.log );
+  ccm.render( 'versions/ccm.input-2.0.0.js', jQuery( '#demo' ) );
   ccm.render( 'versions/ccm.input-2.0.0.js', {
     element: jQuery( '#test' ),
     data: { store: [ ccm.store, { local: datastore } ], key: 'test' },
     inputs: { store: [ ccm.store, '../input/versions/datastore-2.0.0.json' ], key: 'test' }
-  }, console.log );
+  } );
 </script>
