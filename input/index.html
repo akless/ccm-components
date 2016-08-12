@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script src="http://akless.github.io/ccm-developer/libs/ccm.min.js"></script>
+<div id="demo"></div>
+<p>
+<div id="test"></div>
 <script>
-  var data = {
-    test: 'Test!',
-    foo: {
-      bar: 'FooBar!',
-      baz: 'FooBaz!'
-    },
-    abc: {
-      xyz: 'AbcXyz!'
-    },
-    a: {
-      b: {
-        c: {
-          d: {
-            e: {
-              f: {
-                g: {
-                  h: {
-                    i: {
-                      j: {
-                        k: {
-                          l: {
-                            m: {
-                              n: {
-                                o: {
-                                  p: {
-                                    q: {
-                                      r: {
-                                        s: {
-                                          t: {
-                                            u: {
-                                              v: {
-                                                w: {
-                                                  x: {
-                                                    y: {
-                                                      z: 'Alphabet!'
+  var datastore = {
+    test: {
+      key: 'test',
+      foo: {
+        bar: 'FooBar!',
+        baz: 'FooBaz!'
+      },
+      abc: {
+        xyz: 'AbcXyz!'
+      },
+      a: {
+        b: {
+          c: {
+            d: {
+              e: {
+                f: {
+                  g: {
+                    h: {
+                      i: {
+                        j: {
+                          k: {
+                            l: {
+                              m: {
+                                n: {
+                                  o: {
+                                    p: {
+                                      q: {
+                                        r: {
+                                          s: {
+                                            t: {
+                                              u: {
+                                                v: {
+                                                  w: {
+                                                    x: {
+                                                      y: {
+                                                        z: 'Alphabet!'
+                                                      }
                                                     }
                                                   }
                                                 }
@@ -63,6 +68,10 @@
       }
     }
   };
-  //ccm.render( 'versions/ccm.input-1.1.0.js', { key: 'test', data: data }, console.log );
-  ccm.render( 'ccm.input.js', {}, console.log );
+  ccm.render( 'versions/ccm.input-2.0.0.js', jQuery( '#demo' ), console.log );
+  ccm.render( 'versions/ccm.input-2.0.0.js', {
+    element: jQuery( '#test' ),
+    data: { store: [ ccm.store, { local: datastore } ], key: 'test' },
+    inputs: { store: [ ccm.store, '../input/versions/datastore-2.0.0.json' ], key: 'test' }
+  }, console.log );
 </script>

@@ -2,7 +2,7 @@
  * @overview <i>ccm</i> component for user inputs
  * @author André Kless <andre.kless@web.de> 2015-2016
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version 2.0.0
  * @changes
  * version 2.0.0 (12.08.2016)
  * - another datastore that contains the dataset for editing
@@ -20,7 +20,7 @@ ccm.component( /** @lends ccm.components.input */ {
    * @summary component index
    * @type {ccm.types.index}
    */
-  index: 'input',
+  index: 'input-2.0.0',
 
   /**
    * @summary default instance configuration
@@ -28,9 +28,9 @@ ccm.component( /** @lends ccm.components.input */ {
    */
   config: {
 
-    style:   [ ccm.load,  '../input/layout.css' ],
+    style:   [ ccm.load,  '../input/versions/layout-1.0.0.css' ],
     inputs:  {
-      store: [ ccm.store, '../input/datastore.json' ],
+      store:   [ ccm.store, '../input/versions/datastore-2.0.0.json' ],
       key:   'demo'
     },
     data:    {
