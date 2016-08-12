@@ -190,9 +190,9 @@ ccm.component( /** @lends ccm.components.config */ {
    * @property {ccm.components.config.types.onSubmit} onSubmit - callback for submit event of the HTML form
    * @example {
    *   element:  jQuery( 'body' ),
-   *   style:    [ ccm.load, '../input/layout.css' ],
-   *   classes:  'ccm-input',
-   *   store:    [ ccm.store, '../input/datastore.json' ],
+   *   style:    [ ccm.load, '../config/layout.css' ],
+   *   classes:  'ccm-config',
+   *   store:    [ ccm.store, '../config/datastore.json' ],
    *   key:      'demo',
    *   data:     { store: '["ccm.store", "../quizz/datastore.json"]', key: 'demo' },
    *   onSubmit: function ( result ) { console.log( result ); }
