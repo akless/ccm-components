@@ -2,7 +2,7 @@
  * @overview <i>ccm</i> component for generating <i>ccm</i> instance configurations
  * @author André Kless <andre.kless@web.de> 2016
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version 2.0.0
  * @changes
  * version 2.0.0 (13.08.2016)
  * - another datastore that contains the dataset for editing
@@ -18,7 +18,7 @@ ccm.component( /** @lends ccm.components.config */ {
    * @summary component index
    * @type {ccm.types.index}
    */
-  index: 'config',
+  index: 'config-2.0.0',
 
   /**
    * @summary default instance configuration
@@ -27,14 +27,14 @@ ccm.component( /** @lends ccm.components.config */ {
   config: {
 
     inputs:  {
-      store: [ ccm.store, '../config/datastore.json' ],
+      store: [ ccm.store, '../config/versions/datastore-2.0.0.json' ],
       key:   'quizz'
     },
     data:    {
       store: [ ccm.store ],
       key:   'demo'
     },
-    input:  [ ccm.component, '../input/ccm.input.js' ],
+    input:  [ ccm.component, '../input/versions/ccm.input-2.0.0.js' ],
     onSubmit: function ( result ) { console.log( result ); }
 
   },
