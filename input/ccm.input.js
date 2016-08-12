@@ -636,7 +636,7 @@ ccm.component( /** @lends ccm.components.input */ {
    * @property {ccm.types.key} key - dataset key
    * @example {
    *   "key": "demo",
-   *   "name": "JohnDoe",
+   *   "username": "JohnDoe",
    *   "password": "1Aa"
    * }
    */
