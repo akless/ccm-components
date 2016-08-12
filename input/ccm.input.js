@@ -489,9 +489,14 @@ ccm.component( /** @lends ccm.components.input */ {
    *   element:  jQuery( 'body' ),
    *   style:    [ ccm.load, '../input/layout.css' ],
    *   classes:  'ccm-input',
-   *   store:    [ ccm.store, '../input/datastore.json' ],
-   *   key:      'demo',
-   *   data:     { username: 'JohnDoe', password: '1Aa' },
+   *   inputs:  {
+   *     store: [ ccm.store, '../input/datastore.json' ],
+   *     key:   'demo'
+   *   },
+   *   data:    {
+   *     store: [ ccm.store ],
+   *     key:   'demo'
+   *   },
    *   onSubmit: function ( result ) { console.log( result ); }
    * }
    */
