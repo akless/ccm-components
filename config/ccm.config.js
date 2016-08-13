@@ -135,7 +135,6 @@ ccm.component( /** @lends ccm.components.config */ {
                           if ( typeof result[ entry.name ] !== 'function' ) return notValid( entry.label );
                           break;
                       }
-                      delete entry.ccm;
                     }
                   } );
                   return valid;
