@@ -4,9 +4,10 @@
  * @license The MIT License (MIT)
  * @version latest (2.0.0)
  * @changes
- * version 2.0.0 (12.08.2016)
+ * version 2.0.0 (13.08.2016)
  * - another datastore that contains the dataset for editing
  * - reorganize instance configuration
+ * - outsource code to ccm.helper.value
  * version 1.1.0 (11.08.2016)
  * - support value attribute for textareas
  * version 1.0.0 (27.07.2016)
@@ -141,7 +142,7 @@ ccm.component( /** @lends ccm.components.input */ {
             function addInput( input ) {
 
               // integrate value from given data
-              integrate( getValue( dataset, input.name ) );
+              integrate( ccm.helper.value( dataset, input.name ) );
 
               /**
                * label of the input field entry
@@ -280,34 +281,6 @@ ccm.component( /** @lends ccm.components.input */ {
               } );
 
               /**
-               * get deeper property value of given object with a given property path
-               * @param {object} obj - given object
-               * @param {string} path - property path (in dot notation)
-               * @returns {string} deeper property value
-               */
-              function getValue( obj, path ) {
-
-                return recursive( obj, path.split( '.' ) );
-
-                /**
-                 * recursive helper function
-                 * @param {object} obj
-                 * @param {string[]} path
-                 * @returns {string}
-                 */
-                function recursive( obj, path ) {
-
-                  if ( !obj ) return;
-                  var key = path.shift();
-                  if ( path.length === 0 )
-                    return obj[ key ];
-                  return recursive( obj[ key ], path );  // recursive call
-
-                }
-
-              }
-
-              /**
                * integrate given value in ccm HTML data of the input field
                * @param {string} value
                */
@@ -428,29 +401,10 @@ ccm.component( /** @lends ccm.components.input */ {
               var keys = Object.keys( obj );
               for ( var i = 0; i < keys.length; i++ )
                 if ( keys[ i ].indexOf( '.' ) !== -1 ) {
-                  insert( obj, keys[ i ].split( '.' ), obj[ keys[ i ] ] );
+                  ccm.helper.value( obj, keys[ i ], obj[ keys[ i ] ] );
                   delete obj[ keys[ i ] ];
                 }
               return obj;
-
-              /**
-               * insert value into deeper property (recursive)
-               * @param data
-               * @param keys
-               * @param value
-               */
-              function insert( data, keys, value ) {
-
-                var key = keys.shift();
-                if ( keys.length === 0 )
-                  data[ key ] = value;
-                else {
-                  if ( data[ key ] === undefined )
-                    data[ key ] = {};
-                  insert( data[ key ], keys, value );  // recursive call
-                }
-
-              }
 
             }
 
