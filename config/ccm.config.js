@@ -7,6 +7,8 @@
  * version 2.0.0 (13.08.2016)
  * - another datastore that contains the dataset for editing
  * - reorganize instance configuration
+ * - no deletion of the ccm property in input entry datasets
+ * - bugfix for deeper properties
  * version 1.0.0 (11.08.2016)
  */
 
@@ -32,7 +34,7 @@ ccm.component( /** @lends ccm.components.config */ {
     },
     data:    {
       store: [ ccm.store ],
-      key:   'demo'
+      key:   'my_quizz'
     },
     input:  [ ccm.component, '../input/ccm.input.js' ],
     onSubmit: function ( result ) { console.log( result ); }
@@ -124,15 +126,19 @@ ccm.component( /** @lends ccm.components.config */ {
                         case 'ccm.proxy':
                         case 'ccm.dataset':
                         case 'ccm.store':
-                          try { result[ entry.name ] = JSON.parse( result[ entry.name ] ); } catch ( err ) { return notValid( entry.label ); }
-                          if ( !ccm.helper.isDependency( result[ entry.name ] ) ) return notValid( entry.label );
+                          try { ccm.helper.value( result, entry.name, JSON.parse( ccm.helper.value( result, entry.name ) ) ); } catch ( err ) {
+                            try { ccm.helper.value( result, entry.name, eval( '(' + ccm.helper.value( result, entry.name ) + ')' ) ); } catch ( err ) {
+                              return notValid( entry.label );
+                            }
+                          }
+                          if ( !ccm.helper.isDependency( ccm.helper.value( result, entry.name ) ) ) return notValid( entry.label );
                           break;
                         case 'ccm.key':
-                          if ( !ccm.helper.val( result[ entry.name ], 'key' ) ) return notValid( entry.label );
+                          if ( !ccm.helper.val( ccm.helper.value( result, entry.name ), 'key' ) ) return notValid( entry.label );
                           break;
                         case 'function':
-                          try { result[ entry.name ] = eval( '(' + result[ entry.name ] + ')' ); } catch ( err ) { return notValid( entry.label ); }
-                          if ( typeof result[ entry.name ] !== 'function' ) return notValid( entry.label );
+                          try { ccm.helper.value( result, entry.name, eval( '(' + ccm.helper.value( result, entry.name ) + ')' ) ); } catch ( err ) { return notValid( entry.label ); }
+                          if ( typeof ccm.helper.value( result, entry.name ) !== 'function' ) return notValid( entry.label );
                           break;
                       }
                     }

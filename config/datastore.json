@@ -5,7 +5,7 @@
     "fieldset": "Config Form",
     "inputs": [
       {
-        "label": "Config Key",
+        "label": "Dataset Key",
         "name": "key"
       },
       {
@@ -28,7 +28,7 @@
         "value": "[\"ccm.load\", \"../quizz/layout.css\"]"
       },
       {
-        "label": "Datastore",
+        "label": "Quizz Datastore",
         "name": "data.store",
         "input": "ccm.store",
         "value": "[\"ccm.store\", \"../quizz/datastore.json\"]",
