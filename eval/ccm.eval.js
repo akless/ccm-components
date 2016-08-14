@@ -21,7 +21,7 @@ ccm.component( /** @lends ccm.components.eval */ {
   config: {
 
     style:    [ ccm.load,  '../eval/layout.css' ],
-    data:     {
+    edit:     {
       store:  [ ccm.store, '../eval/datastore.json' ],
       key:    'demo'
     },
@@ -64,7 +64,7 @@ ccm.component( /** @lends ccm.components.eval */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'button', 'fieldset', 'data', 'onFinish' );
+      my = ccm.helper.privatize( self, 'edit', 'button', 'fieldset', 'onFinish' );
 
       // perform callback
       callback();
@@ -84,13 +84,13 @@ ccm.component( /** @lends ccm.components.eval */ {
       var element = ccm.helper.element( self );
 
       // get dataset for editing
-      ccm.helper.dataset( my.data, function ( dataset ) {
+      ccm.helper.dataset( my.edit, function ( editset ) {
 
         /**
          * ccm HTML data for own website area
          * @type {ccm.types.html}
          */
-        var html = [ { class: 'code', contenteditable: true, inner: dataset.html }, { tag: 'button', inner: my.button, onclick: '%%' } ];
+        var html = [ { class: 'code', contenteditable: true, inner: editset.html }, { tag: 'button', inner: my.button, onclick: '%%' } ];
 
         // generate ccm HTML data for HTML fieldset
         generateFieldset();
@@ -121,19 +121,19 @@ ccm.component( /** @lends ccm.components.eval */ {
         function submit() {
 
           var $code = ccm.helper.find( self, '.code' );
-          dataset.html = $code.html();
-          dataset.text = $code.text();
+          editset.html = $code.html();
+          editset.text = $code.text();
           var result;
 
           // try to interpret JavaScript expression
-          try { result = JSON.parse( dataset.text ); } catch ( err ) {
-            try { result = eval( '(' + dataset.text + ')' ); } catch ( err ) {
+          try { result = JSON.parse( editset.text ); } catch ( err ) {
+            try { result = eval( '(' + editset.text + ')' ); } catch ( err ) {
               alert( 'input is not valid' ); return false;
             }
           }
 
           // update dataset in datastore
-          my.data.store.set( dataset, function ( dataset ) {
+          my.edit.store.set( editset, function ( dataset ) {
 
             // add result of interpreted JavaScript expression to dataset
             dataset.result = result;
@@ -169,8 +169,8 @@ ccm.component( /** @lends ccm.components.eval */ {
    * @typedef {ccm.config} ccm.components.eval.types.config
    * @property {ccm.types.element} element - <i>ccm</i> instance website area
    * @property {ccm.types.dependency} style - CSS for own website area
-   * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.eval.types.dataset}
-   * @property {ccm.types.key} data.key - key of [dataset for editing]{@link ccm.components.eval.types.dataset}
+   * @property {ccm.types.dependency} edit.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.eval.types.editset}
+   * @property {ccm.types.key} edit.key - key of [dataset for editing]{@link ccm.components.eval.types.editset}
    * @property {boolean|string} button - button caption
    * @property {boolean|string} fieldset - wraps a fieldset<br>
    * <br>
@@ -193,7 +193,7 @@ ccm.component( /** @lends ccm.components.eval */ {
 
   /**
    * @summary dataset for editing
-   * @typedef {ccm.types.dataset} ccm.components.eval.types.dataset
+   * @typedef {ccm.types.dataset} ccm.components.eval.types.editset
    * @property {ccm.types.key} key - dataset key
    * @property {string} html - result of .html()
    * @property {string} text - result of .text()
@@ -208,7 +208,7 @@ ccm.component( /** @lends ccm.components.eval */ {
   /**
    * @callback ccm.components.eval.types.onFinish
    * @summary callback for button click event
-   * @param {ccm.components.eval.types.dataset} result - resulting dataset (with included interpreted result)
+   * @param {ccm.components.eval.types.dataset} result - resulting dataset for editing (with included interpreted result)
    * @example function ( dataset ) { console.log( dataset.result ); }
    */
 
