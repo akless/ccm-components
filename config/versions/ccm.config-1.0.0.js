@@ -179,7 +179,7 @@ ccm.component( /** @lends ccm.components.config */ {
 
   /**
    * @summary <i>ccm</i> instance configuration
-   * @typedef {ccm.config} ccm.components.config.config
+   * @typedef {ccm.config} ccm.components.config.types.config
    * @property {ccm.types.element} element - <i>ccm</i> instance website area
    * @property {ccm.types.dependency} style - CSS for own website area
    * @property {string} classes - HTML classes for own website area
