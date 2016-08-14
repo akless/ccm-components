@@ -208,10 +208,10 @@ ccm.component( /** @lends ccm.components.config */ {
    * @property {ccm.types.element} element - <i>ccm</i> instance website area
    * @property {ccm.types.dependency} style - CSS for own website area
    * @property {string} classes - HTML classes for own website area
-   * @property {ccm.types.dependency} inputs.store - <i>ccm</i> datastore that contains the [dataset for inputs]{@link ccm.components.config.types.inputset}
-   * @property {ccm.types.key} inputs.key - key of [dataset for inputs]{@link ccm.components.config.types.inputset}
-   * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.config.types.dataset}
-   * @property {ccm.types.key} data.key - key of [dataset for editing]{@link ccm.components.config.types.dataset}
+   * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for rendering]{@link ccm.components.config.types.dataset}
+   * @property {ccm.types.key} data.key - key of [dataset for rendering]{@link ccm.components.config.types.dataset}
+   * @property {ccm.types.dependency} edit.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.config.types.editset}
+   * @property {ccm.types.key} edit.key - key of [dataset for editing]{@link ccm.components.config.types.editset}
    * @property {ccm.types.dependency} input - <i>ccm</i> component for user inputs
    * @property {boolean|string} form - wrap inputs with a form<br>
    * <br>
@@ -228,39 +228,39 @@ ccm.component( /** @lends ccm.components.config */ {
    *   element:  jQuery( 'body' ),
    *   style:    [ ccm.load, '../config/layout.css' ],
    *   classes:  'ccm-config',
-   *   inputs:  {
-   *     store: [ ccm.store, '../config/datastore.json' ],
-   *     key:   'quizz'
+   *   data:     {
+   *     store:  [ ccm.store, '../config/datastore.json' ],
+   *     key:    'demo'
    *   },
-   *   data:    {
-   *     store: [ ccm.store ],
-   *     key:   'demo'
+   *   edit:     {
+   *     store:  [ ccm.store, '../config/editstore.json' ],
+   *     key:    'demo'
    *   },
-   *   input:  [ ccm.component, '../input/ccm.input.js' ],
+   *   input:    [ ccm.component, '../input/ccm.input.js' ],
+   *   fieldset: 'Editable Demo Configuration',
+   *   form:     'Submit',
    *   onSubmit: function ( result ) { console.log( result ); }
    * }
    */
 
   /**
    * @summary dataset for inputs
-   * @typedef {ccm.types.dataset} ccm.components.config.types.inputset
+   * @typedef {ccm.types.dataset} ccm.components.config.types.dataset
    * @property {ccm.types.key} key - dataset key
    * @property {ccm.components.config.types.entry|ccm.components.config.types.entry[]} inputs - collection of input field entries
    * @example {
    *   "key": "demo",
-   *   "form": "Submit",
-   *   "fieldset": "Config Form",
    *   "inputs": [
    *     {
    *       "label": "Datastore",
-   *       "name": "store",
+   *       "name": "data.store",
    *       "input": "ccm.store",
    *       "value": "[\"ccm.store\", \"../quizz/datastore.json\"]",
    *       "required": true
    *     },
    *     {
-   *       "label": "Dataset Key",
-   *       "name": "key",
+   *       "label": "Render Key",
+   *       "name": "data.key",
    *       "input": "ccm.key",
    *       "value": "demo",
    *       "required": true
@@ -391,7 +391,7 @@ ccm.component( /** @lends ccm.components.config */ {
 
   /**
    * @summary dataset for editing
-   * @typedef {ccm.types.dataset} ccm.components.config.types.dataset
+   * @typedef {ccm.types.dataset} ccm.components.config.types.editset
    * @property {ccm.types.key} key - dataset key
    * @example {
    *   "key": "demo",
@@ -403,7 +403,7 @@ ccm.component( /** @lends ccm.components.config */ {
   /**
    * @callback ccm.components.config.types.onSubmit
    * @summary callback for submit event of the HTML form
-   * @param {object} result - resulting data of the HTML form
+   * @param {ccm.components.config.types.editset} result - resulting dataset for editing
    * @example function ( result ) { console.log( result ); }
    */
 
