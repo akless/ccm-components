@@ -20,15 +20,17 @@ ccm.component( /** @lends ccm.components.config */ {
    */
   config: {
 
-    inputs:  {
-      store: [ ccm.store, '../config/datastore.json' ],
-      key:   'quizz'
+    inputs:   {
+      store:  [ ccm.store, '../config/datastore.json' ],
+      key:    'quizz'
     },
-    data:    {
-      store: [ ccm.store ],
-      key:   'my_quizz'
+    data:     {
+      store:  [ ccm.store ],
+      key:    'my_quizz'
     },
-    input:  [ ccm.component, '../input/ccm.input.js' ],
+    input:    [ ccm.component, '../input/ccm.input.js' ],
+    fieldset: 'Quizz Form',
+    form:     'Submit',
     onSubmit: function ( result ) { console.log( result ); }
 
   },
@@ -67,7 +69,7 @@ ccm.component( /** @lends ccm.components.config */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'inputs', 'data', 'onSubmit' );
+      my = ccm.helper.privatize( self, 'inputs', 'data', 'fieldset', 'form', 'onSubmit' );
 
       // perform callback
       callback();
@@ -97,6 +99,8 @@ ccm.component( /** @lends ccm.components.config */ {
               element: jQuery( '#ccm-' + self.index ),
               inputs: my.inputs,
               data: my.data,
+              fieldet: my.fieldset,
+              form: my.form,
               onSubmit: function ( result ) {
 
                 // all values are valid? => perform own onSubmit callback
@@ -214,6 +218,16 @@ ccm.component( /** @lends ccm.components.config */ {
    * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.config.types.dataset}
    * @property {ccm.types.key} data.key - key of [dataset for editing]{@link ccm.components.config.types.dataset}
    * @property {ccm.types.dependency} input - <i>ccm</i> component for user inputs
+   * @property {boolean|string} form - wrap inputs with a form<br>
+   * <br>
+   * <code>falsy</code>: no form around inputs,<br>
+   * <code>true</code>: wrap inputs with a form that has default submit button<br>
+   * <code>string</code>: wrap inputs with a form that has submit button with given string as caption
+   * @property {boolean|string} fieldset - wrap inputs in a fieldset<br>
+   * <br>
+   * <code>falsy</code>: no fieldset around inputs<br>
+   * <code>true</code>: wrap inputs in a fieldset without a legend<br>
+   * <code>string</code>: wrap inputs in a fieldset with given string as legend
    * @property {ccm.components.config.types.onSubmit} onSubmit - callback for submit event of the HTML form
    * @example {
    *   element:  jQuery( 'body' ),
@@ -236,16 +250,6 @@ ccm.component( /** @lends ccm.components.config */ {
    * @summary dataset for inputs
    * @typedef {ccm.types.dataset} ccm.components.config.types.inputset
    * @property {ccm.types.key} key - dataset key
-   * @property {boolean|string} form - wrap inputs with a form<br>
-   * <br>
-   * <code>falsy</code>: no form around inputs,<br>
-   * <code>true</code>: wrap inputs with a form that has default submit button<br>
-   * <code>string</code>: wrap inputs with a form that has submit button with given string as caption
-   * @property {boolean|string} fieldset - wrap inputs in a fieldset<br>
-   * <br>
-   * <code>falsy</code>: no fieldset around inputs<br>
-   * <code>true</code>: wrap inputs in a fieldset without a legend<br>
-   * <code>string</code>: wrap inputs in a fieldset with given string as legend
    * @property {ccm.components.config.types.entry|ccm.components.config.types.entry[]} inputs - collection of input field entries
    * @example {
    *   "key": "demo",

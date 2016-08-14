@@ -1,8 +1,6 @@
 {
   "demo": {
     "key": "demo",
-    "form": "Submit",
-    "fieldset": "Demo Form",
     "inputs": [
       {
         "label": "Username",
@@ -177,8 +175,6 @@
   },
   "test": {
     "key": "test",
-    "form": true,
-    "fieldset": "Test Form",
     "inputs": [
       {
         "label": "Key",

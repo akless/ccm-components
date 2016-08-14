@@ -20,15 +20,17 @@ ccm.component( /** @lends ccm.components.input */ {
    */
   config: {
 
-    style:   [ ccm.load,  '../input/layout.css' ],
-    inputs:  {
-      store: [ ccm.store, '../input/datastore.json' ],
-      key:   'demo'
+    style:    [ ccm.load,  '../input/layout.css' ],
+    inputs:   {
+      store:  [ ccm.store, '../input/datastore.json' ],
+      key:    'demo'
     },
-    data:    {
-      store: [ ccm.store ],
-      key:   'demo'
+    data:     {
+      store:  [ ccm.store ],
+      key:    'demo'
     },
+    form:     'Submit',
+    fieldset: 'Demo Form',
     onSubmit: function ( result ) { console.log( result ); }
 
   },
@@ -69,7 +71,7 @@ ccm.component( /** @lends ccm.components.input */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'inputs', 'data', 'onSubmit' );
+      my = ccm.helper.privatize( self, 'inputs', 'data', 'fieldset', 'form', 'onSubmit' );
 
       // perform callback
       callback();
@@ -315,10 +317,10 @@ ccm.component( /** @lends ccm.components.input */ {
            */
           function generateFieldset() {
 
-            if ( inputset.fieldset ) {
+            if ( my.fieldset ) {
               html = { tag: 'fieldset', inner: html };
-              if ( typeof inputset.fieldset === 'string' )
-                html.inner.unshift( { tag: 'legend', inner: inputset.fieldset } );
+              if ( typeof my.fieldset === 'string' )
+                html.inner.unshift( { tag: 'legend', inner: my.fieldset } );
             }
 
           }
@@ -328,11 +330,11 @@ ccm.component( /** @lends ccm.components.input */ {
            */
           function generateForm() {
 
-            if ( inputset.form ) {
+            if ( my.form ) {
               html = { tag: 'form', onsubmit: '%%', inner: html };
-              var button = { tag: 'input', type: 'submit', value: inputset.form };
+              var button = { tag: 'input', type: 'submit', value: my.form };
               if ( button.value === true ) delete button.value;
-              if ( inputset.fieldset )
+              if ( my.fieldset )
                 html.inner.inner.push( button );
               else
                 html.inner.push( button );
@@ -429,6 +431,16 @@ ccm.component( /** @lends ccm.components.input */ {
    * @property {ccm.types.key} inputs.key - key of [dataset for inputs]{@link ccm.components.input.types.inputset}
    * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.input.types.dataset}
    * @property {ccm.types.key} data.key - key of [dataset for editing]{@link ccm.components.input.types.dataset}
+   * @property {boolean|string} form - wrap inputs with a form<br>
+   * <br>
+   * <code>falsy</code>: no form around inputs<br>
+   * <code>true</code>: wrap inputs with a form that has default submit button<br>
+   * <code>string</code>: wrap inputs with a form that has submit button with given string as caption
+   * @property {boolean|string} fieldset - wrap inputs in a fieldset<br>
+   * <br>
+   * <code>falsy</code>: no fieldset around inputs<br>
+   * <code>true</code>: wrap inputs in a fieldset without a legend<br>
+   * <code>string</code>: wrap inputs in a fieldset with given string as legend
    * @property {ccm.components.input.types.onSubmit} onSubmit - callback for submit event of the HTML form
    * @example {
    *   element:  jQuery( 'body' ),
@@ -450,16 +462,6 @@ ccm.component( /** @lends ccm.components.input */ {
    * @summary dataset for inputs
    * @typedef {ccm.types.dataset} ccm.components.input.types.inputset
    * @property {ccm.types.key} key - dataset key
-   * @property {boolean|string} form - wrap inputs with a form<br>
-   * <br>
-   * <code>falsy</code>: no form around inputs,<br>
-   * <code>true</code>: wrap inputs with a form that has default submit button<br>
-   * <code>string</code>: wrap inputs with a form that has submit button with given string as caption
-   * @property {boolean|string} fieldset - wrap inputs in a fieldset<br>
-   * <br>
-   * <code>falsy</code>: no fieldset around inputs<br>
-   * <code>true</code>: wrap inputs in a fieldset without a legend<br>
-   * <code>string</code>: wrap inputs in a fieldset with given string as legend
    * @property {ccm.components.input.types.entry|ccm.components.input.types.entry[]} inputs - collection of input field entries
    * @example {
    *   "key": "demo",

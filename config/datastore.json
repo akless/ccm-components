@@ -1,8 +1,6 @@
 {
   "quizz": {
     "key": "quizz",
-    "form": "Submit",
-    "fieldset": "Config Form",
     "inputs": [
       {
         "label": "Dataset Key",
