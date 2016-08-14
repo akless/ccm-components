@@ -5,74 +5,11 @@
 <p>
 <div id="test"></div>
 <script>
-  var datastore = {
-    test: {
-      key: 'test',
-      foo: {
-        bar: 'FooBar!',
-        baz: 'FooBaz!'
-      },
-      abc: {
-        xyz: 'AbcXyz!'
-      },
-      a: {
-        b: {
-          c: {
-            d: {
-              e: {
-                f: {
-                  g: {
-                    h: {
-                      i: {
-                        j: {
-                          k: {
-                            l: {
-                              m: {
-                                n: {
-                                  o: {
-                                    p: {
-                                      q: {
-                                        r: {
-                                          s: {
-                                            t: {
-                                              u: {
-                                                v: {
-                                                  w: {
-                                                    x: {
-                                                      y: {
-                                                        z: 'Alphabet!'
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  };
   ccm.render( 'ccm.input.js', jQuery( '#demo' ) );
   ccm.render( 'ccm.input.js', {
     element: jQuery( '#test' ),
-    data: { store: [ ccm.store, { local: datastore } ], key: 'test' },
-    inputs: { store: [ ccm.store, '../input/datastore.json' ], key: 'test' },
-    fieldset: 'Test Form'
+    data: { store: [ ccm.store, '../input/datastore.json' ], key: 'test' },
+    edit: { store: [ ccm.store, '../input/editstore.json' ], key: 'test' },
+    fieldset: 'Test Inputs'
   } );
 </script>

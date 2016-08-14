@@ -21,16 +21,16 @@ ccm.component( /** @lends ccm.components.input */ {
   config: {
 
     style:    [ ccm.load,  '../input/layout.css' ],
-    inputs:   {
+    data:     {
       store:  [ ccm.store, '../input/datastore.json' ],
       key:    'demo'
     },
-    data:     {
-      store:  [ ccm.store ],
+    edit:     {
+      store:  [ ccm.store, '../input/editstore.json' ],
       key:    'demo'
     },
     form:     'Submit',
-    fieldset: 'Demo Form',
+    fieldset: 'Demo Inputs',
     onSubmit: function ( result ) { console.log( result ); }
 
   },
@@ -71,7 +71,7 @@ ccm.component( /** @lends ccm.components.input */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'inputs', 'data', 'fieldset', 'form', 'onSubmit' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'form', 'fieldset', 'onSubmit' );
 
       // perform callback
       callback();
@@ -90,11 +90,11 @@ ccm.component( /** @lends ccm.components.input */ {
        */
       var element = ccm.helper.element( self );
 
-      // get dataset for inputs
-      ccm.helper.dataset( my.inputs, function ( inputset ) {
+      // get dataset for rendering
+      ccm.helper.dataset( my.data, function ( dataset ) {
 
         // get dataset for editing
-        ccm.helper.dataset( my.data, function ( dataset ) {
+        ccm.helper.dataset( my.edit, function ( editset ) {
 
           /**
            * ccm HTML data for own website area
@@ -122,11 +122,11 @@ ccm.component( /** @lends ccm.components.input */ {
            */
           function generateInputs() {
 
-            if ( inputset.inputs )
-              if ( Array.isArray( inputset.inputs ) )
-                inputset.inputs.map( addInput );
+            if ( dataset.inputs )
+              if ( Array.isArray( dataset.inputs ) )
+                dataset.inputs.map( addInput );
               else
-                addInput( inputset.inputs );
+                addInput( dataset.inputs );
 
             /**
              * add HTML input field
@@ -135,7 +135,7 @@ ccm.component( /** @lends ccm.components.input */ {
             function addInput( input ) {
 
               // integrate value from given data
-              integrate( ccm.helper.value( dataset, input.name ) );
+              integrate( ccm.helper.value( editset, input.name ) );
 
               /**
                * label of the input field entry
@@ -148,7 +148,7 @@ ccm.component( /** @lends ccm.components.input */ {
               if ( input.name === 'key' ) {
                 input.input = 'text';
                 input.pattern = ccm.helper.regex( 'key' ).toString().slice( 1, -1 );
-                input.value = dataset.key;
+                input.value = editset.key;
               }
 
               // prepare ccm HTML data for input field entry
@@ -350,7 +350,7 @@ ccm.component( /** @lends ccm.components.input */ {
 
             /**
              * resulting data of HTML form
-             * @type {ccm.components.input.types.dataset}
+             * @type {ccm.components.input.types.editset}
              */
             var result = convert( ccm.helper.formData( jQuery( this ) ) );
 
@@ -358,12 +358,12 @@ ccm.component( /** @lends ccm.components.input */ {
             if ( result.key ) {
 
               // dataset key has changed? => delete dataset with old key
-              if ( result.key !== dataset.key )
-                my.data.store.del( dataset.key );
+              if ( result.key !== editset.key )
+                my.data.store.del( editset.key );
 
             }
             // set dataset key in result
-            else result.key = dataset.key;
+            else result.key = editset.key;
 
             // update dataset for editing in datastore
             my.data.store.set( result, function ( result ) {
@@ -427,10 +427,10 @@ ccm.component( /** @lends ccm.components.input */ {
    * @property {ccm.types.element} element - <i>ccm</i> instance website area
    * @property {ccm.types.dependency} style - CSS for own website area
    * @property {string} classes - HTML classes for own website area
-   * @property {ccm.types.dependency} inputs.store - <i>ccm</i> datastore that contains the [dataset for inputs]{@link ccm.components.input.types.inputset}
-   * @property {ccm.types.key} inputs.key - key of [dataset for inputs]{@link ccm.components.input.types.inputset}
-   * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.input.types.dataset}
-   * @property {ccm.types.key} data.key - key of [dataset for editing]{@link ccm.components.input.types.dataset}
+   * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for rendering]{@link ccm.components.input.types.dataset}
+   * @property {ccm.types.key} data.key - key of [dataset for rendering]{@link ccm.components.input.types.dataset}
+   * @property {ccm.types.dependency} edit.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.input.types.editset}
+   * @property {ccm.types.key} edit.key - key of [dataset for editing]{@link ccm.components.input.types.editset}
    * @property {boolean|string} form - wrap inputs with a form<br>
    * <br>
    * <code>falsy</code>: no form around inputs<br>
@@ -443,24 +443,24 @@ ccm.component( /** @lends ccm.components.input */ {
    * <code>string</code>: wrap inputs in a fieldset with given string as legend
    * @property {ccm.components.input.types.onSubmit} onSubmit - callback for submit event of the HTML form
    * @example {
-   *   element:  jQuery( 'body' ),
-   *   style:    [ ccm.load, '../input/layout.css' ],
-   *   classes:  'ccm-input',
-   *   inputs:  {
-   *     store: [ ccm.store, '../input/datastore.json' ],
-   *     key:   'demo'
+   *   style:    [ ccm.load,  '../input/layout.css' ],
+   *   data:     {
+   *     store:  [ ccm.store, '../input/datastore.json' ],
+   *     key:    'demo'
    *   },
-   *   data:    {
-   *     store: [ ccm.store ],
-   *     key:   'demo'
+   *   edit:     {
+   *     store:  [ ccm.store, '../input/editstore.json' ],
+   *     key:    'demo'
    *   },
+   *   form:     'Submit',
+   *   fieldset: 'Demo Form',
    *   onSubmit: function ( result ) { console.log( result ); }
    * }
    */
 
   /**
-   * @summary dataset for inputs
-   * @typedef {ccm.types.dataset} ccm.components.input.types.inputset
+   * @summary dataset for rendering
+   * @typedef {ccm.types.dataset} ccm.components.input.types.dataset
    * @property {ccm.types.key} key - dataset key
    * @property {ccm.components.input.types.entry|ccm.components.input.types.entry[]} inputs - collection of input field entries
    * @example {
@@ -579,7 +579,7 @@ ccm.component( /** @lends ccm.components.input */ {
 
   /**
    * @summary dataset for editing
-   * @typedef {ccm.types.dataset} ccm.components.input.types.dataset
+   * @typedef {ccm.types.dataset} ccm.components.input.types.editset
    * @property {ccm.types.key} key - dataset key
    * @example {
    *   "key": "demo",
@@ -591,7 +591,7 @@ ccm.component( /** @lends ccm.components.input */ {
   /**
    * @callback ccm.components.input.types.onSubmit
    * @summary callback for submit event of the HTML form
-   * @param {ccm.components.input.types.dataset} result - resulting data of the HTML form
+   * @param {ccm.components.input.types.editset} result - resulting dataset for editing
    * @example function ( result ) { console.log( result ); }
    */
 
