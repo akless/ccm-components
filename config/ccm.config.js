@@ -244,7 +244,7 @@ ccm.component( /** @lends ccm.components.config */ {
    */
 
   /**
-   * @summary dataset for inputs
+   * @summary dataset for rendering
    * @typedef {ccm.types.dataset} ccm.components.config.types.dataset
    * @property {ccm.types.key} key - dataset key
    * @property {ccm.components.config.types.entry|ccm.components.config.types.entry[]} inputs - collection of input field entries
