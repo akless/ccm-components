@@ -20,10 +20,10 @@ ccm.component( /** @lends ccm.components.eval */ {
    */
   config: {
 
-    style:     [ ccm.load,  '../eval/layout.css' ],
-    data: {
-      store:   [ ccm.store, '../eval/datastore.json' ],
-      key:     'demo'
+    style:    [ ccm.load,  '../eval/layout.css' ],
+    data:     {
+      store:  [ ccm.store, '../eval/datastore.json' ],
+      key:    'demo'
     },
     button:   'Submit',
     onFinish: function ( result ) { console.log( result ); }
