@@ -25,7 +25,6 @@ ccm.component( /** @lends ccm.components.eval */ {
       store:   [ ccm.store, '../eval/datastore.json' ],
       key:     'demo'
     },
-    fieldset: 'Quizz Config',
     button:   'Submit',
     onFinish: function ( result ) { console.log( result ); }
 
@@ -65,7 +64,7 @@ ccm.component( /** @lends ccm.components.eval */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'fieldset', 'button', 'data', 'onFinish' );
+      my = ccm.helper.privatize( self, 'button', 'fieldset', 'data', 'onFinish' );
 
       // perform callback
       callback();
@@ -172,22 +171,21 @@ ccm.component( /** @lends ccm.components.eval */ {
    * @property {ccm.types.dependency} style - CSS for own website area
    * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.eval.types.dataset}
    * @property {ccm.types.key} data.key - key of [dataset for editing]{@link ccm.components.eval.types.dataset}
+   * @property {boolean|string} button - button caption
    * @property {boolean|string} fieldset - wraps a fieldset<br>
    * <br>
    * <code>falsy</code>: no fieldset<br>
    * <code>true</code>: fieldset without a legend<br>
    * <code>string</code>: fieldset with given string as legend
-   * @property {boolean|string} button - button caption (default: no button)
    * @property {ccm.components.eval.types.onFinish} onFinish - callback for button click event
    * @example {
    *   element:  jQuery( 'body' ),
-   *   style:    [ ccm.load,  '../eval/layout.css' ],
    *   classes:  'ccm-eval',
+   *   style:    [ ccm.load,  '../eval/layout.css' ],
    *   data: {
    *     store:  [ ccm.store, '../eval/datastore.json' ],
-   *     key:    'quizz'
+   *     key:    'demo'
    *   },
-   *   fieldset: 'Quizz Config',
    *   button:   'Submit',
    *   onFinish: function ( result ) { console.log( result ); }
    * }
@@ -201,16 +199,16 @@ ccm.component( /** @lends ccm.components.eval */ {
    * @property {string} text - result of .text()
    * @property {*} result - interpreted result (only set in dataset via onFinish callback)
    * @example {
-   *   key:    'demo',
-   *   html:   "{<br>&nbsp;&nbsp;foo: 'bar',<br>&nbsp;&nbsp;baz: function () { alert('Hello, World!'); }<br>}"
-   *   text:   "{  foo: 'bar',  baz: function () { alert('Hello, World!'); }}"
+   *   key:  'demo',
+   *   html: "{<br>&nbsp;&nbsp;foo: 'bar',<br>&nbsp;&nbsp;baz: function () { alert('Hello, World!'); }<br>}"
+   *   text: "{  foo: 'bar',  baz: function () { alert('Hello, World!'); }}"
    * }
    */
 
   /**
    * @callback ccm.components.eval.types.onFinish
    * @summary callback for button click event
-   * @param {ccm.components.eval.types.dataset} result - resulting dataset
+   * @param {ccm.components.eval.types.dataset} result - resulting dataset (with included interpreted result)
    * @example function ( dataset ) { console.log( dataset.result ); }
    */
 
