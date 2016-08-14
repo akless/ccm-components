@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script src="http://akless.github.io/ccm-developer/libs/ccm.min.js"></script>
+<div id="demo"></div>
+<p>
+<div id="quizz"></div>
 <script>
-  ccm.render( 'ccm.eval.js' );
+  ccm.render( 'ccm.eval.js', {
+    element:  jQuery( '#demo' ),
+    fieldset: 'Editable Demo Configuration'
+  } );
+  ccm.render( 'ccm.eval.js', {
+    element:  jQuery( '#quizz' ),
+    data: {
+      store:  [ ccm.store, '../eval/datastore.json' ],
+      key:    'quizz'
+    },
+    fieldset: 'Editable Quizz Configuration'
+  } );
 </script>
