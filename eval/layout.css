@@ -2,7 +2,6 @@
  * @overview <i>ccm</i> component for interpret JavaScript expressions
  * @author André Kless <andre.kless@web.de.de> 2016
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
  */
 
 .ccm-eval {
@@ -11,8 +10,8 @@
   background-color: white;
 }
 
-.ccm-eval > .value,
-.ccm-eval > fieldset > .value {
+.ccm-eval > .code,
+.ccm-eval > fieldset > .code {
   font-family: "Courier New", monospace;
 }
 

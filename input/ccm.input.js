@@ -2,15 +2,6 @@
  * @overview <i>ccm</i> component for user inputs
  * @author André Kless <andre.kless@web.de> 2015-2016
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
- * @changes
- * version 2.0.0 (13.08.2016)
- * - another datastore that contains the dataset for editing
- * - reorganize instance configuration
- * - outsource code to ccm.helper.value
- * version 1.1.0 (11.08.2016)
- * - support value attribute for textareas
- * version 1.0.0 (27.07.2016)
  */
 
 ccm.component( /** @lends ccm.components.input */ {

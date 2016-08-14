@@ -2,9 +2,6 @@
  * @overview <i>ccm</i> component for interpret JavaScript expressions
  * @author André Kless <andre.kless@web.de> 2016
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
- * @changes
- * version 1.0.0 (14.08.2016)
  */
 
 ccm.component( /** @lends ccm.components.eval */ {
@@ -23,10 +20,10 @@ ccm.component( /** @lends ccm.components.eval */ {
    */
   config: {
 
-    style:    [ ccm.load,  '../eval/layout.css' ],
+    style:     [ ccm.load,  '../eval/layout.css' ],
     data: {
-      store:  [ ccm.store, '../eval/datastore.json' ],
-      key:    'demo'
+      store:   [ ccm.store, '../eval/datastore.json' ],
+      key:     'demo'
     },
     fieldset: 'Quizz Config',
     button:   'Submit',
@@ -94,7 +91,7 @@ ccm.component( /** @lends ccm.components.eval */ {
          * ccm HTML data for own website area
          * @type {ccm.types.html}
          */
-        var html = [ { class: 'value', contenteditable: true, inner: dataset.html }, { tag: 'button', inner: my.button, onclick: '%%' } ];
+        var html = [ { class: 'code', contenteditable: true, inner: dataset.html }, { tag: 'button', inner: my.button, onclick: '%%' } ];
 
         // generate ccm HTML data for HTML fieldset
         generateFieldset();
@@ -124,9 +121,9 @@ ccm.component( /** @lends ccm.components.eval */ {
          */
         function submit() {
 
-          var $value = ccm.helper.find( self, '.value' );
-          dataset.html = $value.html();
-          dataset.text = $value.text();
+          var $code = ccm.helper.find( self, '.code' );
+          dataset.html = $code.html();
+          dataset.text = $code.text();
           var result;
 
           // try to interpret JavaScript expression

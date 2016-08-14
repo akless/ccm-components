@@ -2,14 +2,6 @@
  * @overview <i>ccm</i> component for generating <i>ccm</i> instance configurations
  * @author André Kless <andre.kless@web.de> 2016
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
- * @changes
- * version 2.0.0 (13.08.2016)
- * - another datastore that contains the dataset for editing
- * - reorganize instance configuration
- * - no deletion of the ccm property in input entry datasets
- * - bugfix for deeper properties
- * version 1.0.0 (11.08.2016)
  */
 
 ccm.component( /** @lends ccm.components.config */ {
