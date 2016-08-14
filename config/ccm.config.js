@@ -20,16 +20,16 @@ ccm.component( /** @lends ccm.components.config */ {
    */
   config: {
 
-    inputs:   {
-      store:  [ ccm.store, '../config/datastore.json' ],
-      key:    'quizz'
-    },
     data:     {
-      store:  [ ccm.store ],
-      key:    'my_quizz'
+      store:  [ ccm.store, '../config/datastore.json' ],
+      key:    'demo'
+    },
+    edit:     {
+      store:  [ ccm.store, '../config/editstore.json' ],
+      key:    'demo'
     },
     input:    [ ccm.component, '../input/ccm.input.js' ],
-    fieldset: 'Quizz Form',
+    fieldset: 'Editable Demo Configuration',
     form:     'Submit',
     onSubmit: function ( result ) { console.log( result ); }
 
@@ -69,7 +69,7 @@ ccm.component( /** @lends ccm.components.config */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'inputs', 'data', 'fieldset', 'form', 'onSubmit' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'form', 'fieldset', 'onSubmit' );
 
       // perform callback
       callback();
@@ -85,111 +85,106 @@ ccm.component( /** @lends ccm.components.config */ {
       // prepare website area for own content
       ccm.helper.element( self );
 
-      // get dataset for inputs
-      ccm.helper.dataset( my.inputs, function ( inputset ) {
+      // get dataset for rendering
+      ccm.helper.dataset( my.data, function ( dataset ) {
 
-        // get dataset for editing
-        ccm.helper.dataset( my.data, function ( dataset ) {
+        // add support for new input types
+        convert( function () {
 
-          // add support for new input types
-          convert( function () {
+          // embed input component
+          self.input.render( {
+            element: jQuery( '#ccm-' + self.index ),
+            data: my.data,
+            edit: my.edit,
+            fieldset: my.fieldset,
+            form: my.form,
+            onSubmit: function ( result ) {
 
-            // embed input component
-            self.input.render( {
-              element: jQuery( '#ccm-' + self.index ),
-              inputs: my.inputs,
-              data: my.data,
-              fieldet: my.fieldset,
-              form: my.form,
-              onSubmit: function ( result ) {
+              // all values are valid? => perform own onSubmit callback
+              if ( validate() && my.onSubmit ) my.onSubmit( result );
 
-                // all values are valid? => perform own onSubmit callback
-                if ( validate() && my.onSubmit ) my.onSubmit( result );
+              /**
+               * validate resulting input values
+               */
+              function validate() {
+
+                var valid = true;
+                dataset.inputs.map( function ( entry ) {
+                  if ( !entry.required && !ccm.helper.value( result, entry.name ) ) return;
+                  if ( entry.ccm ) {
+                    switch ( entry.ccm ) {
+                      case 'ccm.load':
+                      case 'ccm.component':
+                      case 'ccm.instance':
+                      case 'ccm.proxy':
+                      case 'ccm.dataset':
+                      case 'ccm.store':
+                        try { ccm.helper.value( result, entry.name, JSON.parse( ccm.helper.value( result, entry.name ) ) ); } catch ( err ) {
+                          try { ccm.helper.value( result, entry.name, eval( '(' + ccm.helper.value( result, entry.name ) + ')' ) ); } catch ( err ) {
+                            return notValid( entry.label );
+                          }
+                        }
+                        if ( !ccm.helper.isDependency( ccm.helper.value( result, entry.name ) ) ) return notValid( entry.label );
+                        break;
+                      case 'ccm.key':
+                        if ( !ccm.helper.val( ccm.helper.value( result, entry.name ), 'key' ) ) return notValid( entry.label );
+                        break;
+                      case 'function':
+                        try { ccm.helper.value( result, entry.name, eval( '(' + ccm.helper.value( result, entry.name ) + ')' ) ); } catch ( err ) { return notValid( entry.label ); }
+                        if ( typeof ccm.helper.value( result, entry.name ) !== 'function' ) return notValid( entry.label );
+                        break;
+                    }
+                  }
+                } );
+                return valid;
 
                 /**
-                 * validate resulting input values
+                 * called when a input value is not valid
+                 * @param {string} label - label of input entry
                  */
-                function validate() {
-
-                  var valid = true;
-                  inputset.inputs.map( function ( entry ) {
-                    if ( !result[ entry.name ] && !entry.required ) return;
-                    if ( entry.ccm ) {
-                      switch ( entry.ccm ) {
-                        case 'ccm.load':
-                        case 'ccm.component':
-                        case 'ccm.instance':
-                        case 'ccm.proxy':
-                        case 'ccm.dataset':
-                        case 'ccm.store':
-                          try { ccm.helper.value( result, entry.name, JSON.parse( ccm.helper.value( result, entry.name ) ) ); } catch ( err ) {
-                            try { ccm.helper.value( result, entry.name, eval( '(' + ccm.helper.value( result, entry.name ) + ')' ) ); } catch ( err ) {
-                              return notValid( entry.label );
-                            }
-                          }
-                          if ( !ccm.helper.isDependency( ccm.helper.value( result, entry.name ) ) ) return notValid( entry.label );
-                          break;
-                        case 'ccm.key':
-                          if ( !ccm.helper.val( ccm.helper.value( result, entry.name ), 'key' ) ) return notValid( entry.label );
-                          break;
-                        case 'function':
-                          try { ccm.helper.value( result, entry.name, eval( '(' + ccm.helper.value( result, entry.name ) + ')' ) ); } catch ( err ) { return notValid( entry.label ); }
-                          if ( typeof ccm.helper.value( result, entry.name ) !== 'function' ) return notValid( entry.label );
-                          break;
-                      }
-                    }
-                  } );
-                  return valid;
-
-                  /**
-                   * called when a input value is not valid
-                   * @param {string} label - label of input entry
-                   */
-                  function notValid( label ) {
-                    valid = false;
-                    alert( 'value of entry "' + label + '" is not valid' );
-                  }
-
+                function notValid( label ) {
+                  valid = false;
+                  alert( 'value of entry "' + label + '" is not valid' );
                 }
 
               }
-            } );
 
-            // perform callback
-            if ( callback ) callback();
-
+            }
           } );
 
-          /**
-           * add support for new input types
-           * @param {function} callback
-           */
-          function convert( callback ) {
-
-            inputset.inputs.map( function ( entry ) {
-              switch ( entry.input ) {
-                case 'ccm.load':
-                case 'ccm.component':
-                case 'ccm.instance':
-                case 'ccm.proxy':
-                case 'ccm.dataset':
-                case 'ccm.store':
-                case 'function':
-                  entry.ccm = entry.input;
-                  entry.input = 'textarea';
-                  break;
-                case 'ccm.key':
-                  entry.ccm = entry.input;
-                  entry.input = 'text';
-                  entry.pattern = ccm.helper.regex( 'key' ).toString().slice( 1, -1 );
-                  break;
-              }
-            } );
-            my.inputs.store.set( inputset, callback );
-
-          }
+          // perform callback
+          if ( callback ) callback();
 
         } );
+
+        /**
+         * add support for new input types
+         * @param {function} callback
+         */
+        function convert( callback ) {
+
+          dataset.inputs.map( function ( entry ) {
+            switch ( entry.input ) {
+              case 'ccm.load':
+              case 'ccm.component':
+              case 'ccm.instance':
+              case 'ccm.proxy':
+              case 'ccm.dataset':
+              case 'ccm.store':
+              case 'function':
+                entry.ccm = entry.input;
+                entry.input = 'textarea';
+                break;
+              case 'ccm.key':
+                entry.ccm = entry.input;
+                entry.input = 'text';
+                entry.pattern = ccm.helper.regex( 'key' ).toString().slice( 1, -1 );
+                break;
+            }
+          } );
+          my.data.store.set( dataset, callback );
+
+        }
 
       } );
 

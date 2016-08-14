@@ -1,0 +1,31 @@
+{
+  "demo": {
+    "key": "demo",
+    "html": "[\"ccm.store\", \"templates.json\"]",
+    "style": "[\"ccm.load\", \"layout.css\"]",
+    "data": {
+      "store": "[\"ccm.store\", \"datastore.json\"]",
+      "key": "demo"
+    },
+    "onFinish": "function () { console.log(arguments); }"
+  },
+  "quizz": {
+    "key": "quizz",
+    "classes": "ccm-quizz",
+    "html": "[\"ccm.store\", \"../quizz/templates.json\"]",
+    "style": "[\"ccm.load\", \"../quizz/layout.css\"]",
+    "data": {
+      "store": "[\"ccm.store\", \"../quizz/datastore.json\"]",
+      "key": "demo"
+    },
+    "onFinish": "function (result) { console.log(result); result.quizz.render(); }",
+    "text": {
+      "answer": "Answer",
+      "correct": "Correct solution",
+      "finish": "Finish",
+      "next": "Next",
+      "question": "Question",
+      "result": "Result"
+    }
+  }
+}

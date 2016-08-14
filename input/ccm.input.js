@@ -149,6 +149,7 @@ ccm.component( /** @lends ccm.components.input */ {
                 input.input = 'text';
                 input.pattern = ccm.helper.regex( 'key' ).toString().slice( 1, -1 );
                 input.value = editset.key;
+                input.required = true;
               }
 
               // prepare ccm HTML data for input field entry
@@ -359,14 +360,14 @@ ccm.component( /** @lends ccm.components.input */ {
 
               // dataset key has changed? => delete dataset with old key
               if ( result.key !== editset.key )
-                my.data.store.del( editset.key );
+                my.edit.store.del( editset.key );
 
             }
             // set dataset key in result
             else result.key = editset.key;
 
             // update dataset for editing in datastore
-            my.data.store.set( result, function ( result ) {
+            my.edit.store.set( result, function ( result ) {
 
               // perform given submit callback with resulting data of HTML form
               my.onSubmit( result );

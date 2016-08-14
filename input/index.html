@@ -8,8 +8,14 @@
   ccm.render( 'ccm.input.js', jQuery( '#demo' ) );
   ccm.render( 'ccm.input.js', {
     element: jQuery( '#test' ),
-    data: { store: [ ccm.store, '../input/datastore.json' ], key: 'test' },
-    edit: { store: [ ccm.store, '../input/editstore.json' ], key: 'test' },
+    data: {
+      store: [ ccm.store, '../input/datastore.json' ],
+      key: 'test'
+    },
+    edit: {
+      store: [ ccm.store, '../input/editstore.json' ],
+      key: 'test'
+    },
     fieldset: 'Test Inputs'
   } );
 </script>
