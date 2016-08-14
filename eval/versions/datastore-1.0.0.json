@@ -1,0 +1,10 @@
+{
+  "demo": {
+    "key": "demo",
+    "html": "{<br>&nbsp;&nbsp;foo: 'bar',<br>&nbsp;&nbsp;baz: function () { alert('Hello, World!'); }<br>}"
+  },
+  "quizz": {
+    "key": "quizz",
+    "html": "{<br>&nbsp;&nbsp;classes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'ccm-quizz',<br>&nbsp;&nbsp;html:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ['ccm.store',&nbsp;'../quizz/templates.json'],<br>&nbsp;&nbsp;style:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ccm.load,&nbsp;'../quizz/layout.css'],<br>&nbsp;&nbsp;'data.store':&nbsp;&nbsp;&nbsp; [ccm.store,&nbsp;'../quizz/datastore.json'],<br>&nbsp;&nbsp;'data.key':&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'demo',<br>&nbsp;&nbsp;onFinish:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function&nbsp;(result)&nbsp;{&nbsp;result.quizz.render();&nbsp;},<br>&nbsp;&nbsp;'text.answer':&nbsp;&nbsp; 'Answer',<br>&nbsp;&nbsp;'text.correct':&nbsp; 'Correct&nbsp;solution',<br>&nbsp;&nbsp;'text.finish':&nbsp;&nbsp; 'Finish',<br>&nbsp;&nbsp;'text.next':&nbsp;&nbsp;&nbsp;&nbsp; 'Next',<br>&nbsp;&nbsp;'text.question':&nbsp;'Question',<br>&nbsp;&nbsp;'text.result':&nbsp;&nbsp; 'Result'<br>}"
+  }
+}

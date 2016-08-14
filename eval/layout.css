@@ -1,0 +1,23 @@
+/**
+ * @overview <i>ccm</i> component for interpret JavaScript expressions
+ * @author André Kless <andre.kless@web.de.de> 2016
+ * @license The MIT License (MIT)
+ * @version latest (1.0.0)
+ */
+
+.ccm-eval {
+  font-family: Arial, sans-serif;
+  overflow: auto;
+  background-color: white;
+}
+
+.ccm-eval > .value,
+.ccm-eval > fieldset > .value {
+  font-family: "Courier New", monospace;
+}
+
+.ccm-eval > button,
+.ccm-eval > fieldset > button {
+  cursor: pointer;
+  margin-top: 1em;
+}
