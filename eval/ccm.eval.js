@@ -22,7 +22,7 @@ ccm.component( /** @lends ccm.components.eval */ {
 
     style:    [ ccm.load,  '../eval/layout.css' ],
     edit:     {
-      store:  [ ccm.store, '../eval/datastore.json' ],
+      store:  [ ccm.store, '../eval/editstore.json' ],
       key:    'demo'
     },
     button:   'Submit',
