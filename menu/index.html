@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../../ccm/ccm.js"></script>
+<div id="default"></div>
+<p>
+<div id="tabs"></div>
+<script>
+  ccm.render( 'ccm.menu.js', jQuery( '#default' ) );
+  ccm.render( 'ccm.menu.js', {
+    element: jQuery( '#tabs' ),
+    style:   [ ccm.load,  '../menu/layouts/tabs.css' ],
+    classes: 'ccm-menu_tabs'
+  } );
+</script>

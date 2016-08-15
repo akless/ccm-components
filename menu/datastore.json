@@ -1,0 +1,22 @@
+{
+  "demo": {
+    "key": "demo",
+    "entries": [
+      {
+        "label": "ccm.input.js",
+        "content": [ "ccm.instance", "../input/ccm.input.js" ],
+        "actions": [ [ "console.log", "clicked: ccm.input.js" ] ]
+      },
+      {
+        "label": "ccm.config.js",
+        "content": [ "ccm.instance", "../config/ccm.config.js" ],
+        "actions": [ [ "console.log", "clicked: ccm.config.js" ] ]
+      },
+      {
+        "label": "ccm.eval.js",
+        "content": [ "ccm.instance", "../eval/ccm.eval.js" ],
+        "actions": [ [ "console.log", "clicked: ccm.eval.js" ] ]
+      }
+    ]
+  }
+}

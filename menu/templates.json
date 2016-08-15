@@ -1,0 +1,23 @@
+{
+  "main": {
+    "key": "main",
+    "inner": [
+      {
+        "tag": "div",
+        "class": "entries"
+      },
+      {
+        "tag": "div",
+        "id": "%id%",
+        "class": "content"
+      }
+    ]
+  },
+  "entry": {
+    "key": "entry",
+    "tag": "div",
+    "class": "entry",
+    "inner": "%label%",
+    "onclick": "%onclick%"
+  }
+}
