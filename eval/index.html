@@ -5,10 +5,7 @@
 <p>
 <div id="quizz"></div>
 <script>
-  ccm.render( 'ccm.eval.js', {
-    element:  jQuery( '#demo' ),
-    fieldset: 'Editable Demo Expression'
-  } );
+  ccm.render( 'ccm.eval.js', jQuery( '#demo' ) );
   ccm.render( 'ccm.eval.js', {
     element:  jQuery( '#quizz' ),
     edit: {
