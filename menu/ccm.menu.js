@@ -26,7 +26,7 @@ ccm.component( /** @lends ccm.components.menu */ {
       store: [ ccm.store, '../menu/datastore.json' ],
       key:   'demo'
     },
-    onClick: function ( entry ) { console.log( entry ); }
+    onClick: function ( entry, $content ) { console.log( entry, $content ); }
   },
 
   /*-------------------------------------------- public component classes --------------------------------------------*/
@@ -106,7 +106,7 @@ ccm.component( /** @lends ccm.components.menu */ {
          * website area for menu entry content
          * @type {ccm.type.element}
          */
-        var $content = ccm.helper.find( self, '.content' );
+        var $content = jQuery( '#' + content_id );
 
         // render menu entries
         dataset.entries.map( renderMenuEntry );
@@ -125,31 +125,28 @@ ccm.component( /** @lends ccm.components.menu */ {
         function renderMenuEntry( entry, i ) {
 
           // content is a ccm dependency? => solve dependency
-          if ( ccm.helper.isDependency( entry.content ) ) {
-            entry.content.push( callback );
-            ccm.helper.action( entry.content );
-
-            /**
-             * callback when ccm dependency is solved
-             */
-            function callback( result ) {
-
-              // update menu entry content
-              entry.content = result;
-
-              // content is a ccm instance or component? => set website area
-              if ( ccm.helper.isInstance( entry.content ) || ccm.helper.isComponent( entry.content ) )
-                entry.content.element = jQuery( '#' + content_id );
-
-            }
-
-          }
+          if ( ccm.helper.isDependency( entry.content ) )
+            ccm.helper.solveDependency( entry, 'content', callback );
 
           // render menu entry HTML structure
           $entries.append( ccm.helper.html( my.html.get( 'entry' ), {
             label: entry.label,
             onclick: click
           } ) );
+
+          /**
+           * callback when ccm dependency is solved
+           */
+          function callback( result ) {
+
+            // content is a ccm instance or component? => set website area
+            if ( ccm.helper.isInstance( result ) || ccm.helper.isComponent( result ) ) {
+              result.element = jQuery( '#' + content_id );
+              if ( ccm.helper.isInstance( result ) )
+                result.parent = self;
+            }
+
+          }
 
           /**
            * callback when menu entry is clicked
@@ -201,7 +198,7 @@ ccm.component( /** @lends ccm.components.menu */ {
             entry.nr = i + 1;
 
             // perform callback for clicked menu entry
-            if ( my.onClick ) my.onClick( entry );
+            if ( my.onClick ) my.onClick( entry, $content );
 
           }
 

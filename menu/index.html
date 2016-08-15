@@ -9,6 +9,13 @@
   ccm.render( 'ccm.menu.js', {
     element: jQuery( '#tabs' ),
     style:   [ ccm.load,  '../menu/layouts/tabs.css' ],
-    classes: 'ccm-menu_tabs'
+    classes: 'ccm-menu_tabs',
+    data:  {
+      store: [ ccm.store, '../menu/datastore.json' ],
+      key:   'components'
+    },
+    onClick: function ( entry, $content ) {
+      ccm.render( 'http://akless.github.io/ccm-components/resources/' + entry.label + '/ccm.' + entry.label + '.js', $content );
+    }
   } );
 </script>
