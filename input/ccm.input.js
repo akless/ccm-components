@@ -88,7 +88,7 @@ ccm.component( /** @lends ccm.components.input */ {
        * website area for own content
        * @type {ccm.types.element}
        */
-      var element = ccm.helper.element( self );
+      var $element = ccm.helper.element( self );
 
       // get dataset for rendering
       ccm.helper.dataset( my.data, function ( dataset ) {
@@ -112,7 +112,7 @@ ccm.component( /** @lends ccm.components.input */ {
           generateForm();
 
           // set content of own website area
-          element.html( ccm.helper.html( html, submit ) );
+          $element.html( ccm.helper.html( html, submit ) );
 
           // perform callback
           if ( callback ) callback();

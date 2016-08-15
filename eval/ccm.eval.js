@@ -82,7 +82,7 @@ ccm.component( /** @lends ccm.components.eval */ {
        * website area for own content
        * @type {ccm.types.element}
        */
-      var element = ccm.helper.element( self );
+      var $element = ccm.helper.element( self );
 
       // get dataset for editing
       ccm.helper.dataset( my.edit, function ( editset ) {
@@ -97,7 +97,7 @@ ccm.component( /** @lends ccm.components.eval */ {
         generateFieldset();
 
         // set content of own website area
-        element.html( ccm.helper.html( html, submit ) );
+        $element.html( ccm.helper.html( html, submit ) );
 
         // perform callback
         if ( callback ) callback();

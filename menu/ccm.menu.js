@@ -82,7 +82,7 @@ ccm.component( /** @lends ccm.components.menu */ {
        * website area for own content
        * @type {ccm.types.element}
        */
-      var element = ccm.helper.element( self );
+      var $element = ccm.helper.element( self );
 
       // get dataset for rendering
       ccm.helper.dataset( my.data, function ( dataset ) {
@@ -94,7 +94,7 @@ ccm.component( /** @lends ccm.components.menu */ {
         var content_id = 'ccm-' + self.index + '-content';
 
         // render main HTML structure
-        element.html( ccm.helper.html( my.html.get( 'main' ), { id: content_id } ) );
+        $element.html( ccm.helper.html( my.html.get( 'main' ), { id: content_id } ) );
 
         /**
          * website area for menu entries
