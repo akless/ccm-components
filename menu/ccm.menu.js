@@ -47,7 +47,7 @@ ccm.component( /** @lends ccm.components.menu */ {
 
     /**
      * @summary contains privatized config members
-     * @type {ccm.components.input.types.config}
+     * @type {ccm.components.menu.types.config}
      * @private
      */
     var my;
