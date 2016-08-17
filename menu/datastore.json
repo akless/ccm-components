@@ -21,16 +21,6 @@
   },
   "components": {
     "key": "components",
-    "entries": [
-      {
-        "label": "input"
-      },
-      {
-        "label": "config"
-      },
-      {
-        "label": "eval"
-      }
-    ]
+    "entries": [ "input", "config", "eval" ]
   }
 }

@@ -113,10 +113,13 @@ ccm.component( /** @lends ccm.components.menu */ {
 
         /**
          * render menu entry
-         * @param {ccm.components.menu.types.entry} entry - menu entry dataset
+         * @param {ccm.components.menu.types.entry|string} entry - menu entry dataset or label
          * @param {number} i - array index of the menu entry
          */
         function renderMenuEntry( entry, i ) {
+
+          if ( typeof entry === 'string' )
+            entry = { label: entry };
 
           // content is a ccm dependency? => solve dependency
           if ( ccm.helper.isDependency( entry.content ) )
@@ -238,7 +241,7 @@ ccm.component( /** @lends ccm.components.menu */ {
    * @summary dataset for rendering
    * @typedef {ccm.types.dataset} ccm.components.menu.types.dataset
    * @property {ccm.types.key} key - dataset key
-   * @property {ccm.components.menu.types.entry[]} entries - menu entry datasets
+   * @property {ccm.components.menu.types.entry[]|string[]} entries - menu entry datasets or labels
    * @example {
    *   "key": "demo",
    *   "entries": [
