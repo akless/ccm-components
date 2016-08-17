@@ -26,7 +26,7 @@ ccm.component( /** @lends ccm.components.menu */ {
       store: [ ccm.store, '../menu/datastore.json' ],
       key:   'demo'
     },
-    onClick: function ( entry, $content ) { console.log( entry, $content ); }
+    onClick: function ( entry, $content, instance ) { console.log( entry, $content, instance ); }
   },
 
   /*-------------------------------------------- public component classes --------------------------------------------*/
@@ -192,7 +192,7 @@ ccm.component( /** @lends ccm.components.menu */ {
             entry.nr = i + 1;
 
             // perform callback for clicked menu entry
-            if ( my.onClick ) my.onClick( entry, $content );
+            if ( my.onClick ) my.onClick( entry, $content, self );
 
           }
 
@@ -275,7 +275,9 @@ ccm.component( /** @lends ccm.components.menu */ {
    * @callback ccm.components.menu.types.onClick
    * @summary callback for menu entry click event
    * @param {ccm.components.menu.types.entry} entry - dataset of clicked menu entry (with included menu entry number)
-   * @example function ( entry ) { console.log( entry ); }
+   * @param {ccm.types.element} $content - website area for menu entry content
+   * @param {ccm.types.instance} instance - <i>ccm</i> instance for this menu
+   * @example function ( entry, $content, instance ) { console.log( entry, $content, instance ); }
    */
 
   /**
