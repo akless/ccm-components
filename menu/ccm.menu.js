@@ -87,14 +87,8 @@ ccm.component( /** @lends ccm.components.menu */ {
       // get dataset for rendering
       ccm.helper.dataset( my.data, function ( dataset ) {
 
-        /**
-         * HTML ID of the website area for menu entry content
-         * @type {string}
-         */
-        var content_id = 'ccm-' + self.index + '-content';
-
         // render main HTML structure
-        $element.html( ccm.helper.html( my.html.get( 'main' ), { id: content_id } ) );
+        $element.html( ccm.helper.html( my.html.get( 'main' ) ) );
 
         /**
          * website area for menu entries
@@ -106,7 +100,7 @@ ccm.component( /** @lends ccm.components.menu */ {
          * website area for menu entry content
          * @type {ccm.type.element}
          */
-        var $content = jQuery( '#' + content_id );
+        var $content = ccm.helper.find( self, '.content' );
 
         // render menu entries
         dataset.entries.map( renderMenuEntry );
@@ -141,7 +135,7 @@ ccm.component( /** @lends ccm.components.menu */ {
 
             // content is a ccm instance or component? => set website area
             if ( ccm.helper.isInstance( result ) || ccm.helper.isComponent( result ) ) {
-              result.element = jQuery( '#' + content_id );
+              result.element = $content;
               if ( ccm.helper.isInstance( result ) )
                 result.parent = self;
             }
@@ -268,17 +262,19 @@ ccm.component( /** @lends ccm.components.menu */ {
    * @property {string} label - menu entry label
    * @property {string|ccm.types.html|ccm.types.instance|ccm.types.component} content - menu entry content
    * @property {function|ccm.types.action[]} action - menu entry click actions
+   * @property {number} nr - menu entry number (only set in dataset via onClick callback)
    * @example {
    *   "label": "ccm.input.js",
    *   "content": [ "ccm.instance", "../input/ccm.input.js" ],
-   *   "actions": [ [ "console.log", "clicked: ccm.input.js" ] ]
+   *   "actions": [ [ "console.log", "clicked: ccm.input.js" ] ],
+   *   "nr": 1
    * }
    */
 
   /**
    * @callback ccm.components.menu.types.onClick
    * @summary callback for menu entry click event
-   * @param {ccm.components.menu.types.entry} entry - dataset of clicked menu entry
+   * @param {ccm.components.menu.types.entry} entry - dataset of clicked menu entry (with included menu entry number)
    * @example function ( entry ) { console.log( entry ); }
    */
 

@@ -8,7 +8,6 @@
       },
       {
         "tag": "div",
-        "id": "%id%",
         "class": "content"
       }
     ]
