@@ -31,7 +31,7 @@ ccm.component( /** @lends ccm.components.config */ {
     input:    [ ccm.component, '../input/ccm.input.js' ],
     fieldset: 'Editable Demo Configuration',
     form:     'Submit',
-    onSubmit: function ( result ) { console.log( result ); }
+    onFinish: function ( result ) { console.log( result ); }
 
   },
 
@@ -69,7 +69,7 @@ ccm.component( /** @lends ccm.components.config */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'data', 'edit', 'form', 'fieldset', 'onSubmit' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'form', 'fieldset', 'onFinish' );
 
       // perform callback
       callback();
@@ -98,10 +98,10 @@ ccm.component( /** @lends ccm.components.config */ {
             edit: my.edit,
             fieldset: my.fieldset,
             form: my.form,
-            onSubmit: function ( result ) {
+            onFinish: function ( result ) {
 
-              // all values are valid? => perform own onSubmit callback
-              if ( validate() && my.onSubmit ) my.onSubmit( result );
+              // all values are valid? => perform own onFinish callback
+              if ( validate() && my.onFinish ) my.onFinish( result );
 
               /**
                * validate resulting input values
@@ -223,7 +223,7 @@ ccm.component( /** @lends ccm.components.config */ {
    * <code>falsy</code>: no fieldset around inputs<br>
    * <code>true</code>: wrap inputs in a fieldset without a legend<br>
    * <code>string</code>: wrap inputs in a fieldset with given string as legend
-   * @property {ccm.components.config.types.onSubmit} onSubmit - callback for submit event of the HTML form
+   * @property {ccm.components.config.types.onFinish} onFinish - callback for submit event of the HTML form
    * @example {
    *   element:  jQuery( 'body' ),
    *   style:    [ ccm.load, '../config/layout.css' ],
@@ -239,7 +239,7 @@ ccm.component( /** @lends ccm.components.config */ {
    *   input:    [ ccm.component, '../input/ccm.input.js' ],
    *   fieldset: 'Editable Demo Configuration',
    *   form:     'Submit',
-   *   onSubmit: function ( result ) { console.log( result ); }
+   *   onFinish: function ( result ) { console.log( result ); }
    * }
    */
 
@@ -401,7 +401,7 @@ ccm.component( /** @lends ccm.components.config */ {
    */
 
   /**
-   * @callback ccm.components.config.types.onSubmit
+   * @callback ccm.components.config.types.onFinish
    * @summary callback for submit event of the HTML form
    * @param {ccm.components.config.types.editset} result - resulting dataset for editing
    * @example function ( result ) { console.log( result ); }

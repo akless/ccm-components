@@ -32,7 +32,7 @@ ccm.component( /** @lends ccm.components.input */ {
     },
     form:     'Submit',
     fieldset: 'Demo Inputs',
-    onSubmit: function ( result ) { console.log( result ); }
+    onFinish: function ( result ) { console.log( result ); }
 
   },
 
@@ -72,7 +72,7 @@ ccm.component( /** @lends ccm.components.input */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'data', 'edit', 'form', 'fieldset', 'onSubmit' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'form', 'fieldset', 'onFinish' );
 
       // perform callback
       callback();
@@ -415,7 +415,7 @@ ccm.component( /** @lends ccm.components.input */ {
              */
             function performCallback( result ) {
 
-              my.onSubmit( result );
+              my.onFinish( result );
 
             }
 
@@ -459,7 +459,7 @@ ccm.component( /** @lends ccm.components.input */ {
    * <code>falsy</code>: no fieldset around inputs<br>
    * <code>true</code>: wrap inputs in a fieldset without a legend<br>
    * <code>string</code>: wrap inputs in a fieldset with given string as legend
-   * @property {ccm.components.input.types.onSubmit} onSubmit - callback for submit event of the HTML form
+   * @property {ccm.components.input.types.onFinish} onFinish - callback for submit event of the HTML form
    * @example {
    *   style:    [ ccm.load,  '../input/layout.css' ],
    *   data:     {
@@ -472,7 +472,7 @@ ccm.component( /** @lends ccm.components.input */ {
    *   },
    *   form:     'Submit',
    *   fieldset: 'Demo Form',
-   *   onSubmit: function ( result ) { console.log( result ); }
+   *   onFinish: function ( result ) { console.log( result ); }
    * }
    */
 
@@ -607,7 +607,7 @@ ccm.component( /** @lends ccm.components.input */ {
    */
 
   /**
-   * @callback ccm.components.input.types.onSubmit
+   * @callback ccm.components.input.types.onFinish
    * @summary callback for submit event of the HTML form
    * @param {ccm.components.input.types.editset} result - resulting dataset for editing
    * @example function ( result ) { console.log( result ); }
