@@ -65,7 +65,7 @@ ccm.component( /** @lends ccm.components.menu */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'html', 'data', 'onClick' );
+      my = ccm.helper.privatize( self, 'html', 'data', 'selected', 'onClick' );
 
       // perform callback
       callback();
@@ -107,6 +107,9 @@ ccm.component( /** @lends ccm.components.menu */ {
 
         // prevent click event for not clickable parts of an menu entry
         ccm.helper.find( self, '.noclick' ).click( function ( event ) {  event.stopPropagation(); } );
+
+        // click pre-selected menu entry
+        if ( my.selected ) ccm.helper.find( self, '.entry' ).get( my.selected - 1 ).click();
 
         // perform callback
         if ( callback ) callback();
@@ -225,6 +228,7 @@ ccm.component( /** @lends ccm.components.menu */ {
    * @property {string} classes - HTML classes for own website area
    * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for rendering]{@link ccm.components.menu.types.dataset}
    * @property {ccm.types.key} data.key - key of [dataset for rendering]{@link ccm.components.menu.types.dataset}
+   * @property {number} selected - pre-selected menu entry
    * @property {ccm.components.menu.types.onClick} onClick - callback for click event of the menu entries
    * @example {
    *   style: [ ccm.load,  '../menu/layouts/default.css' ],

@@ -14,6 +14,7 @@
       store: [ ccm.store, '../menu/datastore.json' ],
       key:   'components'
     },
+    selected: 1,
     onClick: function ( entry, $content ) {
       ccm.render( 'http://akless.github.io/ccm-components/resources/' + entry.label + '/ccm.' + entry.label + '.js', $content );
     }
