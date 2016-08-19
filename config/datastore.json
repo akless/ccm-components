@@ -19,18 +19,15 @@
         "placeholder": "[\"ccm.load\", \"layout.css\"]"
       },
       {
-        "label": "Quizz Store",
         "name": "data.store",
         "input": "ccm.store",
         "placeholder": "[\"ccm.store\", \"datastore.json\"]"
       },
       {
-        "label": "Quizz Key",
         "name": "data.key",
         "input": "ccm.key"
       },
       {
-        "label": "onFinish",
         "name": "onFinish",
         "input": "function",
         "placeholder": "function () { console.log(arguments); }"

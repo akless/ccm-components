@@ -3,19 +3,26 @@
 <script src="https://akless.github.io/ccm-developer/libs/ccm.min.js"></script>
 <div id="demo"></div>
 <p>
-<div id="test"></div>
+<div id="chat"></div>
+<p>
+<div id="quizz"></div>
 <script>
-  ccm.render( 'ccm.config.js', jQuery( '#demo' ) );
-  ccm.render( 'ccm.config.js', {
-    element: jQuery( '#test' ),
-    data: {
-      store: [ ccm.store, '../config/datastore.json' ],
-      key: 'quizz'
-    },
-    edit: {
-      store: [ ccm.store, '../config/editstore.json' ],
-      key: 'quizz'
-    },
-    fieldset: 'Editable Quizz Configuration'
-  } );
+  //ccm.render( 'ccm.config.js', jQuery( '#demo' ) );
+  render( 'demo' );
+  render( 'chat' );
+  render( 'quizz' );
+  function render( name ) {
+    ccm.render( 'ccm.config.js', {
+      element: jQuery( '#' + name ),
+      data: {
+        store: [ ccm.store, '../config/datastore.json' ],
+        key: name
+      },
+      edit: {
+        store: [ ccm.store, '../config/editstore.json' ],
+        key: name
+      },
+      fieldset: 'Editable ' + name + ' Configuration'
+    } );
+  }
 </script>
