@@ -135,7 +135,7 @@ ccm.component( /** @lends ccm.components.input */ {
             function addInput( input ) {
 
               // integrate value from given data
-              integrate( ccm.helper.value( editset, input.name ) );
+              if ( editset ) integrate( ccm.helper.value( editset, input.name ) );
 
               /**
                * label of the input field entry
@@ -148,7 +148,7 @@ ccm.component( /** @lends ccm.components.input */ {
               if ( input.name === 'key' ) {
                 input.input = 'text';
                 input.pattern = ccm.helper.regex( 'key' ).toString().slice( 1, -1 );
-                input.value = editset.key;
+                if ( editset ) input.value = editset.key;
                 input.required = true;
               }
 
@@ -355,24 +355,31 @@ ccm.component( /** @lends ccm.components.input */ {
              */
             var result = convert( ccm.helper.formData( jQuery( this ) ) );
 
-            // editable dataset key?
-            if ( result.key ) {
+            // has dataset for editing?
+            if ( editset ) {
 
-              // dataset key has changed? => delete dataset with old key
-              if ( result.key !== editset.key )
-                my.edit.store.del( editset.key );
+              // editable dataset key?
+              if ( result.key ) {
+
+                // dataset key has changed? => delete dataset with old key
+                if ( result.key !== editset.key )
+                  my.edit.store.del( editset.key );
+
+              }
+              // set dataset key in result
+              else result.key = editset.key;
+
+              // update dataset for editing in datastore
+              my.edit.store.set( result, function ( result ) {
+
+                // perform given submit callback with resulting data of HTML form
+                my.onSubmit( result );
+
+              } );
 
             }
-            // set dataset key in result
-            else result.key = editset.key;
-
-            // update dataset for editing in datastore
-            my.edit.store.set( result, function ( result ) {
-
-              // perform given submit callback with resulting data of HTML form
-              my.onSubmit( result );
-
-            } );
+            // perform given submit callback with resulting data of HTML form
+            else my.onSubmit( result );
 
             // prevent page reload
             return false;
