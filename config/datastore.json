@@ -37,6 +37,41 @@
       }
     ]
   },
+  "chat": {
+    "key": "chat",
+    "inputs": [
+      {
+        "name": "key"
+      },
+      {
+        "name": "classes",
+        "input": "text"
+      },
+      {
+        "name": "html",
+        "input": "ccm.store",
+        "required": true
+      },
+      {
+        "name": "style",
+        "input": "ccm.load"
+      },
+      {
+        "name": "data.store",
+        "input": "ccm.store",
+        "required": true
+      },
+      {
+        "name": "data.key",
+        "input": "ccm.key",
+        "required": true
+      },
+      {
+        "name": "user",
+        "input": "ccm.instance"
+      }
+    ]
+  },
   "quizz": {
     "key": "quizz",
     "inputs": [
