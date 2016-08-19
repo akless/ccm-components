@@ -27,7 +27,8 @@ ccm.component( /** @lends ccm.components.input */ {
     },
     edit:     {
       store:  [ ccm.store, '../input/editstore.json' ],
-      key:    'demo'
+      key:    'demo',
+      no_set: true
     },
     form:     'Submit',
     fieldset: 'Demo Inputs',
@@ -369,17 +370,16 @@ ccm.component( /** @lends ccm.components.input */ {
               // set dataset key in result
               else result.key = editset.key;
 
-              // update dataset for editing in datastore
-              my.edit.store.set( result, function ( result ) {
+              // no updating? => perform submit callback
+              if ( my.edit.no_set )
+                performCallback( result );
 
-                // perform given submit callback with resulting data of HTML form
-                my.onSubmit( result );
-
-              } );
+              // update dataset for editing in datastore and perform submit callback
+              else my.edit.store.set( result, performCallback );
 
             }
-            // perform given submit callback with resulting data of HTML form
-            else my.onSubmit( result );
+            // perform submit callback
+            else performCallback( result );
 
             // prevent page reload
             return false;
@@ -406,6 +406,16 @@ ccm.component( /** @lends ccm.components.input */ {
                   delete obj[ keys[ i ] ];
                 }
               return obj;
+
+            }
+
+            /**
+             * perform given submit callback with resulting data of HTML form
+             * @type {ccm.components.input.types.editset}
+             */
+            function performCallback( result ) {
+
+              my.onSubmit( result );
 
             }
 
