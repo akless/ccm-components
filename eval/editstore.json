@@ -5,7 +5,7 @@
   },
   "chat": {
     "key": "chat",
-    "html": "{<br>&nbsp;&nbsp;classes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'ccm-chat',<br>&nbsp;&nbsp;html:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ccm.store, 'https://akless.github.io/ccm-components/resources/chat/templates.json'],<br>&nbsp;&nbsp;style:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ccm.load, 'https://akless.github.io/ccm-components/resources/chat/style.css'],<br>&nbsp;&nbsp;'data.store':&nbsp;&nbsp;&nbsp; [ccm.store, {url: 'ws://ccm2.inf.h-brs.de/index.js', store: 'chat'}],<br>&nbsp;&nbsp;'data.key':&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'test',<br>&nbsp; user:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ccm.instance, 'https://kaul.inf.h-brs.de/ccm/components/user2.js' ]<br>}"
+    "html": "{<br>&nbsp;&nbsp;classes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'ccm-chat',<br>&nbsp;&nbsp;html:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ccm.store, 'https://akless.github.io/ccm-developer/resources/chat/templates.json'],<br>&nbsp;&nbsp;style:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ccm.load, 'https://akless.github.io/ccm-developer/resources/chat/style.css'],<br>&nbsp;&nbsp;'data.store':&nbsp;&nbsp;&nbsp; [ccm.store, {url: 'ws://ccm2.inf.h-brs.de/index.js', store: 'chat'}],<br>&nbsp;&nbsp;'data.key':&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'test',<br>&nbsp; user:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ccm.instance, 'https://kaul.inf.h-brs.de/ccm/components/user2.js' ]<br>}"
   },
   "quizz": {
     "key": "quizz",
