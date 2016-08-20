@@ -3,15 +3,21 @@
 <script src="https://akless.github.io/ccm-developer/libs/ccm.min.js"></script>
 <div id="demo"></div>
 <p>
+<div id="chat"></div>
+<p>
 <div id="quizz"></div>
 <script>
-  ccm.render( 'ccm.eval.js', jQuery( '#demo' ) );
-  ccm.render( 'ccm.eval.js', {
-    element:  jQuery( '#quizz' ),
-    edit: {
-      store:  [ ccm.store, '../eval/editstore.json' ],
-      key:    'quizz'
-    },
-    fieldset: 'Editable Quizz Configuration'
-  } );
+  render( 'demo' );
+  render( 'chat' );
+  render( 'quizz' );
+  function render( name ) {
+    ccm.render( 'ccm.eval.js', {
+      element:  jQuery( '#' + name ),
+      edit: {
+        store:  [ ccm.store, '../eval/editstore.json' ],
+        key:    name
+      },
+      fieldset: 'Editable ' + name + ' Configuration'
+    } );
+  }
 </script>
