@@ -188,6 +188,7 @@ ccm.component( /** @lends ccm.components.eval */ {
    *     key:    'demo'
    *   },
    *   button:   'Submit',
+   *   fieldset: 'Editable Demo Expression',
    *   onFinish: function ( result ) { console.log( result ); }
    * }
    */
