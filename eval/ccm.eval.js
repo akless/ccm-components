@@ -27,7 +27,7 @@ ccm.component( /** @lends ccm.components.eval */ {
     },
     button:   'Submit',
     fieldset: 'Editable Demo Expression',
-    onFinish: function ( result ) { console.log( result ); }
+    onFinish: function ( result, dataset ) { console.log( result, dataset ); }
 
   },
 
@@ -136,11 +136,8 @@ ccm.component( /** @lends ccm.components.eval */ {
           // update dataset in datastore
           my.edit.store.set( editset, function ( dataset ) {
 
-            // add result of interpreted JavaScript expression to dataset
-            dataset.result = result;
-
-            // perform given submit callback with dataset
-            my.onFinish( dataset );
+            // perform given submit callback with result of interpreted JavaScript expression and resulting dataset
+            my.onFinish( result, dataset );
 
           } );
 
@@ -189,7 +186,7 @@ ccm.component( /** @lends ccm.components.eval */ {
    *   },
    *   button:   'Submit',
    *   fieldset: 'Editable Demo Expression',
-   *   onFinish: function ( result ) { console.log( result ); }
+   *   onFinish: function ( result, dataset ) { console.log( result, dataset ); }
    * }
    */
 
@@ -203,15 +200,16 @@ ccm.component( /** @lends ccm.components.eval */ {
    * @example {
    *   key:  'demo',
    *   html: "{<br>&nbsp;&nbsp;foo: 'bar',<br>&nbsp;&nbsp;baz: function () { alert('Hello, World!'); }<br>}"
-   *   text: "{  foo: 'bar',  baz: function () { alert('Hello, World!'); }}"
+   *   text: "{ foo: 'bar',  baz: function () { alert('Hello, World!'); }}"
    * }
    */
 
   /**
    * @callback ccm.components.eval.types.onFinish
    * @summary callback for button click event
-   * @param {ccm.components.eval.types.dataset} result - resulting dataset for editing (with included interpreted result)
-   * @example function ( dataset ) { console.log( dataset.result ); }
+   * @param {ccm.components.eval.types.dataset} result - interpreted result
+   * @param {ccm.components.eval.types.dataset} dataset - resulting dataset for editing
+   * @example function ( result, dataset ) { console.log( result, dataset ); }
    */
 
   /**
