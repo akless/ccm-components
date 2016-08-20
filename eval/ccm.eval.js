@@ -136,8 +136,36 @@ ccm.component( /** @lends ccm.components.eval */ {
           // update dataset in datastore
           my.edit.store.set( editset, function ( dataset ) {
 
+            // has interpreted result? => convert dot notations in result
+            if ( result ) result = convert( result );
+
             // perform given submit callback with result of interpreted JavaScript expression and resulting dataset
             my.onFinish( result, dataset );
+
+            /**
+             * convert dot notations to deeper properties
+             * @param obj
+             * @returns {object}
+             * @example
+             * var obj = {
+             *   test: 123,
+             *   foo.bar: 'abc',
+             *   foo.baz: 'xyz'
+             * };
+             * var result = convert( obj );
+             * => { test: 123, foo: { bar: 'abc', baz: 'xyz' } }
+             */
+            function convert( obj ) {
+
+              var keys = Object.keys( obj );
+              for ( var i = 0; i < keys.length; i++ )
+                if ( keys[ i ].indexOf( '.' ) !== -1 ) {
+                  ccm.helper.value( obj, keys[ i ], obj[ keys[ i ] ] );
+                  delete obj[ keys[ i ] ];
+                }
+              return obj;
+
+            }
 
           } );
 
