@@ -106,7 +106,7 @@ ccm.component( /** @lends ccm.components.menu */ {
         dataset.entries.map( renderMenuEntry );
 
         // prevent click event for not clickable parts of an menu entry
-        ccm.helper.find( self, '.noclick' ).click( function ( event ) {  event.stopPropagation(); } );
+        ccm.helper.find( self, '.noclick' ).click( function ( event ) { event.stopPropagation(); } );
 
         // click pre-selected menu entry
         if ( my.selected ) ccm.helper.find( self, '.entry' ).get( my.selected - 1 ).click();
