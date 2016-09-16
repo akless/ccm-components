@@ -20,7 +20,7 @@ ccm.component( /** @lends ccm.components.eval */ {
    */
   config: {
 
-    style:    [ ccm.load,  '../eval/layout.css' ],
+    style:    [ ccm.load,  '../eval/default.css' ],
     edit:     {
       store:  [ ccm.store, '../eval/editstore.json' ],
       key:    'demo'
