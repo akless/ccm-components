@@ -98,7 +98,7 @@ ccm.component( /** @lends ccm.components.iframe */ {
       setCSS();
 
       /**
-       * source of the embedded content of the iframe
+       * source of the embedded content of the iFrame
        * @type {string}
        */
       var source = my.source === true ? iframe.attr( 'src' ) : my.source;
@@ -169,6 +169,9 @@ ccm.component( /** @lends ccm.components.iframe */ {
    * @property {ccm.types.element} element - <i>ccm</i> instance website area
    * @property {ccm.types.dependency} style - CSS for own website area
    * @property {string} classes - HTML classes for own website area
+   * @property {ccm.types.dependency} bigdata - <i>ccm</i> instance for logging events
+   * @property {string} embed - embed code for the iFrame
+   * @property {string} source - source of the embedded content of the iFrame
    * @example {
    *   element: jQuery( 'body' ),
    *   style:   [ ccm.load, '../iframe/default.css' ],
