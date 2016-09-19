@@ -72,7 +72,7 @@ ccm.component( /** @lends ccm.components.input */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'data', 'edit', 'form', 'fieldset', 'onFinish' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'bigdata', 'form', 'fieldset', 'onFinish' );
 
       // perform callback
       callback();
@@ -114,6 +114,12 @@ ccm.component( /** @lends ccm.components.input */ {
 
           // set content of own website area
           $element.html( ccm.helper.html( html, submit ) );
+
+          // log render event
+          if ( my.bigdata ) my.bigdata.log( 'render', {
+            data: ccm.helper.dataSource( my.data ),
+            edit: ccm.helper.dataSource( my.edit )
+          } );
 
           // perform callback
           if ( callback ) callback();
@@ -356,6 +362,13 @@ ccm.component( /** @lends ccm.components.input */ {
              */
             var result = convert( ccm.helper.formData( jQuery( this ) ) );
 
+            // log render event
+            if ( my.bigdata ) my.bigdata.log( 'finish', {
+              data: ccm.helper.dataSource( my.data ),
+              edit: ccm.helper.dataSource( my.edit ),
+              result: result
+            } );
+
             // has dataset for editing?
             if ( editset ) {
 
@@ -449,6 +462,7 @@ ccm.component( /** @lends ccm.components.input */ {
    * @property {ccm.types.key} data.key - key of [dataset for rendering]{@link ccm.components.input.types.dataset}
    * @property {ccm.types.dependency} edit.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.input.types.editset}
    * @property {ccm.types.key} edit.key - key of [dataset for editing]{@link ccm.components.input.types.editset}
+   * @property {ccm.types.dependency} bigdata - <i>ccm</i> instance for big data
    * @property {boolean|string} form - wrap inputs with a form<br>
    * <br>
    * <code>falsy</code>: no form around inputs<br>
@@ -470,6 +484,7 @@ ccm.component( /** @lends ccm.components.input */ {
    *     store:  [ ccm.store, '../input/editstore.json' ],
    *     key:    'demo'
    *   },
+   *   bigdata: [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
    *   form:     'Submit',
    *   fieldset: 'Demo Form',
    *   onFinish: function ( result ) { console.log( result ); }

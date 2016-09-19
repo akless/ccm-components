@@ -110,12 +110,12 @@ ccm.component( /** @lends ccm.components.iframe */ {
       ccm.helper.find( self, 'a' ).click( function () {
 
         // log click event
-        if ( self.bigdata ) self.bigdata.log( 'click-source-link', { key: iframe.attr( 'src' ), link: source } );
+        if ( my.bigdata ) my.bigdata.log( 'link', { src: iframe.attr( 'src' ), link: source } );
 
       } );
 
       // log render event
-      if ( self.bigdata ) self.bigdata.log( 'render', { key: iframe.attr( 'src' ), link: source } );
+      if ( my.bigdata ) my.bigdata.log( 'render', { src: iframe.attr( 'src' ), link: source } );
 
       // perform callback
       if ( callback ) callback();
@@ -169,7 +169,7 @@ ccm.component( /** @lends ccm.components.iframe */ {
    * @property {ccm.types.element} element - <i>ccm</i> instance website area
    * @property {ccm.types.dependency} style - CSS for own website area
    * @property {string} classes - HTML classes for own website area
-   * @property {ccm.types.dependency} bigdata - <i>ccm</i> instance for logging events
+   * @property {ccm.types.dependency} bigdata - <i>ccm</i> instance for big data
    * @property {string} embed - embed code for the iFrame
    * @property {string} source - source of the embedded content of the iFrame
    * @example {

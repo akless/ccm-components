@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="https://akless.github.io/ccm-developer/libs/ccm.min.js"></script>
-<div id="default"></div>
+<script src="https://akless.github.io/ccm-developer/resources/ccm/ccm.min.js"></script>
+<script src="ccm.menu.js"></script>
+<ccm-menu></ccm-menu>
 <p>
 <div id="tabs"></div>
 <script>
-  ccm.render( 'ccm.menu.js', jQuery( '#default' ) );
   ccm.render( 'ccm.menu.js', {
     element: jQuery( '#tabs' ),
     style:   [ ccm.load,  '../menu/layouts/tabs.css' ],
@@ -14,6 +14,7 @@
       store: [ ccm.store, '../menu/datastore.json' ],
       key:   'components'
     },
+    bigdata: [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
     selected: 1,
     onClick: function ( entry, $content ) {
       ccm.render( 'http://akless.github.io/ccm-components/resources/' + entry.label + '/ccm.' + entry.label + '.js', $content );

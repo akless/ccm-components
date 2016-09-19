@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="https://akless.github.io/ccm-developer/libs/ccm.min.js"></script>
-<div id="demo"></div>
+<script src="https://akless.github.io/ccm-developer/resources/ccm/ccm.min.js"></script>
+<script src="ccm.config.js"></script>
+<ccm-config></ccm-config>
 <p>
 <div id="chat"></div>
 <p>
 <div id="quizz"></div>
 <script>
-  //ccm.render( 'ccm.config.js' );
-  render( 'demo' );
   render( 'chat' );
   render( 'quizz' );
   function render( name ) {
@@ -22,6 +21,10 @@
         store: [ ccm.store, '../config/editstore.json' ],
         key: name
       },
+      input:    [ ccm.component, '../input/ccm.input.js', {
+        bigdata: [ ccm.instance, '../bigdata/ccm.bigdata.js' ]
+      } ],
+      bigdata: [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
       fieldset: 'Editable ' + name + ' Configuration'
     } );
   }

@@ -65,7 +65,7 @@ ccm.component( /** @lends ccm.components.eval */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'edit', 'button', 'fieldset', 'onFinish' );
+      my = ccm.helper.privatize( self, 'edit', 'bigdata', 'button', 'fieldset', 'onFinish' );
 
       // perform callback
       callback();
@@ -99,6 +99,9 @@ ccm.component( /** @lends ccm.components.eval */ {
         // set content of own website area
         $element.html( ccm.helper.html( html, submit ) );
 
+        // log render event
+        if ( my.bigdata ) my.bigdata.log( 'render', ccm.helper.dataSource( my.edit ) );
+
         // perform callback
         if ( callback ) callback();
 
@@ -125,6 +128,12 @@ ccm.component( /** @lends ccm.components.eval */ {
           editset.html = $code.html();
           editset.text = $code.text();
           var result;
+
+          // log render event
+          if ( my.bigdata ) my.bigdata.log( 'finish', {
+            edit: ccm.helper.dataSource( my.edit ),
+            result: editset.text
+          } );
 
           // try to interpret JavaScript expression
           try { result = JSON.parse( editset.text ); } catch ( err ) {
@@ -197,6 +206,7 @@ ccm.component( /** @lends ccm.components.eval */ {
    * @property {ccm.types.dependency} style - CSS for own website area
    * @property {ccm.types.dependency} edit.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.eval.types.editset}
    * @property {ccm.types.key} edit.key - key of [dataset for editing]{@link ccm.components.eval.types.editset}
+   * @property {ccm.types.dependency} bigdata - <i>ccm</i> instance for big data
    * @property {boolean|string} button - button caption
    * @property {boolean|string} fieldset - wraps a fieldset<br>
    * <br>
@@ -208,10 +218,11 @@ ccm.component( /** @lends ccm.components.eval */ {
    *   element:  jQuery( 'body' ),
    *   classes:  'ccm-eval',
    *   style:    [ ccm.load,  '../eval/layout.css' ],
-   *   data: {
-   *     store:  [ ccm.store, '../eval/datastore.json' ],
+   *   edit: {
+   *     store:  [ ccm.store, '../eval/editstore.json' ],
    *     key:    'demo'
    *   },
+   *   bigdata:  [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
    *   button:   'Submit',
    *   fieldset: 'Editable Demo Expression',
    *   onFinish: function ( result, dataset ) { console.log( result, dataset ); }

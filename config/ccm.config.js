@@ -69,7 +69,7 @@ ccm.component( /** @lends ccm.components.config */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'data', 'edit', 'form', 'fieldset', 'onFinish' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'input', 'bigdata', 'form', 'fieldset', 'onFinish' );
 
       // perform callback
       callback();
@@ -92,13 +92,21 @@ ccm.component( /** @lends ccm.components.config */ {
         convert( function () {
 
           // embed input component
-          self.input.render( {
+          my.input.render( {
+            parent: self,
             element: jQuery( '#ccm-' + self.index ),
             data: my.data,
             edit: my.edit,
             fieldset: my.fieldset,
             form: my.form,
             onFinish: function ( result ) {
+
+              // log render event
+              if ( my.bigdata ) my.bigdata.log( 'finish', {
+                data: ccm.helper.dataSource( my.data ),
+                edit: ccm.helper.dataSource( my.edit ),
+                result: result
+              } );
 
               // all values are valid? => perform own onFinish callback
               if ( validate() && my.onFinish ) my.onFinish( result );
@@ -150,6 +158,12 @@ ccm.component( /** @lends ccm.components.config */ {
               }
 
             }
+          } );
+
+          // log render event
+          if ( my.bigdata ) my.bigdata.log( 'render', {
+            data: ccm.helper.dataSource( my.data ),
+            edit: ccm.helper.dataSource( my.edit )
           } );
 
           // perform callback
@@ -213,6 +227,7 @@ ccm.component( /** @lends ccm.components.config */ {
    * @property {ccm.types.dependency} edit.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.config.types.editset}
    * @property {ccm.types.key} edit.key - key of [dataset for editing]{@link ccm.components.config.types.editset}
    * @property {ccm.types.dependency} input - <i>ccm</i> component for user inputs
+   * @property {ccm.types.dependency} bigdata - <i>ccm</i> instance for big data
    * @property {boolean|string} form - wrap inputs with a form<br>
    * <br>
    * <code>falsy</code>: no form around inputs,<br>
@@ -237,8 +252,9 @@ ccm.component( /** @lends ccm.components.config */ {
    *     key:    'demo'
    *   },
    *   input:    [ ccm.component, '../input/ccm.input.js' ],
-   *   fieldset: 'Editable Demo Configuration',
+   *   bigdata:  [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
    *   form:     'Submit',
+   *   fieldset: 'Editable Demo Configuration',
    *   onFinish: function ( result ) { console.log( result ); }
    * }
    */

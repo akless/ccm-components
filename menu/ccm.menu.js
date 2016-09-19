@@ -65,7 +65,7 @@ ccm.component( /** @lends ccm.components.menu */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'html', 'data', 'selected', 'onClick' );
+      my = ccm.helper.privatize( self, 'html', 'data', 'bigdata', 'selected', 'onClick' );
 
       // perform callback
       callback();
@@ -110,6 +110,12 @@ ccm.component( /** @lends ccm.components.menu */ {
 
         // click pre-selected menu entry
         if ( my.selected ) ccm.helper.find( self, '.entry' ).get( my.selected - 1 ).click();
+
+        // log render event
+        if ( my.bigdata ) my.bigdata.log( 'render', {
+          data: ccm.helper.dataSource( my.data ),
+          selected: my.selected
+        } );
 
         // perform callback
         if ( callback ) callback();
@@ -159,6 +165,16 @@ ccm.component( /** @lends ccm.components.menu */ {
              */
             var $entry = jQuery( this );
 
+            // add menu entry number to entry dataset
+            entry.nr = i + 1;
+
+            // log render event
+            if ( my.bigdata ) my.bigdata.log( 'click', {
+              data: ccm.helper.dataSource( my.data ),
+              entry: entry,
+              clear: $entry.hasClass( 'selected' )
+            } );
+
             // clicked selected entry? => clear content
             if ( $entry.hasClass( 'selected' ) ) {
               $content.html( '' );
@@ -194,9 +210,6 @@ ccm.component( /** @lends ccm.components.menu */ {
               else
                 entry.actions.map( function ( action ) { ccm.helper.action( action ); } );
 
-            // add menu entry number to entry dataset
-            entry.nr = i + 1;
-
             // perform callback for clicked menu entry
             if ( my.onClick ) my.onClick( entry, $content, self );
 
@@ -228,6 +241,7 @@ ccm.component( /** @lends ccm.components.menu */ {
    * @property {string} classes - HTML classes for own website area
    * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for rendering]{@link ccm.components.menu.types.dataset}
    * @property {ccm.types.key} data.key - key of [dataset for rendering]{@link ccm.components.menu.types.dataset}
+   * @property {ccm.types.dependency} bigdata - <i>ccm</i> instance for big data
    * @property {number} selected - pre-selected menu entry
    * @property {ccm.components.menu.types.onClick} onClick - callback for click event of the menu entries
    * @example {
@@ -237,6 +251,7 @@ ccm.component( /** @lends ccm.components.menu */ {
    *     store: [ ccm.store, '../menu/datastore.json' ],
    *     key:   'demo'
    *   },
+   *   bigdata: [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
    *   onClick: function ( entry ) { console.log( entry ); }
    * }
    */

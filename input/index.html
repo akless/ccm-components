@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="https://akless.github.io/ccm-developer/libs/ccm.min.js"></script>
-<div id="demo"></div>
+<script src="https://akless.github.io/ccm-developer/resources/ccm/ccm.min.js"></script>
+<script src="ccm.input.js"></script>
+<ccm-input></ccm-input>
 <p>
 <div id="test"></div>
 <script>
-  ccm.render( 'ccm.input.js', jQuery( '#demo' ) );
   ccm.render( 'ccm.input.js', {
     element: jQuery( '#test' ),
     data: {
@@ -16,6 +16,7 @@
       store: [ ccm.store, '../input/editstore.json' ],
       key: 'test'
     },
+    bigdata: [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
     fieldset: 'Test Inputs'
   } );
 </script>
