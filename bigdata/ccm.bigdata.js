@@ -26,7 +26,8 @@ ccm.component( /** @lends ccm.components.bigdata */ {
       browser: true,
       parent:  true,
       root:    true,
-      user:    true
+      user:    true,
+      website: true
     }
 
   },
@@ -117,6 +118,9 @@ ccm.component( /** @lends ccm.components.bigdata */ {
         };
       }
 
+      // add website informations
+      if ( this.logging.website ) dataset.website = window.location.href;
+
       // log dataset
       my.store.set( dataset, console.log );
 
@@ -144,6 +148,7 @@ ccm.component( /** @lends ccm.components.bigdata */ {
    * @property {boolean} logging.parent - log <i>ccm</i> context parent informations
    * @property {boolean} logging.root - log <i>ccm</i> context root informations
    * @property {boolean} logging.user - log user informations
+   * @property {boolean} logging.website - log website informations
    * @property {string[]} events - events that will be logged (default: all events will be logged)
    * @example {
    *   store:   [ ccm.store ],
