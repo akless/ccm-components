@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="https://akless.github.io/ccm-developer/resources/ccm/ccm.min.js"></script>
+<script src="ccm.content.js"></script>
+<hr>
+<ccm-content>
+  Hello, <b>World</b>!<br>
+  <i>this is example content</i>
+</ccm-content>
+<hr>
+<div id="component"></div>
+<script>
+  ccm.render( 'ccm.content.js', {
+    element: jQuery( '#component' ),
+    innerHTML: [ 'Hello, <b>World</b>!', { tag: 'br' }, jQuery( '<i>this is example content</i>' ) ]
+  } );
+</script>
+<hr>
