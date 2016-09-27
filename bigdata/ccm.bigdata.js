@@ -114,7 +114,7 @@ ccm.component( /** @lends ccm.components.bigdata */ {
         var user    = ccm.context.find( this, 'user' );
         if ( user ) dataset.user = {
           key:     user.isLoggedIn() ? ( this.hash ? this.hash.md5( this.hash.md5( user.key ) ) : user.key ) : null,
-          sign_on: user.signOn()
+          sign_on: user.getSignOn()
         };
       }
 
