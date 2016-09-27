@@ -237,6 +237,7 @@ ccm.component( /** @lends ccm.components.menu */ {
    * @summary <i>ccm</i> instance configuration
    * @typedef {ccm.types.config} ccm.components.menu.types.config
    * @property {ccm.types.element} element - <i>ccm</i> instance website area
+   * @property {ccm.types.dependency} html - <i>ccm</i> datastore for html templates
    * @property {ccm.types.dependency} style - CSS for own website area
    * @property {string} classes - HTML classes for own website area
    * @property {ccm.types.dependency} data.store - <i>ccm</i> datastore that contains the [dataset for rendering]{@link ccm.components.menu.types.dataset}
