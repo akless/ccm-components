@@ -74,22 +74,28 @@ ccm.component( /** @lends ccm.components.content */ {
       var $element = ccm.helper.element( self );
 
       // render call for ccm instances of inner website areas
-      $html.each( function () {
-        if ( this.tagName && this.tagName.indexOf( 'CCM-' ) === 0 ) {
-          var split = this.tagName.toLowerCase().split( '-' );
-          switch ( split[ 1 ] ) {
-            case 'load':
-            case 'component':
-            case 'instance':
-            case 'proxy':
-            case 'store':
-            case 'dataset':
-            case 'list':
-              return;
+      callRender( $html );
+
+      function callRender( $html ) {
+        $html.each( function () {
+          if ( this.tagName && this.tagName.indexOf( 'CCM-' ) === 0 ) {
+            var split = this.tagName.toLowerCase().split( '-' );
+            switch ( split[ 1 ] ) {
+              case 'load':
+              case 'component':
+              case 'instance':
+              case 'proxy':
+              case 'store':
+              case 'dataset':
+              case 'list':
+                return;
+            }
+            self[ split.length < 3 ? split[ 1 ] : split[ 2 ] ].render();
           }
-          self[ split.length < 3 ? split[ 1 ] : split[ 2 ] ].render();
-        }
-      } );
+          else
+            callRender( jQuery( this ).children() );
+        } );
+      }
 
       // put already existing inner HTML structure in website area for own content
       $element.html( $html );
