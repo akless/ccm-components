@@ -28,7 +28,7 @@ ccm.component( /** @lends ccm.components.input */ {
     edit:     {
       store:  [ ccm.store, '../input/editstore.json' ],
       key:    'demo',
-      no_set: true
+      no_set: false
     },
     form:     'Submit',
     fieldset: 'Demo Inputs',
@@ -388,7 +388,15 @@ ccm.component( /** @lends ccm.components.input */ {
                 performCallback( result );
 
               // update dataset for editing in datastore and perform submit callback
-              else my.edit.store.set( result, performCallback );
+              else
+                if ( self.user )
+                  self.user.login( function () { result.user = self.user.data().key; proceed(); } );
+                else
+                  proceed();
+
+              function proceed() {
+                my.edit.store.set( result, performCallback );
+              }
 
             }
             // perform submit callback
@@ -462,6 +470,7 @@ ccm.component( /** @lends ccm.components.input */ {
    * @property {ccm.types.key} data.key - key of [dataset for rendering]{@link ccm.components.input.types.dataset}
    * @property {ccm.types.dependency} edit.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.input.types.editset}
    * @property {ccm.types.key} edit.key - key of [dataset for editing]{@link ccm.components.input.types.editset}
+   * @property {ccm.types.dependency} user - <i>ccm</i> instance for user authentification
    * @property {ccm.types.dependency} bigdata - <i>ccm</i> instance for big data
    * @property {boolean|string} form - wrap inputs with a form<br>
    * <br>
