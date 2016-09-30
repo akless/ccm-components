@@ -20,19 +20,11 @@ ccm.component( /** @lends ccm.components.input */ {
    */
   config: {
 
-    style:    [ ccm.load,  '../input/default.css' ],
-    data:     {
-      store:  [ ccm.store, '../input/datastore.json' ],
-      key:    'demo'
-    },
-    edit:     {
-      store:  [ ccm.store, '../input/editstore.json' ],
-      key:    'demo',
-      no_set: false
-    },
-    form:     'Submit',
-    fieldset: 'Demo Inputs',
-    onFinish: function ( result ) { console.log( result ); }
+    style: [ ccm.load, '../input/default.css' ],
+    data: {
+      store: [ ccm.store, '../input/datastore.json' ],
+      key:   'demo'
+    }
 
   },
 
@@ -72,7 +64,7 @@ ccm.component( /** @lends ccm.components.input */ {
     this.init = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'data', 'edit', 'bigdata', 'form', 'fieldset', 'onFinish' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'user', 'bigdata', 'form', 'fieldset', 'onFinish' );
 
       // perform callback
       callback();
@@ -362,45 +354,46 @@ ccm.component( /** @lends ccm.components.input */ {
              */
             var result = convert( ccm.helper.formData( jQuery( this ) ) );
 
-            // log render event
-            if ( my.bigdata ) my.bigdata.log( 'finish', {
-              data: ccm.helper.dataSource( my.data ),
-              edit: ccm.helper.dataSource( my.edit ),
-              result: result
-            } );
+            /**
+             * key of edited dataset
+             * @type {ccm.types.key}
+             */
+            var key = result.key;
 
-            // has dataset for editing?
-            if ( editset ) {
+            // add user informations
+            if ( my.user )
+              my.user.login( function () { result.key = [ result.key, my.user.data().key ]; proceed(); } );
+            else
+              proceed();
+
+            function proceed() {
+
+              // log render event
+              if ( my.bigdata ) my.bigdata.log( 'finish', {
+                data: ccm.helper.dataSource( my.data ),
+                edit: ccm.helper.dataSource( my.edit ),
+                result: result
+              } );
+
+              // no ccm datastore for editable dataset? => perform callback
+              if ( !ccm.helper.isObject( my.edit ) || !ccm.helper.isDatastore( my.edit.store ) ) return performCallback( result );
 
               // editable dataset key?
-              if ( result.key ) {
-
+              if ( key && typeof editset.key === 'string' ) {
                 // dataset key has changed? => delete dataset with old key
-                if ( result.key !== editset.key )
+                if ( key !== editset.key )
                   my.edit.store.del( editset.key );
-
               }
               // set dataset key in result
               else result.key = editset.key;
 
               // no updating? => perform submit callback
-              if ( my.edit.no_set )
-                performCallback( result );
+              if ( my.edit.no_set ) return performCallback( result );
 
               // update dataset for editing in datastore and perform submit callback
-              else
-                if ( self.user )
-                  self.user.login( function () { result.user = self.user.data().key; proceed(); } );
-                else
-                  proceed();
-
-              function proceed() {
-                my.edit.store.set( result, performCallback );
-              }
+              my.edit.store.set( result, performCallback );
 
             }
-            // perform submit callback
-            else performCallback( result );
 
             // prevent page reload
             return false;
@@ -470,7 +463,8 @@ ccm.component( /** @lends ccm.components.input */ {
    * @property {ccm.types.key} data.key - key of [dataset for rendering]{@link ccm.components.input.types.dataset}
    * @property {ccm.types.dependency} edit.store - <i>ccm</i> datastore that contains the [dataset for editing]{@link ccm.components.input.types.editset}
    * @property {ccm.types.key} edit.key - key of [dataset for editing]{@link ccm.components.input.types.editset}
-   * @property {ccm.types.dependency} user - <i>ccm</i> instance for user authentification
+   * @property {boolean} edit.no_set - true: dataset for editing will not be updated in the <i>ccm</i> datastore after submit (result comes only via callback)
+   * @property {ccm.types.dependency} user - <i>ccm</i> instance for user authentication
    * @property {ccm.types.dependency} bigdata - <i>ccm</i> instance for big data
    * @property {boolean|string} form - wrap inputs with a form<br>
    * <br>
@@ -491,7 +485,8 @@ ccm.component( /** @lends ccm.components.input */ {
    *   },
    *   edit:     {
    *     store:  [ ccm.store, '../input/editstore.json' ],
-   *     key:    'demo'
+   *     key:    'demo',
+   *     no_set: true
    *   },
    *   bigdata: [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
    *   form:     'Submit',
