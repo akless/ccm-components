@@ -1,14 +1,5 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script>
-  // browser switch
-  if ( ! ( 'registerElement' in document ) ){
-    // Chrome and Opera are W3C WebComponent ready, but Firefox and Safari need additional help
-    // Firefox https://developer.mozilla.org/en-US/docs/Web/Web_Components#Enabling_Web_Components_in_Firefox
-    document.write('<script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/0.5.3/document-register-element.js"><\/script>');
-    document.write('<script src="//cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.22/webcomponents-lite.min.js"><\/script>');
-  }
-</script>
 <script src="https://akless.github.io/ccm-developer/resources/ccm/ccm.min.js"></script>
 <script src="ccm.input.js"></script>
 <ccm-input></ccm-input>
