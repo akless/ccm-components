@@ -429,7 +429,7 @@ ccm.component( /** @lends ccm.components.input */ {
              */
             function performCallback( result ) {
 
-              my.onFinish( result );
+              if ( my.onFinish ) my.onFinish( result );
 
             }
 
