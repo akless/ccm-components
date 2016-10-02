@@ -83,117 +83,101 @@ ccm.component( /** @lends ccm.components.input */ {
        */
       var $element = ccm.helper.element( self );
 
-      // get dataset for rendering
-      ccm.helper.dataset( my.data, function ( dataset ) {
+      // has user instance? => login user
+      if ( my.user ) my.user.login( proceed ); else proceed();
 
-        // get dataset for editing
-        ccm.helper.dataset( my.edit, function ( editset ) {
+      function proceed() {
 
-          /**
-           * ccm HTML data for own website area
-           * @type {ccm.types.html}
-           */
-          var html = [ { class: 'inputs', inner: [] } ];
+        // get dataset for rendering
+        ccm.helper.dataset( my.data, function ( dataset ) {
 
-          // generate ccm HTML data for HTML inputs
-          generateInputs();
+          // make editable dataset user-specific
+          if ( my.user && hasEditstoreAndKey() ) my.edit.key = [ my.edit.key, my.user.data().key ];
 
-          // generate ccm HTML data for HTML fieldset
-          generateFieldset();
+          // get dataset for editing
+          ccm.helper.dataset( my.edit, function ( editset ) {
 
-          // generate ccm HTML data for HTML form
-          generateForm();
-
-          // set content of own website area
-          $element.html( ccm.helper.html( html, submit ) );
-
-          // log render event
-          if ( my.bigdata ) my.bigdata.log( 'render', {
-            data: ccm.helper.dataSource( my.data ),
-            edit: ccm.helper.dataSource( my.edit )
-          } );
-
-          // perform callback
-          if ( callback ) callback();
-
-          /**
-           * generate ccm HTML data for HTML inputs
-           */
-          function generateInputs() {
-
-            if ( dataset.inputs )
-              if ( Array.isArray( dataset.inputs ) )
-                dataset.inputs.map( addInput );
-              else
-                addInput( dataset.inputs );
+            // restore original key of editable dataset
+            if ( my.user && hasEditstoreAndKey() ) my.edit.key = editset.key = editset.key[ 0 ];
 
             /**
-             * add HTML input field
-             * @param {ccm.components.input.types.entry} input
+             * ccm HTML data for own website area
+             * @type {ccm.types.html}
              */
-            function addInput( input ) {
+            var html = [ { class: 'inputs', inner: [] } ];
 
-              // integrate value from given data
-              if ( editset ) integrate( ccm.helper.value( editset, input.name ) );
+            // generate ccm HTML data for HTML inputs
+            generateInputs();
+
+            // generate ccm HTML data for HTML fieldset
+            generateFieldset();
+
+            // generate ccm HTML data for HTML form
+            generateForm();
+
+            // set content of own website area
+            $element.html( ccm.helper.html( html, submit ) );
+
+            // log render event
+            if ( my.bigdata ) my.bigdata.log( 'render', {
+              data: ccm.helper.dataSource( my.data ),
+              edit: ccm.helper.dataSource( my.edit )
+            } );
+
+            // perform callback
+            if ( callback ) callback();
+
+            /**
+             * generate ccm HTML data for HTML inputs
+             */
+            function generateInputs() {
+
+              if ( dataset.inputs )
+                if ( Array.isArray( dataset.inputs ) )
+                  dataset.inputs.map( addInput );
+                else
+                  addInput( dataset.inputs );
 
               /**
-               * label of the input field entry
-               * @type {string}
+               * add HTML input field
+               * @param {ccm.components.input.types.entry} input
                */
-              var label = input.label || input.name;
-              delete input.label;
+              function addInput( input ) {
 
-              // guarantee valid dataset keys
-              if ( input.name === 'key' ) {
-                input.input = 'text';
-                input.pattern = ccm.helper.regex( 'key' ).toString().slice( 1, -1 );
-                if ( editset ) input.value = editset.key;
-                input.required = true;
-              }
+                // integrate value from given data
+                if ( editset ) integrate( ccm.helper.value( editset, input.name ) );
 
-              // prepare ccm HTML data for input field entry
-              switch ( input.input ) {
-                case 'select':
-                case 'textarea':
-                  input.tag = input.input;
-                  if ( input.value && !input.inner ) { input.inner = input.value; delete input.value; }
-                  break;
-                default:
-                  input.tag = 'input';
-                  input.type = input.input;
-              }
-              if ( input.input === 'radio' ) {
-                for ( var i = 0; i < input.values.length; i++ ) {
-                  input.values[ i ].tag = input.tag;
-                  input.values[ i ].type = input.type;
-                  input.values[ i ].name = input.name;
-                  input.values[ i ] = {
-                    tag: 'label',
-                    inner: [
-                      input.values[ i ],
-                      {
-                        "tag": "span",
-                        "inner": "&nbsp;"
-                      },
-                      {
-                        "tag": "span",
-                        "inner": input.values[ i ].caption || input.values[ i ].value
-                      },
-                      {
-                        "tag": "br"
-                      }
-                    ]
-                  };
-                  delete input.values[ i ].inner[ 0 ].caption;
+                /**
+                 * label of the input field entry
+                 * @type {string}
+                 */
+                var label = input.label || input.name;
+                delete input.label;
+
+                // guarantee valid dataset keys
+                if ( input.name === 'key' ) {
+                  input.input = 'text';
+                  input.pattern = ccm.helper.regex( 'key' ).toString().slice( 1, -1 );
+                  if ( editset ) input.value = editset.key;
+                  input.required = true;
                 }
-                input = input.values;
-              }
-              if ( input.input === 'checkbox' ) {
-                if ( input.values ) {
+
+                // prepare ccm HTML data for input field entry
+                switch ( input.input ) {
+                  case 'select':
+                  case 'textarea':
+                    input.tag = input.input;
+                    if ( input.value && !input.inner ) { input.inner = input.value; delete input.value; }
+                    break;
+                  default:
+                    input.tag = 'input';
+                    input.type = input.input;
+                }
+                if ( input.input === 'radio' ) {
                   for ( var i = 0; i < input.values.length; i++ ) {
                     input.values[ i ].tag = input.tag;
                     input.values[ i ].type = input.type;
-                    input.values[ i ].value = input.values[ i ].value || input.values[ i ].name;
+                    input.values[ i ].name = input.name;
                     input.values[ i ] = {
                       tag: 'label',
                       inner: [
@@ -207,8 +191,7 @@ ccm.component( /** @lends ccm.components.input */ {
                           "inner": input.values[ i ].caption || input.values[ i ].value
                         },
                         {
-                          "tag": "span",
-                          "inner": "&nbsp;&nbsp;&nbsp;"
+                          "tag": "br"
                         }
                       ]
                     };
@@ -216,230 +199,261 @@ ccm.component( /** @lends ccm.components.input */ {
                   }
                   input = input.values;
                 }
-                else {
-                  input.id = self.index + '-' + input.name;
-                  label = { tag: 'label', for: input.id, inner: label };
+                if ( input.input === 'checkbox' ) {
+                  if ( input.values ) {
+                    for ( var i = 0; i < input.values.length; i++ ) {
+                      input.values[ i ].tag = input.tag;
+                      input.values[ i ].type = input.type;
+                      input.values[ i ].value = input.values[ i ].value || input.values[ i ].name;
+                      input.values[ i ] = {
+                        tag: 'label',
+                        inner: [
+                          input.values[ i ],
+                          {
+                            "tag": "span",
+                            "inner": "&nbsp;"
+                          },
+                          {
+                            "tag": "span",
+                            "inner": input.values[ i ].caption || input.values[ i ].value
+                          },
+                          {
+                            "tag": "span",
+                            "inner": "&nbsp;&nbsp;&nbsp;"
+                          }
+                        ]
+                      };
+                      delete input.values[ i ].inner[ 0 ].caption;
+                    }
+                    input = input.values;
+                  }
+                  else {
+                    input.id = self.index + '-' + input.name;
+                    label = { tag: 'label', for: input.id, inner: label };
+                    input = [
+                      input,
+                      {
+                        "tag": "span",
+                        "inner": "&nbsp;"
+                      },
+                      {
+                        "tag": "span",
+                        "inner": input.caption
+                      }
+                    ];
+                    delete input[ 0 ].caption;
+                  }
+                }
+                if ( input.input === 'select' ) {
+                  input.inner = input.options;
+                  delete input.options;
+                  for ( var i = 0; i < input.inner.length; i++ ) {
+                    input.inner[ i ].tag = 'option';
+                    input.inner[ i ].inner = input.inner[ i ].caption || input.inner[ i ].value;
+                    delete input.inner[ i ].caption;
+                  }
+                }
+                if ( input.input === 'range' ) {
+                  input.oninput = function () { jQuery( this ).next().next().text( jQuery( this ).val() ) };
                   input = [
                     input,
                     {
-                      "tag": "span",
-                      "inner": "&nbsp;"
+                      tag: 'span',
+                      inner: '&nbsp;'
                     },
                     {
-                      "tag": "span",
-                      "inner": input.caption
+                      tag: 'span',
+                      inner: input.value || ( ( parseInt( input.min ) || 0 ) + ( parseInt( input.max ) || 100 ) / 2 )
                     }
                   ];
-                  delete input[ 0 ].caption;
                 }
-              }
-              if ( input.input === 'select' ) {
-                input.inner = input.options;
-                delete input.options;
-                for ( var i = 0; i < input.inner.length; i++ ) {
-                  input.inner[ i ].tag = 'option';
-                  input.inner[ i ].inner = input.inner[ i ].caption || input.inner[ i ].value;
-                  delete input.inner[ i ].caption;
-                }
-              }
-              if ( input.input === 'range' ) {
-                input.oninput = function () { jQuery( this ).next().next().text( jQuery( this ).val() ) };
-                input = [
-                  input,
-                  {
-                    tag: 'span',
-                    inner: '&nbsp;'
-                  },
-                  {
-                    tag: 'span',
-                    inner: input.value || ( ( parseInt( input.min ) || 0 ) + ( parseInt( input.max ) || 100 ) / 2 )
-                  }
-                ];
-              }
-              delete input.input;
+                delete input.input;
 
-              // set ccm HTML data for input field entry
-              html[ 0 ].inner.push( {
-                class: 'entry',
-                inner: [
-                  {
-                    class: 'label',
-                    inner: label
-                  },
-                  {
-                    class: 'input',
-                    inner: input
+                // set ccm HTML data for input field entry
+                html[ 0 ].inner.push( {
+                  class: 'entry',
+                  inner: [
+                    {
+                      class: 'label',
+                      inner: label
+                    },
+                    {
+                      class: 'input',
+                      inner: input
+                    }
+                  ]
+                } );
+
+                /**
+                 * integrate given value in ccm HTML data of the input field
+                 * @param {string} value
+                 */
+                function integrate( value ) {
+
+                  if ( value === undefined )
+                    return;
+
+                  switch ( input.input ) {
+                    case 'radio':
+                    case 'checkbox':
+                      delete input.checked;
+                      for ( var i = 0; i < input.values.length; i++ ) {
+                        delete input.values[ i ].checked;
+                        if ( input.values[ i ].value || input.values[ i ].caption === value )
+                          input.values[ i ].checked = true;
+                      }
+                      break;
+                    case 'select':
+                      for ( var i = 0; i < input.options.length; i++ ) {
+                        delete input.options[ i ].selected;
+                        if ( input.options[ i ].value === value )
+                          input.options[ i ].selected = true;
+                      }
+                      break;
+                    case 'textarea':
+                      input.inner = value;
+                      break;
+                    default:
+                      input.value = value;
                   }
-                ]
-              } );
+
+                }
+
+              }
+
+            }
+
+            /**
+             * generate ccm HTML data for HTML fieldset
+             */
+            function generateFieldset() {
+
+              if ( my.fieldset ) {
+                html = { tag: 'fieldset', inner: html };
+                if ( typeof my.fieldset === 'string' )
+                  html.inner.unshift( { tag: 'legend', inner: my.fieldset } );
+              }
+
+            }
+
+            /**
+             * generate ccm HTML data for HTML form
+             */
+            function generateForm() {
+
+              if ( my.form ) {
+                html = { tag: 'form', onsubmit: '%%', inner: html };
+                var button = { tag: 'input', type: 'submit', value: my.form };
+                if ( button.value === true ) delete button.value;
+                if ( my.fieldset )
+                  html.inner.inner.push( button );
+                else
+                  html.inner.push( button );
+              }
+
+            }
+
+            /**
+             * submit callback of the HTML form
+             * @returns {boolean}
+             */
+            function submit() {
 
               /**
-               * integrate given value in ccm HTML data of the input field
-               * @param {string} value
+               * resulting data of HTML form
+               * @type {ccm.components.input.types.editset}
                */
-              function integrate( value ) {
+              var result = convert( ccm.helper.formData( jQuery( this ) ) );
 
-                if ( value === undefined )
-                  return;
+              // has user instance? => login user
+              if ( my.user ) my.user.login( proceed ); else proceed();
 
-                switch ( input.input ) {
-                  case 'radio':
-                  case 'checkbox':
-                    delete input.checked;
-                    for ( var i = 0; i < input.values.length; i++ ) {
-                      delete input.values[ i ].checked;
-                      if ( input.values[ i ].value || input.values[ i ].caption === value )
-                        input.values[ i ].checked = true;
-                    }
-                    break;
-                  case 'select':
-                    for ( var i = 0; i < input.options.length; i++ ) {
-                      delete input.options[ i ].selected;
-                      if ( input.options[ i ].value === value )
-                        input.options[ i ].selected = true;
-                    }
-                    break;
-                  case 'textarea':
-                    input.inner = value;
-                    break;
-                  default:
-                    input.value = value;
+              // prevent page reload
+              return false;
+
+              function proceed() {
+
+                // editable dataset key?
+                if ( result.key && hasEditstoreAndKey() ) {
+                  // key has changed? => delete dataset with old key
+                  if ( result.key !== editset.key )
+                    my.edit.store.del( my.user ? [ editset.key, my.user.data().key ] : editset.key );
                 }
+                // set dataset key in result
+                else if ( editset ) result.key = editset.key;
+
+                // make result dataset user-specific
+                if ( my.user && hasEditstoreAndKey() ) result.key = [ result.key, my.user.data().key ];
+
+                // log render event
+                if ( my.bigdata ) my.bigdata.log( 'finish', {
+                  data: ccm.helper.dataSource( my.data ),
+                  edit: ccm.helper.dataSource( my.edit ),
+                  result: result
+                } );
+
+                // dataset is not editable via datastore? => perform finish callback
+                if ( !hasEditstoreAndKey() || my.edit.no_set ) return performCallback( result );
+
+                // update dataset for editing in datastore and perform finish callback
+                my.edit.store.set( result, performCallback );
+
+                /**
+                 * perform given submit callback with resulting data of HTML form
+                 * @type {ccm.components.input.types.editset}
+                 */
+                function performCallback( result ) {
+
+                  if ( my.onFinish ) my.onFinish( result );
+
+                }
+
+              }
+
+              /**
+               * convert dot notations to deeper properties
+               * @param obj
+               * @returns {object}
+               * @example
+               * var obj = {
+                 *   test: 123,
+                 *   foo.bar: 'abc',
+                 *   foo.baz: 'xyz'
+                 * };
+               * var result = convert( obj );
+               * => { test: 123, foo: { bar: 'abc', baz: 'xyz' } }
+               */
+              function convert( obj ) {
+
+                var keys = Object.keys( obj );
+                for ( var i = 0; i < keys.length; i++ )
+                  if ( keys[ i ].indexOf( '.' ) !== -1 ) {
+                    ccm.helper.value( obj, keys[ i ], obj[ keys[ i ] ] );
+                    delete obj[ keys[ i ] ];
+                  }
+                return obj;
 
               }
 
             }
 
-          }
+          } );
 
           /**
-           * generate ccm HTML data for HTML fieldset
-           */
-          function generateFieldset() {
-
-            if ( my.fieldset ) {
-              html = { tag: 'fieldset', inner: html };
-              if ( typeof my.fieldset === 'string' )
-                html.inner.unshift( { tag: 'legend', inner: my.fieldset } );
-            }
-
-          }
-
-          /**
-           * generate ccm HTML data for HTML form
-           */
-          function generateForm() {
-
-            if ( my.form ) {
-              html = { tag: 'form', onsubmit: '%%', inner: html };
-              var button = { tag: 'input', type: 'submit', value: my.form };
-              if ( button.value === true ) delete button.value;
-              if ( my.fieldset )
-                html.inner.inner.push( button );
-              else
-                html.inner.push( button );
-            }
-
-          }
-
-          /**
-           * submit callback of the HTML form
+           * check if dataset is editable via datastore
            * @returns {boolean}
            */
-          function submit() {
+          function hasEditstoreAndKey() {
 
-            /**
-             * resulting data of HTML form
-             * @type {ccm.components.input.types.editset}
-             */
-            var result = convert( ccm.helper.formData( jQuery( this ) ) );
-
-            /**
-             * key of edited dataset
-             * @type {ccm.types.key}
-             */
-            var key = result.key;
-
-            // add user informations
-            if ( my.user )
-              my.user.login( function () { result.key = [ result.key, my.user.data().key ]; proceed(); } );
-            else
-              proceed();
-
-            function proceed() {
-
-              // log render event
-              if ( my.bigdata ) my.bigdata.log( 'finish', {
-                data: ccm.helper.dataSource( my.data ),
-                edit: ccm.helper.dataSource( my.edit ),
-                result: result
-              } );
-
-              // no ccm datastore for editable dataset? => perform callback
-              if ( !ccm.helper.isObject( my.edit ) || !ccm.helper.isDatastore( my.edit.store ) ) return performCallback( result );
-
-              // editable dataset key?
-              if ( key && typeof editset.key === 'string' ) {
-                // dataset key has changed? => delete dataset with old key
-                if ( key !== editset.key )
-                  my.edit.store.del( editset.key );
-              }
-              // set dataset key in result
-              else result.key = editset.key;
-
-              // no updating? => perform submit callback
-              if ( my.edit.no_set ) return performCallback( result );
-
-              // update dataset for editing in datastore and perform submit callback
-              my.edit.store.set( result, performCallback );
-
-            }
-
-            // prevent page reload
-            return false;
-
-            /**
-             * convert dot notations to deeper properties
-             * @param obj
-             * @returns {object}
-             * @example
-             * var obj = {
-             *   test: 123,
-             *   foo.bar: 'abc',
-             *   foo.baz: 'xyz'
-             * };
-             * var result = convert( obj );
-             * => { test: 123, foo: { bar: 'abc', baz: 'xyz' } }
-             */
-            function convert( obj ) {
-
-              var keys = Object.keys( obj );
-              for ( var i = 0; i < keys.length; i++ )
-                if ( keys[ i ].indexOf( '.' ) !== -1 ) {
-                  ccm.helper.value( obj, keys[ i ], obj[ keys[ i ] ] );
-                  delete obj[ keys[ i ] ];
-                }
-              return obj;
-
-            }
-
-            /**
-             * perform given submit callback with resulting data of HTML form
-             * @type {ccm.components.input.types.editset}
-             */
-            function performCallback( result ) {
-
-              if ( my.onFinish ) my.onFinish( result );
-
-            }
+            return !!ccm.helper.isObject( my.edit ) && ccm.helper.isDatastore( my.edit.store ) && my.edit.key;
 
           }
 
         } );
 
-      } );
+      }
 
-    }
+    };
 
   }
 
