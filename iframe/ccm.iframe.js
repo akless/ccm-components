@@ -143,6 +143,12 @@ ccm.component( /** @lends ccm.components.iframe */ {
           height: '100%'
         } );
 
+        ccm.helper.find( self, '.source' ).css( {
+          overflow: 'hidden',
+          'white-space': 'nowrap',
+          'font-size': '80%'
+        } );
+
         var value;
         if ( value = iframe.attr( 'width'  ) ) $element.css( 'max-width',  value + 'px' );
         if ( value = iframe.attr( 'height' ) ) $element.css( 'max-height', value + 'px' );
