@@ -54,14 +54,14 @@ ccm.component( /** @lends ccm.components.input */ {
     /*------------------------------------------- public instance methods --------------------------------------------*/
 
     /**
-     * @summary initialize <i>ccm</i> instance
+     * @summary when <i>ccm</i> instance is ready
      * @description
-     * Called one-time when this <i>ccm</i> instance is created, all dependencies are solved and before dependent <i>ccm</i> components, instances and datastores are initialized.
+     * Called one-time when this <i>ccm</i> instance and dependent <i>ccm</i> components, instances and datastores are initialized and ready.
      * This method will be removed by <i>ccm</i> after the one-time call.
-     * @param {function} callback - callback when this instance is initialized
+     * @param {function} callback - callback when this instance is ready
      * @ignore
      */
-    this.init = function ( callback ) {
+    this.ready = function ( callback ) {
 
       // privatize security relevant config members
       my = ccm.helper.privatize( self, 'data', 'edit', 'user', 'bigdata', 'form', 'fieldset', 'onFinish' );
