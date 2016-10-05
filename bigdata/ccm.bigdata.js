@@ -122,7 +122,7 @@ ccm.component( /** @lends ccm.components.bigdata */ {
       if ( this.logging.website ) dataset.website = window.location.href;
 
       // log dataset
-      my.store.set( dataset, console.log );
+      my.store.set( dataset );
 
     };
 
