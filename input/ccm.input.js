@@ -382,15 +382,15 @@ ccm.component( /** @lends ccm.components.input */ {
                 // set dataset key in result
                 else if ( editset ) result.key = editset.key;
 
-                // make result dataset user-specific
-                if ( my.user && hasEditstoreAndKey() ) result.key = [ result.key, my.user.data().key ];
-
                 // log render event
                 if ( my.bigdata ) my.bigdata.log( 'finish', {
                   data: ccm.helper.dataSource( my.data ),
                   edit: ccm.helper.dataSource( my.edit ),
                   result: result
                 } );
+
+                // make result dataset user-specific
+                if ( my.user && hasEditstoreAndKey() ) result.key = [ result.key, my.user.data().key ];
 
                 // dataset is not editable via datastore? => perform finish callback
                 if ( !hasEditstoreAndKey() || my.edit.no_set ) return performCallback( result );
@@ -400,11 +400,15 @@ ccm.component( /** @lends ccm.components.input */ {
 
                 /**
                  * perform given submit callback with resulting data of HTML form
-                 * @type {ccm.components.input.types.editset}
+                 * @param {ccm.components.input.types.editset} result - updated dataset for editing
                  */
                 function performCallback( result ) {
 
+                  // perform finish callback with result
                   if ( my.onFinish ) my.onFinish( result );
+
+                  // restore original key of editable dataset
+                  if ( my.user && hasEditstoreAndKey() ) my.edit.key = editset.key = editset.key[ 0 ];
 
                 }
 
