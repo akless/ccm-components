@@ -73,6 +73,9 @@ ccm.component( /** @lends ccm.components.content */ {
        */
       var $element = ccm.helper.element( self );
 
+      // put already existing inner HTML structure in website area for own content
+      $element.html( $html );
+
       // render call for ccm instances of inner website areas
       callRender( $html );
 
@@ -96,9 +99,6 @@ ccm.component( /** @lends ccm.components.content */ {
             callRender( jQuery( this ).children() );
         } );
       }
-
-      // put already existing inner HTML structure in website area for own content
-      $element.html( $html );
 
       // append content for own website area
       if ( my.innerHTML )
