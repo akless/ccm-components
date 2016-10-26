@@ -28,7 +28,7 @@ ccm.component( /** @lends ccm.components.exercise */ {
       store: [ ccm.store ],
       key:   'demo'
     },
-    input: [ ccm.component, '../input/ccm.input.js', { style: null, form: true } ]
+    input: [ ccm.component, '../input/ccm.input.js', { style: null } ]
 
   },
 
@@ -68,7 +68,7 @@ ccm.component( /** @lends ccm.components.exercise */ {
     this.ready = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'data', 'edit', 'onFinish', 'user', 'input', 'bigdata' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'deadline', 'onFinish', 'user', 'input', 'bigdata' );
 
       // perform callback
       callback();
@@ -167,7 +167,8 @@ ccm.component( /** @lends ccm.components.exercise */ {
             edit: my.edit,
             onFinish: my.onFinish,
             user: my.user,
-            bigdata: my.bigdata
+            bigdata: my.bigdata,
+            form: !my.deadline || Date.now() < my.deadline
           } );
         }
 
