@@ -71,7 +71,7 @@ ccm.component( /** @lends ccm.components.exercise */ {
       my = ccm.helper.privatize( self, 'data', 'edit', 'deadline', 'onFinish', 'user', 'input', 'bigdata' );
 
       // convert deadline from string to number
-      if ( typeof my.deadline === 'string' ) my.deadline = new Date( my.deadline ).getTime();
+      if ( typeof my.deadline === 'string' ) my.deadline = new Date( my.deadline.replace( /-/g, '/' ) ).getTime();
 
       // perform callback
       callback();
