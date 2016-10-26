@@ -70,6 +70,9 @@ ccm.component( /** @lends ccm.components.exercise */ {
       // privatize security relevant config members
       my = ccm.helper.privatize( self, 'data', 'edit', 'deadline', 'onFinish', 'user', 'input', 'bigdata' );
 
+      // convert deadline from string to number
+      if ( typeof my.deadline === 'string' ) my.deadline = new Date( my.deadline ).getTime();
+
       // perform callback
       callback();
 
