@@ -14,7 +14,8 @@ ccm.component( {
     var my;
     this.ready = function ( callback ) {
       my = ccm.helper.privatize( self, 'data', 'edit', 'input', 'form' );
-      if ( ccm.helper.isObject( my.edit ) && !my.edit.key && ccm.helper.isObject( my.data ) && typeof my.data.key === 'string' ) my.edit.key = { _id: { $regex: '^' + my.data.key + ',' } };
+      if ( ccm.helper.isObject( my.edit ) && !my.edit.key && ccm.helper.isObject( my.data ) && typeof my.data.key === 'string' ) my.edit.key = my.data.key;
+      if ( ccm.helper.isObject( my.edit ) && typeof my.edit.key === 'string' ) my.edit.key = { _id: { $regex: '^' + my.edit.key + ',' } };
       callback();
     };
     this.render = function ( callback ) {
