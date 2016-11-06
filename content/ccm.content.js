@@ -39,19 +39,25 @@ ccm.component( /** @lends ccm.components.content */ {
     /*------------------------------------------- public instance methods --------------------------------------------*/
 
     /**
-     * @summary initialize <i>ccm</i> instance
+     * @summary when <i>ccm</i> instance is ready
      * @description
-     * Called one-time when this <i>ccm</i> instance is created, all dependencies are solved and before dependent <i>ccm</i> components, instances and datastores are initialized.
+     * Called one-time when this <i>ccm</i> instance and dependent <i>ccm</i> components, instances and datastores are initialized and ready.
      * This method will be removed by <i>ccm</i> after the one-time call.
-     * @param {function} callback - callback when this instance is initialized
+     * @param {function} callback - callback when this instance is ready
+     * @ignore
      */
-    this.init = function ( callback ) {
+    this.ready = function ( callback ) {
 
-      // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'innerHTML' );
+      // add inner custom ccm elements to own ccm context
+      ccm.helper.catchComponentTags( self, function () {
 
-      // perform callback
-      callback();
+        // privatize security relevant config members
+        my = ccm.helper.privatize( self, 'childInstances', 'innerHTML' );
+
+        // perform callback
+        callback();
+
+      } );
 
     };
 
@@ -62,55 +68,49 @@ ccm.component( /** @lends ccm.components.content */ {
     this.render = function ( callback ) {
 
       /**
-       * already existing inner HTML structure of own website area
-       * @type {ccm.types.element}
-       */
-      var $html = self.element.contents();
-
-      /**
        * website area for own content
-       * @type {ccm.types.element}
+       * @type {ccm.types.node}
        */
-      var $element = ccm.helper.element( self );
+      var node = ccm.helper.element( self )[ 0 ];
 
-      // put already existing inner HTML structure in website area for own content
-      $element.html( $html );
+      // clear website area for own content
+      node.innerHTML = '';
 
-      // render call for ccm instances of inner website areas
-      callRender( $html );
+      // append given content of innerHTML property
+      appendInnerHTMLContent();
 
-      function callRender( $html ) {
-        $html.each( function () {
-          if ( this.tagName && this.tagName.indexOf( 'CCM-' ) === 0 ) {
-            var split = this.tagName.toLowerCase().split( '-' );
-            switch ( split[ 1 ] ) {
-              case 'load':
-              case 'component':
-              case 'instance':
-              case 'proxy':
-              case 'store':
-              case 'dataset':
-              case 'list':
-                return;
-            }
-            self[ split.length < 3 ? split[ 1 ] : split[ 2 ] ].render();
-          }
-          else
-            callRender( jQuery( this ).children() );
-        } );
-      }
-
-      // append content for own website area
-      if ( my.innerHTML )
-        if ( Array.isArray( my.innerHTML ) )
-          my.innerHTML.map( function ( content ) {
-            $element.append( ccm.helper.isElement( content ) ? content : ccm.helper.html( content ) );
-          } );
-        else
-          $element.append( ccm.helper.isElement( my.innerHTML ) ? my.innerHTML : ccm.helper.html( my.innerHTML ) );
+      // append given content of childNodes property
+      appendChildNodesContent();
 
       // perform callback
       if ( callback ) callback();
+
+      function appendInnerHTMLContent() {
+        if ( my.innerHTML )
+          if ( Array.isArray( my.innerHTML ) )
+            my.innerHTML.map( append );
+          else
+            append( my.innerHTML );
+
+        function append( content ) {
+          if ( typeof content === 'object' && !ccm.helper.isElement( content ) && !ccm.helper.isNode( content ) )
+            content = ccm.helper.html( content );
+          if ( ccm.helper.isElement( content ) )
+            content = content[ 0 ];
+          if ( ccm.helper.isNode( content ) )
+            node.appendChild( content );
+          else
+            node.innerHTML = content;
+        }
+      }
+
+      function appendChildNodesContent() {
+        if ( self.childNodes ) self.childNodes.map( function ( child ) {
+          node.appendChild( child );
+        } );
+        for ( var key in my.childInstances )
+          my.childInstances[ key ].render();
+      }
 
     };
 
