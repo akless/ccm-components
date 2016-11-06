@@ -85,12 +85,6 @@ ccm.component( /** @lends ccm.components.exercise */ {
     this.render = function ( callback ) {
 
       /**
-       * already existing inner HTML structure of own website area
-       * @type {ccm.types.element}
-       */
-      var $html = self.element.contents();
-
-      /**
        * website area for own content
        * @type {ccm.types.element}
        */
@@ -120,7 +114,7 @@ ccm.component( /** @lends ccm.components.exercise */ {
         function renderTitle() {
 
           // render title
-          if ( my.title || dataset.title ) $element.append( '<div class="title">' + dataset.title + '</div>' );
+          if ( my.title || dataset.title ) $element.innerHTML += '<div class="title">' + dataset.title + '</div>';
 
         }
 
@@ -145,7 +139,9 @@ ccm.component( /** @lends ccm.components.exercise */ {
           if ( dataset.description ) $desc.append( ccm.helper.html( dataset.description ) );
 
           // put already existing inner HTML structure in website area for own content
-          $desc.append( $html );
+          if ( self.childNodes ) self.childNodes.map( function ( child ) {
+            $desc[ 0 ].appendChild( child );
+          } );
 
         }
 
