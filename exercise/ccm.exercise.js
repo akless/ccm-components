@@ -114,7 +114,7 @@ ccm.component( /** @lends ccm.components.exercise */ {
         function renderTitle() {
 
           // render title
-          if ( my.title || dataset.title ) $element[ 0 ].innerHTML += '<div class="title">' + dataset.title + '</div>';
+          if ( my.title || dataset.title ) $element.append( '<div class="title">' + dataset.title + '</div>' );
 
         }
 
