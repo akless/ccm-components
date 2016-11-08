@@ -132,7 +132,6 @@ ccm.component( {
         if ( counter > 0 ) return;
         hljs.initHighlightingOnLoad();
         if ( callback ) callback();
-
       }
     };
   }
