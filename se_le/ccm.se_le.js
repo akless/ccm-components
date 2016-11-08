@@ -96,12 +96,12 @@ ccm.component( {
         var edit_key = child.getAttribute( 'edit_key'  ) || key;
         if ( deadline < Date.now() ) renderSolutions();
         my.exercise.render( {
-          element:         jQuery( '#' + id + '_exercise' ),
-          childNodes:      childNodes,
-          'data.key':      data_key,
-          'edit.key':      edit_key,
-          'point.keyword': child.getAttribute( 'point_key' ) || key,
-          deadline:        deadline
+          element:    jQuery( '#' + id + '_exercise' ),
+          childNodes: childNodes,
+          'data.key': data_key,
+          'edit.key': edit_key,
+          point:      [ ccm.instance, 'point', { keyword: child.getAttribute( 'point_key' ) || key } ],
+          deadline:   deadline
         }, check );
 
         function renderSolutions() {
