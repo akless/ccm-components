@@ -130,7 +130,7 @@ ccm.component( {
       function check() {
         counter--;
         if ( counter > 0 ) return;
-        hljs.initHighlightingOnLoad();
+        hljs.initHighlighting();
         if ( callback ) callback();
       }
     };
