@@ -32,9 +32,7 @@ ccm.component( {
     point:      [ ccm.component, 'https://kaul.inf.h-brs.de/ccm/components/point.js' ],
     bigdata:    [ ccm.component, '../bigdata/ccm.bigdata.js' ],
     deadline:   [ ccm.load, [ 'https://kaul.inf.h-brs.de/data/get_deadline.php', { store: 'hbrs_se1_ws16', key: 'le01_a1' } ] ],
-    highlight:  [ ccm.load, 'https://kaul.inf.h-brs.de/ccm/lib/highlight/agate.css', 'https://kaul.inf.h-brs.de/ccm/lib/highlight/highlight.pack.java.js' ],
-    semester:   'ws16',
-    course:     'bcs'
+    highlight:  [ ccm.load, 'https://kaul.inf.h-brs.de/ccm/lib/highlight/agate.css', 'https://kaul.inf.h-brs.de/ccm/lib/highlight/highlight.pack.java.js' ]
   },
   Instance: function () {
     var self = this;
@@ -47,7 +45,7 @@ ccm.component( {
 
       function proceed( deadline ) {
         if ( deadline ) self.deadline = typeof deadline === 'object' ? deadline.deadline : deadline;
-        if ( !self.semsester ) return callback();
+        if ( !self.semester ) return callback();
         self.exercise.config.data.store.push( 'https://kaul.inf.h-brs.de/ccm/jsonp/se_' + self.semester + '_exercises.json' );
         self.input_list.config.data.store.push( 'https://kaul.inf.h-brs.de/ccm/jsonp/se_' + self.semester + '_exercises.json' );
         if ( !self.course ) return callback();
