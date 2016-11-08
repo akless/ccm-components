@@ -122,6 +122,10 @@
   white-space: normal;
 }
 
+.ccm-se_le .box input {
+  margin-right: 0.5em;
+}
+
 .ccm-se_le .box input,
 .ccm-se_le .box label {
   cursor: pointer;
