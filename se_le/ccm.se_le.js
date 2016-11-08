@@ -7,47 +7,59 @@
 ccm.component( {
   index: 'se_le',
   config: {
-    style:       [ ccm.load,      '../se_le/default.css' ],
-    exercise:    [ ccm.component, '../exercise/ccm.exercise.js', {
-      user:      [ ccm.instance,  'https://kaul.inf.h-brs.de/ccm/components/user.js' ],
+    style:      [ ccm.load, '../se_le/default.css' ],
+    exercise:   [ ccm.component, '../exercise/ccm.exercise.js', {
+      user:     [ ccm.instance, 'https://kaul.inf.h-brs.de/ccm/components/user.js' ],
       data: {
-        store:   [ ccm.store ]
+        store:  [ ccm.store, 'https://kaul.inf.h-brs.de/ccm/jsonp/se_ws16_exercises.json' ]
       },
       edit: {
-        store:   [ ccm.store, { url: 'https://ccm.inf.h-brs.de' } ]
-      }
+        store:  [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'inputs_se_bcs_ws16' } ]
+      },
+      bigdata:  [ ccm.instance, '../bigdata/ccm.bigdata.js', {
+        store:  [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'inputs_se_bcs_ws16' } ]
+      } ]
     } ],
-    input_list:  [ ccm.component, '../input_list/ccm.input_list.js', {
+    input_list: [ ccm.component, '../input_list/ccm.input_list.js', {
       data: {
-        store:   [ ccm.store ]
+        store:  [ ccm.store, 'https://kaul.inf.h-brs.de/ccm/jsonp/se_ws16_exercises.json' ]
       },
       edit: {
-        store:   [ ccm.store, { url: 'https://ccm.inf.h-brs.de' } ]
+        store:  [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'inputs_se_bcs_ws16' } ]
       }
     } ],
-    bigdata:     [ ccm.component, '../bigdata/ccm.bigdata.js' ],
-    user:        [ ccm.instance,  'https://kaul.inf.h-brs.de/ccm/components/user.js' ],
-    point:       [ ccm.component, 'https://kaul.inf.h-brs.de/ccm/components/point.js' ],
-    highlight:   [ ccm.load, 'https://kaul.inf.h-brs.de/ccm/lib/highlight/agate.css', 'https://kaul.inf.h-brs.de/ccm/lib/highlight/highlight.pack.java.js' ],
-    semester:    'ws16',
-    course:      'bcs',
-    deadline:    [ ccm.load, [ 'https://kaul.inf.h-brs.de/data/get_deadline.php', { store: 'hbrs_se1_ws16', key: 'le01_a1' } ] ]
+    user:       [ ccm.instance, 'https://kaul.inf.h-brs.de/ccm/components/user.js' ],
+    point:      [ ccm.component, 'https://kaul.inf.h-brs.de/ccm/components/point.js' ],
+    bigdata:    [ ccm.component, '../bigdata/ccm.bigdata.js' ],
+    deadline:   [ ccm.load, [ 'https://kaul.inf.h-brs.de/data/get_deadline.php', { store: 'hbrs_se1_ws16', key: 'le01_a1' } ] ],
+    highlight:  [ ccm.load, 'https://kaul.inf.h-brs.de/ccm/lib/highlight/agate.css', 'https://kaul.inf.h-brs.de/ccm/lib/highlight/highlight.pack.java.js' ],
+    semester:   'ws16',
+    course:     'bcs'
   },
   Instance: function () {
     var self = this;
     var my;
     this.init = function ( callback ) {
-      self.exercise.config.data.store.push( 'https://kaul.inf.h-brs.de/ccm/jsonp/se_' + self.semester + '_exercises.json' );
-      self.exercise.config.edit.store[ 1 ].store = 'inputs_se_' + self.course + '_' + self.semester;
-      self.input_list.config.data.store.push( 'https://kaul.inf.h-brs.de/ccm/jsonp/se_' + self.semester + '_exercises.json' );
-      self.input_list.config.edit.store[ 1 ].store = 'inputs_se_' + self.course + '_' + self.semester;
-      if ( self.deadline ) self.deadline = self.deadline.deadline;
-      self.bigdata.instance( {
-        store: [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'inputs_se_' + self.course + '_' + self.semester } ]
-      }, function ( instance ) {
-        self.exercise.config.bigdata = instance;
-        callback();
-      } );
+      if ( self.deadline && Array.isArray( self.deadline ) && typeof self.deadline[ 0 ] === 'string' && typeof self.deadline[ 1 ] === 'string' )
+        ccm.load( [ 'https://kaul.inf.h-brs.de/data/get_deadline.php', { store: self.deadline[ 0 ], key: self.deadline[ 1 ] } ], proceed );
+      else
+        proceed( self.deadline );
+
+      function proceed( deadline ) {
+        if ( deadline ) self.deadline = typeof deadline === 'object' ? deadline.deadline : deadline;
+        if ( !self.semsester ) return callback();
+        self.exercise.config.data.store.push( 'https://kaul.inf.h-brs.de/ccm/jsonp/se_' + self.semester + '_exercises.json' );
+        self.input_list.config.data.store.push( 'https://kaul.inf.h-brs.de/ccm/jsonp/se_' + self.semester + '_exercises.json' );
+        if ( !self.course ) return callback();
+        self.exercise.config.edit.store[ 1 ].store = 'inputs_se_' + self.course + '_' + self.semester;
+        self.input_list.config.edit.store[ 1 ].store = 'inputs_se_' + self.course + '_' + self.semester;
+        self.bigdata.instance( {
+          store: [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'inputs_se_' + self.course + '_' + self.semester } ]
+        }, function ( instance ) {
+          self.exercise.config.bigdata = instance;
+          callback();
+        } );
+      }
     };
     this.ready = function ( callback ) {
       my = ccm.helper.privatize( self, 'exercise', 'input_list', 'user', 'point', 'deadline', 'highlight', 'semester', 'course' );
