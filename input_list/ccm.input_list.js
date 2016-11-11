@@ -26,7 +26,6 @@ ccm.component( {
         ccm.helper.dataset( my.edit, function ( editsets ) {
           $element.html( '' );
           editsets.map( function ( editset, i ) {
-            if ( Object.keys( editset ).length <= 2 ) return;
             var id = self.index + '-' + i;
             $element.append( '<div id="ccm-' + id + '"></div>' );
             my.input.render( {
