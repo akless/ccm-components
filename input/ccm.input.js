@@ -20,7 +20,6 @@ ccm.component( /** @lends ccm.components.input */ {
    */
   config: {
 
-    style: [ ccm.load, '../input/default.css' ],
     data: {
       store: [ ccm.store, '../input/datastore.json' ],
       key:   'demo'

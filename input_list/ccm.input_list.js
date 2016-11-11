@@ -7,15 +7,17 @@
 ccm.component( {
   index: 'input_list',
   config: {
-    input: [ ccm.component, 'https://akless.github.io/ccm-components/resources/input/ccm.input.js', { style: null } ]
+    input: [ ccm.component, 'https://akless.github.io/ccm-components/resources/input/ccm.input.js' ]
   },
   Instance: function () {
     var self = this;
     var my;
     this.ready = function ( callback ) {
       my = ccm.helper.privatize( self, 'data', 'edit', 'input', 'form' );
-      if ( ccm.helper.isObject( my.edit ) && !my.edit.key && ccm.helper.isObject( my.data ) && typeof my.data.key === 'string' ) my.edit.key = my.data.key;
-      if ( ccm.helper.isObject( my.edit ) && typeof my.edit.key === 'string' ) my.edit.key = { _id: { $regex: '^' + my.edit.key + ',' } };
+      if ( ccm.helper.isObject( my.edit ) ) {
+        if ( typeof my.edit.key === 'string' ) my.edit.key = { _id: { $regex: '^' + my.edit.key + ',' } };
+        if ( !ccm.helper.isObject( my.edit.key ) ) my.edit.key = {};
+      }
       callback();
     };
     this.render = function ( callback ) {
