@@ -389,8 +389,8 @@ ccm.component( /** @lends ccm.components.input */ {
                     if ( result.key !== editset.key )
                       my.edit.store.del( my.user ? [ editset.key, my.user.data().key ] : editset.key );
                   }
-                  // set dataset key in result
-                  else if ( editset ) result.key = editset.key;
+                  // no key => set dataset key in result
+                  result.key = editset.key;
                 }
 
                 // log render event
@@ -405,6 +405,9 @@ ccm.component( /** @lends ccm.components.input */ {
 
                 // dataset is not editable via datastore? => perform finish callback
                 if ( !hasEditstore() || my.edit.no_set ) return performCallback( result );
+
+                // new editable dataset and given permission settings for created dataset? => set permission settings for new dataset
+                if ( hasEditstore() && Object.keys( editset ).length === 1 && my.edit.permission ) result._ = my.edit.permission;
 
                 // update dataset for editing in datastore and perform finish callback
                 my.edit.store.set( result, performCallback );
