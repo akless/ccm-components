@@ -91,14 +91,23 @@ ccm.component( /** @lends ccm.components.input */ {
         // get dataset for rendering
         ccm.helper.dataset( my.data, function ( dataset ) {
 
+          /**
+           * given key for edited dataset
+           * @type {string}
+           */
+          var key = hasEditstore() && my.edit.key;
+
+          // editable dataset without key? => generate key
+          if ( hasEditstore() && !my.edit.key ) my.edit.key = ccm.helper.generateKey();
+
           // make editable dataset user-specific
-          if ( my.user && hasEditstoreAndKey() ) my.edit.key = [ my.edit.key, my.user.data().key ];
+          if ( my.user && hasEditstore() ) my.edit.key = [ my.edit.key, my.user.data().key ];
 
           // get dataset for editing
           ccm.helper.dataset( my.edit, function ( editset ) {
 
             // restore original key of editable dataset
-            if ( my.user && hasEditstoreAndKey() ) my.edit.key = editset.key = editset.key[ 0 ];
+            if ( my.user && hasEditstore() ) my.edit.key = editset.key = editset.key[ 0 ];
 
             /**
              * ccm HTML data for own website area
@@ -373,14 +382,17 @@ ccm.component( /** @lends ccm.components.input */ {
 
               function proceed() {
 
-                // editable dataset key?
-                if ( result.key && hasEditstoreAndKey() ) {
-                  // key has changed? => delete dataset with old key
-                  if ( result.key !== editset.key )
-                    my.edit.store.del( my.user ? [ editset.key, my.user.data().key ] : editset.key );
+                // editable dataset?
+                if ( hasEditstore() ) {
+                  // editable dataset key?
+                  if ( result.key ) {
+                    // key has changed? => delete dataset with old key
+                    if ( result.key !== editset.key )
+                      my.edit.store.del( my.user ? [ editset.key, my.user.data().key ] : editset.key );
+                  }
+                  // set dataset key in result
+                  else if ( editset ) result.key = editset.key;
                 }
-                // set dataset key in result
-                else if ( editset ) result.key = editset.key;
 
                 // log render event
                 if ( my.bigdata ) my.bigdata.log( 'finish', {
@@ -390,25 +402,36 @@ ccm.component( /** @lends ccm.components.input */ {
                 } );
 
                 // make result dataset user-specific
-                if ( my.user && hasEditstoreAndKey() ) result.key = [ result.key, my.user.data().key ];
+                if ( my.user && hasEditstore() ) result.key = [ result.key, my.user.data().key ];
 
                 // dataset is not editable via datastore? => perform finish callback
-                if ( !hasEditstoreAndKey() || my.edit.no_set ) return performCallback( result );
+                if ( !hasEditstore() || my.edit.no_set ) return performCallback( result );
 
                 // update dataset for editing in datastore and perform finish callback
                 my.edit.store.set( result, performCallback );
 
                 /**
-                 * perform given submit callback with resulting data of HTML form
-                 * @param {ccm.components.input.types.editset} result - updated dataset for editing
+                 * perform given onFinish callback with resulting data of HTML form
+                 * @param {ccm.components.input.types.editset} result - resulting data
                  */
                 function performCallback( result ) {
 
+                  // restore original key of editable dataset
+                  if ( my.user && hasEditstore() ) my.edit.key = editset.key = editset.key[ 0 ];
+
+                  // no given key for edited dataset?
+                  if ( hasEditstore() && !key ) {
+
+                    // delete generated key
+                    delete my.edit.key;
+
+                    // (re)render own content (generate new key and clear input fields)
+                    self.render();
+
+                  }
+
                   // perform finish callback with result
                   if ( my.onFinish ) my.onFinish( result );
-
-                  // restore original key of editable dataset
-                  if ( my.user && hasEditstoreAndKey() ) my.edit.key = editset.key = editset.key[ 0 ];
 
                 }
 
@@ -447,9 +470,9 @@ ccm.component( /** @lends ccm.components.input */ {
            * check if dataset is editable via datastore
            * @returns {boolean}
            */
-          function hasEditstoreAndKey() {
+          function hasEditstore() {
 
-            return !!ccm.helper.isObject( my.edit ) && ccm.helper.isDatastore( my.edit.store ) && my.edit.key;
+            return !!ccm.helper.isObject( my.edit ) && ccm.helper.isDatastore( my.edit.store );
 
           }
 
