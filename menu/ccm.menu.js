@@ -65,7 +65,6 @@ ccm.component( /** @lends ccm.components.menu */ {
       // set dataset for rendering via inner HTML tags
       var entries = [];
       self.childNodes.map( function ( child ) {
-        console.log( child );
         if ( child.tagName && child.tagName === 'CCM-MENU-ENTRY' )
           entries.push( { label: child.getAttribute( 'label' ), content: child.innerHTML } );
       } );
