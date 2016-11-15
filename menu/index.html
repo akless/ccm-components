@@ -2,8 +2,21 @@
 <meta charset="utf-8">
 <script src="https://akless.github.io/ccm-developer/resources/ccm/ccm.min.js"></script>
 <script src="ccm.menu.js"></script>
-<ccm-menu></ccm-menu>
+
+<ccm-menu>
+  <ccm-menu-entry label="Menüpunkt A">
+    <b>Inhalt A</b>
+  </ccm-menu-entry>
+  <ccm-menu-entry label="Menüpunkt B">
+    <i>Inhalt B</i>
+  </ccm-menu-entry>
+  <ccm-menu-entry label="Menüpunkt C">
+    <u>Inhalt C</u>
+  </ccm-menu-entry>
+</ccm-menu>
+
 <p>
+
 <div id="tabs"></div>
 <script>
   ccm.render( 'ccm.menu.js', {

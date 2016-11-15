@@ -22,10 +22,6 @@ ccm.component( /** @lends ccm.components.menu */ {
 
     style: [ ccm.load,  '../menu/layouts/default.css' ],
     html:  [ ccm.store, '../menu/templates.json' ],
-    data:  {
-      store: [ ccm.store, '../menu/datastore.json' ],
-      key:   'demo'
-    },
     onClick: function ( entry, $content, instance ) { console.log( entry, $content, instance ); }
   },
 
@@ -60,9 +56,35 @@ ccm.component( /** @lends ccm.components.menu */ {
      * Called one-time when this <i>ccm</i> instance is created, all dependencies are solved and before dependent <i>ccm</i> components, instances and datastores are initialized.
      * This method will be removed by <i>ccm</i> after the one-time call.
      * @param {function} callback - callback when this instance is initialized
-     * @ignore
      */
     this.init = function ( callback ) {
+
+      // has given dataset? => abort (perform callback directly)
+      if ( self.data ) return callback();
+
+      // set dataset for rendering via inner HTML tags
+      var entries = [];
+      self.childNodes.map( function ( child ) {
+        console.log( child );
+        if ( child.tagName && child.tagName === 'CCM-MENU-ENTRY' )
+          entries.push( { label: child.getAttribute( 'label' ), content: child.innerHTML } );
+      } );
+      self.data = { entries: entries };
+
+      // perform callback
+      callback();
+
+    };
+
+    /**
+     * @summary when <i>ccm</i> instance is ready
+     * @description
+     * Called one-time when this <i>ccm</i> instance and dependent <i>ccm</i> components, instances and datastores are initialized and ready.
+     * This method will be removed by <i>ccm</i> after the one-time call.
+     * @param {function} callback - callback when this instance is ready
+     * @ignore
+     */
+    this.ready = function ( callback ) {
 
       // privatize security relevant config members
       my = ccm.helper.privatize( self, 'html', 'data', 'bigdata', 'selected', 'onClick' );
