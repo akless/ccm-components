@@ -105,7 +105,6 @@ ccm.component( {
         }, check );
 
         function renderSolutions() {
-          console.log( my );
           counter++;
           var box = document.createElement( 'div' );
           box.setAttribute( 'class', 'box' );
