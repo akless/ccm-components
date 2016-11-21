@@ -17,7 +17,7 @@ ccm.component( {
         store:  [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'inputs_se_bcs_ws16' } ]
       },
       bigdata:  [ ccm.instance, '../bigdata/ccm.bigdata.js', {
-        store:  [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'inputs_se_bcs_ws16' } ]
+        store:  [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'bigdata_se_bcs_ws16_input' } ]
       } ]
     } ],
     input_list: [ ccm.component, '../input_list/ccm.input_list.js', {
@@ -52,7 +52,7 @@ ccm.component( {
         self.exercise.config.edit.store[ 1 ].store = 'inputs_se_' + self.course + '_' + self.semester;
         self.input_list.config.edit.store[ 1 ].store = 'inputs_se_' + self.course + '_' + self.semester;
         self.bigdata.instance( {
-          store: [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'inputs_se_' + self.course + '_' + self.semester } ]
+          store: [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'bigdata_se_' + self.course + '_' + self.semester + '_input' } ]
         }, function ( instance ) {
           self.exercise.config.bigdata = instance;
           callback();
@@ -105,6 +105,7 @@ ccm.component( {
         }, check );
 
         function renderSolutions() {
+          console.log( my );
           counter++;
           var box = document.createElement( 'div' );
           box.setAttribute( 'class', 'box' );
