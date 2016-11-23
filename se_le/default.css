@@ -133,6 +133,7 @@
 
 .ccm-se_le .box input + label + div {
   display: none;
+  max-width: 480px;
 }
 
 .ccm-se_le .box input:checked + label + div {

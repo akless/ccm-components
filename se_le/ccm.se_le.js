@@ -51,12 +51,13 @@ ccm.component( {
         if ( !self.course ) return callback();
         self.exercise.config.edit.store[ 1 ].store = 'inputs_se_' + self.course + '_' + self.semester;
         self.input_list.config.edit.store[ 1 ].store = 'inputs_se_' + self.course + '_' + self.semester;
-        self.bigdata.instance( {
+        if ( self.bigdata) self.bigdata.instance( {
           store: [ ccm.store, { url: 'https://ccm.inf.h-brs.de', store: 'bigdata_se_' + self.course + '_' + self.semester + '_input' } ]
         }, function ( instance ) {
           self.exercise.config.bigdata = instance;
           callback();
         } );
+        else callback();
       }
     };
     this.ready = function ( callback ) {
@@ -113,11 +114,25 @@ ccm.component( {
           var list = document.createElement( 'div' );
           list.setAttribute( 'id', id + '_solutions' );
           box.appendChild( list );
-          my.input_list.render( {
-            element:    jQuery( '#' + id + '_solutions' ),
-            'data.key': data_key,
-            'edit.key': edit_key
-          }, check );
+          ccm.dataset( my.exercise.config.data.store[ 1 ], data_key, function ( exercise ) {
+            if ( exercise.upload )
+              my.user.login( function () {
+                var user = my.user.data().key;
+                ccm.dataset( my.exercise.config.edit.store[ 1 ], { _id: { $regex: '^' + edit_key + ',' } }, function ( solutions ) {
+                  solutions.map( function ( solution ) {
+                    var entry = document.createElement( 'img' );
+                    entry.setAttribute( 'src', 'https://kaul.inf.h-brs.de/data/view.php?uid='+solution.key[1]+'&key='+edit_key+'&user='+user+'&token='+my.user.data().token );
+                    list.appendChild( entry );
+                  } );
+                } );
+              } );
+            else
+              my.input_list.render( {
+                element:    jQuery( '#' + id + '_solutions' ),
+                'data.key': data_key,
+                'edit.key': edit_key
+              }, check );
+          } );
         }
       }
 
