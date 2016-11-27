@@ -95,7 +95,7 @@ ccm.component( {
         var key = child.getAttribute( 'key' );
         var data_key = child.getAttribute( 'data_key'  ) || key;
         var edit_key = child.getAttribute( 'edit_key'  ) || key;
-        //if ( deadline < Date.now() ) renderSolutions();
+        if ( deadline < Date.now() ) renderSolutions();
         my.exercise.render( {
           parent:     self,
           element:    jQuery( '#' + id + '_exercise' ),
