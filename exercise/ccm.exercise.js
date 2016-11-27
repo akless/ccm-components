@@ -68,7 +68,7 @@ ccm.component( /** @lends ccm.components.exercise */ {
     this.ready = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'data', 'edit', 'deadline', 'onFinish', 'user', 'input', 'bigdata' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'deadline', 'onFinish', 'input', 'bigdata' );
 
       // convert deadline from string to number
       if ( typeof my.deadline === 'string' ) my.deadline = new Date( my.deadline.replace( /-/g, '/' ) ).getTime();
@@ -161,13 +161,14 @@ ccm.component( /** @lends ccm.components.exercise */ {
 
           // render input instance
           my.input.render( {
-            element: jQuery( '#' + id ),
-            data: { inputs: dataset.inputs },
-            edit: my.edit,
+            parent:   self,
+            element:  jQuery( '#' + id ),
+            data:     { inputs: dataset.inputs },
+            edit:     my.edit,
             onFinish: my.onFinish,
-            user: my.user,
-            bigdata: my.bigdata,
-            form: !my.deadline || Date.now() < my.deadline
+            user:     self.user,
+            bigdata:  my.bigdata,
+            form:     !my.deadline || Date.now() < my.deadline
           } );
         }
 

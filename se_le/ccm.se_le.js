@@ -61,7 +61,7 @@ ccm.component( {
       }
     };
     this.ready = function ( callback ) {
-      my = ccm.helper.privatize( self, 'exercise', 'input_list', 'user', 'point', 'deadline', 'highlight', 'semester', 'course' );
+      my = ccm.helper.privatize( self, 'exercise', 'input_list', 'point', 'deadline', 'highlight', 'semester', 'course' );
       callback();
     };
     this.render = function ( callback ) {
@@ -95,8 +95,9 @@ ccm.component( {
         var key = child.getAttribute( 'key' );
         var data_key = child.getAttribute( 'data_key'  ) || key;
         var edit_key = child.getAttribute( 'edit_key'  ) || key;
-        if ( deadline < Date.now() ) renderSolutions();
+        //if ( deadline < Date.now() ) renderSolutions();
         my.exercise.render( {
+          parent:     self,
           element:    jQuery( '#' + id + '_exercise' ),
           childNodes: childNodes,
           'data.key': data_key,
@@ -116,18 +117,19 @@ ccm.component( {
           box.appendChild( list );
           ccm.dataset( my.exercise.config.data.store[ 1 ], data_key, function ( exercise ) {
             if ( exercise.upload )
-              my.user.login( function () {
-                var user = my.user.data().key;
+              self.user.login( function () {
+                var user = self.user.data().key;
                 ccm.dataset( my.exercise.config.edit.store[ 1 ], { _id: { $regex: '^' + edit_key + ',' } }, function ( solutions ) {
                   solutions.map( function ( solution ) {
                     var entry = document.createElement( 'img' );
-                    entry.setAttribute( 'src', 'https://kaul.inf.h-brs.de/data/view.php?uid='+solution.key[1]+'&key='+edit_key+'&user='+user+'&token='+my.user.data().token );
+                    entry.setAttribute( 'src', 'https://kaul.inf.h-brs.de/data/view.php?uid='+solution.key[1]+'&key='+edit_key+'&user='+user+'&token='+self.user.data().token );
                     list.appendChild( entry );
                   } );
                 } );
               } );
             else
               my.input_list.render( {
+                parent:     self,
                 element:    jQuery( '#' + id + '_solutions' ),
                 'data.key': data_key,
                 'edit.key': edit_key

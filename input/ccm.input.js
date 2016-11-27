@@ -63,7 +63,7 @@ ccm.component( /** @lends ccm.components.input */ {
     this.ready = function ( callback ) {
 
       // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'data', 'edit', 'user', 'bigdata', 'form', 'fieldset', 'onFinish' );
+      my = ccm.helper.privatize( self, 'data', 'edit', 'bigdata', 'form', 'fieldset', 'onFinish' );
 
       // perform callback
       callback();
@@ -83,7 +83,7 @@ ccm.component( /** @lends ccm.components.input */ {
       var $element = ccm.helper.element( self );
 
       // has user instance? => login user
-      if ( my.user ) my.user.login( proceed ); else proceed();
+      if ( self.user ) self.user.login( proceed ); else proceed();
 
       function proceed() {
 
@@ -100,13 +100,13 @@ ccm.component( /** @lends ccm.components.input */ {
           if ( hasEditstore() && !my.edit.key ) my.edit.key = ccm.helper.generateKey();
 
           // make editable dataset user-specific
-          if ( my.user && hasEditstore() ) my.edit.key = [ my.edit.key, my.user.data().key ];
+          if ( self.user && hasEditstore() ) my.edit.key = [ my.edit.key, self.user.data().key ];
 
           // get dataset for editing
           ccm.helper.dataset( my.edit, function ( editset ) {
 
             // restore original key of editable dataset
-            if ( my.user && hasEditstore() ) my.edit.key = editset.key = editset.key[ 0 ];
+            if ( self.user && hasEditstore() ) my.edit.key = editset.key = editset.key[ 0 ];
 
             /**
              * ccm HTML data for own website area
@@ -374,7 +374,7 @@ ccm.component( /** @lends ccm.components.input */ {
               var result = convert( ccm.helper.formData( jQuery( this ) ) );
 
               // has user instance? => login user
-              if ( my.user ) my.user.login( proceed ); else proceed();
+              if ( self.user ) self.user.login( proceed ); else proceed();
 
               // prevent page reload
               return false;
@@ -387,7 +387,7 @@ ccm.component( /** @lends ccm.components.input */ {
                   if ( result.key ) {
                     // key has changed? => delete dataset with old key
                     if ( result.key !== editset.key )
-                      my.edit.store.del( my.user ? [ editset.key, my.user.data().key ] : editset.key );
+                      my.edit.store.del( self.user ? [ editset.key, self.user.data().key ] : editset.key );
                   }
                   // no key => set dataset key in result
                   result.key = editset.key;
@@ -401,7 +401,7 @@ ccm.component( /** @lends ccm.components.input */ {
                 } );
 
                 // make result dataset user-specific
-                if ( my.user && hasEditstore() ) result.key = [ result.key, my.user.data().key ];
+                if ( self.user && hasEditstore() ) result.key = [ result.key, self.user.data().key ];
 
                 // dataset is not editable via datastore? => perform finish callback
                 if ( !hasEditstore() || my.edit.no_set ) return performCallback( result );
@@ -419,7 +419,7 @@ ccm.component( /** @lends ccm.components.input */ {
                 function performCallback( result ) {
 
                   // restore original key of editable dataset
-                  if ( my.user && hasEditstore() ) my.edit.key = editset.key = editset.key[ 0 ];
+                  if ( self.user && hasEditstore() ) my.edit.key = editset.key = editset.key[ 0 ];
 
                   // no given key for edited dataset?
                   if ( hasEditstore() && !key ) {
