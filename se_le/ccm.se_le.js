@@ -107,33 +107,35 @@ ccm.component( {
         }, check );
 
         function renderSolutions() {
-          counter++;
           var box = document.createElement( 'div' );
           box.setAttribute( 'class', 'box' );
-          box.innerHTML = '<input id="' + data_key + '" type="checkbox"><label for="' + data_key + '">Zeige Liste aller eingereichten Lösungen</label>';
+          box.innerHTML = '<input id="' + data_key + '" type="checkbox" onchange=""><label for="' + data_key + '">Zeige Liste aller eingereichten Lösungen</label>';
           node.appendChild( box );
           var list = document.createElement( 'div' );
           list.setAttribute( 'id', id + '_solutions' );
           box.appendChild( list );
-          ccm.dataset( my.exercise.config.data.store[ 1 ], data_key, function ( exercise ) {
-            if ( exercise.upload )
-              self.user.login( function () {
-                var user = self.user.data().key;
-                ccm.dataset( my.exercise.config.edit.store[ 1 ], { _id: { $regex: '^' + edit_key + ',' } }, function ( solutions ) {
-                  solutions.map( function ( solution ) {
-                    var entry = document.createElement( 'img' );
-                    entry.setAttribute( 'src', 'https://kaul.inf.h-brs.de/data/view.php?uid='+solution.key[1]+'&key='+edit_key+'&user='+user+'&token='+self.user.data().token );
-                    list.appendChild( entry );
+          jQuery( '#' + data_key ).change( function () {
+            if ( !list.innerHTML )
+              ccm.dataset( my.exercise.config.data.store[ 1 ], data_key, function ( exercise ) {
+                if ( exercise.upload )
+                  self.user.login( function () {
+                    var user = self.user.data().key;
+                    ccm.dataset( my.exercise.config.edit.store[ 1 ], { _id: { $regex: '^' + edit_key + ',' } }, function ( solutions ) {
+                      solutions.map( function ( solution ) {
+                        var entry = document.createElement( 'img' );
+                        entry.setAttribute( 'src', 'https://kaul.inf.h-brs.de/data/view.php?uid='+solution.key[1]+'&key='+edit_key+'&user='+user+'&token='+self.user.data().token );
+                        list.appendChild( entry );
+                      } );
+                    } );
                   } );
-                } );
+                else
+                  my.input_list.render( {
+                    parent:     self,
+                    element:    jQuery( '#' + id + '_solutions' ),
+                    'data.key': data_key,
+                    'edit.key': edit_key
+                  } );
               } );
-            else
-              my.input_list.render( {
-                parent:     self,
-                element:    jQuery( '#' + id + '_solutions' ),
-                'data.key': data_key,
-                'edit.key': edit_key
-              }, check );
           } );
         }
       }
