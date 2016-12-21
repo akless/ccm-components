@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.component( /** @lends ccm.components.input */ {
+ccm.component( /** @lends ccm.components.input */ {                         // no-jquery branch test
 
   /*-------------------------------------------- public component members --------------------------------------------*/
 
