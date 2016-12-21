@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.component( /** @lends ccm.components.input */ { /* test */
+ccm.component( /** @lends ccm.components.input */ {
 
   /*-------------------------------------------- public component members --------------------------------------------*/
 
