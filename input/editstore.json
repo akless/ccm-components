@@ -1,4 +1,9 @@
 {
+  "demo": {
+    "key": "demo",
+    "username": "JohnDoe",
+    "password": "1aA"
+  },
   "test": {
     "key": "test",
     "foo": {
