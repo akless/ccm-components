@@ -48,6 +48,8 @@ ccm.component( /** @lends ccm.components.bigdata */ {
      */
     var my;
 
+    var id;
+
     /*------------------------------------------- public instance methods --------------------------------------------*/
 
     /**
@@ -61,6 +63,8 @@ ccm.component( /** @lends ccm.components.bigdata */ {
 
       // privatize security relevant config members
       my = ccm.helper.privatize( this, 'store' );
+
+      id = ccm.helper.generateKey();
 
       // perform callback
       callback();
@@ -81,7 +85,7 @@ ccm.component( /** @lends ccm.components.bigdata */ {
        * dataset with event and data informations
        * @type {object}
        */
-      var dataset = { event: event, data: data };
+      var dataset = { instance: id, event: event, data: data };
 
       // add browser informations
       if ( this.logging.browser ) dataset.browser = {
