@@ -25,17 +25,10 @@ ccm.component( {
 
       /* support using tests from own global namespace */
 
-      // run all test packages in own global namespace
-      if ( !self.data ) {
-        self.data = ccm.components.testsuite;
-        self.data.key = ''
-      }
-      // run specific test package in global namespace
-      else if ( typeof self.data === 'string' ) {
+      // run test package(s) in global namespace
+      if ( !self.data || typeof self.data === 'string' ) {
         var package = self.data;
-        var key = package.split( '.' ).shift();
-        self.data = ccm.components.testsuite[ key ];
-        self.data.key = key;
+        self.data = ccm.components.testsuite;
         self.data.package = package;
       }
 
@@ -76,7 +69,7 @@ ccm.component( {
         onFinish = callback;      // remember finish callback
 
         // prepare table
-        self.element.appendChild( ccm.helper.html( { class: 'label', inner: document.createTextNode( ( dataset.package || dataset.key ) ) } ) );
+        self.element.appendChild( ccm.helper.html( { class: 'label', inner: document.createTextNode( dataset.package ) } ) );
         table = ccm.helper.html( { class: 'table' } );
         self.element.appendChild( table );
 
@@ -89,12 +82,11 @@ ccm.component( {
           if ( !dataset.package ) return dataset;
 
           // navigate to relevant test package
-          var path = dataset.package.split( '.' ); path.shift();
+          var path = dataset.package.split( '.' );
           var package = dataset;
           while ( path.length > 0 ) {
             package = package[ path.shift() ];
-            // collect founded setup functions
-            if ( package.setup ) setups.push( package.setup );
+            if ( package.setup ) setups.push( package.setup );  // collect founded setup functions
           }
           return package;
         }
@@ -112,7 +104,7 @@ ccm.component( {
           var packages = [];
 
           // find all paths to inner test packages
-          find( package, ( dataset.package || dataset.key ).split( '.' ) );
+          find( package, dataset.package ? dataset.package.split( '.' ) : [] );
 
           // tell layout that many packages will displayed
           self.element.classList.add( 'packages' );
