@@ -7,14 +7,7 @@
 ccm.component( {
   index: 'input',
   config: {
-    data: {
-      store: [ ccm.store, '../input/datastore.json' ],
-      key:   'demo'
-    },
-    edit: {
-      store: [ ccm.store, '../input/editstore.json' ],
-      key:   'demo'
-    },
+    data: { store: [ ccm.store ] },
     helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ]
   },
   Instance: function () {
@@ -261,8 +254,12 @@ ccm.component( {
               html = { tag: 'form', id: 'ccm-' + self.index, onsubmit: '%%', inner: html };
               var button = { tag: 'input', type: 'submit', value: my.form };
               if ( button.value === true ) delete button.value;
-              if ( my.fieldset )
-                html.inner.inner = [ html.inner.inner, button ];
+              if ( my.fieldset ) {
+                if ( Array.isArray( html.inner.inner ) )
+                  html.inner.inner.push( button );
+                else
+                  html.inner.inner = [ html.inner.inner, button ];
+              }
               else
                 html.inner = [ html.inner, button ];
             }
