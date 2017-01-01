@@ -37,9 +37,6 @@ ccm.component( {
 
     this.render = function ( callback ) {
 
-      // prepare own website area
-      ccm.helper.element( self );
-
       // get dataset for rendering (dataset contains the tests)
       ccm.helper.dataset( self.data, function ( dataset ) {
 
