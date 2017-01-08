@@ -141,3 +141,7 @@
   padding-top: 1em;
   border-left: 1em solid #cdf;
 }
+
+.ccm-se_le .no_linebreak ~ br {
+  display: none;
+}
