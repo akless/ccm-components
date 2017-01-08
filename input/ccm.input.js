@@ -226,10 +226,8 @@ ccm.component( /** @lends ccm.components.input */ {
                             "inner": input.values[ i ].caption || input.values[ i ].value
                           },
                           {
-                            "tag": "span",
-                            "inner": "&nbsp;&nbsp;&nbsp;"
-                          }
-                        ]
+                            "tag": "br"
+                          }                        ]
                       };
                       delete input.values[ i ].inner[ 0 ].caption;
                     }
