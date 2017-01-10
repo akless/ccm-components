@@ -306,7 +306,7 @@ ccm.component( /** @lends ccm.components.input */ {
                       delete input.checked;
                       for ( var i = 0; i < input.values.length; i++ ) {
                         delete input.values[ i ].checked;
-                        if ( input.values[ i ].value || input.values[ i ].caption === value )
+                        if ( input.values[ i ].value === value || input.values[ i ].caption === value )
                           input.values[ i ].checked = true;
                       }
                       break;
