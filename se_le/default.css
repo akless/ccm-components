@@ -99,6 +99,10 @@
   background-color: white;
 }
 
+.ccm-se_le .ccm-input label {
+  display: inline;
+}
+
 .ccm-se_le .ccm-input input[type=submit] {
   cursor: pointer;
 }
@@ -118,7 +122,6 @@
 }
 
 .ccm-se_le .ccm-input .label {
-  display: inline;
   padding: 0;
   white-space: normal;
 }
