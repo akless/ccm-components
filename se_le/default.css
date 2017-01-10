@@ -118,6 +118,7 @@
 }
 
 .ccm-se_le .ccm-input .label {
+  display: inline;
   padding: 0;
   white-space: normal;
 }
@@ -140,6 +141,10 @@
   display: block;
   padding-top: 1em;
   border-left: 1em solid #cdf;
+}
+
+.ccm-se_le .no_linebreak + span + span {
+  margin-right: 0.5em;
 }
 
 .ccm-se_le .no_linebreak ~ br {
