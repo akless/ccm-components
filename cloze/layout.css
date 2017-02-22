@@ -1,0 +1,29 @@
+/**
+ * @overview default layout of <i>ccm</i> component for clozes
+ * @author André Kless <andre.kless@web.de.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+.keywords {
+  font-family: monospace;
+  border: 0.1em solid black;
+  padding: 0.5em;
+  display: flex;
+}
+
+.keyword:not(:last-child):after {
+  padding-right: 0.5em;
+  content: ',';
+}
+
+.text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 0.5em 0;
+}
+
+.cloze_gap input {
+  font-family: monospace;
+  font-size: 111%;
+  padding-left: 0.2em;
+  letter-spacing: 0.2em;
+}
