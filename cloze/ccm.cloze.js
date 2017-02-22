@@ -27,7 +27,6 @@ ccm.component( {
     var keywords = [];
 
     this.init = function ( callback ) {
-      console.log( ccm.helper.clone( self ) );
 
       my = ccm.helper.privatize( self );
 
