@@ -1,6 +1,7 @@
 {
   "default": {
     "key": "default",
-    "text": "<h1>Headline: [[W(e)lc(o)m(e)]]!</h1><p>Hello, [[world]].<br>This is an [[e(x)a(mpl)e]] cloze.</p><p>[[Elefant(fahrstuhl)führer(aufzugs)l(eit)er]]</p>"
+    "text": "<h1>Headline: [[W(e)lc(o)m(e)]]!</h1><p>Hello, [[world]].<br>This is an [[e(x)a(mpl)e]] cloze.</p><p>[[Elefant(fahrstuhl)führer(aufzugs)l(eit)er]]</p>",
+    "button": "submit"
   }
 }

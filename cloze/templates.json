@@ -1,17 +1,17 @@
 {
   "main": {
     "key": "main",
-    "tag": "div",
     "class": "main",
     "inner": [
-      {
-        "tag": "div",
-        "class": "keywords"
-      },
-      {
-        "tag": "div",
-        "class": "text"
-      }
+      { "class": "keywords" },
+      { "class": "text" },
+      { "class": "button" }
     ]
+  },
+  "button": {
+    "key": "button",
+    "tag": "button",
+    "inner": "%button%",
+    "onclick": "%click%"
   }
 }
