@@ -6,6 +6,7 @@
 
 .keywords {
   font-family: monospace;
+  margin-bottom: 0.5em;
   border: 0.1em solid black;
   padding: 0.5em;
   display: flex;
@@ -18,7 +19,6 @@
 
 .text {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 0.5em 0;
 }
 
 .cloze_gap input {

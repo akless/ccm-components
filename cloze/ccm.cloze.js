@@ -166,14 +166,24 @@ ccm.component( {
 
       }
 
+      /** renders the submit button */
       function renderButton() {
 
-        var elem_button = self.element.querySelector( '.button' );
-
-        elem_button.appendChild( ccm.helper.html( my.html.get( 'button' ), {
+        self.element.querySelector( '.button' ).appendChild( ccm.helper.html( my.html.get( 'button' ), {
           button: my.button || dataset.button,
-          click: function () { console.log( 'click!' ); }
-        } ) )
+          click: submit
+        } ) );
+
+        /** onclick callback for the submit button */
+        function submit() {
+
+          // give visual feedback for correctness
+          ccm.helper.makeIterable( self.element.querySelectorAll( '.cloze_gap input' ) ).map( function ( gap, i ) {
+            gap.removeAttribute( 'placeholder' );
+            gap.style.backgroundColor = gap.value === keywords[ i ].word ? 'lime' : 'red';
+          } );
+
+        }
 
       }
 
