@@ -102,6 +102,8 @@ ccm.component( {
       renderText();
       renderButton();
 
+      if ( callback ) callback();
+
       /** renders given keywords for text gaps */
       function renderKeywords() {
 
@@ -174,8 +176,6 @@ ccm.component( {
         } ) )
 
       }
-
-      if ( callback ) callback();
 
     };
 
