@@ -34,7 +34,6 @@ ccm.component( {
       "button": {
         "key": "button",
         "tag": "button",
-        "class": "%type%",
         "inner": "%caption%",
         "onclick": "%click%"
       },
@@ -45,8 +44,7 @@ ccm.component( {
       }
     },
     css_layout: [ ccm.load, '../cloze/layouts/default.css' ],
-    submit_button_caption: 'submit',
-    finish_button_caption: 'restart',
+    button_caption: 'finish',
     onFinish: function ( instance, result ) { console.log( result ); instance.render() }
 
 //  blank: true,
@@ -116,7 +114,7 @@ ccm.component( {
     this.render = function ( callback ) {
 
       // initial result data
-      var result = { points: 0, details: [] };
+      var result = { points: 0, max_points: 0, details: [] };
 
       // render main HTML structure
       ccm.helper.setContent( self.element, ccm.helper.protect( ccm.helper.html( my.html_templates.main ) ) );
@@ -129,7 +127,7 @@ ccm.component( {
       // render content for inner containers
       renderKeywords();
       renderText();
-      renderButton( true );
+      renderButton();
       if ( my.time ) renderTimer(); else ccm.helper.removeElement( timer_elem );
 
       // remember start time
@@ -199,16 +197,12 @@ ccm.component( {
 
       }
 
-      /**
-       * renders the submit or finish button
-       * @param {boolean} type - true: submit button, false: finish button
-       */
-      function renderButton( type ) {
+      /** renders the finish button */
+      function renderButton() {
 
         ccm.helper.setContent( button_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.button, {
-          caption: type ? my.submit_button_caption : my.finish_button_caption,
-          type:    type ? 'submit' : 'finish',
-          click:   type ? onSubmit : onFinish
+          caption: my.button_caption,
+          click:   onFinish
         } ) ) );
 
       }
@@ -237,41 +231,36 @@ ccm.component( {
 
       }
 
-      /** onclick callback for submit button */
-      function onSubmit() {
+      /** onclick callback for finish button */
+      function onFinish() {
 
         time = new Date().getTime() - time;      // calculate result time
         ccm.helper.removeElement( timer_elem );  // remove timer
-
-        // give visual feedback for correctness
-        ccm.helper.makeIterable( self.element.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
-          var correct = gap.value === keywords[ i ].word;
-          gap.removeAttribute( 'placeholder' );
-          gap.parentNode.className += correct ? ' correct' : ' wrong';
-
-          // correct input? => give points
-          if ( correct && my.points_per_gap ) result.points += my.points_per_gap;
-
-          // set details for current gap result
-          result.details.push( { input: gap.value, solution: keywords[ i ].word, correct: correct } );
-
-        } );
-
-        // replace submit button with finish button
-        renderButton( false );
-
-      }
-
-      /** onclick callback for finish button */
-      function onFinish() {
 
         // has user instance? => login user
         if ( self.user ) self.user.login( proceed ); else proceed();
 
         function proceed() {
 
+          // give visual feedback for correctness
+          ccm.helper.makeIterable( self.element.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
+            var correct = gap.value === keywords[ i ].word;
+            gap.removeAttribute( 'placeholder' );
+            gap.parentNode.className += correct ? ' correct' : ' wrong';
+
+            // correct input? => give points
+            if ( my.points_per_gap ) {
+              result.max_points += my.points_per_gap;
+              if ( correct ) result.points += my.points_per_gap;
+            }
+
+            // set details for current gap result
+            result.details.push( { input: gap.value, solution: keywords[ i ].word, correct: correct } );
+
+          } );
+
           // finalize result data
-          if ( !my.points_per_gap ) delete result.points;
+          if ( !my.points_per_gap ) { delete result.points; delete result.max_points; }
           if ( self.user ) result.user = self.user.data().key;
           if ( my.time )   result.time_left = timer_value + 1;
           result.time = time;
