@@ -4,9 +4,13 @@
  * @license The MIT License (MIT)
  */
 
+.ccm-cloze {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .keywords {
   font-family: monospace;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   border: 0.1em solid black;
   padding: 0.5em;
   display: flex;
@@ -17,13 +21,30 @@
   content: ',';
 }
 
-.text {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.cloze_gap input {
+.gap input {
   font-family: monospace;
   font-size: 111%;
   padding-left: 0.2em;
   letter-spacing: 0.2em;
+}
+
+.gap.correct input {
+  background-color: lime;
+}
+
+.gap.wrong input {
+  background-color: red;
+}
+
+.button, .timer {
+  float: left;
+  padding-top: 0.8em;
+}
+
+.timer {
+  padding-left: 1em;
+}
+
+.timer:before {
+  content: 'time left: ';
 }
