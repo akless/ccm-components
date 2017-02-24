@@ -44,7 +44,7 @@ ccm.component( {
         "inner": "%%"
       }
     },
-    css_layout: [ ccm.load, '../cloze/layout.css' ],
+    css_layout: [ ccm.load, '../cloze/layouts/default.css' ],
     submit_button_caption: 'submit',
     finish_button_caption: 'restart',
     onFinish: function ( instance, result ) { console.log( result ); instance.render() }

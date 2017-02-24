@@ -1,0 +1,74 @@
+/**
+ * @overview LEA-like layout of <i>ccm</i> component for clozes
+ * @author André Kless <andre.kless@web.de.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+.ccm-cloze {
+  font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+  font-size: 80%;
+}
+
+.keywords {
+  font-style: italic;
+  margin-bottom: 1em;
+  border: 0.1em solid black;
+  padding: 0.5em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.keyword:not(:last-child):after {
+  padding-right: 0.5em;
+  content: ',';
+}
+
+.text {
+  border: 0.1em solid #e5e9ed;
+  background-color: #eef2f8;
+}
+
+.gap input {
+  font-family: monospace;
+  font-size: 111%;
+  padding-left: 0.2em;
+  letter-spacing: 0.2em;
+}
+
+.gap.correct input {
+  background-color: lime;
+}
+
+.gap.wrong input {
+  background-color: red;
+}
+
+.button, .timer {
+  float: left;
+  margin-top: 0.8em;
+}
+
+.button button {
+  color: white;
+  background-color: #a2c21f;
+  border-radius: 0;
+  border: none #a2c21f;
+  padding: 0.4em 0.8em;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.button button:hover {
+  border-color: #768d17;
+  background-color: #7d9618;
+}
+
+.timer {
+  padding-top: 0.3em;
+  padding-left: 1em;
+}
+
+.timer:before {
+  content: 'time left: ';
+}
