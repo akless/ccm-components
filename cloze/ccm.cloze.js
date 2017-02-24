@@ -4,8 +4,6 @@
  * @license The MIT License (MIT)
  *
  * Notes
- * - text with gaps could be given in 3 possible ways
- * - keywords for gaps could be given in 3 possible ways
  * - disadvantage of bit operation: possible positions for given letters in a word are 0-31
  */
 
@@ -45,9 +43,10 @@ ccm.component( {
     },
     css_layout: [ ccm.load, '../cloze/layouts/default.css' ],
     button_caption: 'finish',
-    onFinish: function ( instance, result ) { console.log( result ); instance.render() }
+    onFinish: function ( instance, result ) { console.log( result ); instance.render(); }
 
 //  blank: true,
+//  ignore_case: true,
 //  keywords: [ 'keyword1', 'keyword2', ... ],
 //  points_per_gap: 1,
 //  time: 60,
@@ -244,7 +243,7 @@ ccm.component( {
 
           // give visual feedback for correctness
           ccm.helper.makeIterable( self.element.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
-            var correct = gap.value === keywords[ i ].word;
+            var correct = my.ignore_case ? gap.value.toLowerCase() === keywords[ i ].word.toLowerCase() : gap.value === keywords[ i ].word;
             gap.removeAttribute( 'placeholder' );
             gap.parentNode.className += correct ? ' correct' : ' wrong';
 
