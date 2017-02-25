@@ -12,7 +12,6 @@
     "blank": true,
     "ignore_case": true,
     "points_per_gap": 1,
-    "user": [ "ccm.instance", "../user/ccm.user.js" ],
-    "onFinish": { "local": {}, "key": "foo" }
+    "user": [ "ccm.instance", "../user/ccm.user.js" ]
   }
 }
