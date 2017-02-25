@@ -5,6 +5,7 @@
  *
  * Notes
  * - disadvantage of bit operation: possible positions for given letters in a word are 0-31
+ * - onFinish could also be a destination object
  */
 
 ccm.component( {
@@ -119,7 +120,7 @@ ccm.component( {
       ccm.helper.setContent( self.element, ccm.helper.protect( ccm.helper.html( my.html_templates.main ) ) );
 
       var   main_elem  = self.element.querySelector( '.main'   );  // main container
-      var button_elem  = self.element.querySelector( '.button' );  // container for submit button
+      var button_elem  = self.element.querySelector( '.button' );  // container for finish button
       var  timer_elem  = self.element.querySelector( '.timer'  );  // container for timer
       var  timer_value = my.time;                                  // timer value
 
@@ -214,7 +215,7 @@ ccm.component( {
         /** updates countdown timer */
         function timer() {
 
-          // already submitted? => remove timer
+          // already finished? => remove timer
           if ( !self.element.querySelector( '.timer' ) ) return;
 
           // (re)render timer value
@@ -224,7 +225,7 @@ ccm.component( {
           if ( timer_value-- )
             ccm.helper.wait( 1000, timer );
           else if ( button_elem )
-            onSubmit();           // submit at timeout
+            onFinish();           // perform finish callback at timeout
 
         }
 
@@ -261,11 +262,14 @@ ccm.component( {
           // finalize result data
           if ( !my.points_per_gap ) { delete result.points; delete result.max_points; }
           if ( self.user ) result.user = self.user.data().key;
-          if ( my.time )   result.time_left = timer_value + 1;
+          if (   my.time ) result.time_left = timer_value + 1;
           result.time = time;
 
-          // perform finish callback with result data
-          self.onFinish( self, result );
+          // provide result data
+          if ( ccm.helper.isObject( self.onFinish ) )
+            ccm.helper.setDataset( result, self.onFinish, self.user );
+          else
+            self.onFinish( self, result );
 
         }
 
