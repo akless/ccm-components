@@ -38,7 +38,7 @@
 }
 
 .button, .timer {
-  float: left;
+  display: inline-block;
   padding-top: 0.8em;
 }
 

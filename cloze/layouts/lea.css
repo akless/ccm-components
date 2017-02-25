@@ -7,6 +7,7 @@
 .ccm-cloze {
   font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
   font-size: 80%;
+  padding: 0.5em 0;
 }
 
 .keywords {
@@ -45,7 +46,7 @@
 }
 
 .button, .timer {
-  float: left;
+  display: inline-block;
   margin-top: 0.8em;
 }
 
