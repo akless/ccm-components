@@ -16,30 +16,27 @@ ccm.component( {
 
     text: 'Hello, [[(W)o(rl)d]]!',
     html_templates: {
-      "main": {
-        "key": "main",
-        "class": "main",
-        "inner": [
-          { "class": "keywords" },
-          { "class": "text" },
-          { "class": "button" },
-          { "class": "timer" }
+      main: {
+        id: 'main',
+        inner: [
+          { id: 'keywords' },
+          { id: 'text' },
+          { id: 'button' },
+          { id: 'timer' }
         ]
       },
-      "keyword": {
-        "class": "keyword",
-        "inner": "%%"
+      keyword: {
+        class: 'keyword',
+        inner: '%%'
       },
-      "button": {
-        "key": "button",
-        "tag": "button",
-        "inner": "%caption%",
-        "onclick": "%click%"
+      button: {
+        tag: 'button',
+        inner: '%caption%',
+        onclick: '%click%'
       },
-      "timer": {
-        "key": "timer",
-        "tag": "span",
-        "inner": "%%"
+      timer: {
+        tag: 'span',
+        inner: '%%'
       }
     },
     css_layout: [ ccm.load, '../cloze/layouts/default.css' ],
@@ -59,19 +56,13 @@ ccm.component( {
   Instance: function () {
 
     var self = this;
-    var my;
-
+    var my;             // contains privatized instance members
     var keywords = [];  // information data for each keyword
 
-    this.init = function ( callback ) {
+    this.ready = function ( callback ) {
 
       // privatize all possible instance members
       my = ccm.helper.privatize( self );
-
-      callback();
-    };
-
-    this.ready = function ( callback ) {
 
       // fill-in-the-blank text is given via inner HTML? => use it with higher priority
       if ( self.node && self.node.innerHTML.trim() ) my.text = self.node.innerHTML;
@@ -117,15 +108,14 @@ ccm.component( {
       // initial result data
       var result = { points: 0, max_points: 0, details: [] };
 
-      // render main HTML structure
-      ccm.helper.setContent( self.element, ccm.helper.protect( ccm.helper.html( my.html_templates.main ) ) );
+      // prepare main HTML structure
+      var main_elem = ccm.helper.protect( ccm.helper.html( my.html_templates.main ) );
 
-      var   main_elem  = self.element.querySelector( '.main'   );  // main container
-      var button_elem  = self.element.querySelector( '.button' );  // container for finish button
-      var  timer_elem  = self.element.querySelector( '.timer'  );  // container for timer
-      var  timer_value = my.time;                                  // timer value
+      var button_elem  = main_elem.querySelector( '#button' );  // container for finish button
+      var  timer_elem  = main_elem.querySelector( '#timer'  );  // container for timer
+      var  timer_value = my.time;                               // timer value
 
-      // render content for inner containers
+      // add content for inner containers
       renderKeywords();
       renderText();
       renderButton();
@@ -134,13 +124,16 @@ ccm.component( {
       // remember start time
       var time = new Date().getTime();
 
+      // set content of own website area
+      ccm.helper.setContent( self.element, main_elem );
+
       if ( callback ) callback();
 
       /** renders given keywords for text gaps */
       function renderKeywords() {
 
-        var keywords_elem = self.element.querySelector( '.keywords' );  // container for keywords
-        var entries = [];                                               // inner container for each keyword
+        var keywords_elem = main_elem.querySelector( '#keywords' );  // container for keywords
+        var entries = [];                                            // inner container for each keyword
 
         // has given keywords? => create inner container for each keyword
         if ( my.keywords )
@@ -165,10 +158,10 @@ ccm.component( {
       function renderText() {
 
         // render text with containing gaps
-        self.element.querySelector( '.text' ).innerHTML = ccm.helper.protect( my.text );
+        main_elem.querySelector( '#text' ).innerHTML = ccm.helper.protect( my.text );
 
         // render input field in each gap
-        ccm.helper.makeIterable( self.element.querySelectorAll( '.gap' ) ).map( function ( gap_elem, i ) {
+        ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap' ) ).map( function ( gap_elem, i ) {
 
           // blank input fields and shown keywords? => input fields should give no hint for the length of the searched word
           if ( my.blank && my.keywords ) return gap_elem.appendChild( ccm.helper.html( { tag: 'input', type: 'text' } ) );
@@ -217,7 +210,7 @@ ccm.component( {
         function timer() {
 
           // already finished? => remove timer
-          if ( !self.element.querySelector( '.timer' ) ) return;
+          if ( !main_elem.querySelector( '#timer' ) ) return;
 
           // (re)render timer value
           ccm.helper.setContent( timer_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.timer, timer_value ) ) );
@@ -245,7 +238,7 @@ ccm.component( {
         function proceed() {
 
           // give visual feedback for correctness
-          ccm.helper.makeIterable( self.element.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
+          ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
             var correct = my.ignore_case ? gap.value.toLowerCase() === keywords[ i ].word.toLowerCase() : gap.value === keywords[ i ].word;
             gap.removeAttribute( 'placeholder' );
             gap.parentNode.className += correct ? ' correct' : ' wrong';

@@ -1,14 +1,10 @@
 /**
- * @overview default layout of <i>ccm</i> component for clozes
+ * @overview default layout of <i>ccm</i> component for fill-in-the-blank texts
  * @author André Kless <andre.kless@web.de.de> 2017
  * @license The MIT License (MIT)
  */
 
-.ccm-cloze {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.keywords {
+#keywords {
   font-family: monospace;
   margin-bottom: 1em;
   border: 0.1em solid black;
@@ -37,15 +33,14 @@
   background-color: red;
 }
 
-.button, .timer {
+#button, #timer {
   display: inline-block;
-  padding-top: 0.8em;
 }
 
-.timer {
+#timer {
   padding-left: 1em;
 }
 
-.timer:before {
+#timer:before {
   content: 'time left: ';
 }

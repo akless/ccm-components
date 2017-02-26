@@ -1,5 +1,5 @@
 /**
- * @overview LEA-like layout of <i>ccm</i> component for clozes
+ * @overview LEA-like layout of <i>ccm</i> component for fill-in-the-blank texts
  * @author André Kless <andre.kless@web.de.de> 2017
  * @license The MIT License (MIT)
  */
@@ -10,7 +10,7 @@
   padding: 0.5em 0;
 }
 
-.keywords {
+#keywords {
   font-style: italic;
   margin-bottom: 1em;
   border: 0.1em solid black;
@@ -25,7 +25,7 @@
   content: ',';
 }
 
-.text {
+#text {
   border: 0.1em solid #e5e9ed;
   background-color: #eef2f8;
 }
@@ -45,12 +45,12 @@
   background-color: red;
 }
 
-.button, .timer {
+#button, #timer {
   display: inline-block;
   margin-top: 0.8em;
 }
 
-.button button {
+#button button {
   color: white;
   background-color: #a2c21f;
   border-radius: 0;
@@ -60,16 +60,16 @@
   cursor: pointer;
 }
 
-.button button:hover {
+#button button:hover {
   border-color: #768d17;
   background-color: #7d9618;
 }
 
-.timer {
+#timer {
   padding-top: 0.3em;
   padding-left: 1em;
 }
 
-.timer:before {
+#timer:before {
   content: 'time left: ';
 }
