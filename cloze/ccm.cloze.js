@@ -43,8 +43,9 @@ ccm.component( {
       }
     },
     css_layout: [ ccm.load, '../cloze/layouts/default.css' ],
+    ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
     button_caption: 'finish',
-    onFinish: function ( instance, result ) { console.log( result ); instance.render(); }
+    onFinish: function ( instance, result ) { console.log( result ); }
 
 //  blank: true,
 //  ignore_case: true,
@@ -234,8 +235,9 @@ ccm.component( {
       /** onclick callback for finish button */
       function onFinish() {
 
-        time = new Date().getTime() - time;      // calculate result time
-        ccm.helper.removeElement( timer_elem );  // remove timer
+        time = new Date().getTime() - time;       // calculate result time
+        button_elem.innerHTML = '';               // remove button
+        ccm.helper.removeElement( timer_elem  );  // remove timer container
 
         // has user instance? => login user
         if ( self.user ) self.user.login( proceed ); else proceed();
