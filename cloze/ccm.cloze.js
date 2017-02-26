@@ -109,7 +109,7 @@ ccm.component( {
       var result = { points: 0, max_points: 0, details: [] };
 
       // prepare main HTML structure
-      var main_elem = ccm.helper.protect( ccm.helper.html( my.html_templates.main ) );
+      var main_elem = ccm.helper.html( my.html_templates.main );
 
       var button_elem  = main_elem.querySelector( '#button' );  // container for finish button
       var  timer_elem  = main_elem.querySelector( '#timer'  );  // container for timer
@@ -125,7 +125,7 @@ ccm.component( {
       var time = new Date().getTime();
 
       // set content of own website area
-      ccm.helper.setContent( self.element, main_elem );
+      ccm.helper.setContent( self.element, ccm.helper.protect( main_elem ) );
 
       if ( callback ) callback();
 
@@ -145,7 +145,7 @@ ccm.component( {
         if ( my.keywords === true ) entries.sort( function ( a, b ) { return a.innerHTML.localeCompare( b.innerHTML ) } );
 
         // add each inner keyword container to container for keywords
-        entries.map( function ( entry ) { keywords_elem.appendChild( ccm.helper.protect( entry ) ); } );
+        entries.map( function ( entry ) { keywords_elem.appendChild( entry ); } );
 
         /** adds a inner container for a keyword */
         function addKeyword( keyword ) {
@@ -158,7 +158,7 @@ ccm.component( {
       function renderText() {
 
         // render text with containing gaps
-        main_elem.querySelector( '#text' ).innerHTML = ccm.helper.protect( my.text );
+        main_elem.querySelector( '#text' ).innerHTML = my.text;
 
         // render input field in each gap
         ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap' ) ).map( function ( gap_elem, i ) {
@@ -194,10 +194,10 @@ ccm.component( {
       /** renders the finish button */
       function renderButton() {
 
-        ccm.helper.setContent( button_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.button, {
+        ccm.helper.setContent( button_elem, ccm.helper.html( my.html_templates.button, {
           caption: my.button_caption,
           click:   onFinish
-        } ) ) );
+        } ) );
 
       }
 
@@ -213,7 +213,7 @@ ccm.component( {
           if ( !main_elem.querySelector( '#timer' ) ) return;
 
           // (re)render timer value
-          ccm.helper.setContent( timer_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.timer, timer_value ) ) );
+          ccm.helper.setContent( timer_elem, ccm.helper.html( my.html_templates.timer, timer_value ) );
 
           // countdown
           if ( timer_value-- )
