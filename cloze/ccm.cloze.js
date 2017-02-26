@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for clozes
+ * @overview <i>ccm</i> component for fill-in-the-blank texts
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  *
@@ -74,7 +74,7 @@ ccm.component( {
     this.ready = function ( callback ) {
 
       // fill-in-the-blank text is given via inner HTML? => use it with higher priority
-      if ( self.node.innerHTML.trim() ) my.text = self.node.innerHTML;
+      if ( self.node && self.node.innerHTML.trim() ) my.text = self.node.innerHTML;
 
       var regex_keyword = /\[\[.+?\]\]/g;   // regular expression for finding all gaps/keywords in the text
       var regex_given = /\(.+?\)/g;         // regular expression for finding all given characters of a keyword
@@ -277,7 +277,7 @@ ccm.component( {
 
       }
 
-    }
+    };
 
   }
 
