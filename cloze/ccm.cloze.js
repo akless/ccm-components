@@ -59,18 +59,23 @@ ccm.component( {
     var my;             // contains privatized instance members
     var keywords = [];  // information data for each keyword
 
+    this.init = function ( callback ) {
+
+      // fill-in-the-blank text is given via inner HTML? => use it with higher priority
+      if ( self.node && self.node.innerHTML.trim() ) self.text = self.node.innerHTML;
+
+      callback();
+    };
+
     this.ready = function ( callback ) {
 
       // privatize all possible instance members
       my = ccm.helper.privatize( self );
 
-      // fill-in-the-blank text is given via inner HTML? => use it with higher priority
-      if ( self.node && self.node.innerHTML.trim() ) my.text = self.node.innerHTML;
-
       var regex_keyword = /\[\[.+?\]\]/g;   // regular expression for finding all gaps/keywords in the text
       var regex_given = /\(.+?\)/g;         // regular expression for finding all given characters of a keyword
 
-      // iterate all keywords in the text
+      // iterate all keywords in the text to determine the information data for each keyword
       ( my.text.match( regex_keyword ) || [] ).map( function ( keyword ) {
 
         // remove distinguishing characteristic '[[' and ']]'
