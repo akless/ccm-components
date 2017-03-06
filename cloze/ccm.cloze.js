@@ -42,7 +42,7 @@ ccm.component( {
     css_layout: [ ccm.load, '../cloze/layouts/default.css' ],
     ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
     button_caption: 'finish',
-    onFinish: function ( instance, result ) { console.log( result ); }
+    onFinish: function ( instance, results ) { console.log( results ); }
 
 //  blank: true,
 //  ignore_case: true,
@@ -111,7 +111,7 @@ ccm.component( {
     this.render = function ( callback ) {
 
       // initial result data
-      var result = { points: 0, max_points: 0, details: [] };
+      var results = { points: 0, max_points: 0, details: [] };
 
       // prepare main HTML structure
       var main_elem = ccm.helper.html( my.html_templates.main );
@@ -250,26 +250,26 @@ ccm.component( {
 
             // correct input? => give points
             if ( my.points_per_gap ) {
-              result.max_points += my.points_per_gap;
-              if ( correct ) result.points += my.points_per_gap;
+              results.max_points += my.points_per_gap;
+              if ( correct ) results.points += my.points_per_gap;
             }
 
             // set details for current gap result
-            result.details.push( { input: gap.value, solution: keywords[ i ].word, correct: correct } );
+            results.details.push( { input: gap.value, solution: keywords[ i ].word, correct: correct } );
 
           } );
 
           // finalize result data
-          if ( !my.points_per_gap ) { delete result.points; delete result.max_points; }
-          if ( self.user ) result.user = self.user.data().key;
-          if (   my.time ) result.time_left = timer_value + 1;
-          result.time = time;
+          if ( !my.points_per_gap ) { delete results.points; delete results.max_points; }
+          if ( self.user ) results.user = self.user.data().key;
+          if (   my.time ) results.time_left = timer_value + 1;
+          results.time = time;
 
           // provide result data
           if ( ccm.helper.isObject( self.onFinish ) )
-            ccm.helper.setDataset( result, self.onFinish, self.user );
+            ccm.helper.setDataset( results, self.onFinish, self.user );
           else
-            self.onFinish( self, result );
+            self.onFinish( self, results );
 
         }
 
