@@ -64,6 +64,10 @@ ccm.component( {
 
   Instance: function () {
 
+    /**
+     * own context
+     * @type {Instance}
+     */
     var self = this;
 
     /**
@@ -142,6 +146,7 @@ ccm.component( {
     /**
      * login user
      * @param {function} [callback] will be called after login (or directly if user is already logged in)
+     * @returns {ccm.instance} <i>ccm</i> user instance
      */
     this.login = function ( callback ) {
 
@@ -149,7 +154,7 @@ ccm.component( {
       if ( my.context ) return my.context.login( callback );
 
       // user already logged in? => perform callback directly
-      if ( self.isLoggedIn() ) { if ( callback ) callback(); return; }
+      if ( self.isLoggedIn() ) { if ( callback ) callback(); return self; }
 
       // prevent more than one request on parallel login/logout calls
       if ( loading ) return waitlist.push( [ self.login, callback ] ); loading = true;
@@ -166,6 +171,8 @@ ccm.component( {
           ccm.load( [ 'https://kaul.inf.h-brs.de/login/login.php', { realm: 'hbrsinfkaul' } ], function ( response ) { success( response.user, response.token, response.name ); } );
           break;
       }
+
+      return self;
 
       /**
        * callback when login was successful
@@ -192,6 +199,7 @@ ccm.component( {
     /**
      * logout user
      * @param {function} [callback] will be called after logout (or directly if user is already logged out)
+     * @returns {ccm.instance} <i>ccm</i> user instance
      */
     this.logout = function ( callback ) {
 
@@ -199,7 +207,7 @@ ccm.component( {
       if ( my.context ) return my.context.logout( callback );
 
       // user already logged out? => perform callback directly
-      if ( !self.isLoggedIn() ) { if ( callback ) callback(); return; }
+      if ( !self.isLoggedIn() ) { if ( callback ) callback(); return self; }
 
       // prevent more than one request on parallel login/logout calls
       if ( loading ) return waitlist.push( [ self.logout, callback ] ); loading = true;
@@ -216,6 +224,8 @@ ccm.component( {
           ccm.load( [ 'https://logout@kaul.inf.h-brs.de/login/logout.php', { realm: 'hbrsinfkaul' } ], success );
           break;
       }
+
+      return self;
 
       /** callback when logout was successful */
       function success() {
@@ -263,6 +273,7 @@ ccm.component( {
     /**
      * adds an observer for login and logout events
      * @param {function} observer - will be performed when event fires (first parameter is kind of event -> true: login, false: logout)
+     * @returns {ccm.instance} <i>ccm</i> user instance
      */
     this.addObserver = function ( observer ) {
 
@@ -271,6 +282,8 @@ ccm.component( {
 
       // add function to observers
       observers.push( observer );
+
+      return self;
 
     };
 
