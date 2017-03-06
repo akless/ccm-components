@@ -63,8 +63,8 @@ ccm.component( {
     ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
     onFinish: function ( instance, result ) { console.log( result ); }
 
-//  package
 //  tests
+//  package
 
   },
 
@@ -124,9 +124,10 @@ ccm.component( {
         details:  {}
       };
 
-      var main_elem     = ccm.helper.html( my.html_templates.main );         // get main HTML structure
-      var packages_elem = main_elem.querySelector( '#packages' );            // get container for test packages
-      if ( self.element ) ccm.helper.setContent( self.element, main_elem );  // render main HTML structure
+      // render main HTML structure
+      var main_elem     = ccm.helper.html( my.html_templates.main );
+      var packages_elem = main_elem.querySelector( '#packages' );
+      if ( self.element ) ccm.helper.setContent( self.element, ccm.helper.protect( main_elem ) );
 
       // process relevant test package (including all subpackages)
       processPackage( my.package || '', my.tests, setups, finish );
@@ -181,7 +182,7 @@ ccm.component( {
           // render (empty) test package
           var package_elem = ccm.helper.html( my.html_templates.package, package_path );
           var table_elem = package_elem.querySelector( '.table' );
-          packages_elem.appendChild( package_elem );
+          packages_elem.appendChild( ccm.helper.protect( package_elem ) );
 
           // run first contained test
           runNextTest();
@@ -194,7 +195,7 @@ ccm.component( {
 
             // render table row for current test
             var test_elem = ccm.helper.html( my.html_templates.test, tests[ i ].name );
-            table_elem.appendChild( test_elem );
+            table_elem.appendChild( ccm.helper.protect( test_elem ) );
 
             // for the moment render loading as result
             var result_elem = test_elem.querySelector( '.result' );
@@ -298,19 +299,19 @@ ccm.component( {
             function addResult( result ) {
               var value = result ? 'passed' : 'failed';
               if ( result ) results.passed++; else results.failed++;
-              ccm.helper.setContent( result_elem, ccm.helper.html( my.html_templates.result, { value: value } ) );
+              ccm.helper.setContent( result_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.result, { value: value } ) ) );
               results.details[ package_path + '.' + tests[ i ].name ] = result;
             }
 
             /** show message as detail information for a failed test */
             function addMessage( message ) {
-              test_elem.appendChild( ccm.helper.html( my.html_templates.message, message ) );
+              test_elem.appendChild( ccm.helper.protect( ccm.helper.html( my.html_templates.message, message ) ) );
               results.details[ package_path + '.' + tests[ i ].name ] = message;
             }
 
             /** show expected and actual value as detail information for a failed test */
             function addComparison( expected, actual ) {
-              test_elem.appendChild( ccm.helper.html( my.html_templates.comparison, expected, actual ? actual : '<i>' + ( actual === undefined ? 'undefined' : JSON.stringify( actual ) ) + '</i>' ) );
+              test_elem.appendChild( ccm.helper.protect( ccm.helper.html( my.html_templates.comparison, expected, actual ? actual : '<i>' + ( actual === undefined ? 'undefined' : JSON.stringify( actual ) ) + '</i>' ) ) );
               results.details[ package_path + '.' + tests[ i ].name ] = { expected: expected, actual: actual };
             }
 
