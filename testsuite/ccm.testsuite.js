@@ -1,35 +1,114 @@
 /**
- * @overview <i>ccm</i> component for running tests
- * @author André Kless <andre.kless@web.de> 2016
+ * @overview <i>ccm</i> component for running unit tests
+ * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
+ *
+ * Notes
+ * - supports using tests from own global namespace
  */
 
 ccm.component( {
+
   name: 'testsuite',
+
   config: {
-    style: [ ccm.load, '../../ccm-components-no-jquery/testsuite/default.css' ]
+
+    html_templates: {
+      main: {
+        id: 'main',
+        inner: [
+          {
+            id: 'summary',
+            inner: [
+              { id: 'executed', inner: 0 },
+              { id: 'passed'  , inner: 0 },
+              { id: 'failed'  , inner: 0 }
+            ]
+          },
+          { id: 'packages' }
+        ]
+      },
+      package: {
+        class: 'package',
+        inner: [
+          { class: 'label', inner: '%%' },
+          { class: 'table' },
+          { class: 'conclusion' }
+        ]
+      },
+      test: {
+        class: 'tr',
+        inner: [
+          { class: 'td name', inner: '%%' },
+          { class: 'td result' }
+        ]
+      },
+      result: {
+        class: '%value%',
+        inner: '%value%'
+      },
+      message: {
+        class: 'td details message',
+        inner: '%%'
+      },
+      comparison: {
+        class: 'td details comparison',
+        inner: [
+          { class: 'expected', inner: '%%' },
+          { class: 'actual',   inner: '%%' }
+        ]
+      }
+    },
+    css_layout: [ ccm.load, '../../ccm-components-no-jquery/testsuite/layouts/default.css' ],
+    ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
+    onFinish: function ( instance, result ) { console.log( result ); }
+
+//  package
+//  tests
+
   },
+
   Instance: function () {
+
+    /**
+     * own context
+     * @type {Instance}
+     */
     var self = this;
 
-    var tests;      // setup function that is performed before the current executing test
-    var onFinish;   // callback when all tests are performed and results are completely rendered
-    var table;      // HTML DOM Element of the table from the current executing test
-    var row;        // HTML DOM Element of the table row from the current executing test
-    var loading;    // HTML DOM Element of the loading icon from the current executing test
-    var i;          // number of executed tests
-    var passed;     // number of passed tests
-    var failed;     // number of failed tests
+    /**
+     * privatized instance members
+     * @type {object}
+     */
+    var my;
+
+    /**
+     * higher collected setup functions that have to be performed before each test
+     * @type {function[]}
+     */
+    var setups = [];
 
     this.init = function ( callback ) {
 
-      /* support using tests from own global namespace */
+      // support using tests from own global namespace
+      if ( !self.tests ) self.tests = ccm.helper.clone( ccm.components.testsuite );
 
-      // run test package(s) in global namespace
-      if ( !self.data || typeof self.data === 'string' ) {
-        var package = self.data;
-        self.data = ccm.components.testsuite;
-        self.data.package = package;
+      callback();
+    };
+
+    this.ready = function ( callback ) {
+
+      // privatize all possible instance members
+      my = ccm.helper.privatize( self );
+
+      // no package path? => abort
+      if ( !my.package ) return callback();
+
+      // navigate to the relevant test package and collect setup functions along the way
+      var array = my.package.split( '.' );
+      while ( array.length > 0 ) {
+        if ( my.tests.setup ) setups.push( my.tests.setup );  // collect founded setup function
+        my.tests = my.tests[ array.shift() ];
       }
 
       callback();
@@ -37,258 +116,241 @@ ccm.component( {
 
     this.render = function ( callback ) {
 
-      // get dataset for rendering (dataset contains the tests)
-      ccm.helper.dataset( self.data, function ( dataset ) {
+      // set initial result data
+      var results = {
+        executed: 0,  // number of executed tests
+        passed:   0,  // number of   passed tests
+        failed:   0,  // number of   failed tests
+        details:  {}
+      };
 
-        /**
-         * collected setup functions that have to be performed before each test
-         * @type {function[]}
-         */
-        var setups = [];
+      var main_elem     = ccm.helper.html( my.html_templates.main );         // get main HTML structure
+      var packages_elem = main_elem.querySelector( '#packages' );            // get container for test packages
+      if ( self.element ) ccm.helper.setContent( self.element, main_elem );  // render main HTML structure
 
-        // setup function on highest package level? => add it
-        if ( dataset.setup ) setups.push( dataset.setup );
+      // process relevant test package (including all subpackages)
+      processPackage( my.package || '', my.tests, setups, finish );
 
-        // clear own website area
-        self.element.innerHTML = '';
+      /**
+       * processes current test package (recursive function)
+       * @param {string} package_path - path to current test package
+       * @param {object} package_obj - data of the current test package
+       * @param {function[]} setups - setup functions that have to be performed before each test
+       * @param {function} callback
+       */
+      function processPackage( package_path, package_obj, setups, callback ) {
 
-        // navigate to the relevant test package
-        var package = getPackage();
+        // has setup function? => add her to (cloned) setup functions
+        if ( package_obj.setup ) { setups = setups.slice(); setups.push( package_obj.setup ); }
 
-        // more test packages inside the relevant test package? => abort and run tests of each inner test package
-        if ( !package.tests ) return runEachPackage();
+        // has tests? => perform all these tests
+        if ( package_obj.tests ) runTests( proceed ); else proceed();
 
-        // prepare tests of the test package for running
-        tests = package.tests;
-        setup = runSetups;        // set setup function
-        i = passed = failed = 0;  // reset test counters
-        toArray();                // unsure that test package is an array
-        onFinish = callback;      // remember finish callback
+        function proceed() {
 
-        // prepare table
-        self.element.appendChild( ccm.helper.html( { class: 'label', inner: document.createTextNode( dataset.package ) } ) );
-        table = ccm.helper.html( { class: 'table' } );
-        self.element.appendChild( table );
+          // remove no more needed properties (only package properties remain)
+          delete package_obj.setup;
+          delete package_obj.tests;
 
-        // run all tests of the test package
-        runNextTest();
+          // process first subpackage (if exists)
+          processNextSubpackage();
 
-        function getPackage() {
+          /** processes current subpackage (recursive function) */
+          function processNextSubpackage() {
 
-          // no package path? => dataset itself is relevant test package
-          if ( !dataset.package ) return dataset;
+            for ( var key in package_obj ) {
+              var package = package_obj[ key ];
+              delete package_obj[ key ];
+              processPackage( ( package_path ? package_path + '.' : '' ) + key, package, setups, processNextSubpackage );  // recursive call
+              return;
+            }
 
-          // navigate to relevant test package
-          var path = dataset.package.split( '.' );
-          var package = dataset;
-          while ( path.length > 0 ) {
-            package = package[ path.shift() ];
-            if ( package.setup ) setups.push( package.setup );  // collect founded setup functions
+            // all subpackages are processed
+            callback();
+
           }
-          return package;
+
         }
 
-        /**
-         * Founds all inner test packages and renders a new ccm test suite instance for each
-         * founded test package inside an separate inner own website area.
-         */
-        function runEachPackage() {
+        /** performs all directly contained tests of the current test package */
+        function runTests( callback ) {
 
-          /**
-           * founded paths to inner test packages
-           * @type {string[]}
-           */
-          var packages = [];
+          var tests = prepareTests();
+          var i = 0;
 
-          // find all paths to inner test packages
-          find( package, dataset.package ? dataset.package.split( '.' ) : [] );
+          // render (empty) test package
+          var package_elem = ccm.helper.html( my.html_templates.package, package_path );
+          var table_elem = package_elem.querySelector( '.table' );
+          packages_elem.appendChild( package_elem );
 
-          // tell layout that many packages will displayed
-          self.element.classList.add( 'packages' );
+          // run first contained test
+          runNextTest();
 
-          // run tests of each founded test package
-          runNextPackage();
+          /** runs current test (recursive function) */
+          function runNextTest() {
 
-          /**
-           * @param obj - current test package level
-           * @param package - current test package path
-           */
-          function find( obj, package ) {
-            if ( obj.tests ) return packages.push( package.join( '.' ) );
-            for ( var key in obj )
-              if ( ccm.helper.isObject( obj[ key ] ) ) {
-                var copy = package.slice();
-                copy.push( key );
-                find( obj[ key ], copy );  // recursive call
+            // all tests finished? => abort and perform callback
+            if ( i === tests.length ) return callback();
+
+            // render table row for current test
+            var test_elem = ccm.helper.html( my.html_templates.test, tests[ i ].name );
+            table_elem.appendChild( test_elem );
+
+            // for the moment render loading as result
+            var result_elem = test_elem.querySelector( '.result' );
+            result_elem.appendChild( ccm.helper.loading( self ) );
+
+            // prepare test suite object for the current test
+            var suite = {
+
+              /** finishes current test with a positive result */
+              passed: function () {
+                addResult( true );
+                finishTest();
+              },
+
+              /**
+               * finishes current test with a negative result
+               * @param {string} [message] - message that explains why the test has failed
+               */
+              failed: function ( message ) {
+                addResult( false );
+                if ( message ) addMessage( message );
+                finishTest();
+              },
+
+              /**
+               * finishes current test with positive result if the given condition is true
+               * @param {boolean} condition
+               */
+              assertTrue: function ( condition ) {
+                addResult( condition );
+                finishTest();
+              },
+
+              /**
+               * finishes current test with negative result if the given condition is true
+               * @param {boolean} condition
+               */
+              assertFalse: function ( condition ) {
+                addResult( !condition );
+                finishTest();
+              },
+
+              /**
+               * finishes current test with positive result if given expected and actual value contains same data
+               * @param {object} expected
+               * @param {object} actual
+               */
+              assertSame: function ( expected, actual ) {
+                var result = expected === actual;
+                addResult( result );
+                if ( !result ) addComparison( expected, actual );
+                finishTest();
+              },
+
+              /**
+               * finishes current test with positive result if given expected value equals given actual value
+               * @param {object} expected
+               * @param {object} actual
+               */
+              assertEquals: function ( expected, actual ) {
+                suite.assertSame( JSON.stringify( expected ), JSON.stringify( actual ) );
+              },
+
+              /**
+               * finishes current test with positive result if given expected and actual value NOT contains same data
+               * @param {object} expected
+               * @param {object} actual
+               */
+              assertNotSame: function ( expected, actual ) {
+                var result = expected !== actual;
+                addResult( result );
+                finishTest();
+              },
+
+              /**
+               * finishes current test with positive result if given expected value NOT equals given actual value
+               * @param {object} expected
+               * @param {object} actual
+               */
+              assertNotEquals: function ( expected, actual ) {
+                suite.assertNotSame( JSON.stringify( expected ), JSON.stringify( actual ) );
               }
+
+            };
+
+            // run setup functions and then run current test
+            runSetups( function () { tests[ i ]( suite ); } );
+
+            /** runs all relevant setup functions (recursive function) */
+            function runSetups( callback ) {
+              var i = 0;                           // Remember: Each setup function could be asynchron
+              runSetup();                          //           and must performed sequentially
+              function runSetup() {                //           to avoid mutual influence.
+                if ( i === setups.length )
+                  return callback();
+                setups[ i++ ]( suite, runSetup );  // recursive call
+              }
+            }
+
+            /** replaces loading icon with test result and increases passed or failed counter */
+            function addResult( result ) {
+              var value = result ? 'passed' : 'failed';
+              if ( result ) results.passed++; else results.failed++;
+              ccm.helper.setContent( result_elem, ccm.helper.html( my.html_templates.result, { value: value } ) );
+              results.details[ package_path + '.' + tests[ i ].name ] = result;
+            }
+
+            /** show message as detail information for a failed test */
+            function addMessage( message ) {
+              test_elem.appendChild( ccm.helper.html( my.html_templates.message, message ) );
+              results.details[ package_path + '.' + tests[ i ].name ] = message;
+            }
+
+            /** show expected and actual value as detail information for a failed test */
+            function addComparison( expected, actual ) {
+              test_elem.appendChild( ccm.helper.html( my.html_templates.comparison, expected, actual ? actual : '<i>' + ( actual === undefined ? 'undefined' : JSON.stringify( actual ) ) + '</i>' ) );
+              results.details[ package_path + '.' + tests[ i ].name ] = { expected: expected, actual: actual };
+            }
+
+            /** increases test counters, updates summary section and starts running next test */
+            function finishTest() {
+              i++; results.executed++;
+              main_elem.querySelector( '#executed' ).innerHTML = results.executed.toString();
+              main_elem.querySelector( '#passed'   ).innerHTML = results.  passed.toString();
+              main_elem.querySelector( '#failed'   ).innerHTML = results.  failed.toString();
+              runNextTest();  // recursive call
+            }
+
           }
 
-          /**
-           * renders new ccm test suite instance for each founded test package
-           */
-          function runNextPackage() {
-            if ( packages.length === 0 ) { if ( callback ) callback(); return; }                            // Remember: Running of each test package could be asynchron
-            var div = ccm.helper.html( { id: ccm.helper.getElementID( self ) + '-' + packages.length } );   //           and must be performed sequentially
-            self.element.appendChild( div );                                                                //           to avoid mutual influence.
-            dataset.package = packages.shift();
-            self.component.render( { parent: self, element: div, data: dataset }, runNextPackage );  // recursive call
+          /** convert test package from object to array and ensure that each test has a function name */
+          function prepareTests() {
+
+            // convert object to array
+            return Object.keys( package_obj.tests ).map( function ( key ) {
+
+              // if test function has no name, than use property key of the test inside the object as name
+              if ( !package_obj.tests[ key ].name ) Object.defineProperty( package_obj.tests[ key ], 'name', { value: key } );
+
+              return package_obj.tests[ key ];
+
+            } );
+
           }
 
         }
 
-        /**
-         * this setup function performs all collected setup functions
-         */
-        function runSetups( suite, callback ) {
-          var i = 0;                                              // Remember: Each setup function could be asynchron
-          runSetup();                                             //           and must performed sequentially
-          function runSetup() {                                   //           to avoid mutual influence.
-            if ( i === setups.length )
-              return callback();
-            setups[ i++ ]( suite, runSetup );  // recursive call
-          }
-        }
-
-        /**
-         * convert test package to array and ensure that each test has a function name
-         */
-        function toArray() {
-          // if tests are given via object, than convert object to array
-          if ( !ccm.helper.isObject( tests ) ) return;
-          tests = Object.keys( tests ).map( function ( key ) {
-            // if test function has no name, than use property key of the test inside the object as name
-            if ( !tests[ key ].name )
-              Object.defineProperty( tests[ key ], 'name', { value: key } );
-            return tests[ key ];
-          } );
-        }
-
-      } );
-
-    };
-
-    /**
-     * finishes current test with a positive result
-     */
-    this.passed = function () {
-      addResult( true );
-      finishTest();
-    };
-
-    /**
-     * finishes current test with a negative result
-     * @param {string} [message] - message that explains why the test has failed
-     */
-    this.failed = function ( message ) {
-      addResult( false );
-      if ( message ) row.appendChild( ccm.helper.html( { class: 'message', inner: message } ) );
-      finishTest();
-    };
-
-    /**
-     * finishes current test with positive result if the given condition is true
-     * @param {boolean} condition
-     */
-    this.assertTrue = function ( condition ) {
-      addResult( condition );
-      finishTest();
-    };
-
-    /**
-     * finishes current test with negative result if the given condition is true
-     * @param {boolean} condition
-     */
-    this.assertFalse = function ( condition ) {
-      addResult( !condition );
-      finishTest();
-    };
-
-    /**
-     * finishes current test with positive result if given expected and actual value contains same data
-     * @param {object} expected
-     * @param {object} actual
-     */
-    this.assertSame = function ( expected, actual ) {
-      var result = expected === actual;
-      addResult( result );
-      if ( !result )
-        row.appendChild( ccm.helper.html( { class: 'expected', inner: [ { inner: expected }, { inner: actual ? actual : { tag: 'i', inner: actual === undefined ? 'undefined' : JSON.stringify( actual ) } } ] } ) );
-      finishTest();
-    };
-
-    /**
-     * finishes current test with positive result if given expected value equals given actual value
-     * @param {object} expected
-     * @param {object} actual
-     */
-    this.assertEquals = function ( expected, actual ) {
-      this.assertSame( JSON.stringify( expected ), JSON.stringify( actual ) );
-    };
-
-    /**
-     * finishes current test with positive result if given expected and actual value NOT contains same data
-     * @param {object} expected
-     * @param {object} actual
-     */
-    this.assertNotSame = function ( expected, actual ) {
-      var result = expected !== actual;
-      addResult( result );
-      finishTest();
-    };
-
-    /**
-     * finishes current test with positive result if given expected value NOT equals given actual value
-     * @param {object} expected
-     * @param {object} actual
-     */
-    this.assertNotEquals = function ( expected, actual ) {
-      this.assertNotSame( JSON.stringify( expected ), JSON.stringify( actual ) );
-    };
-
-    /**
-     * runs next test of the test package
-     */
-    function runNextTest() {
-
-      if ( i === tests.length ) return finish();
-      if ( setup ) setup( self, proceed ); else proceed();  // perform setup function before each test (could be asynchron)
-
-      // tests will executed sequentially to avoid mutual influence, this is done recursively because running of every test could be asynchron
-      function proceed() {
-        loading = ccm.helper.loading();  // show loading icon while current test is running
-        row = ccm.helper.html( { inner: [ { inner: [ tests[ i ].name, loading ] } ] } );
-        table.appendChild( row );
-        tests[ i ]( self );       // run next test (could be asynchron)
-
-        // each test calls finally a method like assertTrue() or passed() that calls this function again -> recursive
       }
-    }
 
-    /**
-     * removes loading icon and shows test results and increase the relevant test counters
-     */
-    function addResult( result ) {
-      var value = result ? 'passed' : 'failed';
-      if ( result ) passed++; else failed++;
-      row.firstChild.removeChild( loading );
-      row.appendChild( ccm.helper.html( { class: value, inner: value } ) );
-    }
+      /** callback when all tests in all relevant test packages are finished */
+      function finish() {
+        self.onFinish( self, results );
+        if ( callback ) callback( self );
+      }
 
-    /**
-     * increases test counter and start running next test
-     */
-    function finishTest() {
-      i++;
-      runNextTest();  // recursive call
-    }
-
-    /**
-     * renders test counter values and perform finish callback
-     */
-    function finish() {
-      self.element.appendChild( ccm.helper.html( { class: 'results', inner: [ { inner: i }, { inner: passed }, { inner: failed } ] } ) );
-      if ( onFinish ) onFinish();
-    }
+    };
 
   }
 
