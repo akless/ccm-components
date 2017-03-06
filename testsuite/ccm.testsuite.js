@@ -5,6 +5,7 @@
  *
  * Notes
  * - supports using tests from own global namespace
+ * - no finally mechanism yet, only setup and tests
  */
 
 ccm.component( {
@@ -192,6 +193,9 @@ ccm.component( {
 
             // all tests finished? => abort and perform callback
             if ( i === tests.length ) return callback();
+
+            // show that another test will be executed
+            main_elem.querySelector( '#executed' ).appendChild( ccm.helper.loading( self ) );
 
             // render table row for current test
             var test_elem = ccm.helper.html( my.html_templates.test, tests[ i ].name );

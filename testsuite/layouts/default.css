@@ -16,6 +16,11 @@
   padding: 0.5em;
 }
 
+#executed .ccm_loading {
+  display: inline-block;
+  padding-left: 0.2em;
+}
+
 #passed {
   color: green;
 }
