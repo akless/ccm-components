@@ -115,7 +115,7 @@ ccm.component( {
       callback();
     };
 
-    this.render = function ( callback ) {
+    this.start = function ( callback ) {
 
       // set initial result data
       var results = {
@@ -125,10 +125,12 @@ ccm.component( {
         details:  {}
       };
 
-      // render main HTML structure
-      var main_elem     = ccm.helper.html( my.html_templates.main );
-      var packages_elem = main_elem.querySelector( '#packages' );
-      if ( self.element ) ccm.helper.setContent( self.element, ccm.helper.protect( main_elem ) );
+      // has website area? => render main HTML structure
+      if ( self.element ) {
+        var main_elem     = ccm.helper.html( my.html_templates.main );
+        var packages_elem = main_elem.querySelector( '#packages' );
+        if ( self.element ) ccm.helper.setContent( self.element, ccm.helper.protect( main_elem ) );
+      }
 
       // process relevant test package (including all subpackages)
       processPackage( my.package || '', my.tests, setups, finish );
@@ -180,10 +182,12 @@ ccm.component( {
           var tests = prepareTests();
           var i = 0;
 
-          // render (empty) test package
-          var package_elem = ccm.helper.html( my.html_templates.package, package_path );
-          var table_elem = package_elem.querySelector( '.table' );
-          packages_elem.appendChild( ccm.helper.protect( package_elem ) );
+          // has website area? => render (empty) test package
+          if ( self.element ) {
+            var package_elem = ccm.helper.html( my.html_templates.package, package_path );
+            var table_elem = package_elem.querySelector( '.table' );
+            packages_elem.appendChild( ccm.helper.protect( package_elem ) );
+          }
 
           // run first contained test
           runNextTest();
@@ -194,16 +198,21 @@ ccm.component( {
             // all tests finished? => abort and perform callback
             if ( i === tests.length ) return callback();
 
-            // show that another test will be executed
-            main_elem.querySelector( '#executed' ).appendChild( ccm.helper.loading( self ) );
+            // has website area?
+            if ( self.element ) {
 
-            // render table row for current test
-            var test_elem = ccm.helper.html( my.html_templates.test, tests[ i ].name );
-            table_elem.appendChild( ccm.helper.protect( test_elem ) );
+              // show that another test will be executed
+              main_elem.querySelector( '#executed' ).appendChild( ccm.helper.loading( self ) );
 
-            // for the moment render loading as result
-            var result_elem = test_elem.querySelector( '.result' );
-            result_elem.appendChild( ccm.helper.loading( self ) );
+              // render table row for current test
+              var test_elem = ccm.helper.html( my.html_templates.test, tests[ i ].name );
+              table_elem.appendChild( ccm.helper.protect( test_elem ) );
+
+              // for the moment render loading as result
+              var result_elem = test_elem.querySelector( '.result' );
+              result_elem.appendChild( ccm.helper.loading( self ) );
+
+            }
 
             // prepare test suite object for the current test
             var suite = {
@@ -303,28 +312,30 @@ ccm.component( {
             function addResult( result ) {
               var value = result ? 'passed' : 'failed';
               if ( result ) results.passed++; else results.failed++;
-              ccm.helper.setContent( result_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.result, { value: value } ) ) );
+              if ( self.element ) ccm.helper.setContent( result_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.result, { value: value } ) ) );
               results.details[ package_path + '.' + tests[ i ].name ] = result;
             }
 
             /** show message as detail information for a failed test */
             function addMessage( message ) {
-              test_elem.appendChild( ccm.helper.protect( ccm.helper.html( my.html_templates.message, message ) ) );
+              if ( self.element ) test_elem.appendChild( ccm.helper.protect( ccm.helper.html( my.html_templates.message, message ) ) );
               results.details[ package_path + '.' + tests[ i ].name ] = message;
             }
 
             /** show expected and actual value as detail information for a failed test */
             function addComparison( expected, actual ) {
-              test_elem.appendChild( ccm.helper.protect( ccm.helper.html( my.html_templates.comparison, expected, actual ? actual : '<i>' + ( actual === undefined ? 'undefined' : JSON.stringify( actual ) ) + '</i>' ) ) );
+              if ( self.element ) test_elem.appendChild( ccm.helper.protect( ccm.helper.html( my.html_templates.comparison, expected, actual ? actual : '<i>' + ( actual === undefined ? 'undefined' : JSON.stringify( actual ) ) + '</i>' ) ) );
               results.details[ package_path + '.' + tests[ i ].name ] = { expected: expected, actual: actual };
             }
 
             /** increases test counters, updates summary section and starts running next test */
             function finishTest() {
               i++; results.executed++;
-              main_elem.querySelector( '#executed' ).innerHTML = results.executed.toString();
-              main_elem.querySelector( '#passed'   ).innerHTML = results.  passed.toString();
-              main_elem.querySelector( '#failed'   ).innerHTML = results.  failed.toString();
+              if ( self.element ) {
+                main_elem.querySelector( '#executed' ).innerHTML = results.executed.toString();
+                main_elem.querySelector( '#passed'   ).innerHTML = results.  passed.toString();
+                main_elem.querySelector( '#failed'   ).innerHTML = results.  failed.toString();
+              }
               runNextTest();  // recursive call
             }
 
@@ -352,7 +363,7 @@ ccm.component( {
       /** callback when all tests in all relevant test packages are finished */
       function finish() {
         self.onFinish( self, results );
-        if ( callback ) callback( self );
+        if ( callback ) callback();
       }
 
     };
