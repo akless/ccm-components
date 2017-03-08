@@ -108,7 +108,7 @@ ccm.component( {
       callback();
     };
 
-    this.render = function ( callback ) {
+    this.start = function ( callback ) {
 
       // initial result data
       var results = { points: 0, max_points: 0, details: [] };
