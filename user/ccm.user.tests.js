@@ -21,7 +21,7 @@ ccm.components.testsuite.user = {
       },
       'publicProperties': function ( suite ) {
         suite.user.instance( function ( instance ) {
-          suite.assertEquals( [ 'render', 'login', 'logout', 'isLoggedIn', 'data', 'addObserver', 'id', 'index', 'component' ], Object.keys( instance ) );
+          suite.assertEquals( [ 'start', 'login', 'logout', 'isLoggedIn', 'data', 'addObserver', 'id', 'index', 'component' ], Object.keys( instance ) );
         } );
       }
     }

@@ -119,10 +119,10 @@ ccm.component( {
 
     };
 
-    this.render = function ( callback ) {
+    this.start = function ( callback ) {
 
       // context mode? => delegate function call
-      if ( my.context ) return my.context.render( callback );
+      if ( my.context ) return my.context.start( callback );
 
       // prepare main HTML structure
       var main_elem = self.isLoggedIn() ? ccm.helper.html( my.html_templates.logged_in, {
@@ -130,11 +130,11 @@ ccm.component( {
         user_title: my.texts.user_title,
         logout:         my.texts.logout,
         logout_title:   my.texts.logout_title,
-        click:          function () { self.logout( self.render ); }
+        click:          function () { self.logout( self.start ); }
       } ) : ccm.helper.html( my.html_templates.logged_out, {
         login: my.texts.login,
         title: my.texts.login_title,
-        click: function () { self.login( self.render ); }
+        click: function () { self.login( self.start ); }
       } );
 
       // set content of own website area
@@ -193,7 +193,7 @@ ccm.component( {
         // perform waiting functions
         while ( waitlist.length > 0 ) ccm.helper.action( waitlist.shift() );
 
-        if ( self.element ) self.render();  // (re)render own content
+        if ( self.element ) self.start();  // (re)render own content
         if ( callback ) callback();         // perform callback
         notify( true );                     // notify observers about login event
 
@@ -241,7 +241,7 @@ ccm.component( {
         // perform waiting functions
         while ( waitlist.length > 0 ) ccm.helper.action( waitlist.shift() );
 
-        if ( self.element ) self.render();  // (re)render own content
+        if ( self.element ) self.start();  // (re)render own content
         if ( callback ) callback();         // perform callback
         notify( false );                    // notify observers about logout event
 
