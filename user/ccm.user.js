@@ -170,6 +170,11 @@ ccm.component( {
         case 'hbrsinfkaul':
           ccm.load( [ 'https://kaul.inf.h-brs.de/login/login.php', { realm: 'hbrsinfkaul' } ], function ( response ) { success( response.user, response.token, response.name ); } );
           break;
+        case 'VCRP_OpenOLAT':
+          var username = prompt( 'Please enter your OpenOLAT username' );
+          var password = prompt( 'Please enter your OpenOLAT password' );
+          ccm.load( [ 'https://olat.vcrp.de/restapi/auth/' + username, { password: password } ], function () { success( username ); } );
+          break;
       }
 
       return self;
@@ -177,8 +182,8 @@ ccm.component( {
       /**
        * callback when login was successful
        * @param {string} key - dataset key and username, respectively
-       * @param {string} token - security token
-       * @param {string} name - full name of user
+       * @param {string} [token] - security token
+       * @param {string} [name] - full name of user
        */
       function success( key, token, name ) {
 

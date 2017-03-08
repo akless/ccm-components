@@ -42,19 +42,24 @@ ccm.components.testsuite.user = {
         suite.assertSame( 'John Doe', suite.user.instance( { 'guest.name': 'John Doe' } ).login().data().name );
       },
       'demo': function ( suite ) {
-        return suite.failed( 'TODO' );
         suite.user = suite.user.instance( { sign_on: 'demo' } );
         suite.user.login( function () {
           suite.passed();
         } );
       },
       'hbrsinfkaul': function ( suite ) {
-        return suite.failed( 'TODO' );
         suite.user = suite.user.instance( { sign_on: 'hbrsinfkaul' } );
         suite.user.login( function () {
           suite.passed();
         } );
+      },
+      'vcrp': function ( suite ) {
+        suite.user = suite.user.instance( { sign_on: 'VCRP_OpenOLAT' } );
+        suite.user.login( function () {
+          suite.passed();
+        } );
       }
+
     }
   },
   logout: {},
