@@ -2,22 +2,4 @@
 <meta charset="utf-8">
 <script src="../../ccm-developer-no-jquery/ccm/ccm.js"></script>
 <script src="ccm.input.js"></script>
-<!--<ccm-input></ccm-input>-->
-<div id="test"></div>
-<script>
-  ccm.render( 'input', {
-    element: document.getElementById( 'test' ),
-    data: {
-      store: [ ccm.store, 'datastore.json' ],
-      key:   'test'
-    },
-    edit: {
-      store: [ ccm.store, 'editstore.json' ],
-      key:   'test'
-    },
-    //bigdata: [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
-    form:     'Submit',
-    fieldset: 'Test Inputs',
-    onFinish: function ( result ) { console.log( result ); }
-  } );
-</script>
+<ccm-input key='["ccm.get","configs.json","demo"]'></ccm-input>

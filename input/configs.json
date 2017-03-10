@@ -1,6 +1,7 @@
 {
   "demo": {
     "key": "demo",
+    "form": true,
     "inputs": [
       {
         "label": "Username",
@@ -171,10 +172,16 @@
         "name": "homepage",
         "input": "url"
       }
-    ]
+    ],
+    "data": {
+      "key": "demo",
+      "username": "JohnDoe",
+      "password": "1aA"
+    }
   },
   "test": {
     "key": "test",
+    "form": true,
     "inputs": [
       {
         "label": "Key",
@@ -200,6 +207,67 @@
         "name": "a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.s.t.u.v.w.x.y.z",
         "input": "text"
       }
-    ]
+    ],
+    "data": {
+      "key": "test",
+      "foo": {
+        "bar": "FooBar",
+        "baz": "FooBaz"
+      },
+      "abc": {
+        "xyz": "AbcXyz"
+      },
+      "a": {
+        "b": {
+          "c": {
+            "d": {
+              "e": {
+                "f": {
+                  "g": {
+                    "h": {
+                      "i": {
+                        "j": {
+                          "k": {
+                            "l": {
+                              "m": {
+                                "n": {
+                                  "o": {
+                                    "p": {
+                                      "q": {
+                                        "r": {
+                                          "s": {
+                                            "t": {
+                                              "u": {
+                                                "v": {
+                                                  "w": {
+                                                    "x": {
+                                                      "y": {
+                                                        "z": "Alphabet"
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
