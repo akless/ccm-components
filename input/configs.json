@@ -183,7 +183,13 @@
       "role": "coordinator",
       "story": "my story..",
       "nr": 3,
-      "date": "2017-03-11"
+      "date": "2017-03-11",
+      "colour": "#0000FF",
+      "years_of_service": 32,
+      "month": "2017-03",
+      "week": "2017-W10",
+      "time": "08:15",
+      "localtime": "2017-03-11T08:15"
     }
   },
   "test": {

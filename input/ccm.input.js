@@ -362,7 +362,7 @@ ccm.component( {
 
             /**
              * resulting data of the HTML form
-             * @type {ccm.components.input.types.editset}
+             * @type {object}
              */
             var result = ccm.helper.cleanObject( ccm.helper.convertObjectKeys( ccm.helper.formData( this ) ) );
 
@@ -371,7 +371,7 @@ ccm.component( {
 
             function proceed() {
 
-              // manage edited dataset key
+              // manage editable dataset key
               if ( isEditable() ) {                                 // edited dataset is editable via ccm datastore?
                 if ( result.key ) {                                   // editable dataset key?
                   if ( result.key !== editset.key && !my.edit.no_set )  // dataset key has changed?
@@ -379,9 +379,6 @@ ccm.component( {
                 }
                 else result.key = editset.key;  // no editable dataset key => set dataset key in resulting data
               }
-
-              // has bigdata instance? => log finish event
-              if ( my.bigdata ) my.bigdata.log( 'finish', result );
 
               // has user instance and edited dataset is editable via datastore? => make resulting data user-specific
               if ( self.user && isEditable() ) result.key = [ result.key, self.user.data().key ];
