@@ -24,8 +24,8 @@
         "name": "destination",
         "input": "radio",
         "values": [
-          { "value": "here", "caption": "here" },
-          { "value": "there", "caption": "there", "checked": true },
+          { "value": "here" },
+          { "value": "there" },
           { "value": "disabled", "caption": "somewhere", "disabled": true, "title": "disabled" }
         ]
       },
@@ -33,16 +33,15 @@
         "label": "General terms and conditions",
         "name": "gtc",
         "input": "checkbox",
-        "caption": "Accept",
-        "checked": true
+        "caption": "Accept"
       },
       {
         "label": "Available?",
         "name": "available",
         "input": "checkbox",
         "values": [
-          { "name": "private_life", "caption": "Private Live", "checked": true },
-          { "name": "working_life", "caption": "Working Life", "checked": true },
+          { "name": "private_life", "caption": "Private Live" },
+          { "name": "working_life", "caption": "Working Life" },
           { "name": "free", "value": "free_time", "caption": "Free Time" }
         ]
       },
@@ -85,8 +84,7 @@
           },
           {
             "value": "specialist",
-            "caption": "Specialist",
-            "selected": true
+            "caption": "Specialist"
           }
         ]
       },
@@ -104,8 +102,7 @@
         "input": "number",
         "min": "1",
         "max": "9",
-        "step": "2",
-        "value": "5"
+        "step": "2"
       },
       {
         "label": "Date",
@@ -176,7 +173,17 @@
     "data": {
       "key": "demo",
       "username": "JohnDoe",
-      "password": "1aA"
+      "password": "1aA",
+      "destination": "there",
+      "gtc": true,
+      "available": {
+        "private_life": true,
+        "working_life": true
+      },
+      "role": "coordinator",
+      "story": "my story..",
+      "nr": 3,
+      "date": "2017-03-11"
     }
   },
   "test": {

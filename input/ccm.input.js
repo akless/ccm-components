@@ -163,7 +163,7 @@ ccm.component( {
             input_data.id = 'ccm-' + self.index + '-' + input_data.name;
 
             // restore existing value for the input field
-            restoreInputValue();
+            setInputValue();
 
             // prepare container for input field entry
             var entry_elem = ccm.helper.html( my.html_templates.entry, {
@@ -176,26 +176,42 @@ ccm.component( {
             // add prepared input field entry to main HTML structure
             inputs_elem.appendChild( entry_elem );
 
-            /** integrates the value for the HTML input in the needed data for generating the HTML input entry */
-            function restoreInputValue() {
+            /** set the initial value of the input field (uses initial data for edited dataset) */
+            function setInputValue() {
+
+              // determine initial value
               if ( !my.data ) return;
-              var value = ccm.helper.deepValue( my.data, input_data.name );
-              if ( value === undefined ) return;
+              var value;
+              if ( input_data.name ) value = ccm.helper.deepValue( my.data, input_data.name );
+              if ( value === undefined && !input_data.values ) return;
+
+              // set initial value(s) of the input field(s)
               switch ( input_data.input ) {
                 case 'radio':
-                case 'checkbox':
-                  delete input_data.checked;
-                  input_data.values.map( function ( box ) {
-                    delete box.checked;
-                    if ( box.value || box.caption === value )
-                      box.checked = true;
+                  input_data.values.map( function ( radio_data ) {
+                    delete radio_data.checked;
+                    if ( radio_data.value === value )
+                      radio_data.checked = true;
                   } );
                   break;
+                case 'checkbox':
+                  if ( input_data.values )
+                    input_data.values.map( function ( checkbox_data ) {
+                      if ( ccm.helper.deepValue( my.data, ( input_data.name ? input_data.name + '.' : '' ) + checkbox_data.name ) )
+                        checkbox_data.checked = true;
+                      else
+                        delete checkbox_data.checked;
+                    } );
+                  else if ( value )
+                      input_data.checked = true;
+                  else
+                    delete input_data.checked;
+                  break;
                 case 'select':
-                  input_data.options.map( function ( option ) {
-                    delete option.selected;
-                    if ( option.value === value )
-                      option.selected = true;
+                  input_data.options.map( function ( option_data ) {
+                    delete option_data.selected;
+                    if ( option_data.value === value )
+                      option_data.selected = true;
                   } );
                   break;
                 case 'textarea':
@@ -290,7 +306,6 @@ ccm.component( {
                   radio_data.type  = input_data.type;
                   radio_data.name  = input_data.name;
                   radio_data.id    = input_data.id + '-' + ( 1 + i );
-                  radio_data.value = radio_data.value || radio_data.caption;
 
                   var radio_elem = ccm.helper.html( my.html_templates.radio, radio_data.caption || radio_data.value );
                   delete radio_data.caption;
