@@ -197,10 +197,6 @@
     "form": true,
     "inputs": [
       {
-        "label": "Key",
-        "name": "key"
-      },
-      {
         "label": "FooBar",
         "name": "foo.bar",
         "input": "text"
