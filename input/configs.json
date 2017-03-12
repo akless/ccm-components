@@ -1,7 +1,6 @@
 {
   "demo": {
     "key": "demo",
-    "form": true,
     "inputs": [
       {
         "label": "Username",
@@ -194,7 +193,6 @@
   },
   "test": {
     "key": "test",
-    "form": true,
     "inputs": [
       {
         "label": "FooBar",

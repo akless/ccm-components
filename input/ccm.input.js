@@ -78,14 +78,14 @@ ccm.component( {
       }
     },
     css_layout: [ ccm.load, '../input/layouts/default.css' ],
+    form: true,
+    button: true,
     inputs: [],
     helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
     onFinish: function ( instance, results ) { console.log( results ); }
 
-    // data -> editable dataset
-    // user -> user instance
-    // form -> true or caption of submit button
-    // onFinish
+    // initial_data
+    // user instance
 
   },
 
@@ -107,7 +107,7 @@ ccm.component( {
       // prepare main HTML structure
       var main_elem = ccm.helper.html( my.html_templates.main, {
         id: 'ccm-' + self.index,
-        caption: my.form,
+        caption: my.button,
         submit: submit
       } );
 
@@ -117,7 +117,9 @@ ccm.component( {
       // prepare form container
       if ( !my.form )
         form_elem.parentNode.replaceChild( inputs_elem, form_elem );
-      else if ( my.form === true )
+      else if ( !my.button )
+        form_elem.removeChild( form_elem.querySelector( 'input[type=submit]' ) );
+      else if ( my.button === true )
         form_elem.querySelector( 'input[type=submit]' ).removeAttribute( 'value' );
 
       // add input fields
@@ -157,10 +159,12 @@ ccm.component( {
         /** set the initial value of the input field (uses initial data for edited dataset) */
         function setInputValue() {
 
+          // on initial data? => abort
+          if ( !my.initial_data ) return;
+
           // determine initial value
-          if ( !my.data ) return;
           var value;
-          if ( input_data.name ) value = ccm.helper.deepValue( my.data, input_data.name );
+          if ( input_data.name ) value = ccm.helper.deepValue( my.initial_data, input_data.name );
           if ( value === undefined && !input_data.values ) return;
 
           // set initial value(s) of the input field(s)
@@ -175,7 +179,7 @@ ccm.component( {
             case 'checkbox':
               if ( input_data.values )
                 input_data.values.map( function ( checkbox_data ) {
-                  if ( ccm.helper.deepValue( my.data, ( input_data.name ? input_data.name + '.' : '' ) + checkbox_data.name ) )
+                  if ( ccm.helper.deepValue( my.initial_data, ( input_data.name ? input_data.name + '.' : '' ) + checkbox_data.name ) )
                     checkbox_data.checked = true;
                   else
                     delete checkbox_data.checked;
