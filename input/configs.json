@@ -169,7 +169,7 @@
         "input": "url"
       }
     ],
-    "data": {
+    "initial_data": {
       "key": "demo",
       "username": "JohnDoe",
       "password": "1aA",
@@ -215,7 +215,7 @@
         "input": "text"
       }
     ],
-    "data": {
+    "initial_data": {
       "key": "test",
       "foo": {
         "bar": "FooBar",
