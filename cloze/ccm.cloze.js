@@ -266,7 +266,7 @@ ccm.component( {
           results.time = time;
 
           // provide result data
-          ccm.helper.onFinish( self, results, self.onFinish );
+          ccm.helper.onFinish( self, results );
 
         }
 
