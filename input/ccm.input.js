@@ -241,7 +241,8 @@ ccm.component( {
 
             function singleCheckbox() {
 
-              var checkbox_elem = ccm.helper.html( my.html_templates.checkbox, input_data.caption || input_data.value );
+              var checkbox_elem = ccm.helper.html( my.html_templates.checkbox, input_data.caption );
+              if ( !input_data.caption ) checkbox_elem.removeChild( checkbox_elem.querySelector( '.caption' ) );
               delete input_data.caption;
               checkbox_elem.querySelector( '.field' ).appendChild( ccm.helper.html( input_data ) );
               return checkbox_elem;
