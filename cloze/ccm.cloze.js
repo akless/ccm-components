@@ -266,10 +266,7 @@ ccm.component( {
           results.time = time;
 
           // provide result data
-          if ( ccm.helper.isObject( self.onFinish ) )
-            ccm.helper.setDataset( results, self.onFinish, self.user );
-          else
-            self.onFinish( self, results );
+          ccm.helper.onFinish( self, results, self.onFinish );
 
         }
 
