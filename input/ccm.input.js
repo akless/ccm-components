@@ -341,27 +341,8 @@ ccm.component( {
          */
         var results = ccm.helper.cleanObject( ccm.helper.convertObjectKeys( ccm.helper.formData( this ) ) );
 
-        /*
-        // is created (not updated) dataset and has permission settings? => set permission settings for created dataset
-        if ( Object.keys( editset ).length === 1 && my.edit.permission ) result._ = my.edit.permission;
-
-        // given ccm datastore but no given dataset key for edited dataset?
-        if ( isEditable() && !key ) {
-
-          // delete generated key (=> creates a new dataset on each submit)
-          delete my.edit.key;
-
-          // (re)render own content (=> generates new key and clear input fields)
-          self.render();
-
-        }
-        */
-
         // provide result data
-        if ( ccm.helper.isObject( self.onFinish ) )
-          ccm.helper.setDataset( results, self.onFinish, self.user );
-        else
-          self.onFinish( self, results );
+        ccm.helper.onFinish( self, results, self.onFinish );
 
       }
 
