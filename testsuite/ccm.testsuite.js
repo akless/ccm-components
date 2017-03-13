@@ -362,7 +362,7 @@ ccm.component( {
 
       /** callback when all tests in all relevant test packages are finished */
       function finish() {
-        self.onFinish( self, results );
+        ccm.helper.onFinish( self, results );
         if ( callback ) callback();
       }
 
