@@ -5,7 +5,6 @@
  *
  * Notes
  * - disadvantage of bit operation: possible positions for given letters in a word are 0-31
- * - onFinish could also be a destination object
  */
 
 ccm.component( {
