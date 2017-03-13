@@ -342,7 +342,7 @@ ccm.component( {
         var results = ccm.helper.cleanObject( ccm.helper.convertObjectKeys( ccm.helper.formData( this ) ) );
 
         // provide result data
-        ccm.helper.onFinish( self, results, self.onFinish );
+        ccm.helper.onFinish( self, results );
 
       }
 
