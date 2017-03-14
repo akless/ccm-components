@@ -239,7 +239,7 @@ ccm.component( {
       function onFinish( event ) {
 
         // prevent page reload
-        event.preventDefault();
+        if ( event ) event.preventDefault();
 
         time = new Date().getTime() - time;       // calculate result time
         button_elem.innerHTML = '';               // remove button
