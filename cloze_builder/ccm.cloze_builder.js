@@ -30,7 +30,6 @@ ccm.component( {
       }
     },
     css_layout: [ ccm.load, '../cloze_builder/layouts/default.css' ],
-    initial_data: [ ccm.get, '../cloze/configs.json', 'Products_and_Innovation_I' ],
     input_mask: [ ccm.component, '../input/ccm.input.js', {
       css_layout: [ 'ccm.load', '../input/layouts/table.css' ],
       inputs: [
@@ -40,11 +39,11 @@ ccm.component( {
           input: 'select',
           options: [
             {
-              value: 'default',
+              value: "['ccm.load','../cloze/layouts/default.css']",
               caption: 'Standard-Layout'
             },
             {
-              value: 'lea',
+              value: "['ccm.load','../cloze/layouts/lea.css']",
               caption: 'LEA-ähnliches Layout'
             }
           ]
@@ -93,6 +92,8 @@ ccm.component( {
     cloze_preview: [ ccm.component, '../cloze/ccm.cloze.js' ],
     ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ]
 
+    // initial_data
+
   },
 
   Instance: function () {
@@ -105,8 +106,10 @@ ccm.component( {
       // privatize all possible instance members
       my = ccm.helper.privatize( self );
 
-      // transform layout dependency to layout name
-      if ( my.initial_data && my.initial_data.css_layout ) my.initial_data.css_layout = my.initial_data.css_layout[ 1 ].split( '/' ).pop().split( '.' )[ 0 ];
+      console.log( '#1', my.initial_data.css_layout );
+      // encode ccm dependencies in initial data
+      ccm.helper.encodeDependencies( my.initial_data );
+      console.log( '#2', my.initial_data.css_layout );
 
       callback();
     };
@@ -120,7 +123,9 @@ ccm.component( {
         element: main_elem.querySelector( '#input_mask' ),
         initial_data: my.initial_data,
         onFinish: function ( instance, results ) {
-          results.css_layout = [ ccm.load, '../cloze/layouts/' + results.css_layout + '.css' ];
+          console.log( '#3', results.css_layout );
+          ccm.helper.decodeDependencies( results );  // decode ccm dependencies in result data
+          console.log( '#4', results.css_layout );
           ccm.helper.setContent( preview_elem, ccm.helper.html( my.html_templates.preview ) );
           my.cloze_preview.start( { key: results, element: preview_elem.querySelector( '#preview' ) } );
           console.log( results );
