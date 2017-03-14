@@ -55,17 +55,17 @@ ccm.component( {
           placeholder: 'Hello, [[(W)o(rl)d]]!'
         },
         {
-          label: 'Vorgegebene Schlüsselwörter?',
+          label: 'Vorgegebene Schlüsselwörter',
           name: 'keywords',
           input: 'checkbox'
         },
         {
-          label: 'Leere Eingabefelder?',
+          label: 'Leere Eingabefelder',
           name: 'blank',
           input: 'checkbox'
         },
         {
-          label: 'Groß- und Kleinschreibung ignorieren?',
+          label: 'Groß- und Kleinschreibung ignorieren',
           name: 'ignore_case',
           input: 'checkbox'
         },
