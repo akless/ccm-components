@@ -17,21 +17,26 @@ ccm.component( {
     html_templates: {
       main: {
         id: 'main',
-        inner: [
-          { id: 'keywords' },
-          { id: 'text' },
-          { id: 'button' },
-          { id: 'timer' }
-        ]
+        inner: {
+          tag: 'form',
+          id: 'form',
+          inner: [
+            { id: 'keywords' },
+            { id: 'text' },
+            { id: 'button' },
+            { id: 'timer' }
+          ],
+          onsubmit: '%%'
+        }
       },
       keyword: {
         class: 'keyword',
         inner: '%%'
       },
       button: {
-        tag: 'button',
-        inner: '%caption%',
-        onclick: '%click%'
+        tag: 'input',
+        type: 'submit',
+        value: '%caption%'
       },
       timer: {
         tag: 'span',
@@ -40,7 +45,6 @@ ccm.component( {
     },
     css_layout: [ ccm.load, '../cloze/layouts/default.css' ],
     ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
-    button_caption: 'finish',
     onFinish: function ( instance, results ) { console.log( results ); }
 
 //  blank: true,
@@ -48,6 +52,7 @@ ccm.component( {
 //  keywords: [ 'keyword1', 'keyword2', ... ],
 //  points_per_gap: 1,
 //  time: 60,
+//  button_caption: 'finish',
 //  user: [ ccm.instance, '../user/ccm.user.js' ]
 
   },
@@ -113,7 +118,7 @@ ccm.component( {
       var results = { points: 0, max_points: 0, details: [] };
 
       // prepare main HTML structure
-      var main_elem = ccm.helper.html( my.html_templates.main );
+      var main_elem = ccm.helper.html( my.html_templates.main, onFinish );
 
       var button_elem  = main_elem.querySelector( '#button' );  // container for finish button
       var  timer_elem  = main_elem.querySelector( '#timer'  );  // container for timer
@@ -202,6 +207,7 @@ ccm.component( {
           caption: my.button_caption,
           click:   onFinish
         } ) );
+        if ( !my.button_caption ) button_elem.querySelector( 'input[type=submit]' ).removeAttribute( 'value' );
 
       }
 
@@ -230,7 +236,10 @@ ccm.component( {
       }
 
       /** onclick callback for finish button */
-      function onFinish() {
+      function onFinish( event ) {
+
+        // prevent page reload
+        event.preventDefault();
 
         time = new Date().getTime() - time;       // calculate result time
         button_elem.innerHTML = '';               // remove button

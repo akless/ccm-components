@@ -50,7 +50,7 @@
   margin-top: 0.8em;
 }
 
-#button button {
+#button input[type=submit] {
   color: white;
   background-color: #a2c21f;
   border-radius: 0;
@@ -60,7 +60,7 @@
   cursor: pointer;
 }
 
-#button button:hover {
+#button input[type=submit]:hover {
   border-color: #768d17;
   background-color: #7d9618;
 }
