@@ -84,8 +84,7 @@ ccm.component( {
         {
           label: 'Beschriftung des Buttons',
           name: 'button_caption',
-          input: 'text',
-          placeholder: 'finish'
+          input: 'text'
         }
       ]
     } ],
