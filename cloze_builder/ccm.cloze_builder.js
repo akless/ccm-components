@@ -90,7 +90,8 @@ ccm.component( {
       ]
     } ],
     cloze_preview: [ ccm.component, '../cloze/ccm.cloze.js' ],
-    ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ]
+    ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
+    onFinish: function ( instance, results ) { console.log( results ); }
 
     // initial_data
 
@@ -106,33 +107,41 @@ ccm.component( {
       // privatize all possible instance members
       my = ccm.helper.privatize( self );
 
-      console.log( '#1', my.initial_data.css_layout );
       // encode ccm dependencies in initial data
       ccm.helper.encodeDependencies( my.initial_data );
-      console.log( '#2', my.initial_data.css_layout );
 
       callback();
     };
 
     this.start = function ( callback ) {
 
+      // prepare main HTML structure
       var main_elem = ccm.helper.html( my.html_templates.main );
       var preview_elem = main_elem.querySelector( '#cloze_preview' );
 
+      // render input mask
       my.input_mask.start( {
+
         element: main_elem.querySelector( '#input_mask' ),
         initial_data: my.initial_data,
         onFinish: function ( instance, results ) {
-          console.log( '#3', results.css_layout );
-          ccm.helper.decodeDependencies( results );  // decode ccm dependencies in result data
-          console.log( '#4', results.css_layout );
-          ccm.helper.setContent( preview_elem, ccm.helper.html( my.html_templates.preview ) );
+
+          // decode ccm dependencies in result data
+          ccm.helper.decodeDependencies( results );
+
+          // render preview
+          ccm.helper.setContent( preview_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.preview ) ) );
           my.cloze_preview.start( { key: results, element: preview_elem.querySelector( '#preview' ) } );
-          console.log( results );
+
+          // provide result data
+          ccm.helper.onFinish( self, results );
+
         }
+
       } );
 
-      ccm.helper.setContent( self.element, main_elem );
+      // set content of own website area
+      ccm.helper.setContent( self.element, ccm.helper.protect( main_elem ) );
 
       if ( callback ) callback();
 
