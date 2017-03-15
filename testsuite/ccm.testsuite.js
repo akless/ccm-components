@@ -62,7 +62,7 @@ ccm.component( {
     },
     css_layout: [ ccm.load, '../../ccm-components-no-jquery/testsuite/layouts/default.css' ],
     ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
-    onFinish: function ( instance, result ) { console.log( result ); }
+    onfinish: function ( instance, result ) { console.log( result ); }
 
 //  tests
 //  package

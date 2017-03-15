@@ -31,7 +31,7 @@ ccm.component( /** @lends ccm.components.config */ {
     input:    [ ccm.component, '../input/ccm.input.js' ],
     fieldset: 'Editable Demo Configuration',
     form:     'Submit',
-    onFinish: function ( result ) { console.log( result ); }
+    onfinish: function ( result ) { console.log( result ); }
 
   },
 
@@ -99,7 +99,7 @@ ccm.component( /** @lends ccm.components.config */ {
             edit: my.edit,
             fieldset: my.fieldset,
             form: my.form,
-            onFinish: function ( result ) {
+            onfinish: function ( result ) {
 
               // log render event
               if ( my.bigdata ) my.bigdata.log( 'finish', {
@@ -108,8 +108,8 @@ ccm.component( /** @lends ccm.components.config */ {
                 result: result
               } );
 
-              // all values are valid? => perform own onFinish callback
-              if ( validate() && my.onFinish ) my.onFinish( result );
+              // all values are valid? => perform own finish callback
+              if ( validate() && my.onfinish ) my.onfinish( result );
 
               /**
                * validate resulting input values
@@ -238,7 +238,7 @@ ccm.component( /** @lends ccm.components.config */ {
    * <code>falsy</code>: no fieldset around inputs<br>
    * <code>true</code>: wrap inputs in a fieldset without a legend<br>
    * <code>string</code>: wrap inputs in a fieldset with given string as legend
-   * @property {ccm.components.config.types.onFinish} onFinish - callback for submit event of the HTML form
+   * @property {ccm.components.config.types.onfinish} onfinish - callback for submit event of the HTML form
    * @example {
    *   element:  jQuery( 'body' ),
    *   style:    [ ccm.load, '../config/layout.css' ],
@@ -255,7 +255,7 @@ ccm.component( /** @lends ccm.components.config */ {
    *   bigdata:  [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
    *   form:     'Submit',
    *   fieldset: 'Editable Demo Configuration',
-   *   onFinish: function ( result ) { console.log( result ); }
+   *   onfinish: function ( result ) { console.log( result ); }
    * }
    */
 
@@ -398,8 +398,8 @@ ccm.component( /** @lends ccm.components.config */ {
    *   "input": "ccm.instance"
    * }
    * @example {
-   *   "label": "Callback: onFinish",
-   *   "name": "onFinish",
+   *   "label": "Callback: onfinish",
+   *   "name": "onfinish",
    *   "input": "function",
    *   "value": "function (result) { result.quizz.render(); }"
    * }
@@ -417,7 +417,7 @@ ccm.component( /** @lends ccm.components.config */ {
    */
 
   /**
-   * @callback ccm.components.config.types.onFinish
+   * @callback ccm.components.config.types.onfinish
    * @summary callback for submit event of the HTML form
    * @param {ccm.components.config.types.editset} result - resulting dataset for editing
    * @example function ( result ) { console.log( result ); }

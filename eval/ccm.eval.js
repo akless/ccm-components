@@ -27,7 +27,7 @@ ccm.component( /** @lends ccm.components.eval */ {
     },
     button:   'Submit',
     fieldset: 'Editable Demo Expression',
-    onFinish: function ( result, dataset ) { console.log( result, dataset ); }
+    onfinish: function ( result, dataset ) { console.log( result, dataset ); }
 
   },
 
@@ -149,7 +149,7 @@ ccm.component( /** @lends ccm.components.eval */ {
             if ( result ) result = convert( result );
 
             // perform given submit callback with result of interpreted JavaScript expression and resulting dataset
-            my.onFinish( result, dataset );
+            my.onfinish( result, dataset );
 
             /**
              * convert dot notations to deeper properties
@@ -213,7 +213,7 @@ ccm.component( /** @lends ccm.components.eval */ {
    * <code>falsy</code>: no fieldset<br>
    * <code>true</code>: fieldset without a legend<br>
    * <code>string</code>: fieldset with given string as legend
-   * @property {ccm.components.eval.types.onFinish} onFinish - callback for button click event
+   * @property {ccm.components.eval.types.onfinish} onfinish - callback for button click event
    * @example {
    *   element:  jQuery( 'body' ),
    *   classes:  'ccm-eval',
@@ -225,7 +225,7 @@ ccm.component( /** @lends ccm.components.eval */ {
    *   bigdata:  [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
    *   button:   'Submit',
    *   fieldset: 'Editable Demo Expression',
-   *   onFinish: function ( result, dataset ) { console.log( result, dataset ); }
+   *   onfinish: function ( result, dataset ) { console.log( result, dataset ); }
    * }
    */
 
@@ -235,7 +235,7 @@ ccm.component( /** @lends ccm.components.eval */ {
    * @property {ccm.types.key} key - dataset key
    * @property {string} html - result of .html()
    * @property {string} text - result of .text()
-   * @property {*} result - interpreted result (only set in dataset via onFinish callback)
+   * @property {*} result - interpreted result (only set in dataset via finish callback)
    * @example {
    *   key:  'demo',
    *   html: "{<br>&nbsp;&nbsp;foo: 'bar',<br>&nbsp;&nbsp;baz: function () { alert('Hello, World!'); }<br>}"
@@ -244,7 +244,7 @@ ccm.component( /** @lends ccm.components.eval */ {
    */
 
   /**
-   * @callback ccm.components.eval.types.onFinish
+   * @callback ccm.components.eval.types.onfinish
    * @summary callback for button click event
    * @param {ccm.components.eval.types.dataset} result - interpreted result
    * @param {ccm.components.eval.types.dataset} dataset - resulting dataset for editing

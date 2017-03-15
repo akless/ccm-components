@@ -165,7 +165,7 @@ ccm.component( /** @lends ccm.components.exercise */ {
             element:  jQuery( '#' + id ),
             data:     { inputs: dataset.inputs },
             edit:     my.edit,
-            onFinish: my.onFinish,
+            onfinish: my.onfinish,
             user:     self.user,
             bigdata:  my.bigdata,
             form:     !my.deadline || Date.now() < my.deadline

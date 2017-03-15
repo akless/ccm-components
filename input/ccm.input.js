@@ -82,7 +82,7 @@ ccm.component( {
     button: true,
     inputs: [],
     helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
-    onFinish: function ( instance, results ) { console.log( results ); }
+    onfinish: function ( instance, results ) { console.log( results ); }
 
     // initial_data
     // user instance

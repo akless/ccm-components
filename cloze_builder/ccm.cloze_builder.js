@@ -90,7 +90,7 @@ ccm.component( {
     } ],
     cloze_preview: [ ccm.component, '../cloze/ccm.cloze.js' ],
     ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
-    onFinish: function ( instance, results ) { console.log( results ); }
+    onfinish: function ( instance, results ) { console.log( results ); }
 
     // initial_data
 
@@ -123,7 +123,7 @@ ccm.component( {
 
         element: main_elem.querySelector( '#input_mask' ),
         initial_data: my.initial_data,
-        onFinish: function ( instance, results ) {
+        onfinish: function ( instance, results ) {
 
           // decode ccm dependencies in result data
           ccm.helper.decodeDependencies( results );

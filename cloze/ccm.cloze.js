@@ -45,7 +45,7 @@ ccm.component( {
     },
     css_layout: [ ccm.load, '../cloze/layouts/default.css' ],
     ccm_helper: [ ccm.load, '../../ccm-developer-no-jquery/ccm/ccm-helper.js' ],
-    onFinish: function ( instance, results ) { console.log( results ); }
+    onfinish: function ( instance, results ) { console.log( results ); }
 
 //  blank: true,
 //  ignore_case: true,
