@@ -148,7 +148,7 @@ ccm.component( {
         if ( my.keywords )
           ( Array.isArray( my.keywords ) ? my.keywords : keywords ).map( addKeyword );
         else
-          return main_elem.removeChild( keywords_elem );  // no given keywords? => remove container for keywords
+          return keywords_elem.parentNode.removeChild( keywords_elem );  // no given keywords? => remove container for keywords
 
         // generated keyword list? => sort keywords lexicographical (keyword order gives no hint about correct solution)
         if ( my.keywords === true ) entries.sort( function ( a, b ) { return a.innerHTML.localeCompare( b.innerHTML ) } );
