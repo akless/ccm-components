@@ -340,7 +340,7 @@ ccm.component( {
          * resulting data of the HTML form
          * @type {object}
          */
-        var results = ccm.helper.cleanObject( ccm.helper.convertObjectKeys( ccm.helper.formData( form_elem ) ) );
+        var results = ccm.helper.convertObjectKeys( ccm.helper.formData( form_elem ) );
 
         // provide result data
         ccm.helper.onFinish( self, results );
