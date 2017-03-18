@@ -124,13 +124,19 @@ ccm.component( {
 
         element: main_elem.querySelector( '#input_mask' ),
         initial_data: initial_data,
-        onfinish: function ( instance, results ) {
+        onchange: function ( instance, results ) {
 
           // decode ccm dependencies in result data
           ccm.helper.decodeDependencies( results );
 
           // render preview
           renderPreview( results );
+
+        },
+        onfinish: function ( instance, results ) {
+
+          // decode ccm dependencies in result data
+          ccm.helper.decodeDependencies( results );
 
           // provide result data
           ccm.helper.onFinish( self, results );
