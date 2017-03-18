@@ -86,6 +86,7 @@ ccm.component( {
 
     // initial_data
     // user instance
+    // onchange: function ( instance, results, name ) { console.log( name, results ); }
 
   },
 
@@ -225,6 +226,19 @@ ccm.component( {
               input_data.type = type;
           }
 
+          // set change event
+          if ( self.onchange )
+            if ( input_data.values )
+              input_data.values.map( function ( value ) {
+                value.onchange = function ( event ) {
+                  self.onchange( self, ccm.helper.convertObjectKeys( ccm.helper.formData( form_elem ) ), event.__target.getAttribute( 'name' ) );
+                };
+              } );
+            else
+              input_data.onchange = function () {
+                self.onchange( self, ccm.helper.convertObjectKeys( ccm.helper.formData( form_elem ) ), input_data.name );
+              };
+
           // generate content of input field container
           switch ( type ) {
             case 'checkbox': return checkbox();
@@ -268,6 +282,7 @@ ccm.component( {
               } );
 
               return checkboxes_elem;
+
             }
 
           }
@@ -296,7 +311,7 @@ ccm.component( {
 
           function range() {
 
-            input_data.oninput = function () { input_elem.querySelector( '.value' ).innerHTML = this.value };
+            input_data.oninput = function ( event ) { input_elem.querySelector( '.value' ).innerHTML = event.__target.value };
 
             var range_elem = ccm.helper.html( my.html_templates.range, input_data.value || input_data.min || 0 );
             range_elem.querySelector( '.field' ).appendChild( ccm.helper.html( input_data ) );
@@ -334,7 +349,7 @@ ccm.component( {
       function submit( event ) {
 
         // prevent page reload
-        event.preventDefault();
+        if ( event ) event.preventDefault();
 
         /**
          * resulting data of the HTML form
