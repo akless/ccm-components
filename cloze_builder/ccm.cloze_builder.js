@@ -106,9 +106,6 @@ ccm.component( {
       // privatize all possible instance members
       my = ccm.helper.privatize( self );
 
-      // encode ccm dependencies in initial data
-      ccm.helper.encodeDependencies( my.initial_data );
-
       callback();
     };
 
@@ -118,19 +115,22 @@ ccm.component( {
       var main_elem = ccm.helper.html( my.html_templates.main );
       var preview_elem = main_elem.querySelector( '#cloze_preview' );
 
+      // encode ccm dependencies in initial data
+      var initial_data = ccm.helper.clone( my.initial_data );
+      ccm.helper.encodeDependencies( initial_data );
+
       // render input mask
       my.input_mask.start( {
 
         element: main_elem.querySelector( '#input_mask' ),
-        initial_data: my.initial_data,
+        initial_data: initial_data,
         onfinish: function ( instance, results ) {
 
           // decode ccm dependencies in result data
           ccm.helper.decodeDependencies( results );
 
           // render preview
-          ccm.helper.setContent( preview_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.preview ) ) );
-          my.cloze_preview.start( { key: results, element: preview_elem.querySelector( '#preview' ) } );
+          renderPreview( results );
 
           // provide result data
           ccm.helper.onFinish( self, results );
@@ -142,7 +142,17 @@ ccm.component( {
       // set content of own website area
       ccm.helper.setContent( self.element, ccm.helper.protect( main_elem ) );
 
+      // render preview
+      renderPreview( my.initial_data );
+
       if ( callback ) callback();
+
+      function renderPreview( config ) {
+
+        ccm.helper.setContent( preview_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.preview ) ) );
+        my.cloze_preview.start( { key: config, element: preview_elem.querySelector( '#preview' ) } );
+
+      }
 
     }
 
