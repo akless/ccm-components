@@ -90,6 +90,37 @@ ccm.component( {
           label: 'Beschriftung des Buttons',
           name: 'button_caption',
           input: 'text'
+        },
+        {
+          label: 'Nutzerkreis',
+          name: 'user',
+          input: 'select',
+          options: [
+            {
+              value: ' ',
+              caption: 'Öffentlich'
+            },
+            {
+              value: "['ccm.instance','../user/ccm.user.js',{'sign_on':'guest'}]",
+              caption: 'Gast'
+            },
+            {
+              value: "['ccm.instance','../user/ccm.user.js',{'sign_on':'demo'}]",
+              caption: 'Demo'
+            },
+            {
+              value: "['ccm.instance','../user/ccm.user.js',{'sign_on':'hbrsinfkaul'}]",
+              caption: 'FB02'
+            },
+            {
+              value: '',
+              caption: 'LEA (not yet)'
+            },
+            {
+              value: '',
+              caption: 'OpenOLAT (not yet)'
+            }
+          ]
         }
       ]
     } ],
