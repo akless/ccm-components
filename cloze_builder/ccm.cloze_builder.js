@@ -55,9 +55,14 @@ ccm.component( {
           placeholder: 'Hello, [[(W)o(rl)d]]!'
         },
         {
-          label: 'Vorgegebene Schlüsselwörter',
+          label: 'Vorgegebene Lösungswörter',
           name: 'keywords',
           input: 'checkbox'
+        },
+        {
+          label: 'Individuelle Lösungswörter',
+          name: 'keyword_list',
+          input: 'textarea'
         },
         {
           label: 'Leere Eingabefelder',
@@ -111,48 +116,90 @@ ccm.component( {
 
     this.start = function ( callback ) {
 
+      // show loading icon until rendering is finished
+      ccm.helper.hide( self );
+
       // prepare main HTML structure
       var main_elem = ccm.helper.html( my.html_templates.main );
       var preview_elem = main_elem.querySelector( '#cloze_preview' );
 
-      // encode ccm dependencies in initial data
-      var initial_data = ccm.helper.clone( my.initial_data );
-      ccm.helper.encodeDependencies( initial_data );
+      // set content of own website area (not visible yet)
+      ccm.helper.setContent( self.element, ccm.helper.protect( main_elem ) );
+
+      // prepare initial dataset
+      var initial_data; prepareInitialData();
 
       // render input mask
       my.input_mask.start( {
 
         element: main_elem.querySelector( '#input_mask' ),
         initial_data: initial_data,
-        onchange: function ( instance, results ) {
+        onchange: function ( instance, results, name ) {
 
-          // decode ccm dependencies in result data
-          ccm.helper.decodeDependencies( results );
+          // show/hide post-relevant entries
+          if ( name === 'keywords' ) instance.element.querySelector( '.entry[data-name=keyword_list]' ).classList.toggle( 'hidden' );
 
-          // render preview
+          // prepare result data
+          prepareResults( results );
+
+          // update preview container
           renderPreview( results );
 
         },
         onfinish: function ( instance, results ) {
 
-          // decode ccm dependencies in result data
-          ccm.helper.decodeDependencies( results );
+          // prepare result data
+          prepareResults( results );
 
           // provide result data
           ccm.helper.onFinish( self, results );
 
         }
 
+      }, function ( input_mask ) {
+
+        // hide post-relevant entries
+        if ( !my.initial_data[ 'keywords' ] ) input_mask.element.querySelector( '.entry[data-name=keyword_list]' ).classList.add( 'hidden' );
+
+        // replace loading icon with hidden rendered content
+        ccm.helper.show( self );
+
+        // render preview
+        renderPreview( my.initial_data );
+
+        if ( callback ) callback();
       } );
 
-      // set content of own website area
-      ccm.helper.setContent( self.element, ccm.helper.protect( main_elem ) );
+      /** prepares the initial dataset */
+      function prepareInitialData() {
 
-      // render preview
-      renderPreview( my.initial_data );
+        // clone initial dataset
+        initial_data = ccm.helper.clone( my.initial_data );
 
-      if ( callback ) callback();
+        // handle values of post-relevant properties
+        if ( Array.isArray( initial_data.keywords ) ) {
+          initial_data.keyword_list = initial_data.keywords.join( ' ' );
+          initial_data.keywords = true;
+        }
 
+        // encode ccm dependencies in initial dataset
+        ccm.helper.encodeDependencies( initial_data );
+
+      }
+
+      /** prepares the result data */
+      function prepareResults( results ) {
+
+        // handle values of post-relevant properties
+        if ( results.keywords && results.keyword_list ) results.keywords = results.keyword_list.split( /\s+/ );
+        delete results.keyword_list;
+
+        // decode ccm dependencies in result data
+        ccm.helper.decodeDependencies( results );
+
+      }
+
+      /** renders preview of build fill-in-the-blank text */
       function renderPreview( config ) {
 
         ccm.helper.setContent( preview_elem, ccm.helper.protect( ccm.helper.html( my.html_templates.preview ) ) );
