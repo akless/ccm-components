@@ -29,6 +29,7 @@ ccm.component( {
       },
       entry: {
         class: 'entry',
+        'data-name': '%name%',
         inner: [
           {
             class: 'label',
@@ -148,6 +149,7 @@ ccm.component( {
 
         // prepare container for input field entry
         var entry_elem = ccm.helper.html( my.html_templates.entry, {
+          name: input_data.name || '',
           input_id: input_data.id,
           label: input_data.label || input_data.name
         } );

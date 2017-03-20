@@ -46,29 +46,6 @@
   padding-left: 0.3em;
 }
 
-/*
-.ccm-input > form > fieldset > input[type=submit],
-.ccm-input > form > input[type=submit] {
-  cursor: pointer;
+.hidden {
+  display: none;
 }
-
-.ccm-input .inputs {
-  display: table;
-  width: 100%;
-}
-
-.ccm-input .inputs > .entry {
-  display: table-row;
-}
-
-.ccm-input .inputs > .entry > .input {
-  display: table-cell;
-  padding-bottom: 0.5em;
-  vertical-align: top;
-}
-
-.ccm-input .inputs > .entry > .input:first-child {
-  padding-top: 0.15em;
-  padding-right: 0.5em;
-}
-*/
