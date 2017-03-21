@@ -266,6 +266,7 @@ ccm.component( {
     /**
      * returns user dataset
      * @returns {object}
+     * @example { key: 'john_doe', name: 'John Doe', token: 'd41d8cd98f00b204e9800998ecf8427e' }
      */
     this.data = function () {
 
@@ -273,6 +274,21 @@ ccm.component( {
       if ( my.context ) return my.context.data();
 
       return dataset;
+    };
+
+    /**
+     * returns sign-on
+     * @returns {string}
+     * @example 'guest'
+     * @example 'demo'
+     * @example 'hbrsinfkaul'
+     */
+    this.getSignOn = function () {
+
+      // context mode? => delegate function call
+      if ( my.context ) return my.context.getSignOn();
+
+      return my.sign_on;
     };
 
     /**
