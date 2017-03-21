@@ -1,0 +1,12 @@
+{
+  "greedy": {
+    "key": "greedy",
+    "logging": {
+      "browser": true,
+      "parent": true,
+      "root": true,
+      "user": true,
+      "website": true
+    }
+  }
+}
