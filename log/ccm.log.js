@@ -60,7 +60,7 @@ ccm.component( {
       if ( data !== undefined ) results.data = ccm.helper.clone( data );
 
       // add browser informations
-      if ( self.logging.browser ) results.browser = {
+      if ( my.logging.browser ) results.browser = {
         appCodeName: navigator.appCodeName,
         appName: navigator.appName,
         appVersion: navigator.appVersion,
@@ -71,13 +71,13 @@ ccm.component( {
       };
 
       // add ccm context parent informations
-      if ( self.logging.parent && self.parent ) results.parent = {
+      if ( my.logging.parent && self.parent ) results.parent = {
         name:    self.parent.component.name,
         version: self.parent.component.version
       };
 
       // add ccm context root informations
-      if ( self.logging.root ) {
+      if ( my.logging.root ) {
         var root = ccm.context.root( self );
         if ( root.component.name !== self.component.name ) results.root = {
           name:    root.component.name,
@@ -86,7 +86,7 @@ ccm.component( {
       }
 
       // add user informations
-      if ( self.logging.user ) {
+      if ( my.logging.user ) {
         var user = ccm.context.find( self, 'user' );
         if ( user ) results.user = {
           key:     user.isLoggedIn() ? ( md5 ? md5( md5( user.data().key ) ) : user.data().key ) : null,
@@ -95,7 +95,7 @@ ccm.component( {
       }
 
       // add website informations
-      if ( self.logging.website ) results.website = window.location.href;
+      if ( my.logging.website ) results.website = window.location.href;
 
       // provide result data
       ccm.helper.onFinish( self, results );
