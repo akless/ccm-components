@@ -15,11 +15,12 @@ ccm.component( {
     onfinish: function ( instance, results ) { console.log( results ); }
 
     // events: {string[]} logged events, default: all
-    // logging.browser: {boolean} log browser informations
-    // logging.parent:  {boolean} log ccm context parent information
-    // logging.root:    {boolean} log ccm context root information
-    // logging.user:    {boolean} log user informations
-    // logging.website: {boolean} log website informations
+    // logging.data:    {boolean|string[]} log event specific informations
+    // logging.browser: {boolean|string[]} log browser informations
+    // logging.parent:  {boolean|string[]} log ccm context parent information
+    // logging.root:    {boolean|string[]} log ccm context root information
+    // logging.user:    {boolean|string[]} log user informations
+    // logging.website: {boolean|string[]} log website informations (string[] -> log informations only for these events)
 
   },
 
@@ -57,10 +58,10 @@ ccm.component( {
       var results = { instance: id, event: event };
 
       // add event specific informations
-      if ( data !== undefined ) results.data = ccm.helper.clone( data );
+      if ( data !== undefined && ( ccm.helper.isObject( my.logging.data ) ? my.logging.data[ event ] : my.logging.data ) ) results.data = ccm.helper.clone( data );
 
       // add browser informations
-      if ( my.logging.browser ) results.browser = {
+      if ( ccm.helper.isObject( my.logging.browser ) ? my.logging.browser[ event ] : my.logging.browser ) results.browser = {
         appCodeName: navigator.appCodeName,
         appName: navigator.appName,
         appVersion: navigator.appVersion,
@@ -71,22 +72,22 @@ ccm.component( {
       };
 
       // add ccm context parent informations
-      if ( my.logging.parent && self.parent ) results.parent = {
+      if ( self.parent && ( ccm.helper.isObject( my.logging.parent ) ? my.logging.parent[ event ] : my.logging.parent ) ) results.parent = {
         name:    self.parent.component.name,
         version: self.parent.component.version
       };
 
       // add ccm context root informations
-      if ( my.logging.root ) {
+      if ( self.parent && ( ccm.helper.isObject( my.logging.root ) ? my.logging.root[ event ] : my.logging.root ) ) {
         var root = ccm.context.root( self );
-        if ( root.component.name !== self.component.name ) results.root = {
+        results.root = {
           name:    root.component.name,
           version: root.component.version
         };
       }
 
       // add user informations
-      if ( my.logging.user ) {
+      if ( ccm.helper.isObject( my.logging.user ) ? my.logging.user[ event ] : my.logging.user ) {
         var user = ccm.context.find( self, 'user' );
         if ( user ) results.user = {
           key:     user.isLoggedIn() ? ( md5 ? md5( md5( user.data().key ) ) : user.data().key ) : null,
@@ -95,7 +96,7 @@ ccm.component( {
       }
 
       // add website informations
-      if ( my.logging.website ) results.website = window.location.href;
+      if ( ccm.helper.isObject( my.logging.website ) ? my.logging.website[ event ] : my.logging.website ) results.website = window.location.href;
 
       // provide result data
       ccm.helper.onFinish( self, results );
