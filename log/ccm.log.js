@@ -37,8 +37,6 @@ ccm.component( {
       // determine global unique instance id
       id = ccm.helper.generateKey();
 
-      console.log( self, my );
-
       callback();
     };
 
