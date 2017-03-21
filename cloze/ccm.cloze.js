@@ -136,6 +136,9 @@ ccm.component( {
       // set content of own website area
       ccm.helper.setContent( self.element, ccm.helper.protect( main_elem ) );
 
+      // has logger instance? => log start event
+      if ( self.logger ) self.logger.log( 'start', my );
+
       if ( callback ) callback();
 
       /** renders given keywords for text gaps */
@@ -272,6 +275,9 @@ ccm.component( {
           if ( self.user ) results.user = self.user.data().key;
           if (   my.time ) results.time_left = timer_value + 1;
           results.time = time;
+
+          // has logger instance? => log finish event
+          if ( self.logger ) self.logger.log( 'finish', results );
 
           // provide result data
           ccm.helper.onFinish( self, results );
