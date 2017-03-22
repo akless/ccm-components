@@ -190,7 +190,7 @@ ccm.component( {
       }, function ( input_mask ) {
 
         // hide post-relevant entries
-        if ( !my.initial_data[ 'keywords' ] ) input_mask.element.querySelector( '.entry[data-name=keyword_list]' ).classList.add( 'hidden' );
+        if ( !input_mask.element.querySelector( 'input[name=keywords]' ).checked ) input_mask.element.querySelector( '.entry[data-name=keyword_list]' ).classList.add( 'hidden' );
 
         // replace loading icon with hidden rendered content
         ccm.helper.show( self );
@@ -203,6 +203,9 @@ ccm.component( {
 
       /** prepares the initial dataset */
       function prepareInitialData() {
+
+        // no initial dataset? => abort
+        if ( !my.initial_data ) return;
 
         // clone initial dataset
         initial_data = ccm.helper.clone( my.initial_data );
