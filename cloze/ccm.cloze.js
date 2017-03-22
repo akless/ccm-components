@@ -189,8 +189,8 @@ ccm.component( {
           var input = {
             tag: 'input',
             type: 'text',
-            oninput: oninput,
-            onchange: onchange,
+            oninput: onInput,
+            onchange: onChange,
             maxlength: keyword.length,
             size: keyword.length * 1.5  // works tolerably for words with a length up to 30
           };
