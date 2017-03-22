@@ -53,7 +53,10 @@ ccm.component( {
 //  points_per_gap: 1,
 //  time: 60,
 //  button_caption: 'finish',
-//  user: [ ccm.instance, '../user/ccm.user.js' ]
+//  user: [ ccm.instance, '../user/ccm.user.js' ],
+//  logger: [ ccm.instance, '../log/ccm.log.js', [ ccm.get, '../log/configs.json', 'greedy' ] ],
+//  onchange: function ( instance, data ) { console.log( data ); }
+//  oninput: function ( instance, data ) { console.log( data ); }
 
   },
 
@@ -120,6 +123,7 @@ ccm.component( {
       // prepare main HTML structure
       var main_elem = ccm.helper.html( my.html_templates.main, onFinish );
 
+      var text_elem    = main_elem.querySelector( '#text'   );  // container for text with containing gaps
       var button_elem  = main_elem.querySelector( '#button' );  // container for finish button
       var  timer_elem  = main_elem.querySelector( '#timer'  );  // container for timer
       var  timer_value = my.time;                               // timer value
@@ -170,13 +174,13 @@ ccm.component( {
       function renderText() {
 
         // render text with containing gaps
-        main_elem.querySelector( '#text' ).innerHTML = my.text;
+        text_elem.innerHTML = my.text;
 
         // render input field in each gap
         ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap' ) ).map( function ( gap_elem, i ) {
 
           // blank input fields and shown keywords? => input fields should give no hint for the length of the searched word
-          if ( my.blank && my.keywords ) return gap_elem.appendChild( ccm.helper.html( { tag: 'input', type: 'text' } ) );
+          if ( my.blank && my.keywords ) return gap_elem.appendChild( ccm.helper.html( { tag: 'input', type: 'text', oninput: onInput, onchange: onChange } ) );
 
           // shorter access to keyword
           var keyword = keywords[ i ].word;
@@ -185,6 +189,8 @@ ccm.component( {
           var input = {
             tag: 'input',
             type: 'text',
+            oninput: oninput,
+            onchange: onchange,
             maxlength: keyword.length,
             size: keyword.length * 1.5  // works tolerably for words with a length up to 30
           };
@@ -198,6 +204,32 @@ ccm.component( {
 
           // render input field in the current gap
           gap_elem.appendChild( ccm.helper.html( input ) );
+
+          /** onchange callback for input fields */
+          function onChange() {
+
+            var data = { gap: 1 + i, input: this.value };  // input field informations
+
+            // has logger instance? => log change event
+            if ( self.logger ) self.logger.log( 'change', data );
+
+            // has individual change callback? => perform it
+            if ( my.onchange ) my.onchange( self, data );
+
+          }
+
+          /** oninput callback for input fields */
+          function onInput() {
+
+            var data = { gap: 1 + i, input: this.value };  // input field informations
+
+            // has logger instance? => log input event
+            if ( self.logger ) self.logger.log( 'input', data );
+
+            // has individual input callback? => perform it
+            if ( my.oninput ) my.oninput( self, data );
+
+          }
 
         } );
 
