@@ -1,6 +1,5 @@
 {
   "demo": {
-    "key": "demo",
     "inputs": [
       {
         "label": "Username",
@@ -170,7 +169,6 @@
       }
     ],
     "initial_data": {
-      "key": "demo",
       "username": "JohnDoe",
       "password": "1aA",
       "destination": "there",
@@ -192,7 +190,6 @@
     }
   },
   "test": {
-    "key": "test",
     "inputs": [
       {
         "label": "FooBar",

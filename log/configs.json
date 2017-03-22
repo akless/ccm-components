@@ -1,6 +1,5 @@
 {
   "greedy": {
-    "key": "greedy",
     "logging": {
       "data": true,
       "browser": true,

@@ -1,10 +1,8 @@
 {
   "demo": {
-    "key": "demo",
     "text": "Headline: Welcome! Hello, [[world]]. This is an [[e(x)a(mpl)e]] cloze. [[Elefant(fahrstuhl)führer(aufzugs)l(eit)er]]"
   },
   "Products_and_Innovation_I": {
-    "key": "Products_and_Innovation_I",
     "css_layout": [ "ccm.load", "../cloze/layouts/lea.css" ],
     "time": 300,
     "keywords": [ "convenience", "conducting", "objectives", "durable", "competitive", "breakdown", "reasons", "evaluate", "adding", "breakthroughs", "withdraw", "patterns", "non-durable", "deleting", "feasible", "making", "sources", "niche" ],
@@ -12,6 +10,7 @@
     "blank": true,
     "ignore_case": true,
     "points_per_gap": 1,
-    "user": [ "ccm.instance", "../user/ccm.user.js" ]
+    "user": [ "ccm.instance", "../user/ccm.user.js" ],
+    "logger": [ "ccm.instance", "../log/ccm.log.js", [ "ccm.get", "../log/configs.json", "greedy" ] ]
   }
 }
