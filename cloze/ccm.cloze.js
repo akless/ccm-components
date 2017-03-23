@@ -123,7 +123,7 @@ ccm.component( {
       // prepare main HTML structure
       var main_elem = ccm.helper.html( my.html_templates.main, onFinish );
 
-      var text_elem    = main_elem.querySelector( '#text'   );  // container for text with containing gaps
+      var   text_elem  = main_elem.querySelector( '#text'   );  // container for text with containing gaps
       var button_elem  = main_elem.querySelector( '#button' );  // container for finish button
       var  timer_elem  = main_elem.querySelector( '#timer'  );  // container for timer
       var  timer_value = my.time;                               // timer value
@@ -155,7 +155,7 @@ ccm.component( {
         if ( my.keywords )
           ( Array.isArray( my.keywords ) ? my.keywords : keywords ).map( addKeyword );
         else
-          return keywords_elem.parentNode.removeChild( keywords_elem );  // no given keywords? => remove container for keywords
+          return keywords_elem.parentNode.removeChild( keywords_elem );  // no given keywords? => remove container for keywords and abort
 
         // generated keyword list? => sort keywords lexicographical (keyword order gives no hint about correct solution)
         if ( my.keywords === true ) entries.sort( function ( a, b ) { return a.innerHTML.localeCompare( b.innerHTML ) } );
