@@ -1,0 +1,18 @@
+/**
+ * @overview default layout of ccm component for building fill-in-the-blank texts
+ * @author André Kless <andre.kless@web.de.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+#main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#input_mask, #cloze_preview {
+  padding: 0.5em;
+}
+
+legend:before {
+  content: 'Vorschau'
+}

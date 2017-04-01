@@ -1,0 +1,53 @@
+/**
+ * @overview table layout of ccm component for user inputs
+ * @author André Kless <andre.kless@web.de.de> 2016-2017
+ * @license The MIT License (MIT)
+ */
+
+.ccm-input {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow-x: auto;
+}
+
+#inputs {
+  display: table;
+}
+
+.entry {
+  display: table-row;
+}
+
+.label, .input {
+  display: table-cell;
+  padding: 0.2em;
+  vertical-align: top;
+}
+
+.label:after {
+  content: ':'
+}
+
+.input {
+  white-space: nowrap;
+}
+
+.checkboxes, .radios {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.checkbox, .radio {
+  padding-right: 0.5em;
+}
+
+.field, .caption, .value {
+  display: inline-block;
+}
+
+.caption, .value {
+  padding-left: 0.3em;
+}
+
+.hidden {
+  display: none;
+}

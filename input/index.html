@@ -1,24 +1,4 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="https://akless.github.io/ccm-developer/resources/ccm/ccm.min.js"></script>
 <script src="ccm.input.js"></script>
-<ccm-input></ccm-input>
-<p>
-<div id="test"></div>
-<script>
-  ccm.render( 'input', {
-    element: jQuery( '#test' ),
-    data: {
-      store: [ ccm.store, '../input/datastore.json' ],
-      key: 'test'
-    },
-    edit: {
-      store: [ ccm.store, '../input/editstore.json' ],
-      key: 'test'
-    },
-    bigdata: [ ccm.instance, '../bigdata/ccm.bigdata.js' ],
-    form:     'Submit',
-    fieldset: 'Test Inputs',
-    onFinish: function ( result ) { console.log( result ); }
-  } );
-</script>
+<ccm-input key='["ccm.get","configs.json","demo"]'></ccm-input>
