@@ -7,7 +7,7 @@
 ( function () {
 
   var ccm_version = '8.0.0';
-  var ccm_url     = '../../ccm-developer-no-jquery/ccm/ccm.js';
+  var ccm_url     = '../../ccm-developer/ccm/ccm.js';
 
   var component_name = 'input';
   var component_obj  = {

@@ -11,7 +11,7 @@
 ( function () {
 
   var ccm_version = '8.0.0';
-  var ccm_url     = '../../ccm-developer-no-jquery/ccm/ccm.js';
+  var ccm_url     = '../../ccm-developer/ccm/ccm.js';
 
   var component_name = 'testsuite';
   var component_obj  = {
@@ -66,7 +66,7 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', '../../ccm-components-no-jquery/testsuite/layouts/default.css' ],
+      css_layout: [ 'ccm.load', '../../ccm-components/testsuite/layouts/default.css' ],
       onfinish: function ( instance, result ) { console.log( result ); }
 
   //  tests
