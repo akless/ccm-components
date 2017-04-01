@@ -1,3 +1,13 @@
 .idea/
 ccm.js
-ccm-helper.js
+config/
+content/
+eval/
+exercise/
+iframe/
+input_list/
+menu/
+quizz/
+se_le/
+teambuild/
+youtube/
