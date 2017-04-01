@@ -133,7 +133,7 @@
       cloze_preview: [ 'ccm.component', '../cloze/ccm.cloze.js' ],
       onfinish: function ( instance, results ) { console.log( results ); }
 
-      // initial_data
+  //  initial_data
 
     },
 
