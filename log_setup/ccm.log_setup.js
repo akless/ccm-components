@@ -2,9 +2,6 @@
  * @overview <i>ccm</i> component for set up data logging behavior
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
- *
- * Notes
- * - disadvantage of bit operation: possible positions for given letters in a word are 0-31
  */
 
 ( function () {
