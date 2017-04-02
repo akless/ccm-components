@@ -150,7 +150,8 @@
         /**
          * @summary renders given keywords for text gaps
          * @description
-         * Keywords could be given individual via instance configuration (my.keywords) or via text gaps)
+         * Keywords could be given (individual) via instance configuration (my.keywords is string array)
+         * or (automatic generated) via private variable 'keywords' (my.keywords is boolean true).
          */
         function renderKeywords() {
 
