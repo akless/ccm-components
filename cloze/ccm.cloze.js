@@ -52,16 +52,16 @@
       css_layout: [ 'ccm.load', '../cloze/layouts/default.css' ],
       onfinish: function ( instance, results ) { console.log( results ); }
 
-      //  blank: true,
-      //  ignore_case: true,
-      //  keywords: [ 'keyword1', 'keyword2', ... ],
-      //  points_per_gap: 1,
-      //  time: 60,
-      //  button_caption: 'finish',
-      //  user: [ ccm.instance, '../user/ccm.user.js' ],
-      //  logger: [ ccm.instance, '../log/ccm.log.js', [ ccm.get, '../log/configs.json', 'greedy' ] ],
-      //  onchange: function ( instance, data ) { console.log( data ); }
-      //  oninput: function ( instance, data ) { console.log( data ); }
+  //  blank: true,
+  //  ignore_case: true,
+  //  keywords: [ 'keyword1', 'keyword2', ... ],
+  //  points_per_gap: 1,
+  //  time: 60,
+  //  button_caption: 'finish',
+  //  user: [ ccm.instance, '../user/ccm.user.js' ],
+  //  logger: [ ccm.instance, '../log/ccm.log.js', [ ccm.get, '../log/configs.json', 'greedy' ] ],
+  //  onchange: function ( instance, data ) { console.log( data ); }
+  //  oninput: function ( instance, data ) { console.log( data ); }
 
     },
 
