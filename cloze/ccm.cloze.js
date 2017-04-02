@@ -245,11 +245,15 @@
         /** renders the finish button */
         function renderButton() {
 
+          // set content of container for finish button
           self.ccm.helper.setContent( button_elem, self.ccm.helper.html( my.html_templates.button, {
             caption: my.button_caption,
             click:   onFinish
           } ) );
-          if ( !my.button_caption ) button_elem.querySelector( 'input[type=submit]' ).removeAttribute( 'value' );
+
+          // finish button is a input tag? => allow use of browser specific default caption
+          var submit_elem = button_elem.querySelector( 'input[type=submit]' );
+          if ( submit_elem && !my.button_caption ) submit_elem.removeAttribute( 'value' );
 
         }
 
@@ -283,8 +287,8 @@
           // prevent page reload
           if ( event ) event.preventDefault();
 
-          time = new Date().getTime() - time;       // calculate result time
-          button_elem.innerHTML = '';               // remove button
+          time = new Date().getTime() - time;            // calculate result time
+          button_elem.innerHTML = '';                    // remove button
           self.ccm.helper.removeElement( timer_elem  );  // remove timer container
 
           // has user instance? => login user
@@ -304,7 +308,7 @@
                 if ( correct ) results.points += my.points_per_gap;
               }
 
-              // set details for current gap result
+              // set detail informations for current gap result
               results.details.push( { input: gap.value, solution: keywords[ i ].word, correct: correct } );
 
             } );
