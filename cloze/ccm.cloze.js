@@ -1,10 +1,7 @@
 /**
- * @overview <i>ccm</i> component for fill-in-the-blank texts
+ * @overview ccm component for fill-in-the-blank texts
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
- *
- * Notes
- * - disadvantage of bit operation: possible positions for given letters in a word are 0-31
  */
 
 ( function () {
@@ -101,9 +98,9 @@
             return given;
           } );
 
-          // determine given characters and hold this information in a single number (use of bit operations)
-          var givens = 0;
-          for ( var i = 0; i < keyw__d.length; i++ )
+          // determine given characters and hold this information in a single number (disadvantage: possible positions
+          var givens = 0;                                                      // for given letters in a word are 0-31
+          for ( var i = 0; i < keyw__d.length; i++ )                           // because of data type limitations)
             if ( keyw__d.charAt( i ) === '*' ) givens += Math.pow( 2, i );
 
           // add keyword information data for current keyword
@@ -150,7 +147,11 @@
 
         if ( callback ) callback();
 
-        /** renders given keywords for text gaps */
+        /**
+         * @summary renders given keywords for text gaps
+         * @description
+         * Keywords could be given individual via instance configuration (my.keywords) or via text gaps)
+         */
         function renderKeywords() {
 
           var keywords_elem = main_elem.querySelector( '#keywords' );  // container for keywords
