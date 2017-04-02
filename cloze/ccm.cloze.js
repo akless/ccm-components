@@ -46,8 +46,7 @@
           inner: '%%'
         }
       },
-      css_layout: [ 'ccm.load', '../cloze/layouts/default.css' ],
-      onfinish: function ( instance, results ) { console.log( results ); }
+      css_layout: [ 'ccm.load', '../cloze/layouts/default.css' ]
 
   //  blank: true,
   //  ignore_case: true,
@@ -55,10 +54,11 @@
   //  points_per_gap: 1,
   //  time: 60,
   //  button_caption: 'finish',
-  //  user: [ ccm.instance, '../user/ccm.user.js' ],
-  //  logger: [ ccm.instance, '../log/ccm.log.js', [ ccm.get, '../log/configs.json', 'greedy' ] ],
+  //  user: [ 'ccm.instance', '../user/ccm.user.js' ],
+  //  logger: [ 'ccm.instance', '../log/ccm.log.js', [ ccm.get, '../log/configs.json', 'greedy' ] ],
   //  onchange: function ( instance, data ) { console.log( data ); }
   //  oninput: function ( instance, data ) { console.log( data ); }
+  //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
 
