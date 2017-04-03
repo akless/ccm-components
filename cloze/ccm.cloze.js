@@ -56,8 +56,8 @@
   //  button_caption: 'finish',
   //  user: [ 'ccm.instance', '../user/ccm.user.js' ],
   //  logger: [ 'ccm.instance', '../log/ccm.log.js', [ ccm.get, '../log/configs.json', 'greedy' ] ],
-  //  onchange: function ( instance, data ) { console.log( data ); }
-  //  oninput: function ( instance, data ) { console.log( data ); }
+  //  onchange: function ( instance, data ) { console.log( data ); },
+  //  oninput: function ( instance, data ) { console.log( data ); },
   //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
