@@ -2,9 +2,6 @@
  * @overview <i>ccm</i> component for building fill-in-the-blank texts
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
- *
- * Notes
- * - disadvantage of bit operation: possible positions for given letters in a word are 0-31
  */
 
 ( function () {
@@ -129,11 +126,11 @@
             ]
           }
         ]
-      } ],
-      cloze_preview: [ 'ccm.component', '../cloze/ccm.cloze.js' ],
-      onfinish: function ( instance, results ) { console.log( results ); }
+      } ]
 
-  //  initial_data
+  //  cloze_preview: [ 'ccm.component', '../cloze/ccm.cloze.js' ],
+  //  initial_data: {},
+  //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
 
@@ -201,7 +198,7 @@
           self.ccm.helper.show( self );
 
           // render preview
-          renderPreview( my.initial_data );
+          if ( self.cloze_preview ) renderPreview( my.initial_data );
 
           if ( callback ) callback();
         } );
