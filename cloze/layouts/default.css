@@ -35,6 +35,11 @@
 
 #button, #timer {
   display: inline-block;
+  margin-top: 0.5em;
+}
+
+input[type=submit] {
+  cursor: pointer;
 }
 
 #timer {
