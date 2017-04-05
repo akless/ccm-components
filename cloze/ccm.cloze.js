@@ -221,7 +221,7 @@
               if ( self.logger ) self.logger.log( 'input', data );
 
               // has individual input callback? => perform it
-              if ( my.oninput ) my.oninput( self, data );
+              if ( self.oninput ) self.oninput( self, data );
 
             }
 
@@ -234,7 +234,7 @@
               if ( self.logger ) self.logger.log( 'change', data );
 
               // has individual change callback? => perform it
-              if ( my.onchange ) my.onchange( self, data );
+              if ( self.onchange ) self.onchange( self, data );
 
             }
 
