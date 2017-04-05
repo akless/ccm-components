@@ -1,0 +1,11 @@
+{
+  "demo": {
+    "expression": "{\n  foo: 'bar',\n  baz: function () { alert('Hello, World!'); }\n}"
+  },
+  "chat": {
+    "expression": "{\n  classes: 'ccm-chat',\n  html: [ 'ccm.store', 'https://akless.github.io/ccm-developer/resources/chat/templates.json' ],\n  style: [ 'ccm.load', 'https://akless.github.io/ccm-developer/resources/chat/style.css' ],\n  'data.store': [ 'ccm.store', { url: 'ws://ccm2.inf.h-brs.de', store: 'chat' } ],\n  'data.key': 'test',\n  user: [ 'ccm.instance', 'https://kaul.inf.h-brs.de/ccm/components/user2.js' ]\n}"
+  },
+  "quizz": {
+    "expression": "{\n  classes: 'ccm-quizz',\n  html: [ 'ccm.store', '../quizz/templates.json' ],\n  style: [ 'ccm.load', '../quizz/layout.css' ],\n  'data.store': [ 'ccm.store', '../quizz/datastore.json' ],\n  'data.key': 'demo',\n  onFinish: function ( result ) { result.quizz.render(); },\n  'text.answer': 'Answer',\n  'text.correct': 'Correct solution',\n  'text.finish': 'Finish',\n  'text.next': 'Next',\n  'text.question': 'Question',\n  'text.result': 'Result'\n}"
+  }
+}

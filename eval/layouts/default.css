@@ -1,0 +1,22 @@
+/**
+ * @overview default layout for <i>ccm</i> component for interpret JavaScript expressions
+ * @author André Kless <andre.kless@web.de.de> 2016
+ * @license The MIT License (MIT)
+ */
+
+#main {
+  overflow: auto;
+  background-color: white;
+}
+
+textarea {
+  font-family: "Courier New", monospace;
+}
+
+#button {
+  margin-top: 0.5em;
+}
+
+button {
+  cursor: pointer;
+}
