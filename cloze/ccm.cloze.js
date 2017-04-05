@@ -212,19 +212,6 @@
             // render input field in the current gap
             gap_elem.appendChild( self.ccm.helper.html( input ) );
 
-            /** onchange callback for input fields */
-            function onChange() {
-
-              var data = { gap: 1 + i, input: this.value };  // input field informations
-
-              // has logger instance? => log change event
-              if ( self.logger ) self.logger.log( 'change', data );
-
-              // has individual change callback? => perform it
-              if ( my.onchange ) my.onchange( self, data );
-
-            }
-
             /** oninput callback for input fields */
             function onInput() {
 
@@ -235,6 +222,19 @@
 
               // has individual input callback? => perform it
               if ( my.oninput ) my.oninput( self, data );
+
+            }
+
+            /** onchange callback for input fields */
+            function onChange() {
+
+              var data = { gap: 1 + i, input: this.value };  // input field informations
+
+              // has logger instance? => log change event
+              if ( self.logger ) self.logger.log( 'change', data );
+
+              // has individual change callback? => perform it
+              if ( my.onchange ) my.onchange( self, data );
 
             }
 
