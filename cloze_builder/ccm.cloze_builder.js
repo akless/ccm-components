@@ -198,7 +198,7 @@
           self.ccm.helper.show( self );
 
           // render preview
-          if ( self.cloze_preview ) renderPreview( my.initial_data );
+          renderPreview( my.initial_data );
 
           if ( callback ) callback();
         } );
@@ -238,6 +238,7 @@
         /** renders preview of build fill-in-the-blank text */
         function renderPreview( config ) {
 
+          if ( !my.cloze_preview ) return;
           self.ccm.helper.setContent( preview_elem, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.preview ) ) );
           my.cloze_preview.start( { key: config, element: preview_elem.querySelector( '#preview' ) } );
 
