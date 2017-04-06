@@ -128,8 +128,8 @@
         ]
       } ]
 
-  //  cloze_preview: [ 'ccm.component', '../cloze/ccm.cloze.js' ],
   //  initial_data: {},
+  //  cloze_preview: [ 'ccm.component', '../cloze/ccm.cloze.js' ],
   //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
