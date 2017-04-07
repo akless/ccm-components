@@ -342,7 +342,7 @@
 
               /** show expected and actual value as detail information for a failed test */
               function addComparison( expected, actual ) {
-                if ( self.element ) test_elem.appendChild( self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.comparison, expected, actual ? actual : '<i>' + ( actual === undefined ? 'undefined' : JSON.stringify( actual ) ) + '</i>' ) ) );
+                if ( self.element ) test_elem.appendChild( self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.comparison, expected, actual ) ) );
                 results.details[ package_path + '.' + tests[ i ].name ] = { expected: expected, actual: actual };
               }
 
