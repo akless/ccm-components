@@ -39,8 +39,8 @@
   //  user: [ 'ccm.instance', '../user/ccm.user.js' ],
   //  logger: [ 'ccm.instance', '../log/ccm.log.js', [ 'ccm.get', '../log/configs.json', 'greedy' ] ],
   //  json_parse: true,
-  //  oninput: function ( instance, value ) { console.log( value ); },
-  //  onchange: function ( instance, value ) { console.log( value ); },
+  //  oninput: function ( instance, expression ) { console.log( expression ); },
+  //  onchange: function ( instance, expression ) { console.log( expression ); },
   //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
