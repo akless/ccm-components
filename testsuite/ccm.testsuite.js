@@ -94,6 +94,12 @@
        */
       var setups = [];
 
+      /**
+       * higher collected finalize functions that have to be performed after each test
+       * @type {function[]}
+       */
+      var finallies = [];
+
       this.init = function ( callback ) {
 
         // support using tests from own global namespace
@@ -113,7 +119,8 @@
         // navigate to the relevant test package and collect setup functions along the way
         var array = my.package.split( '.' );
         while ( array.length > 0 ) {
-          if ( my.tests.setup ) setups.push( my.tests.setup );  // collect founded setup function
+          if ( my.tests.setup ) setups.push( my.tests.setup );            // collect founded setup    function
+          if ( my.tests.finally ) finallies.unshift( my.tests.finally );  // collect founded finalize function
           my.tests = my.tests[ array.shift() ];
         }
 
@@ -138,19 +145,23 @@
         }
 
         // process relevant test package (including all subpackages)
-        processPackage( my.package || '', my.tests, setups, finish );
+        processPackage( my.package || '', my.tests, setups, finallies, finish );
 
         /**
          * processes current test package (recursive function)
          * @param {string} package_path - path to current test package
          * @param {object} package_obj - data of the current test package
          * @param {function[]} setups - setup functions that have to be performed before each test
+         * @param {function[]} finallies - finalize functions that have to be performed after each test
          * @param {function} callback
          */
-        function processPackage( package_path, package_obj, setups, callback ) {
+        function processPackage( package_path, package_obj, setups, finallies, callback ) {
 
           // has setup function? => add her to (cloned) setup functions
           if ( package_obj.setup ) { setups = setups.slice(); setups.push( package_obj.setup ); }
+
+          // has finalize function? => add her to (cloned) finallies functions
+          if ( package_obj.finally ) { finallies = finallies.slice(); finallies.unshift( package_obj.finally ); }
 
           // has tests? => perform all these tests
           if ( package_obj.tests ) runTests( proceed ); else proceed();
@@ -170,7 +181,7 @@
               for ( var key in package_obj ) {
                 var package = package_obj[ key ];
                 delete package_obj[ key ];
-                processPackage( ( package_path ? package_path + '.' : '' ) + key, package, setups, processNextSubpackage );  // recursive call
+                processPackage( ( package_path ? package_path + '.' : '' ) + key, package, setups, finallies, processNextSubpackage );  // recursive call
                 return;
               }
 
@@ -343,7 +354,18 @@
                   main_elem.querySelector( '#passed'   ).innerHTML = results.  passed.toString();
                   main_elem.querySelector( '#failed'   ).innerHTML = results.  failed.toString();
                 }
-                runNextTest();  // recursive call
+                runFinallies( runNextTest );  // recursive call
+
+                /** runs all relevant finalize functions (recursive function) */
+                function runFinallies( callback ) {
+                  var i = 0;                           // Remember: Each finalize function could be asynchron
+                  runFinally();                        //           and must performed sequentially
+                  function runFinally() {              //           to avoid mutual influence.
+                    if ( i === finallies.length )
+                      return callback();
+                    finallies[ i++ ]( suite, runFinally );  // recursive call
+                  }
+                }
               }
 
             }
