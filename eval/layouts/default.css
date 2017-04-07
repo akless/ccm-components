@@ -1,6 +1,6 @@
 /**
  * @overview default layout for <i>ccm</i> component for interpret JavaScript expressions
- * @author André Kless <andre.kless@web.de.de> 2016
+ * @author André Kless <andre.kless@web.de.de> 2016-2017
  * @license The MIT License (MIT)
  */
 
@@ -9,12 +9,14 @@
   background-color: white;
 }
 
-textarea {
-  font-family: "Courier New", monospace;
-}
-
 #button {
   margin-top: 0.5em;
+}
+
+textarea {
+  font-family: "Courier New", monospace;
+  font-size: 100%;
+  border: 0.1em dotted gray;
 }
 
 button {
