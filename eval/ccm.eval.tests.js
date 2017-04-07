@@ -6,29 +6,90 @@
 
 ccm.files[ 'ccm.eval.tests.js' ] = {
   setup: function ( suite, callback ) {
-    suite.ccm.component( '../../ccm-components/eval/ccm.eval.js', function ( component ) {
-      suite.eval = component;
+    suite.container = document.createElement( 'div' );
+    document.body.appendChild( suite.container );
+    suite.ccm.component( '../../ccm-components/eval/ccm.eval.js', { element: suite.container }, function ( component ) {
+      suite.component = component;
       callback();
     } );
   },
   fundamental: {
     setup: function ( suite, callback ) {
-      suite.eval.instance( function ( instance ) {
-        suite.eval = instance;
+      suite.component.instance( function ( instance ) {
+        suite.instance = instance;
         callback();
       } );
     },
     tests: {
       componentName: function ( suite ) {
-        suite.assertSame( 'eval', suite.eval.component.name );
-      },
-      publicInstanceProperties: function ( suite ) {
-        suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component' ], Object.keys( suite.eval ) );
+        suite.assertSame( 'eval', suite.instance.component.name );
       },
       frameworkVersion: function ( suite ) {
-        suite.assertEquals( '8.0.0', suite.eval.ccm.version() );
+        suite.assertEquals( '8.0.0', suite.instance.ccm.version() );
+      },
+      publicInstanceProperties: function ( suite ) {
+        suite.assertEquals( [ 'start', 'ccm', 'element', 'id', 'index', 'component' ], Object.keys( suite.instance ) );
+      },
+      startCallback: function ( suite ) {
+        suite.instance.start( suite.passed );
       }
     }
+  },
+  defaults: {
+    setup: function ( suite, callback ) {
+      suite.component.start( function ( instance ) {
+        suite.instance = instance;
+        callback();
+      } );
+    },
+    tests: {
+      mainTemplate: function ( suite ) {
+        if ( !suite.instance.element.querySelector( '#expression' ) ) return suite.failed( 'missing expression container' );
+        suite.passed();
+      },
+      buttonCaption: function ( suite ) {
+        suite.assertEquals( 'Evaluate expression', suite.instance.element.querySelector( 'button' ).innerHTML );
+      },
+      onFinish: function ( suite ) {
+        suite.instance.onfinish = function ( instance, results ) {
+          if ( instance !== suite.instance ) return suite.failed( 'incorrect first parameter' );
+          if ( results.expression !== '"Hello, World!"' ) return suite.failed( 'wrong expression in result data' );
+          if ( results.value !== 'Hello, World!' ) return suite.failed( 'wrong value in result data' );
+          suite.passed();
+        };
+        suite.instance.element.querySelector( 'button' ).click();
+      }
+    }
+  },
+  json_parse: {
+    tests: {
+      valid: function ( suite ) {
+        suite.component.start( {
+          expression: '{ "foo": "bar" }',
+          json_parse: true,
+          onfinish: function ( instance, results ) {
+            suite.assertEquals( { foo: 'bar' }, results.value );
+          }
+        }, function ( instance ) {
+          instance.element.querySelector( 'button' ).click();
+        } );
+      },
+      invalid: function ( suite ) {
+        suite.component.start( {
+          expression: "{ foo: 'bar' }",
+          json_parse: true,
+          onfinish: function ( instance, results ) {
+            suite.assertEquals( undefined, results.value );
+          }
+        }, function ( instance ) {
+          instance.element.querySelector( 'button' ).click();
+        } );
+      }
+    }
+  },
+  finally: function ( suite, callback ) {
+    document.body.removeChild( suite.container );
+    callback();
   }
 };
 
