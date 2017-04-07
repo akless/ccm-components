@@ -12,16 +12,21 @@ ccm.files[ 'ccm.eval.tests.js' ] = {
     } );
   },
   fundamental: {
+    setup: function ( suite, callback ) {
+      suite.eval.instance( function ( instance ) {
+        suite.eval = instance;
+        callback();
+      } );
+    },
     tests: {
       componentName: function ( suite ) {
-        suite.eval.instance( function ( instance ) {
-          suite.assertSame( 'eval', instance.component.name );
-        } );
+        suite.assertSame( 'eval', suite.eval.component.name );
       },
-      publicProperties: function ( suite ) {
-        suite.eval.instance( function ( instance ) {
-          suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component' ], Object.keys( instance ) );
-        } );
+      publicInstanceProperties: function ( suite ) {
+        suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component' ], Object.keys( suite.eval ) );
+      },
+      frameworkVersion: function ( suite ) {
+        suite.assertEquals( '8.0.0', suite.eval.ccm.version() );
       }
     }
   }
