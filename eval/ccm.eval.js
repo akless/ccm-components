@@ -32,12 +32,12 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', '../eval/layouts/default.css' ],
+      css_layout: [ 'ccm.load', '../../ccm-components/eval/layouts/default.css' ],
       expression: '"Hello, World!"',
       button_caption: 'Evaluate expression'
 
-  //  user: [ 'ccm.instance', '../user/ccm.user.js' ],
-  //  logger: [ 'ccm.instance', '../log/ccm.log.js', [ 'ccm.get', '../log/configs.json', 'greedy' ] ],
+  //  user: [ 'ccm.instance', '../../ccm-components/user/ccm.user.js' ],
+  //  logger: [ 'ccm.instance', '../../ccm-components/log/ccm.log.js', [ 'ccm.get', '../../ccm-components/log/configs.json', 'greedy' ] ],
   //  json_parse: true,
   //  oninput: function ( instance, expression ) { console.log( expression ); },
   //  onchange: function ( instance, expression ) { console.log( expression ); },

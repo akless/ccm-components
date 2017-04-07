@@ -49,7 +49,7 @@
           }
         }
       },
-      css_layout: [ 'ccm.load', '../user/layouts/default.css' ],
+      css_layout: [ 'ccm.load', '../../ccm-components/user/layouts/default.css' ],
       context: true,
       logged_in: false,
       sign_on: 'guest',

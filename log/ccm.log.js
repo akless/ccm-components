@@ -16,7 +16,7 @@
 
     config: {
 
-      hash:     [ 'ccm.load', '../libs/md5/md5.min.js' ],
+      hash:     [ 'ccm.load', '../../ccm-components/libs/md5/md5.min.js' ],
       logging:  {},
       onfinish: function ( instance, results ) { console.log( results ); }
 
