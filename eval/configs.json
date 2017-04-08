@@ -1,6 +1,9 @@
 {
   "demo": {
-    "expression": "{\n  foo: 'bar',\n  baz: function () { alert('Hello, World!'); }\n}"
+    "expression": "{\n  \"foo\": \"bar\",\n  \"numbers\": [ 1, 2, 3 ],\n  \"i\": 5711,\n  \"valid\": true\n}",
+    "user": [ "ccm.instance", "../../ccm-components/user/ccm.user.js" ],
+    "logger": [ "ccm.instance", "../../ccm-components/log/ccm.log.js", [ "ccm.get", "../../ccm-components/log/configs.json", "greedy" ] ],
+    "json_parse": true
   },
   "chat": {
     "expression": "{\n  classes: 'ccm-chat',\n  html: [ 'ccm.store', 'https://akless.github.io/ccm-developer/resources/chat/templates.json' ],\n  style: [ 'ccm.load', 'https://akless.github.io/ccm-developer/resources/chat/style.css' ],\n  'data.store': [ 'ccm.store', { url: 'ws://ccm2.inf.h-brs.de', store: 'chat' } ],\n  'data.key': 'test',\n  user: [ 'ccm.instance', 'https://kaul.inf.h-brs.de/ccm/components/user2.js' ]\n}"
