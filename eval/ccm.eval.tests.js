@@ -118,6 +118,30 @@ ccm.files[ 'ccm.eval.tests.js' ] = {
         }, function ( instance ) {
           instance.element.querySelector( 'button' ).click();
         } );
+      },
+      functionsNotParsable: function ( suite ) {
+        suite.component.start( {
+          expression: 'function () {}',
+          json_parse: true,
+          onfinish: function ( instance, results ) {
+            suite.assertEquals( undefined, results.value );
+          }
+        }, function ( instance ) {
+          instance.element.querySelector( 'button' ).click();
+        } );
+      },
+      evalIntertretsFunctions: function ( suite ) {
+        suite.component.start( {
+          expression: 'function () {}',
+          json_parse: false,
+          onfinish: function ( instance, results ) {
+            if ( typeof results.value !== 'function' )
+              return suite.failed( 'result value is not a function' );
+            suite.assertEquals( 'function () {}', results.value.toString() );
+          }
+        }, function ( instance ) {
+          instance.element.querySelector( 'button' ).click();
+        } );
       }
     }
   },
