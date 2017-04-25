@@ -543,7 +543,7 @@
                   var input = event_data.input[ i + '-' + j ];
 
                   // user gives correct value for this answer? => mark answer as right
-                  if ( input === correct ) entry_elem.classList.add( 'right' );
+                  if ( input !== '' && input === correct ) entry_elem.classList.add( 'right' );
 
                   // user gives wrong value for this answer? => mark answer as wrong
                   if ( input !== '' && input !== correct ) entry_elem.classList.add( 'wrong' );
