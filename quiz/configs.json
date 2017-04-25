@@ -28,7 +28,7 @@
             "comment": "Weil man mehr als eine Antwort wählen kann."
           }
         ],
-        "correct": [ 0, 1 ]
+        "correct": [ true, true ]
       },
       {
         "text": "Könnte diesmal auch nur eine Antwort richtig sein?",
@@ -40,8 +40,8 @@
         "correct": 0
       },
       {
-        "text": "Ok, diesmal ernsthaft. Wie lautet die Lösung der folgenden Rechenaufgaben?",
-        "description": "Bitte die Antworten in die Eingabefelder eintragen.",
+        "text": "Wie lautet die Lösung der folgenden Rechenaufgaben?",
+        "description": "Bitte die Lösungen in die Eingabefelder eintragen.",
         "answers": [
           "= 1 + 1",
           "= 1 - 1",
@@ -65,7 +65,7 @@
             "comment": "Im Zahlenraum der reellen Zahlen."
           }
         ],
-        "correct": [ false, false, false, true, true ]
+        "correct": [ 3, 4 ]
       }
     ]
   }
