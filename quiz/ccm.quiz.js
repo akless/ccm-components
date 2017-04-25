@@ -114,6 +114,7 @@
         /** converts inner HTML to instance configuration data */
         function convertInnerHTML() {
 
+          if ( !self.node ) return;
           var questions = [];
           self.ccm.helper.makeIterable( self.node.children ).map( function ( question_tag ) {
             if ( question_tag.tagName !== 'CCM-QUIZ-QUESTION' ) return;
