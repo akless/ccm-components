@@ -70,7 +70,7 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', '../quiz/layouts/default.css' ],
+      css_layout: [ 'ccm.load', '../../ccm-components/quiz/layouts/default.css' ],
       placeholder: {
         question: 'Question',
         prev: 'Previous',
