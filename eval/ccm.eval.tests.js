@@ -1,5 +1,5 @@
 /**
- * @overview tests for for ccm component for interpreting JavaScript expressions
+ * @overview tests for ccm component for interpreting JavaScript expressions
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
