@@ -406,7 +406,7 @@
             // render 'finish' button
             if ( !finished ) self.ccm.helper.setContent( main_elem.querySelector( '#finish' ), self.ccm.helper.html( {
               tag: 'button',
-              disabled: current_question !== my.questions.length - 1,
+              disabled: current_question !== my.questions.length - 1 || question.feedback && !evaluated[ current_question ],
               inner: my.placeholder.finish,
               onclick: function () {
 
