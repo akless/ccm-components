@@ -1,0 +1,77 @@
+/**
+ * @overview default layout of ccm component for rendering a quiz
+ * @author André Kless <andre.kless@web.de.de> 2016-2017
+ * @license The MIT License (MIT)
+ */
+
+#main {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow-x: auto;
+  padding: 0.5em;
+}
+
+.title > div {
+  display: inline;
+}
+
+.title > div:not(:last-child) {
+  font-weight: bold;
+}
+
+.title > div:first-child:after {
+  content: ' ';
+}
+
+.title > div:nth-child(2):after {
+  content: ': ';
+}
+
+.description {
+  padding-top: 0.8em;
+  font-size: 80%;
+  font-style: italic;
+}
+
+.answers {
+  padding-top: 1em;
+}
+
+.right {
+  background-color: lime;
+}
+
+.wrong {
+  background-color: red;
+}
+
+.correct {
+  background-color: rgba(0,255,0,0.3);
+}
+
+.entry {
+  display: flex;
+}
+
+.entry > div:first-child {
+  padding-right: 0.5em;
+}
+
+input[type=checkbox]:enabled, input[type=radio]:enabled, button:enabled {
+  cursor: pointer;
+}
+
+.comment {
+  font-size: 80%;
+  font-style: italic;
+  padding: 0.15em 0.15em 0.3em 0.15em;
+}
+
+#nav {
+  padding-top: 0.5em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#nav > div:not(:first-child) {
+  padding-left: 0.5em;
+}
