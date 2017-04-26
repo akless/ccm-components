@@ -152,6 +152,17 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
             }
           } ]
         } );
+      },
+      singleAnswer: function ( suite ) {
+        suite.component.start( {
+          questions: { answers: {} },
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logging: { data: true },
+            onfinish: function ( instance, results ) {
+              suite.assertSame( 1, results.data.questions[ 0 ].answers.length );
+            }
+          } ]
+        } );
       }
     }
   },
