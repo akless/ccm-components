@@ -1,8 +1,8 @@
 {
   "demo": {
     "feedback": true,
-    "user": [ "ccm.instance", "../user/ccm.user.js" ],
-    "logger": [ "ccm.instance", "../log/ccm.log.js", [ "ccm.get", "../log/configs.json", "greedy" ] ],
+    "user": [ "ccm.instance", "../../ccm-components/user/ccm.user.js" ],
+    "logger": [ "ccm.instance", "../../ccm-components/log/ccm.log.js", [ "ccm.get", "../../ccm-components/log/configs.json", "greedy" ] ],
     "onfinish": { "restart": true, "log": true },
     "questions": [
       {

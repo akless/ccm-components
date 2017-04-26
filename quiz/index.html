@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="../quiz/ccm.quiz.js"></script>
+<script src="../../ccm-components/quiz/ccm.quiz.js"></script>
 
 <!-- Demo Quiz via embed code -->
-<ccm-quiz key='["ccm.get","../quiz/configs.json","demo"]'></ccm-quiz>
+<ccm-quiz key='["ccm.get","../../ccm-components/quiz/configs.json","demo"]'></ccm-quiz>
 
 <!-- Demo Quiz via declarative way -->
 <ccm-quiz>
@@ -40,8 +40,8 @@
     <ccm-quiz-answer text="nicht definiert" comment="Im Zahlenraum der reellen Zahlen." correct="true"></ccm-quiz-answer>
   </ccm-quiz-question>
 
-  <ccm-instance-user src="../user/ccm.user.js"></ccm-instance-user>
-  <ccm-instance-logger src="../log/ccm.log.js" key='["ccm.get","../log/configs.json","greedy"]'></ccm-instance-logger>
+  <ccm-instance-user src="../../ccm-components/user/ccm.user.js"></ccm-instance-user>
+  <ccm-instance-logger src="../../ccm-components/log/ccm.log.js" key='["ccm.get","../../ccm-components/log/configs.json","greedy"]'></ccm-instance-logger>
   <ccm-list-onfinish log="true"></ccm-list-onfinish>
 
 </ccm-quiz>
