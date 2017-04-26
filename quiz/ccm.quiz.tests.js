@@ -175,13 +175,24 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
           } ]
         } );
       },
-      singleCorrect: function ( suite ) {
+      singleCorrectNumber: function ( suite ) {
         suite.component.start( {
-          questions: { answers: [ "", "", "" ], correct: 1 },
+          questions: { answers: [ '', '', '' ], correct: 1 },
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
             logging: { data: true },
             onfinish: function ( instance, results ) {
               suite.assertEquals( [ false, true, false ], results.data.questions[ 0 ].correct );
+            }
+          } ]
+        } );
+      },
+      fillUpValue: function ( suite ) {
+        suite.component.start( {
+          questions: { input: 'number', answers: [ '', '', '' ], correct: 5711 },
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logging: { data: true },
+            onfinish: function ( instance, results ) {
+              suite.assertEquals( [ 5711, '', '' ], results.data.questions[ 0 ].correct );
             }
           } ]
         } );
