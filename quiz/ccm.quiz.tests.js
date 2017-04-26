@@ -200,7 +200,9 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       defaultsByQuestion: function ( suite ) {
         suite.component.start( {
           questions: {
-            attributes: true, swap: true, encode: true
+            text: '',
+            attributes: true, swap: true, encode: true,
+            answers: ''
           },
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
             logging: { data: true },
