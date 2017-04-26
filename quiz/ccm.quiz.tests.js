@@ -174,6 +174,17 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
             }
           } ]
         } );
+      },
+      singleCorrect: function ( suite ) {
+        suite.component.start( {
+          questions: { answers: [ "", "", "" ], correct: 1 },
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logging: { data: true },
+            onfinish: function ( instance, results ) {
+              suite.assertEquals( [ false, true, false ], results.data.questions[ 0 ].correct );
+            }
+          } ]
+        } );
       }
     }
   },
