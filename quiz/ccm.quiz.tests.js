@@ -196,6 +196,29 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
             }
           } ]
         } );
+      },
+      defaultsByQuestion: function ( suite ) {
+        suite.component.start( {
+          questions: {
+            attributes: true, swap: true, encode: true
+          },
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logging: { data: true },
+            onfinish: function ( instance, results ) {
+
+              var question = results.data.questions[ 0 ];
+              if ( question.attributes ) return suite.failed( 'attributes property not deleted' );
+              if ( question.swap       ) return suite.failed( 'swap property not deleted' );
+
+              var answer = question.answers[ 0 ];
+              if ( !answer.attributes  ) return suite.failed( 'missing attributes property' );
+              if ( !answer.swap        ) return suite.failed( 'missing swap property' );
+              if ( !answer.encode      ) return suite.failed( 'missing encode property' );
+
+              suite.passed();
+            }
+          } ]
+        } );
       }
     }
   },
