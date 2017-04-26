@@ -83,6 +83,8 @@
   //  answers: [],
   //  correct: [],
   //  encode: true,
+  //  shuffle: true,
+  //  random: true,
   //  input: 'text',
   //  attributes: {},
   //  feedback: true,
@@ -161,7 +163,7 @@
           my.questions.map( function ( question ) {
 
             // consider default question values from config
-            self.ccm.helper.integrate( self.ccm.helper.filterProperties( my, 'text', 'description', 'answers', 'input', 'attributes', 'swap', 'encode', 'feedback', 'correct' ), question, true );
+            self.ccm.helper.integrate( self.ccm.helper.filterProperties( my, 'text', 'description', 'answers', 'input', 'attributes', 'swap', 'encode', 'random', 'feedback', 'correct' ), question, true );
 
             // default input type is checkbox
             if ( !question.input ) question.input = 'checkbox';
@@ -205,7 +207,7 @@
           } );
 
           // remove no more needed instance configuration properties
-          delete my.text; delete my.description; delete my.answer; delete my.input; delete my.attributes; delete my.swap; delete my.encode; delete my.feedback; delete my.correct;
+          delete my.text; delete my.description; delete my.answer; delete my.input; delete my.attributes; delete my.swap; delete my.encode; delete my.random; delete my.feedback; delete my.correct;
 
         }
 
@@ -249,6 +251,9 @@
           self.ccm.helper.removeElement( main_elem.querySelector( '#next' ) );
         }
 
+        // want random order for the questions? => shuffle questions
+        if ( my.shuffle ) self.ccm.helper.shuffleArray( my.questions );
+
         // render all questions and show only first one
         my.questions.map( renderQuestion );
         showQuestion();
@@ -276,6 +281,9 @@
 
           // no description? => remove description container
           if ( !question.description ) self.ccm.helper.removeElement( question.elem.querySelector( '.description' ) );
+
+          // want random order for the answers? => shuffle answers
+          if ( question.random ) self.ccm.helper.shuffleArray( question.answers );
 
           // render question answers
           question.answers.map( renderAnswer );
