@@ -27,7 +27,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       frameworkVersion: function ( suite ) {
         suite.assertEquals( '8.0.0', suite.instance.ccm.version() );
       },
-      publicInstanceProperties: function ( suite ) {
+      publicProperties: function ( suite ) {
         suite.assertEquals( [ 'start', 'ccm', 'element', 'id', 'index', 'component' ], Object.keys( suite.instance ) );
       },
       startCallback: function ( suite ) {
@@ -86,6 +86,60 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
           } ]
         }, function ( instance ) {
           instance.element.querySelector( 'button' ).click();
+        } );
+      }
+    }
+  },
+  data: {
+    tests: {
+      singleQuestion: function ( suite ) {
+        suite.component.start( {
+          questions: {},
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logging: { data: true },
+            onfinish: function ( instance, results ) {
+              suite.assertSame( 1, results.data.questions.length );
+            }
+          } ]
+        } );
+      },
+      defaultsByConfig: function ( suite ) {
+        suite.component.start( {
+          text: true, description: true, answers: true, input: true, attributes: true, swap: true, encode: true, random: true, feedback: true, correct: true,
+          questions: {},
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logging: { data: true },
+            onfinish: function ( instance, results ) {
+
+              var data = results.data;
+              if ( data.text        ) return suite.failed( 'text property not deleted' );
+              if ( data.description ) return suite.failed( 'description property not deleted' );
+              if ( data.answers     ) return suite.failed( 'answers property not deleted' );
+              if ( data.input       ) return suite.failed( 'input property not deleted' );
+              if ( data.attributes  ) return suite.failed( 'attributes property not deleted' );
+              if ( data.swap        ) return suite.failed( 'swap property not deleted' );
+              if ( data.encode      ) return suite.failed( 'encode property not deleted' );
+              if ( data.random      ) return suite.failed( 'random property not deleted' );
+              if ( data.feedback    ) return suite.failed( 'feedback property not deleted' );
+              if ( data.correct     ) return suite.failed( 'correct property not deleted' );
+
+              var question = data.questions[ 0 ];
+              if ( !question.text        ) return suite.failed( 'missing text property' );
+              if ( !question.description ) return suite.failed( 'missing description property' );
+              if ( !question.answers     ) return suite.failed( 'missing answers property' );
+              if ( !question.input       ) return suite.failed( 'missing input property' );
+              if ( !question.random      ) return suite.failed( 'missing random property' );
+              if ( !question.feedback    ) return suite.failed( 'missing feedback property' );
+              if ( !question.correct     ) return suite.failed( 'missing correct property' );
+
+              var answer = question.answers[ 0 ];
+              if ( !answer.attributes  ) return suite.failed( 'missing attributes property' );
+              if ( !answer.swap        ) return suite.failed( 'missing swap property' );
+              if ( !answer.encode      ) return suite.failed( 'missing encode property' );
+
+              suite.passed();
+            }
+          } ]
         } );
       }
     }

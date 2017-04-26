@@ -207,7 +207,7 @@
           } );
 
           // remove no more needed instance configuration properties
-          delete my.text; delete my.description; delete my.answer; delete my.input; delete my.attributes; delete my.swap; delete my.encode; delete my.random; delete my.feedback; delete my.correct;
+          delete my.text; delete my.description; delete my.answers; delete my.input; delete my.attributes; delete my.swap; delete my.encode; delete my.random; delete my.feedback; delete my.correct;
 
         }
 
