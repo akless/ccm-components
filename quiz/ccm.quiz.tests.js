@@ -8,7 +8,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
   setup: function ( suite, callback ) {
     suite.container = document.createElement( 'div' );
     document.body.appendChild( suite.container );
-    suite.ccm.component( '../../ccm-components/quiz/ccm.quiz.js', { element: suite.container }, function ( component ) {
+    suite.ccm.component( './../../ccm-components/quiz/ccm.quiz.js', { element: suite.container }, function ( component ) {
       suite.component = component;
       callback();
     } );
@@ -56,7 +56,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
     tests: {
       loggedInUser: function ( suite ) {
         suite.component.start( {
-          user: [ 'ccm.instance', '../../ccm-components/user/ccm.user.js' ],
+          user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
           onfinish: function ( instance ) {
             suite.assertTrue( instance.user.isLoggedIn() );
           }
@@ -67,14 +67,14 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       },
       logStartEvent: function ( suite ) {
         suite.component.start( {
-          logger: [ 'ccm.instance', '../../ccm-components/log/ccm.log.js', { onfinish: function ( instance, results ) {
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', { onfinish: function ( instance, results ) {
             suite.assertSame( 'start', results.event );
           } } ]
         } );
       },
       logFinishEvent: function ( suite ) {
         suite.component.start( {
-          logger: [ 'ccm.instance', '../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
             events: { finish: true },
             onfinish: function ( instance, results ) {
               suite.assertSame( 'finish', results.event );

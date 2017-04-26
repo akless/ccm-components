@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for data logging
+ * @overview ccm component for data logging
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  */
@@ -7,7 +7,7 @@
 ( function () {
 
   var ccm_version = '8.0.0';
-  var ccm_url     = '../../ccm-developer/ccm/ccm.js';
+  var ccm_url     = './../../ccm-developer/ccm/ccm.js';
 
   var component_name = 'log';
   var component_obj  = {
@@ -16,7 +16,7 @@
 
     config: {
 
-      hash:     [ 'ccm.load', '../../ccm-components/libs/md5/md5.min.js' ],
+      hash:     [ 'ccm.load', './../../ccm-components/libs/md5/md5.min.js' ],
       logging:  {},
       onfinish: function ( instance, results ) { console.log( results ); }
 

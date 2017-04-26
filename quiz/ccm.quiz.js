@@ -7,7 +7,7 @@
 ( function () {
 
   var ccm_version = '8.0.0';
-  var ccm_url     = '../../ccm-developer/ccm/ccm.js';
+  var ccm_url     = './../../ccm-developer/ccm/ccm.js';
 
   var component_name = 'quiz';
   var component_obj  = {
@@ -70,7 +70,7 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', '../../ccm-components/quiz/layouts/default.css' ],
+      css_layout: [ 'ccm.load', './../../ccm-components/quiz/layouts/default.css' ],
       placeholder: {
         question: 'Question',
         prev: 'Previous',
@@ -89,8 +89,8 @@
   //  attributes: {},
   //  feedback: true,
   //  swap: true,
-  //  user: [ 'ccm.instance', '../../ccm-components/user/ccm.user.js' ],
-  //  logger: [ 'ccm.instance', '../../ccm-components/log/ccm.log.js', [ 'ccm.get', '../../ccm-components/log/configs.json', 'greedy' ] ],
+  //  user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
+  //  logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', [ 'ccm.get', './../../ccm-components/log/configs.json', 'greedy' ] ],
   //  onchange: function ( instance, data ) { console.log( data ); },
   //  oninput: function ( instance, data ) { console.log( data ); },
   //  onprev: function ( instance, data ) { console.log( data ); },

@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for user authentication
+ * @overview ccm component for user authentication
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  */
@@ -7,7 +7,7 @@
 ( function () {
 
   var ccm_version = '8.0.0';
-  var ccm_url     = '../../ccm-developer/ccm/ccm.js';
+  var ccm_url     = './../../ccm-developer/ccm/ccm.js';
 
   var component_name = 'user';
   var component_obj  = {
@@ -49,7 +49,7 @@
           }
         }
       },
-      css_layout: [ 'ccm.load', '../../ccm-components/user/layouts/default.css' ],
+      css_layout: [ 'ccm.load', './../../ccm-components/user/layouts/default.css' ],
       context: true,
       logged_in: false,
       sign_on: 'guest',

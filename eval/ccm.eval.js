@@ -7,7 +7,7 @@
 ( function () {
 
   var ccm_version = '8.0.0';
-  var ccm_url     = '../../ccm-developer/ccm/ccm.js';
+  var ccm_url     = './../../ccm-developer/ccm/ccm.js';
 
   var component_name = 'eval';
   var component_obj  = {
@@ -32,12 +32,12 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', '../../ccm-components/eval/layouts/default.css' ],
+      css_layout: [ 'ccm.load', './../../ccm-components/eval/layouts/default.css' ],
       expression: '"Hello, World!"',
       button_caption: 'Evaluate expression'
 
-  //  user: [ 'ccm.instance', '../../ccm-components/user/ccm.user.js' ],
-  //  logger: [ 'ccm.instance', '../../ccm-components/log/ccm.log.js', [ 'ccm.get', '../../ccm-components/log/configs.json', 'greedy' ] ],
+  //  user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
+  //  logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', [ 'ccm.get', './../../ccm-components/log/configs.json', 'greedy' ] ],
   //  json_parse: true,
   //  oninput: function ( instance, expression ) { console.log( expression ); },
   //  onchange: function ( instance, expression ) { console.log( expression ); },

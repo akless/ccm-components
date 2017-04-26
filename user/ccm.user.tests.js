@@ -7,7 +7,7 @@
 if ( !ccm.components.testsuite ) ccm.components.testsuite = {};
 ccm.components.testsuite.user = {
   setup: function ( suite, callback ) {
-    ccm.component( 'ccm.user.js', function ( component ) {
+    ccm.component( './../../ccm-components/user/ccm.user.js', function ( component ) {
       suite.user = component;
       callback();
     } );
