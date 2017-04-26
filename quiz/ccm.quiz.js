@@ -15,7 +15,7 @@
     name: component_name,
 
     config: {
-      questions: [ { answers: [] } ],
+      questions: {},
       html_templates: {
         main: {
           id: 'main',

@@ -35,6 +35,57 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       }
     }
   },
+  templates: {
+    setup: function ( suite, callback ) {
+      suite.component.start( { questions: [ {}, {} ] }, function ( instance ) {
+        suite.instance = instance;
+        callback();
+      } );
+    },
+    tests: {
+      main: function ( suite ) {
+        if ( !suite.instance.element.querySelector( '#questions' ) ) return suite.failed( 'missing "questions" container' );
+        if ( !suite.instance.element.querySelector( '#prev' ) ) return suite.failed( 'missing "prev" container' );
+        if ( !suite.instance.element.querySelector( '#next' ) ) return suite.failed( 'missing "next" container' );
+        if ( !suite.instance.element.querySelector( '#finish' ) ) return suite.failed( 'missing "finish" container' );
+        suite.passed();
+      }
+    }
+  },
+  dependencies: {
+    tests: {
+      loggedInUser: function ( suite ) {
+        suite.component.start( {
+          user: [ 'ccm.instance', '../../ccm-components/user/ccm.user.js' ],
+          onfinish: function ( instance ) {
+            suite.assertTrue( instance.user.isLoggedIn() );
+          }
+        }, function ( instance ) {
+          if ( instance.user.isLoggedIn() ) suite.failed( 'user is already logged in' );
+          instance.element.querySelector( 'button' ).click();
+        } );
+      },
+      logStartEvent: function ( suite ) {
+        suite.component.start( {
+          logger: [ 'ccm.instance', '../../ccm-components/log/ccm.log.js', { onfinish: function ( instance, results ) {
+            suite.assertSame( 'start', results.event );
+          } } ]
+        } );
+      },
+      logFinishEvent: function ( suite ) {
+        suite.component.start( {
+          logger: [ 'ccm.instance', '../../ccm-components/log/ccm.log.js', {
+            events: { finish: true },
+            onfinish: function ( instance, results ) {
+              suite.assertSame( 'finish', results.event );
+            }
+          } ]
+        }, function ( instance ) {
+          instance.element.querySelector( 'button' ).click();
+        } );
+      }
+    }
+  },
   finally: function ( suite, callback ) {
     document.body.removeChild( suite.container );
     callback();
