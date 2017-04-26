@@ -394,25 +394,25 @@
             if ( my.questions.length > 1 ) {
 
               // render 'prev' button
-              self.ccm.helper.setContent( main_elem.querySelector( '#prev' ), self.ccm.helper.html( {
+              self.ccm.helper.setContent( main_elem.querySelector( '#prev' ), self.ccm.helper.protect( self.ccm.helper.html( {
                 tag: 'button',
                 disabled: current_question === 0,
                 inner: my.placeholder.prev,
                 onclick: previousQuestion
-              } ) );
+              } ) ) );
 
               // render 'submit' or 'next' button
-              self.ccm.helper.setContent( main_elem.querySelector( '#next' ), self.ccm.helper.html( {
+              self.ccm.helper.setContent( main_elem.querySelector( '#next' ), self.ccm.helper.protect( self.ccm.helper.html( {
                 tag: 'button',
                 disabled: current_question === my.questions.length - 1 && ( !question.feedback || evaluated[ current_question ] ),
                 inner: my.placeholder[ question.feedback && !evaluated[ current_question ] ? 'submit' : 'next' ],
                 onclick: question.feedback && !evaluated[ current_question ] ? function () { evaluate( question ) } : nextQuestion
-              } ) );
+              } ) ) );
 
             }
 
             // render 'finish' button
-            if ( !finished ) self.ccm.helper.setContent( main_elem.querySelector( '#finish' ), self.ccm.helper.html( {
+            if ( !finished ) self.ccm.helper.setContent( main_elem.querySelector( '#finish' ), self.ccm.helper.protect( self.ccm.helper.html( {
               tag: 'button',
               disabled: current_question !== my.questions.length - 1 || question.feedback && !evaluated[ current_question ],
               inner: my.placeholder.finish,
@@ -442,7 +442,7 @@
                 }
 
               }
-            } ) );
+            } ) ) );
 
             /** switch to previous question */
             function previousQuestion() {
