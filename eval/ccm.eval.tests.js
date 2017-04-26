@@ -32,6 +32,10 @@ ccm.files[ 'ccm.eval.tests.js' ] = {
       },
       startCallback: function ( suite ) {
         suite.instance.start( suite.passed );
+      },
+      componentTag: function ( suite ) {
+        suite.container.innerHTML = '<ccm-eval></ccm-eval>';
+        suite.passed();
       }
     }
   },
