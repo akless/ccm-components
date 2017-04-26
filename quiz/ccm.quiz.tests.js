@@ -141,6 +141,17 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
             }
           } ]
         } );
+      },
+      defaultInput: function ( suite ) {
+        suite.component.start( {
+          questions: {},
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logging: { data: true },
+            onfinish: function ( instance, results ) {
+              suite.assertSame( 'checkbox', results.data.questions[ 0 ].input );
+            }
+          } ]
+        } );
       }
     }
   },
