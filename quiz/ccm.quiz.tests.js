@@ -90,7 +90,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       }
     }
   },
-  data: {
+  uniform_data_structure: {
     tests: {
       singleQuestion: function ( suite ) {
         suite.component.start( {
@@ -160,6 +160,17 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
             logging: { data: true },
             onfinish: function ( instance, results ) {
               suite.assertSame( 1, results.data.questions[ 0 ].answers.length );
+            }
+          } ]
+        } );
+      },
+      stringAnswers: function ( suite ) {
+        suite.component.start( {
+          questions: { answers: [ 'foo', {}, 'bar' ] },
+          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logging: { data: true },
+            onfinish: function ( instance, results ) {
+              suite.assertEquals( [ { text: 'foo' }, {}, { text: 'bar' } ], results.data.questions[ 0 ].answers );
             }
           } ]
         } );
