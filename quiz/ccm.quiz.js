@@ -85,7 +85,7 @@
   //  encode: true,
   //  shuffle: true,
   //  random: true,
-  //  input: 'text',
+  //  input: 'radio',
   //  attributes: {},
   //  feedback: true,
   //  swap: true,
