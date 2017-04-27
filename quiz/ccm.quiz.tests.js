@@ -174,35 +174,59 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
     }
   },
   config: {
+    logger: {
+      tests: {
+        start: function ( suite ) {
+          suite.component.start( {
+            logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+              logging: { data: true },
+              onfinish: function ( instance, results ) {
+                if ( results.event !== 'start' ) return suite.failed( 'wrong event' );
+                suite.assertEquals( [ 'questions', 'html_templates', 'css_layout', 'placeholder' ], Object.keys( results.data ) );
+              }
+            } ]
+          } );
+        },
+        finish: function ( suite ) {
+          suite.component.start( {
+            logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+              events: { finish: true },
+              onfinish: function ( instance, results ) {
+                suite.assertSame( 'finish', results.event );
+              }
+            } ]
+          }, function ( instance ) {
+            instance.element.querySelector( 'button' ).click();
+          } );
+        }
+      }
+    },
     tests: {
-      logStartEvent: function ( suite ) {
-        suite.component.start( {
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
-            logging: { data: true },
-            onfinish: function ( instance, results ) {
-              if ( results.event !== 'start' ) return suite.failed( 'wrong event' );
-              suite.assertEquals( [ 'questions', 'html_templates', 'css_layout', 'placeholder' ], Object.keys( results.data ) );
-            }
-          } ]
-        } );
-      },
-      oneQuestionOneButton: function ( suite ) {
+      oneQuestion: function ( suite ) {
         suite.component.start( function ( instance ) {
           var buttons = instance.element.querySelectorAll( 'button' );
           if ( buttons.length !== 1 ) return suite.failed( 'not one button' );
           suite.assertSame( 'Finish', buttons[ 0 ].innerHTML );
         } );
       },
-      logFinishEvent: function ( suite ) {
-        suite.component.start( {
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
-            events: { finish: true },
-            onfinish: function ( instance, results ) {
-              suite.assertSame( 'finish', results.event );
-            }
-          } ]
+      shuffle: function ( suite ) {
+        suite.component.instance( {
+          questions: [ { text: 'foo' }, { text: 'bar' } ],
+          shuffle: true
         }, function ( instance ) {
-          instance.element.querySelector( 'button' ).click();
+          var i = 0;
+          start();
+          function start() {
+            i++;
+            instance.start( function () {
+              if ( instance.element.querySelectorAll( '.title' )[ 0 ].children[ 2 ].innerHTML === 'bar' )
+                return suite.passed();
+              else if ( i < 10 )
+                start();
+              else
+                return suite.failed( 'same order' );
+            } );
+          }
         } );
       },
       loggedInUser: function ( suite ) {
