@@ -298,7 +298,7 @@
              * HTML ID of this answer
              * @type {string}
              */
-            var id = ( i + 1 ) + '-' + ( j + 1 );
+            var id = i + '-' + j;
 
             // prepare answer HTML structure
             answer.elem = self.ccm.helper.html( my.html_templates.answer, {
