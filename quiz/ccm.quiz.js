@@ -21,7 +21,8 @@
           id: 'main',
           inner: [
             { id: 'questions' },
-            { id: 'nav',
+            {
+              id: 'nav',
               inner: [
                 { id: 'prev' },
                 { id: 'next' },
@@ -31,7 +32,6 @@
           ]
         },
         question: {
-          id: '%id%',
           class: 'question',
           inner: [
             {
@@ -50,21 +50,18 @@
           ]
         },
         answer: {
-          id: '%id%',
           class: 'answer',
           inner: [
             {
               class: 'entry',
-              inner: [
-                {
-                  class: 'text',
-                  inner: {
-                    tag: 'label',
-                    inner: '%text%',
-                    for: '%id%-input'
-                  }
+              inner: {
+                class: 'text',
+                inner: {
+                  tag: 'label',
+                  inner: '%text%',
+                  for: '%id%-input'
                 }
-              ]
+              }
             },
             { class: 'comment' }
           ]
@@ -272,7 +269,6 @@
 
           // prepare question HTML structure
           question.elem = self.ccm.helper.html( my.html_templates.question, {
-            id:          i,
             question:    my.placeholder.question,
             nr:          i + 1,
             text:        question.encode ? self.ccm.helper.htmlEncode( question.text ) : question.text,
@@ -302,7 +298,7 @@
              * HTML ID of this answer
              * @type {string}
              */
-            var id = i + '-' + j;
+            var id = ( i + 1 ) + '-' + ( j + 1 );
 
             // prepare answer HTML structure
             answer.elem = self.ccm.helper.html( my.html_templates.answer, {
