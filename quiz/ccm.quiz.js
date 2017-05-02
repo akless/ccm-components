@@ -72,7 +72,6 @@
         question: 'Question',
         prev: 'Previous',
         submit: 'Submit',
-        correct: '%input% (correct: %correct%)',
         next: 'Next',
         finish: 'Finish'
       }
@@ -559,7 +558,7 @@
                   if ( question.input !== 'checkbox' && correct !== '' && input !== correct ) {
                     var input_tag = answer.elem.querySelector( 'input' );
                     input_tag.value = '';
-                    input_tag.setAttribute( 'placeholder', input === '' ? correct : self.ccm.helper.format( my.placeholder.correct, { correct: correct, input: input } ) );
+                    input_tag.setAttribute( 'placeholder', correct );
                   }
 
                 } );
