@@ -17,6 +17,14 @@
     config: {
       questions: {},
       html_templates: {
+        start: {
+          id: 'start',
+          inner: {
+            tag: 'button',
+            inner: '%caption%',
+            onclick: '%click%'
+          }
+        },
         main: {
           id: 'main',
           inner: [
@@ -69,6 +77,7 @@
       },
       css_layout: [ 'ccm.load', './../../ccm-components/quiz/layouts/default.css' ],
       placeholder: {
+        start: 'Start',
         question: 'Question',
         prev: 'Previous',
         submit: 'Submit',
@@ -85,6 +94,8 @@
   //  attributes: {},
   //  feedback: true,
   //  swap: true,
+  //  anytime_finish: true,
+  //  start_button: true,
   //  user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
   //  logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', [ 'ccm.get', './../../ccm-components/log/configs.json', 'greedy' ] ],
   //  onchange: function ( instance, data ) { console.log( data ); },
@@ -211,397 +222,411 @@
 
       this.start = function ( callback ) {
 
-        /**
-         * index of current question
-         * @type {number}
-         */
-        var current_question = 0;
+        // no start button? => start quiz
+        if ( !my.start_button ) return start();
 
-        /**
-         * which questions are already evaluated?
-         * @type {boolean[]}
-         */
-        var evaluated = [];
+        // render start button (start quiz when button is clicked)
+        self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.start, {
+          caption: my.placeholder.start,
+          click: start
+        } ) ) );
 
-        /**
-         * is quiz already finished?
-         * @type {boolean}
-         */
-        var finished = false;
-
-        /**
-         * result data
-         * @type {object}
-         */
-        var results = { details: [] };
-
-        // has logger instance? => log 'start' event
-        if ( self.logger ) self.logger.log( 'start', self.ccm.helper.clone( my ) );
-
-        // prepare main HTML structure
-        var main_elem = self.ccm.helper.html( my.html_templates.main );
-
-        // only one question? => remove containers for 'prev' and 'next' button
-        if ( my.questions.length === 1 ) {
-          self.ccm.helper.removeElement( main_elem.querySelector( '#prev' ) );
-          self.ccm.helper.removeElement( main_elem.querySelector( '#next' ) );
-        }
-
-        // want random order for the questions? => shuffle questions
-        if ( my.shuffle ) self.ccm.helper.shuffleArray( my.questions );
-
-        // render all questions and show only first one
-        my.questions.map( renderQuestion );
-        showQuestion();
-
-        // set content of own website area
-        self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
-
-        if ( callback ) callback();
-
-        /**
-         * renders a specific question
-         * @param {object} question - question data
-         * @param {number} i - question index
-         */
-        function renderQuestion( question, i ) {
-
-          // prepare question HTML structure
-          question.elem = self.ccm.helper.html( my.html_templates.question, {
-            question:    my.placeholder.question,
-            nr:          i + 1,
-            text:        question.encode ? self.ccm.helper.htmlEncode( question.text ) : question.text,
-            description: question.description
-          } );
-
-          // no description? => remove description container
-          if ( !question.description ) self.ccm.helper.removeElement( question.elem.querySelector( '.description' ) );
-
-          // want random order for the answers? => shuffle answers
-          if ( question.random ) self.ccm.helper.shuffleArray( question.answers );
-
-          // render question answers
-          question.answers.map( renderAnswer );
-
-          // add question to main HTML structure
-          main_elem.querySelector( '#questions' ).appendChild( question.elem );
+        /** starts the quiz */
+        function start() {
 
           /**
-           * renders a specific answer
-           * @param {object} answer - answer data
-           * @param {number} j - answer index
+           * index of current question
+           * @type {number}
            */
-          function renderAnswer( answer, j ) {
+          var current_question = 0;
+
+          /**
+           * which questions are already evaluated?
+           * @type {boolean[]}
+           */
+          var evaluated = [];
+
+          /**
+           * is quiz already finished?
+           * @type {boolean}
+           */
+          var finished = false;
+
+          /**
+           * result data
+           * @type {object}
+           */
+          var results = { details: [] };
+
+          // has logger instance? => log 'start' event
+          if ( self.logger ) self.logger.log( 'start', self.ccm.helper.clone( my ) );
+
+          // prepare main HTML structure
+          var main_elem = self.ccm.helper.html( my.html_templates.main );
+
+          // only one question? => remove containers for 'prev' and 'next' button
+          if ( my.questions.length === 1 ) {
+            self.ccm.helper.removeElement( main_elem.querySelector( '#prev' ) );
+            self.ccm.helper.removeElement( main_elem.querySelector( '#next' ) );
+          }
+
+          // want random order for the questions? => shuffle questions
+          if ( my.shuffle ) self.ccm.helper.shuffleArray( my.questions );
+
+          // render all questions and show only first one
+          my.questions.map( renderQuestion );
+          showQuestion();
+
+          // set content of own website area
+          self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
+
+          if ( callback ) callback();
+
+          /**
+           * renders a specific question
+           * @param {object} question - question data
+           * @param {number} i - question index
+           */
+          function renderQuestion( question, i ) {
+
+            // prepare question HTML structure
+            question.elem = self.ccm.helper.html( my.html_templates.question, {
+              question:    my.placeholder.question,
+              nr:          i + 1,
+              text:        question.encode ? self.ccm.helper.htmlEncode( question.text ) : question.text,
+              description: question.description
+            } );
+
+            // no description? => remove description container
+            if ( !question.description ) self.ccm.helper.removeElement( question.elem.querySelector( '.description' ) );
+
+            // want random order for the answers? => shuffle answers
+            if ( question.random ) self.ccm.helper.shuffleArray( question.answers );
+
+            // render question answers
+            question.answers.map( renderAnswer );
+
+            // add question to main HTML structure
+            main_elem.querySelector( '#questions' ).appendChild( question.elem );
 
             /**
-             * HTML ID of this answer
-             * @type {string}
+             * renders a specific answer
+             * @param {object} answer - answer data
+             * @param {number} j - answer index
              */
-            var id = i + '-' + j;
+            function renderAnswer( answer, j ) {
 
-            // prepare answer HTML structure
-            answer.elem = self.ccm.helper.html( my.html_templates.answer, {
-              id:   id,
-              text: answer.encode ? self.ccm.helper.htmlEncode( answer.text ) : answer.text
-            } );
-            addInput();
+              /**
+               * HTML ID of this answer
+               * @type {string}
+               */
+              var id = i + '-' + j;
 
-            // add answer to main HTML structure
-            question.elem.querySelector( '.answers' ).appendChild( answer.elem );
+              // prepare answer HTML structure
+              answer.elem = self.ccm.helper.html( my.html_templates.answer, {
+                id:   id,
+                text: answer.encode ? self.ccm.helper.htmlEncode( answer.text ) : answer.text
+              } );
+              addInput();
 
-            /** adds the input field */
-            function addInput() {
+              // add answer to main HTML structure
+              question.elem.querySelector( '.answers' ).appendChild( answer.elem );
 
-              // prepare ccm HTML data of the input field
-              var input_html = {
-                tag: 'input',
-                type: question.input,
-                name: id,
-                id: id + '-input',
-                oninput: function () {
+              /** adds the input field */
+              function addInput() {
 
-                  // prepare event data
-                  var event_data = { question: i, answer: j, value: this.value };
+                // prepare ccm HTML data of the input field
+                var input_html = {
+                  tag: 'input',
+                  type: question.input,
+                  name: id,
+                  id: id + '-input',
+                  oninput: function () {
 
-                  // has logger instance? => log 'input' event
-                  if ( self.logger ) self.logger.log( 'input', event_data );
+                    // prepare event data
+                    var event_data = { question: i, answer: j, value: this.value };
 
-                  // has individual 'input' callback? => perform it
-                  if ( self.oninput ) self.oninput( self, event_data );
+                    // has logger instance? => log 'input' event
+                    if ( self.logger ) self.logger.log( 'input', event_data );
 
-                },
-                onchange: function () {
+                    // has individual 'input' callback? => perform it
+                    if ( self.oninput ) self.oninput( self, event_data );
 
-                  // prepare event data
-                  var event_data = { question: i, answer: j, value: this.value };
+                  },
+                  onchange: function () {
 
-                  // has logger instance? => log 'change' event
-                  if ( self.logger ) self.logger.log( 'change', event_data );
+                    // prepare event data
+                    var event_data = { question: i, answer: j, value: this.value };
 
-                  // has individual 'change' callback? => perform it
-                  if ( self.onchange ) self.onchange( self, event_data );
+                    // has logger instance? => log 'change' event
+                    if ( self.logger ) self.logger.log( 'change', event_data );
 
+                    // has individual 'change' callback? => perform it
+                    if ( self.onchange ) self.onchange( self, event_data );
+
+                  }
+                };
+
+                // radio buttons? => set same name and different value
+                if ( question.input === 'radio' ) { input_html.name = i; input_html.value = j; }
+
+                // add individual attributes to input field
+                self.ccm.helper.integrate( answer.attributes, input_html );
+
+                // add input field to HTML structure of the answer
+                var entry_elem = answer.elem.querySelector( '.entry' );
+                var input_elem = self.ccm.helper.html( { class: 'input', inner: input_html } );
+                if ( answer.swap ) {
+                  entry_elem.appendChild( input_elem );
+                  entry_elem.classList.add( 'swap' );
                 }
-              };
+                else
+                  entry_elem.insertBefore( input_elem, entry_elem.firstChild );
 
-              // radio buttons? => set same name and different value
-              if ( question.input === 'radio' ) { input_html.name = i; input_html.value = j; }
-
-              // add individual attributes to input field
-              self.ccm.helper.integrate( answer.attributes, input_html );
-
-              // add input field to HTML structure of the answer
-              var entry_elem = answer.elem.querySelector( '.entry' );
-              var input_elem = self.ccm.helper.html( { class: 'input', inner: input_html } );
-              if ( answer.swap ) {
-                entry_elem.appendChild( input_elem );
-                entry_elem.classList.add( 'swap' );
               }
-              else
-                entry_elem.insertBefore( input_elem, entry_elem.firstChild );
 
             }
 
           }
 
-        }
-
-        /** shows current question (and hides all others) */
-        function showQuestion() {
-
-          /**
-           * current question data
-           * @type {object}
-           */
-          var question = my.questions[ current_question ];
-
-          // hide all questions and show only current question
-          self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.question' ) ).map( function ( question_elem ) { question_elem.style.display = 'none'; } );
-          question.elem.style.display = 'block';
-
-          // update navigation buttons
-          updateNav();
-
-          /** (re)renders navigation buttons */
-          function updateNav() {
-
-            // more than one question? => render 'prev' and 'next' button
-            if ( my.questions.length > 1 ) {
-
-              // render 'prev' button
-              self.ccm.helper.setContent( main_elem.querySelector( '#prev' ), self.ccm.helper.protect( self.ccm.helper.html( {
-                tag: 'button',
-                disabled: current_question === 0,
-                inner: my.placeholder.prev,
-                onclick: previousQuestion
-              } ) ) );
-
-              // render 'submit' or 'next' button
-              self.ccm.helper.setContent( main_elem.querySelector( '#next' ), self.ccm.helper.protect( self.ccm.helper.html( {
-                tag: 'button',
-                disabled: current_question === my.questions.length - 1 && ( !question.feedback || evaluated[ current_question ] ),
-                inner: my.placeholder[ question.feedback && !evaluated[ current_question ] ? 'submit' : 'next' ],
-                onclick: question.feedback && !evaluated[ current_question ] ? function () { evaluate( question ) } : nextQuestion
-              } ) ) );
-
-            }
-
-            // render 'finish' button
-            if ( !finished ) self.ccm.helper.setContent( main_elem.querySelector( '#finish' ), self.ccm.helper.protect( self.ccm.helper.html( {
-              tag: 'button',
-              disabled: current_question !== my.questions.length - 1 || question.feedback && !evaluated[ current_question ],
-              inner: my.placeholder.finish,
-              onclick: function () {
-
-                // has user instance? => login user
-                if ( self.user ) self.user.login( proceed ); else proceed();
-
-                function proceed() {
-
-                  // make sure that user could not use finish button again
-                  finished = true;
-                  self.ccm.helper.removeElement( main_elem.querySelector( '#finish' ) );
-
-                  // evaluate all not already evaluated questions
-                  evaluate();
-
-                  // finalize result data
-                  if ( self.user ) results.user = self.user.data().key;
-
-                  // has logger instance? => log finish event
-                  if ( self.logger ) self.logger.log( 'finish', results );
-
-                  // provide result data
-                  self.ccm.helper.onFinish( self, results );
-
-                }
-
-              }
-            } ) ) );
-
-            /** switch to previous question */
-            function previousQuestion() {
-
-              // decrease current question number
-              current_question--;
-
-              // show previous question
-              showQuestion();
-
-              // has logger instance? => log 'prev' event
-              if ( self.logger ) self.logger.log( 'prev', current_question );
-
-              // has individual 'prev' callback? => perform it
-              if ( self.onPrev ) self.onPrev( self, current_question );
-
-            }
+          /** shows current question (and hides all others) */
+          function showQuestion() {
 
             /**
-             * evaluates a question
-             * @param {object} [question] - question data (default: evaluate all questions)
-             * @param {number} [i] - question index (default: index of current question)
+             * current question data
+             * @type {object}
              */
-            function evaluate( question, i ) {
+            var question = my.questions[ current_question ];
 
-              // no specific question? => show feedback for all questions
-              if ( !question ) return my.questions.map( evaluate );
+            // hide all questions and show only current question
+            self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.question' ) ).map( function ( question_elem ) { question_elem.style.display = 'none'; } );
+            question.elem.style.display = 'block';
 
-              // missing question index? => use index of current question as default
-              if ( i === undefined ) i = current_question;
+            // update navigation buttons
+            updateNav();
 
-              // question is already evaluated? => abort
-              if ( results.details[ i ] ) return;
+            /** (re)renders navigation buttons */
+            function updateNav() {
 
-              // prepare event data
-              var event_data = { question: current_question, input: getResult() };
+              // more than one question? => render 'prev' and 'next' button
+              if ( my.questions.length > 1 ) {
 
-              // has individual 'validation' callback? => perform it
-              if ( self.onvalidation && !self.onvalidation( self, self.ccm.helper.clone( event_data ) ) ) return;
+                // render 'prev' button
+                self.ccm.helper.setContent( main_elem.querySelector( '#prev' ), self.ccm.helper.protect( self.ccm.helper.html( {
+                  tag: 'button',
+                  disabled: current_question === 0,
+                  inner: my.placeholder.prev,
+                  onclick: previousQuestion
+                } ) ) );
 
-              // add solution information to event data
-              event_data.correct = question.correct;
-
-              // has logger instance? => log 'feedback' event
-              if ( self.logger ) self.logger.log( 'feedback', event_data );
-
-              // has individual 'feedback' callback? => perform it
-              if ( self.onfeedback ) self.onfeedback( self, self.ccm.helper.clone( event_data ) );
-
-              // add result data of this question to result data of hole quiz
-              delete event_data.question;
-              results.details[ i ] = event_data;
-
-              // disable evaluated input fields
-              self.ccm.helper.makeIterable( question.elem.querySelectorAll( 'input' ) ).map( function ( input_field ) { input_field.disabled = true; } );
-
-              // show visual feedback for this question
-              showFeedback();
-
-              // next time show next question instead of feedback
-              evaluated[ i ] = true;
-
-              // update navigation buttons
-              updateNav();
-
-              /**
-               * get input field values of this question
-               * @returns {object}
-               */
-              function getResult() {
-
-                var values = self.ccm.helper.formData( question.elem );
-                if ( question.input === 'radio' ) return parseInt( values[ Object.keys( values )[ 0 ] ] );
-                return values;
+                // render 'submit' or 'next' button
+                self.ccm.helper.setContent( main_elem.querySelector( '#next' ), self.ccm.helper.protect( self.ccm.helper.html( {
+                  tag: 'button',
+                  disabled: current_question === my.questions.length - 1 && ( !question.feedback || evaluated[ current_question ] ),
+                  inner: my.placeholder[ question.feedback && !evaluated[ current_question ] ? 'submit' : 'next' ],
+                  onclick: question.feedback && !evaluated[ current_question ] ? function () { evaluate( question ) } : nextQuestion
+                } ) ) );
 
               }
 
-              /** gives the user a visual feedback */
-              function showFeedback() {
+              // render 'finish' button
+              if ( !finished ) self.ccm.helper.setContent( main_elem.querySelector( '#finish' ), self.ccm.helper.protect( self.ccm.helper.html( {
+                tag: 'button',
+                disabled: !my.anytime_finish && ( current_question !== my.questions.length - 1 || question.feedback && !evaluated[ current_question ] ),
+                inner: my.placeholder.finish,
+                onclick: function () {
 
-                // iterate over all answers of this question
-                question.answers.map( function ( answer, j ) {
+                  // has user instance? => login user
+                  if ( self.user ) self.user.login( proceed ); else proceed();
 
-                  // render answer comment
-                  if ( answer.comment ) answer.elem.querySelector( '.comment' ).innerHTML = answer.comment;
+                  function proceed() {
 
-                  // no informations about correct answer? => abort
-                  if ( event_data.correct === undefined ) return;
+                    // make sure that user could not use finish button again
+                    finished = true;
+                    self.ccm.helper.removeElement( main_elem.querySelector( '#finish' ) );
 
-                  // is single choice? => abort
-                  if ( question.input === 'radio' ) return;
+                    // evaluate all not already evaluated questions
+                    evaluate();
 
-                  // select answer entry
-                  var entry_elem = answer.elem.querySelector( '.entry' );
+                    // finalize result data
+                    if ( self.user ) results.user = self.user.data().key;
 
-                  /**
-                   * correct value for this answer
-                   * @type {boolean|number|string}
-                   */
-                  var correct = event_data.correct[ j ];
+                    // has logger instance? => log finish event
+                    if ( self.logger ) self.logger.log( 'finish', results );
 
-                  /**
-                   * input value for this answer
-                   * @type {boolean|number|string}
-                   */
-                  var input = event_data.input[ i + '-' + j ];
+                    // provide result data
+                    self.ccm.helper.onFinish( self, results );
 
-                  // user gives correct value for this answer? => mark answer as right
-                  if ( input !== '' && input === correct ) entry_elem.classList.add( 'right' );
-
-                  // user gives wrong value for this answer? => mark answer as wrong
-                  if ( input !== '' && input !== correct ) entry_elem.classList.add( 'wrong' );
-
-                  // user gives no value for a correct answer? => mark missed correct answer as correct
-                  if ( input === '' && correct !== '' && correct !== false ) entry_elem.classList.add( 'correct' );
-
-                  // number or text input field and user gives not correct value? => show user correct value (via placeholder attribute)
-                  if ( question.input !== 'checkbox' && correct !== '' && input !== correct ) {
-                    var input_tag = answer.elem.querySelector( 'input' );
-                    input_tag.value = '';
-                    input_tag.setAttribute( 'placeholder', correct );
                   }
 
-                } );
+                }
+              } ) ) );
 
-                // no informations about correct answers? => abort
-                if ( event_data.correct === undefined ) return;
+              /** switch to previous question */
+              function previousQuestion() {
 
-                // is single choice?
-                if ( question.input === 'radio' ) {
+                // decrease current question number
+                current_question--;
 
-                  // select all answer entries
-                  var answers_entries = question.elem.querySelectorAll( '.entry' );
+                // show previous question
+                showQuestion();
 
-                  // user chooses correct answer? => mark as right
-                  if ( event_data.input === event_data.correct )
-                    answers_entries[ event_data.input ].classList.add( 'right' );
-                  else {
-                    // user chooses wrong answer? => mark user answer as wrong
-                    if ( !isNaN( event_data.input ) ) answers_entries[ event_data.input ].classList.add( 'wrong' );
-                    // mark missed correct answer as correct
-                    answers_entries[ event_data.correct ].classList.add( 'correct' );
+                // has logger instance? => log 'prev' event
+                if ( self.logger ) self.logger.log( 'prev', current_question );
+
+                // has individual 'prev' callback? => perform it
+                if ( self.onPrev ) self.onPrev( self, current_question );
+
+              }
+
+              /**
+               * evaluates a question
+               * @param {object} [question] - question data (default: evaluate all questions)
+               * @param {number} [i] - question index (default: index of current question)
+               */
+              function evaluate( question, i ) {
+
+                // no specific question? => show feedback for all questions
+                if ( !question ) return my.questions.map( evaluate );
+
+                // missing question index? => use index of current question as default
+                if ( i === undefined ) i = current_question;
+
+                // question is already evaluated? => abort
+                if ( results.details[ i ] ) return;
+
+                // prepare event data
+                var event_data = { question: current_question, input: getResult() };
+
+                // has individual 'validation' callback? => perform it
+                if ( self.onvalidation && !self.onvalidation( self, self.ccm.helper.clone( event_data ) ) ) return;
+
+                // add solution information to event data
+                event_data.correct = question.correct;
+
+                // has logger instance? => log 'feedback' event
+                if ( self.logger ) self.logger.log( 'feedback', event_data );
+
+                // has individual 'feedback' callback? => perform it
+                if ( self.onfeedback ) self.onfeedback( self, self.ccm.helper.clone( event_data ) );
+
+                // add result data of this question to result data of hole quiz
+                delete event_data.question;
+                results.details[ i ] = event_data;
+
+                // disable evaluated input fields
+                self.ccm.helper.makeIterable( question.elem.querySelectorAll( 'input' ) ).map( function ( input_field ) { input_field.disabled = true; } );
+
+                // show visual feedback for this question
+                showFeedback();
+
+                // next time show next question instead of feedback
+                evaluated[ i ] = true;
+
+                // update navigation buttons
+                updateNav();
+
+                /**
+                 * get input field values of this question
+                 * @returns {object}
+                 */
+                function getResult() {
+
+                  var values = self.ccm.helper.formData( question.elem );
+                  if ( question.input === 'radio' ) return parseInt( values[ Object.keys( values )[ 0 ] ] );
+                  return values;
+
+                }
+
+                /** gives the user a visual feedback */
+                function showFeedback() {
+
+                  // iterate over all answers of this question
+                  question.answers.map( function ( answer, j ) {
+
+                    // render answer comment
+                    if ( answer.comment ) answer.elem.querySelector( '.comment' ).innerHTML = answer.comment;
+
+                    // no informations about correct answer? => abort
+                    if ( event_data.correct === undefined ) return;
+
+                    // is single choice? => abort
+                    if ( question.input === 'radio' ) return;
+
+                    // select answer entry
+                    var entry_elem = answer.elem.querySelector( '.entry' );
+
+                    /**
+                     * correct value for this answer
+                     * @type {boolean|number|string}
+                     */
+                    var correct = event_data.correct[ j ];
+
+                    /**
+                     * input value for this answer
+                     * @type {boolean|number|string}
+                     */
+                    var input = event_data.input[ i + '-' + j ];
+
+                    // user gives correct value for this answer? => mark answer as right
+                    if ( input !== '' && input === correct ) entry_elem.classList.add( 'right' );
+
+                    // user gives wrong value for this answer? => mark answer as wrong
+                    if ( input !== '' && input !== correct ) entry_elem.classList.add( 'wrong' );
+
+                    // user gives no value for a correct answer? => mark missed correct answer as correct
+                    if ( input === '' && correct !== '' && correct !== false ) entry_elem.classList.add( 'correct' );
+
+                    // number or text input field and user gives not correct value? => show user correct value (via placeholder attribute)
+                    if ( question.input !== 'checkbox' && correct !== '' && input !== correct ) {
+                      var input_tag = answer.elem.querySelector( 'input' );
+                      input_tag.value = '';
+                      input_tag.setAttribute( 'placeholder', correct );
+                    }
+
+                  } );
+
+                  // no informations about correct answers? => abort
+                  if ( event_data.correct === undefined ) return;
+
+                  // is single choice?
+                  if ( question.input === 'radio' ) {
+
+                    // select all answer entries
+                    var answers_entries = question.elem.querySelectorAll( '.entry' );
+
+                    // user chooses correct answer? => mark as right
+                    if ( event_data.input === event_data.correct )
+                      answers_entries[ event_data.input ].classList.add( 'right' );
+                    else {
+                      // user chooses wrong answer? => mark user answer as wrong
+                      if ( !isNaN( event_data.input ) ) answers_entries[ event_data.input ].classList.add( 'wrong' );
+                      // mark missed correct answer as correct
+                      answers_entries[ event_data.correct ].classList.add( 'correct' );
+                    }
+
                   }
 
                 }
 
               }
 
-            }
+              /** switch to next question */
+              function nextQuestion() {
 
-            /** switch to next question */
-            function nextQuestion() {
+                // increase current question number
+                current_question++;
 
-              // increase current question number
-              current_question++;
+                // show next question
+                showQuestion();
 
-              // show next question
-              showQuestion();
+                // has logger instance? => log 'next' event
+                if ( self.logger ) self.logger.log( 'next', current_question );
 
-              // has logger instance? => log 'next' event
-              if ( self.logger ) self.logger.log( 'next', current_question );
+                // has individual 'next' callback? => perform it
+                if ( self.onNext ) self.onNext( self, current_question );
 
-              // has individual 'next' callback? => perform it
-              if ( self.onNext ) self.onNext( self, current_question );
+              }
 
             }
 
