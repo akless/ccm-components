@@ -67,7 +67,7 @@ input[type=checkbox]:enabled, input[type=radio]:enabled, button:enabled {
 .comment:not(:empty) {
   font-size: 80%;
   font-style: italic;
-  padding-top: 0.15em;;
+  padding-top: 0.15em;
 }
 
 #nav {
