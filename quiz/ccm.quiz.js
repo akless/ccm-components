@@ -41,6 +41,7 @@
           ]
         },
         question: {
+          id: '%id%',
           class: 'question',
           inner: [
             {
@@ -59,7 +60,8 @@
           ]
         },
         answer: {
-          class: 'answer',
+          id: '%id%',
+          class: 'answer %class%',
           inner: [
             {
               class: 'entry',
@@ -251,9 +253,9 @@
 
           /**
            * which questions are already evaluated?
-           * @type {boolean[]}
+           * @type {Object.<number,boolean>}
            */
-          var evaluated = [];
+          var evaluated = {};
 
           /**
            * is quiz already finished?
@@ -284,6 +286,9 @@
             self.ccm.helper.removeElement( next_elem );
           }
 
+          // each question knows her original number and HTML ID
+          my.questions.map( function ( question, i ) { question.nr = i + 1; question.id = 'question-' + question.nr; } );
+
           // want random order for the questions? => shuffle questions
           if ( my.shuffle ) self.ccm.helper.shuffleArray( my.questions );
 
@@ -309,6 +314,7 @@
             // prepare question HTML structure
             question.elem = self.ccm.helper.html( my.html_templates.question, {
               question:    my.placeholder.question,
+              id:          question.id,
               nr:          i + 1,
               text:        question.encode ? self.ccm.helper.htmlEncode( question.text ) : question.text,
               description: question.description
@@ -316,6 +322,9 @@
 
             // no description? => remove description container
             if ( !question.description ) self.ccm.helper.removeElement( question.elem.querySelector( '.description' ) );
+
+            // each answer knows her original number, HTML class and HTML ID
+            question.answers.map( function ( answer, i ) { answer.nr = i + 1; answer.class = 'answer-' + answer.nr; answer.id = question.id + '-' + answer.class; } );
 
             // want random order for the answers? => shuffle answers
             if ( question.random ) self.ccm.helper.shuffleArray( question.answers );
@@ -329,19 +338,13 @@
             /**
              * renders a specific answer
              * @param {object} answer - answer data
-             * @param {number} j - answer index
              */
-            function renderAnswer( answer, j ) {
-
-              /**
-               * HTML ID of this answer
-               * @type {string}
-               */
-              var id = i + '-' + j;
+            function renderAnswer( answer ) {
 
               // prepare answer HTML structure
               answer.elem = self.ccm.helper.html( my.html_templates.answer, {
-                id:   id,
+                id: answer.id,
+                class: answer.class,
                 text: answer.encode ? self.ccm.helper.htmlEncode( answer.text ) : answer.text
               } );
               addInput();
@@ -356,12 +359,12 @@
                 var input_html = {
                   tag: 'input',
                   type: question.input,
-                  name: id,
-                  id: id + '-input',
+                  name: answer.id,
+                  id: answer.id + '-input',
                   oninput: function () {
 
                     // prepare event data
-                    var event_data = { question: i, answer: j, value: this.value };
+                    var event_data = { question: question.nr, answer: answer.nr, value: this.value };
 
                     // has logger instance? => log 'input' event
                     if ( self.logger ) self.logger.log( 'input', event_data );
@@ -373,7 +376,7 @@
                   onchange: function () {
 
                     // prepare event data
-                    var event_data = { question: i, answer: j, value: this.value };
+                    var event_data = { question: question.nr, answer: answer.nr, value: this.value };
 
                     // has logger instance? => log 'change' event
                     if ( self.logger ) self.logger.log( 'change', event_data );
@@ -385,7 +388,7 @@
                 };
 
                 // radio buttons? => set same name and different value
-                if ( question.input === 'radio' ) { input_html.name = i; input_html.value = j; }
+                if ( question.input === 'radio' ) { input_html.name = question.id; input_html.value = answer.nr - 1; }
 
                 // add individual attributes to input field
                 self.ccm.helper.integrate( answer.attributes, input_html );
@@ -441,9 +444,9 @@
               // render 'submit' or 'next' button
               self.ccm.helper.setContent( next_elem, self.ccm.helper.protect( self.ccm.helper.html( {
                 tag: 'button',
-                disabled: current_question === my.questions.length - 1 && ( !question.feedback || evaluated[ current_question ] ),
-                inner: my.placeholder[ question.feedback && !evaluated[ current_question ] ? 'submit' : 'next' ],
-                onclick: question.feedback && !evaluated[ current_question ] ? function () { evaluate( question ) } : nextQuestion
+                disabled: current_question === my.questions.length - 1 && ( !question.feedback || evaluated[ question.nr ] ),
+                inner: my.placeholder[ question.feedback && !evaluated[ question.nr ] ? 'submit' : 'next' ],
+                onclick: question.feedback && !evaluated[ question.nr ] ? function () { evaluate( question ) } : nextQuestion
               } ) ) );
 
             }
@@ -451,7 +454,7 @@
             // render 'finish' button
             if ( !finished ) self.ccm.helper.setContent( finish_elem, self.ccm.helper.protect( self.ccm.helper.html( {
               tag: 'button',
-              disabled: !my.anytime_finish && ( current_question !== my.questions.length - 1 || question.feedback && !evaluated[ current_question ] ),
+              disabled: !my.anytime_finish && ( current_question !== my.questions.length - 1 || question.feedback && !evaluated[ question.nr ] ),
               inner: my.placeholder.finish,
               onclick: onFinish
             } ) ) );
@@ -495,21 +498,17 @@
           /**
            * evaluates a question
            * @param {object} [question] - question data (default: evaluate all questions)
-           * @param {number} [i] - question index (default: index of current question)
            */
-          function evaluate( question, i ) {
+          function evaluate( question ) {
 
             // no specific question? => show feedback for all questions
             if ( !question ) return my.questions.map( evaluate );
 
-            // missing question index? => use index of current question as default
-            if ( i === undefined ) i = current_question;
-
             // question is already evaluated? => abort
-            if ( results.details[ i ] ) return;
+            if ( results.details[ question.nr - 1 ] ) return;
 
             // prepare event data
-            var event_data = { question: current_question, input: getResult() };
+            var event_data = { question: question.nr, input: getResult() };
 
             // has individual 'validation' callback? => perform it
             if ( self.onvalidation && !self.onvalidation( self, self.ccm.helper.clone( event_data ) ) ) return;
@@ -525,7 +524,7 @@
 
             // add result data of this question to result data of hole quiz
             delete event_data.question;
-            results.details[ i ] = event_data;
+            results.details[ question.nr - 1 ] = event_data;
 
             // disable evaluated input fields
             self.ccm.helper.makeIterable( question.elem.querySelectorAll( 'input' ) ).map( function ( input_field ) { input_field.disabled = true; } );
@@ -534,20 +533,23 @@
             showFeedback();
 
             // next time show next question instead of feedback
-            evaluated[ i ] = true;
+            evaluated[ question.nr ] = true;
 
             // update navigation buttons
             updateNav();
 
             /**
              * get input field values of this question
-             * @returns {object}
+             * @returns {Array|number}
              */
             function getResult() {
 
               var values = self.ccm.helper.formData( question.elem );
               if ( question.input === 'radio' ) return parseInt( values[ Object.keys( values )[ 0 ] ] );
-              return values;
+              var array = [];
+              for ( var i in values )
+                array.push( question.input === 'checkbox' ? !!values[ i ] : values[ i ] );
+              return array;
 
             }
 
@@ -555,7 +557,7 @@
             function showFeedback() {
 
               // iterate over all answers of this question
-              question.answers.map( function ( answer, j ) {
+              question.answers.map( function ( answer ) {
 
                 // render answer comment
                 if ( answer.comment ) answer.elem.querySelector( '.comment' ).innerHTML = answer.comment;
@@ -566,29 +568,26 @@
                 // is single choice? => abort
                 if ( question.input === 'radio' ) return;
 
-                // select answer entry
-                var entry_elem = answer.elem.querySelector( '.entry' );
-
                 /**
                  * correct value for this answer
                  * @type {boolean|number|string}
                  */
-                var correct = event_data.correct[ j ];
+                var correct = event_data.correct[ answer.nr - 1 ];
 
                 /**
                  * input value for this answer
                  * @type {boolean|number|string}
                  */
-                var input = event_data.input[ i + '-' + j ];
+                var input = event_data.input[ answer.nr - 1 ];
 
                 // user gives correct value for this answer? => mark answer as right
-                if ( input !== '' && input === correct ) entry_elem.classList.add( 'right' );
+                if ( input !== '' && input !== false && input === correct ) answer.elem.classList.add( 'right' );
 
                 // user gives wrong value for this answer? => mark answer as wrong
-                if ( input !== '' && input !== correct ) entry_elem.classList.add( 'wrong' );
+                if ( input !== '' && input !== false && input !== correct ) answer.elem.classList.add( 'wrong' );
 
                 // user gives no value for a correct answer? => mark missed correct answer as correct
-                if ( input === '' && correct !== '' && correct !== false ) entry_elem.classList.add( 'correct' );
+                if ( ( input === '' || input === false ) && correct !== '' && correct !== false ) answer.elem.classList.add( 'correct' );
 
                 // number or text input field and user gives not correct value? => show user correct value (via placeholder attribute)
                 if ( question.input !== 'checkbox' && correct !== '' && input !== correct ) {
@@ -605,17 +604,32 @@
               // is single choice?
               if ( question.input === 'radio' ) {
 
-                // select all answer entries
-                var answers_entries = question.elem.querySelectorAll( '.entry' );
+                /**
+                 * correct value for this answer
+                 * @type {number}
+                 */
+                var correct = event_data.correct;
+
+                /**
+                 * input value for this answer
+                 * @type {number}
+                 */
+                var input = event_data.input;
+
+                /**
+                 * prefix of the HTML ID of an answer
+                 * @type {string}
+                 */
+                var id_prefix = '#' + question.id + '-answer-';
 
                 // user chooses correct answer? => mark as right
-                if ( event_data.input === event_data.correct )
-                  answers_entries[ event_data.input ].classList.add( 'right' );
+                if ( event_data.input === correct )
+                  question.elem.querySelector( id_prefix + ( input + 1 ) ).classList.add( 'right' );
                 else {
                   // user chooses wrong answer? => mark user answer as wrong
-                  if ( !isNaN( event_data.input ) ) answers_entries[ event_data.input ].classList.add( 'wrong' );
+                  if ( !isNaN( event_data.input ) ) question.elem.querySelector( id_prefix + ( input + 1 ) ).classList.add( 'wrong' );
                   // mark missed correct answer as correct
-                  answers_entries[ event_data.correct ].classList.add( 'correct' );
+                  question.elem.querySelector( id_prefix + ( correct + 1 ) ).classList.add( 'correct' );
                 }
 
               }

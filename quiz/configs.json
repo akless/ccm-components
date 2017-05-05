@@ -21,14 +21,18 @@
       {
         "text": "Und wie viele Antworten können hier korrekt sein?",
         "answers": [
-          "gar keine",
+          {
+            "text": "gar keine",
+            "comment": "Wird nicht unterstützt, weil gemein."
+          },
+          "genau eine",
           "mehr als eine",
           {
             "text": "maximal eine",
             "comment": "Weil man mehr als eine Antwort wählen kann."
           }
         ],
-        "correct": [ true, true ]
+        "correct": [ false, true, true ]
       },
       {
         "text": "Könnte diesmal auch nur eine Antwort richtig sein?",
