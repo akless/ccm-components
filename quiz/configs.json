@@ -6,13 +6,6 @@
     "onfinish": { "restart": true, "log": true },
     "questions": [
       {
-        "text": "Beim Abschluss dieses Quiz...",
-        "description": "Für einen Quiz kann festgelegt werden, was nach dessen Abschluss passieren soll. Hierfür werden vom Quiz auch die Ergebnisdaten zur Verfügung gestellt. Sofern der rechtliche Rahmen gegeben ist, können auch sämtliche Ereignisse bei der Verwendung des Quiz getrackt werden. Für dieses Quiz wurden beispielhaft soviele Daten wie möglich erfasst und lediglich in der Browserkonsole ausgegeben. Schauen Sie bei Interesse dort nach, was für Daten gesammelt wurden. Welche Daten erfasst werden und ob dies anonymisiert oder pseudonymisiert geschieht ist einstellbar, abhängig von der dafür verwendeten optionalen Web-Komponente. Über eine optionale Web-Komponente für Benutzerauthentifikation kann die Nutzung eines Quiz und dessen Auswertung auch personenbezogen erfolgen.",
-        "answers": "... wird der Quiz neu gestartet.",
-        "input": "radio",
-        "correct": 0
-      },
-      {
         "text": "Wie viele dieser Antworten sind korrekt?",
         "description": "Die ist ein Beispiel für eine Single-Choice-Frage. Für jedes Quiz ist einstellbar, ob zu jeder Frage nach deren Beantwortung ein unmittelbares Feedback erfolgt. Für diesen Demo-Quiz ist dies eingeschaltet. Zu einer Antwort kann beim Erstellen eines Quiz ein Kommentar oder eine Begründung angegeben werden, warum diese Antwort richtig oder falsch ist. Bei dieser Frage wurde für eine Antwort eine solche Begründung hinterlegt, die dann beim unmittelbaren Feedback mit erscheint.",
         "answers": [
@@ -108,6 +101,13 @@
           }
         ],
         "correct": [ 3, 4 ]
+      },
+      {
+        "text": "Beim Abschluss dieses Quiz...",
+        "description": "Für einen Quiz kann festgelegt werden, was nach dessen Abschluss passieren soll. Hierfür werden vom Quiz auch die Ergebnisdaten zur Verfügung gestellt. Sofern der rechtliche Rahmen gegeben ist, können auch sämtliche Ereignisse bei der Verwendung des Quiz getrackt werden. Für dieses Quiz wurden beispielhaft soviele Daten wie möglich erfasst und lediglich in der Browserkonsole ausgegeben. Schauen Sie bei Interesse dort nach, was für Daten gesammelt wurden. Welche Daten erfasst werden und ob dies anonymisiert oder pseudonymisiert geschieht ist einstellbar, abhängig von der dafür verwendeten optionalen Web-Komponente. Über eine optionale Web-Komponente für Benutzerauthentifikation kann die Nutzung eines Quiz und dessen Auswertung auch personenbezogen erfolgen.",
+        "answers": "... wird der Quiz neu gestartet.",
+        "input": "radio",
+        "correct": 0
       }
     ]
   }
