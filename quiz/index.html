@@ -1,47 +1,4 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script src="../../ccm-components/quiz/ccm.quiz.js"></script>
-
-<!-- Demo Quiz via embed code -->
 <ccm-quiz key='["ccm.get","../../ccm-components/quiz/configs.json","demo"]'></ccm-quiz>
-
-<!-- Demo Quiz via declarative way -->
-<ccm-quiz feedback="true" shuffle="true" random="true">
-
-  <ccm-quiz-question text="Wie viele dieser Antworten sind korrekt?" input="radio">
-    <ccm-quiz-answer text="eins" comment="Weil man nicht mehr als eine Antwort wählen kann." correct="true"></ccm-quiz-answer>
-    <ccm-quiz-answer text="zwei"></ccm-quiz-answer>
-    <ccm-quiz-answer text="drei"></ccm-quiz-answer>
-  </ccm-quiz-question>
-
-  <ccm-quiz-question text="Und wie viele Antworten können hier korrekt sein?">
-    <ccm-quiz-answer text="gar keine" correct="true"></ccm-quiz-answer>
-    <ccm-quiz-answer text="mehr als eine" correct="true"></ccm-quiz-answer>
-    <ccm-quiz-answer text="maximal eine" comment="Weil man mehr als eine Antwort wählen kann."></ccm-quiz-answer>
-  </ccm-quiz-question>
-
-  <ccm-quiz-question text="Könnte diesmal auch nur eine Antwort richtig sein?">
-    <ccm-quiz-answer text="ja" correct="true"></ccm-quiz-answer>
-    <ccm-quiz-answer text="nein"></ccm-quiz-answer>
-    <ccm-quiz-answer text="vielleicht"></ccm-quiz-answer>
-  </ccm-quiz-question>
-
-  <ccm-quiz-question text="Wie lautet die Lösung der folgenden Rechenaufgaben?" description="Bitte die Lösungen in die Eingabefelder eintragen." input="number">
-    <ccm-quiz-answer text="= 1 + 1" correct="2"></ccm-quiz-answer>
-    <ccm-quiz-answer text="= 1 - 1" correct="0"></ccm-quiz-answer>
-    <ccm-quiz-answer text="= -1 - 1" correct="-2"></ccm-quiz-answer>
-  </ccm-quiz-question>
-
-  <ccm-quiz-question text="Was ist die Wurzel aus -1?">
-    <ccm-quiz-answer text="1"></ccm-quiz-answer>
-    <ccm-quiz-answer text="0"></ccm-quiz-answer>
-    <ccm-quiz-answer text="-1"></ccm-quiz-answer>
-    <ccm-quiz-answer text="i" comment="Im Zahlenraum der komplexen Zahlen." correct="true"></ccm-quiz-answer>
-    <ccm-quiz-answer text="nicht definiert" comment="Im Zahlenraum der reellen Zahlen." correct="true"></ccm-quiz-answer>
-  </ccm-quiz-question>
-
-  <ccm-instance-user src="../../ccm-components/user/ccm.user.js"></ccm-instance-user>
-  <ccm-instance-logger src="../../ccm-components/log/ccm.log.js" key='["ccm.get","../../ccm-components/log/configs.json","greedy"]'></ccm-instance-logger>
-  <ccm-list-onfinish log="true" restart="true"></ccm-list-onfinish>
-
-</ccm-quiz>
