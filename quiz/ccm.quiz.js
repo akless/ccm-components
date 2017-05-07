@@ -283,7 +283,7 @@
           // only one question? => remove containers for 'prev' and 'next' button
           if ( my.questions.length === 1 ) {
             self.ccm.helper.removeElement( prev_elem );
-            self.ccm.helper.removeElement( next_elem );
+            if ( !my.questions[ 0 ].feedback ) self.ccm.helper.removeElement( next_elem );
           }
 
           // each question knows her original number and HTML ID
@@ -430,26 +430,21 @@
              */
             var question = my.questions[ current_question ];
 
-            // more than one question? => render 'prev' and 'next' button
-            if ( my.questions.length > 1 ) {
+            // render 'prev' button
+            self.ccm.helper.setContent( prev_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+              tag: 'button',
+              disabled: current_question === 0,
+              inner: my.placeholder.prev,
+              onclick: previousQuestion
+            } ) ) );
 
-              // render 'prev' button
-              self.ccm.helper.setContent( prev_elem, self.ccm.helper.protect( self.ccm.helper.html( {
-                tag: 'button',
-                disabled: current_question === 0,
-                inner: my.placeholder.prev,
-                onclick: previousQuestion
-              } ) ) );
-
-              // render 'submit' or 'next' button
-              self.ccm.helper.setContent( next_elem, self.ccm.helper.protect( self.ccm.helper.html( {
-                tag: 'button',
-                disabled: current_question === my.questions.length - 1 && ( !question.feedback || evaluated[ question.nr ] ),
-                inner: my.placeholder[ question.feedback && !evaluated[ question.nr ] ? 'submit' : 'next' ],
-                onclick: question.feedback && !evaluated[ question.nr ] ? function () { evaluate( question ) } : nextQuestion
-              } ) ) );
-
-            }
+            // render 'submit' or 'next' button
+            self.ccm.helper.setContent( next_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+              tag: 'button',
+              disabled: current_question === my.questions.length - 1 && ( !question.feedback || evaluated[ question.nr ] ),
+              inner: my.placeholder[ question.feedback && !evaluated[ question.nr ] ? 'submit' : 'next' ],
+              onclick: question.feedback && !evaluated[ question.nr ] ? function () { evaluate( question ) } : nextQuestion
+            } ) ) );
 
             // render 'finish' button
             if ( !finished ) self.ccm.helper.setContent( finish_elem, self.ccm.helper.protect( self.ccm.helper.html( {
