@@ -3,7 +3,21 @@
     "feedback": true,
     "user": [ "ccm.instance", "../../ccm-components/user/ccm.user.js" ],
     "logger": [ "ccm.instance", "../../ccm-components/log/ccm.log.js", [ "ccm.get", "../../ccm-components/log/configs.json", "greedy" ] ],
-    "onfinish": { "restart": true, "log": true },
+    "onfinish": {
+      "log": true,
+      "render": {
+        "component": "quiz",
+        "config": [ "ccm.get", "../../ccm-components/quiz/configs.json", "demo2" ]
+      }
+    },
+    "placeholder": {
+      "start": "Start",
+      "question": "Frage",
+      "prev": "Zurück",
+      "submit": "Abschicken",
+      "next": "Weiter",
+      "finish": "Fertig"
+    },
     "questions": [
       {
         "text": "Wie viele dieser Antworten sind korrekt?",
@@ -103,11 +117,86 @@
         "correct": [ 3, 4 ]
       },
       {
-        "text": "Beim Abschluss dieses Quiz...",
-        "description": "Für einen Quiz kann festgelegt werden, was nach dessen Abschluss passieren soll. Hierfür werden vom Quiz auch die Ergebnisdaten zur Verfügung gestellt. Sofern der rechtliche Rahmen gegeben ist, können auch sämtliche Ereignisse bei der Verwendung des Quiz getrackt werden. Für dieses Quiz wurden beispielhaft soviele Daten wie möglich erfasst und lediglich in der Browserkonsole ausgegeben. Schauen Sie bei Interesse dort nach, was für Daten gesammelt wurden. Welche Daten erfasst werden und ob dies anonymisiert oder pseudonymisiert geschieht ist einstellbar, abhängig von der dafür verwendeten optionalen Web-Komponente. Über eine optionale Web-Komponente für Benutzerauthentifikation kann die Nutzung eines Quiz und dessen Auswertung auch personenbezogen erfolgen.",
-        "answers": "... wird der Quiz neu gestartet.",
+        "text": "Was passiert, wenn der Quiz abgeschlossen ist?",
+        "description": "Für einen Quiz kann festgelegt werden, was nach dessen Abschluss passieren soll. Hierfür werden vom Quiz auch die Ergebnisdaten zur Verfügung gestellt. Neben dem 'finish'-Ereignis kann auch auf viele weitere Ereignisse reagiert werden. Sofern der rechtliche Rahmen gegeben ist, können auch sämtliche Ereignisse bei der Verwendung des Quiz getrackt werden. Für dieses Quiz wurden beispielhaft soviele Daten wie möglich erfasst und lediglich in der Browserkonsole ausgegeben. Schauen Sie bei Interesse dort nach, was für Daten gesammelt wurden. Welche Daten erfasst werden und ob dies anonymisiert oder pseudonymisiert geschieht ist einstellbar, abhängig von der dafür verwendeten optionalen Web-Komponente. Über eine optionale Web-Komponente für Benutzerauthentifikation kann die Nutzung eines Quiz und dessen Auswertung auch personenbezogen erfolgen.",
+        "answers": [
+          "Der selbe Quiz wird neu gestartet.",
+          "Der Quiz verschwindet einfach.",
+          "Ein anderer Quiz wird gestartet."
+        ],
+        "input": "radio",
+        "correct": 2
+      }
+    ]
+  },
+  "demo2": {
+    "html_templates.start.inner": [
+      {
+        "tag": "p",
+        "inner": "Damit ein Quiz auf Wunsch auch ordnungsgemäß gestartet und beendet werden kann, ist auch ein \"Start\"-Button einstellbar."
+      },
+      {
+        "tag": "button",
+        "inner": "%caption%",
+        "onclick": "%click%"
+      }
+    ],
+    "time": 100,
+    "shuffle": true,
+    "random": true,
+    "start_button": true,
+    "anytime_finish": true,
+    "placeholder": {
+      "start": "Quiz starten",
+      "question": "Aussage",
+      "prev": "Vorherige",
+      "next": "Nächste",
+      "finish": "Beenden"
+    },
+    "questions": [
+      {
+        "text": "Dieser Quiz...",
+        "description": "Für diesen Quiz ist das unmittelbare Feedback deaktiviert. Über den \"Zurück\"- und den \"Weiter\"-Button kann zwischen den Fragen vor und zurück navigiert werden. Für den \"Fertig\"-Button ist einstellbar, ob er von Anfang an oder erst nach der Beantwortung aller Fragen aktiviert ist. Die Beschriftung der Buttons ist individuell einstellbar. Für jede Frage kann eine eigene Beschreibung angegeben werden. Dieser Text hier ist eine solche Beschreibung. Nach dem Abschließen des Quiz können die Ergebnisse durch Verwendung der Buttons betrachtet werden. Die erfolgten Angaben können nach Abschluss des Quiz nicht mehr verändert werden, da die Eingabefelder dann deaktiviert sind.",
+        "answers": [
+          "kann jederzeit beendet werden.",
+          "fängt endlos immer wieder von vorne an.",
+          "ist erst nach Beantwortung aller Fragen zu Ende."
+        ],
         "input": "radio",
         "correct": 0
+      },
+      {
+        "text": "Für diesen Quiz...",
+        "description": "Für die Bearbeitung eines Quiz kann eine Zeitbegrenzung angegeben werden. Nach Ablauf der Zeit wird automatisch der \"Fertig\"-Button betätigt.",
+        "answers": [
+          "ist nur begrenzt Zeit.",
+          "gibt es keine Zeitbeschränkung."
+        ],
+        "input": "radio",
+        "correct": 0
+      },
+      {
+        "text": "Die Reihenfolge der Fragen und Antworten sind in diesem Quiz...",
+        "description": "Für einen Quiz ist einstellbar, ob die Fragen immer in der gleichen oder in zufälliger Reihenfolge gestellt werden. Auch für jede Frage kann individuell angegeben werden, ob die Antworten in gleicher oder zufälliger Reihenfolge erscheinen. Das Mischen von Fragen und Antworten wirkt sich nicht auf die Reihenfolge in den Ergebnisdaten aus.",
+        "answers": [
+          "zufällig.",
+          "immer gleich."
+        ],
+        "input": "radio",
+        "correct": 0
+      },
+      {
+        "text": "Eine HTML-Codierung erfolgte für...",
+        "description": "Die Fragen und/oder Antworten eines Quiz können auf Wunsch auch HTML-codiert werden, so dass HTML-Tags nicht ausgewertet werden.",
+        "answers": [
+          "<b>diese</b> Antwort.",
+          {
+            "text": "<b>diese</b> Antwort.",
+            "encode": true
+          }
+        ],
+        "input": "radio",
+        "correct": 1
       }
     ]
   }
