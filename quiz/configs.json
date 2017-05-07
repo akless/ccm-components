@@ -1,13 +1,13 @@
 {
   "demo": {
     "feedback": true,
-    "user": [ "ccm.instance", "../../ccm-components/user/ccm.user.js" ],
-    "logger": [ "ccm.instance", "../../ccm-components/log/ccm.log.js", [ "ccm.get", "../../ccm-components/log/configs.json", "greedy" ] ],
+    "user": [ "ccm.instance", "./../../ccm-components/user/ccm.user.js" ],
+    "logger": [ "ccm.instance", "./../../ccm-components/log/ccm.log.js", [ "ccm.get", "./../../ccm-components/log/configs.json", "greedy" ] ],
     "onfinish": {
       "log": true,
       "render": {
         "component": "quiz",
-        "config": [ "ccm.get", "../../ccm-components/quiz/configs.json", "demo2" ]
+        "config": [ "ccm.get", "./../../ccm-components/quiz/configs.json", "demo2" ]
       }
     },
     "placeholder": {
