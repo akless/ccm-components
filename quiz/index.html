@@ -52,103 +52,105 @@
   <div id="quiz"></div>
   <script src="./../../ccm-developer/ccm/ccm.js"></script>
   <script>
-    ccm[ '8.0.0' ].start( './../../ccm-components/quiz/ccm.quiz.js', {
-      element: document.getElementById( 'quiz' ),
-      feedback: true,
-      shuffle: false,
-      start_button: true,
-      anytime_finish: false,
-      time: 100,
-      questions: [
-        {
-          text: 'Welche HTML-Tags wurden zur Erstellung dieses Quiz verwendet?',
-          encode: true,
-          answers: [
-            {
-              text: '<ccm-quiz>',
-              comment: 'Dient zum Definieren eines neuen Quiz.'
-            },
-            {
-              text: '<ccm-quiz-question>',
-              comment: 'Dient zum Definieren einer neuen Frage.'
-            },
-            {
-              text: '<ccm-quiz-anwer>',
-              comment: 'Dient zum Definieren einer neuen Antwort.'
-            },
-            {
-              text: '<ccm-list-placeholder>',
-              comment: 'Über dessen Attribute können beispielsweise die Beschriftungen der Buttons festgelegt werden.'
-            },
-            {
-              text: '<ccm-list-onfinish>',
-              comment: 'Über dessen Attribute kann festgelegt werden, was nach dem Quiz passieren soll.'
-            }
-          ],
-          correct: [ true, true, true, true, true ]
+    window.setTimeout( function () {
+      ccm[ '8.0.0' ].start( './../../ccm-components/quiz/ccm.quiz.js', {
+        element: document.getElementById( 'quiz' ),
+        feedback: true,
+        shuffle: false,
+        start_button: true,
+        anytime_finish: false,
+        time: 100,
+        questions: [
+          {
+            text: 'Welche HTML-Tags wurden zur Erstellung dieses Quiz verwendet?',
+            encode: true,
+            answers: [
+              {
+                text: '<ccm-quiz>',
+                comment: 'Dient zum Definieren eines neuen Quiz.'
+              },
+              {
+                text: '<ccm-quiz-question>',
+                comment: 'Dient zum Definieren einer neuen Frage.'
+              },
+              {
+                text: '<ccm-quiz-anwer>',
+                comment: 'Dient zum Definieren einer neuen Antwort.'
+              },
+              {
+                text: '<ccm-list-placeholder>',
+                comment: 'Über dessen Attribute können beispielsweise die Beschriftungen der Buttons festgelegt werden.'
+              },
+              {
+                text: '<ccm-list-onfinish>',
+                comment: 'Über dessen Attribute kann festgelegt werden, was nach dem Quiz passieren soll.'
+              }
+            ],
+            correct: [ true, true, true, true, true ]
+          },
+          {
+            text: 'Welche HTML-Attribute wurden zur Erstellung dieses Quiz verwendet?',
+            answers: [
+              {
+                text: 'text',
+                comment: 'Legt den Text einer Frage oder einer Antwort fest.'
+              },
+              {
+                text: 'input',
+                comment: 'Legt fest welcher Typ von Eingabefeld verwendet wird.'
+              },
+              {
+                text: 'feedback',
+                comment: 'Legt fest ob ein unmittelbares Feedback erfolgt.'
+              },
+              {
+                text: 'encode',
+                comment: 'Legt fest ob der Text einer Frage oder einer Antwort HTML-codiert wird.'
+              },
+              {
+                text: 'correct',
+                comment: 'Legt fest, ob eine Antwort richtig ist.'
+              },
+              {
+                text: 'shuffle',
+                comment: 'Legt fest, ob die Fragen in zufälliger Reihenfolge gestellt werden.'
+              },
+              {
+                text: 'random',
+                comment: 'Legt fest, ob die Antworten einer Frage in zufälliger Reihenfolge erscheinen.'
+              },
+              {
+                text: 'start_button',
+                comment: "Legt fest, ob anfangs zunächst ein 'Start'-Button erscheint."
+              },
+              {
+                text: 'anytime_finish',
+                comment: "Legt fest, ob der 'Finish'-Button jederzeit verfügbar ist."
+              },
+              {
+                text: 'time',
+                comment: 'Legt fest, ob und wenn ja wie viel Zeit zur Bearbeitung des Quiz zur Verfügung steht.'
+              }
+            ],
+            correct: [ true, true, true, true, true, true, true, true, true, true ]
+          },
+          {
+            text: 'Was passiert, wenn der Quiz abgeschlossen ist?',
+            answers: 'Der Quiz wird beendet.',
+            input: 'radio',
+            correct: 0
+          }
+        ],
+        placeholder: {
+          start: 'Start',
+          question: 'Frage',
+          prev: 'Zurück',
+          submit: 'Abschicken',
+          next: 'Weiter',
+          finish: 'Fertig'
         },
-        {
-          text: 'Welche HTML-Attribute wurden zur Erstellung dieses Quiz verwendet?',
-          answers: [
-            {
-              text: 'text',
-              comment: 'Legt den Text einer Frage oder einer Antwort fest.'
-            },
-            {
-              text: 'input',
-              comment: 'Legt fest welcher Typ von Eingabefeld verwendet wird.'
-            },
-            {
-              text: 'feedback',
-              comment: 'Legt fest ob ein unmittelbares Feedback erfolgt.'
-            },
-            {
-              text: 'encode',
-              comment: 'Legt fest ob der Text einer Frage oder einer Antwort HTML-codiert wird.'
-            },
-            {
-              text: 'correct',
-              comment: 'Legt fest, ob eine Antwort richtig ist.'
-            },
-            {
-              text: 'shuffle',
-              comment: 'Legt fest, ob die Fragen in zufälliger Reihenfolge gestellt werden.'
-            },
-            {
-              text: 'random',
-              comment: 'Legt fest, ob die Antworten einer Frage in zufälliger Reihenfolge erscheinen.'
-            },
-            {
-              text: 'start_button',
-              comment: "Legt fest, ob anfangs zunächst ein 'Start'-Button erscheint."
-            },
-            {
-              text: 'anytime_finish',
-              comment: "Legt fest, ob der 'Finish'-Button jederzeit verfügbar ist."
-            },
-            {
-              text: 'time',
-              comment: 'Legt fest, ob und wenn ja wie viel Zeit zur Bearbeitung des Quiz zur Verfügung steht.'
-            }
-          ],
-          correct: [ true, true, true, true, true, true, true, true, true, true ]
-        },
-        {
-          text: 'Was passiert, wenn der Quiz abgeschlossen ist?',
-          answers: 'Der Quiz wird beendet.',
-          input: 'radio',
-          correct: 0
-        }
-      ],
-      placeholder: {
-        start: 'Start',
-        question: 'Frage',
-        prev: 'Zurück',
-        submit: 'Abschicken',
-        next: 'Weiter',
-        finish: 'Fertig'
-      },
-      onfinish: { restart: true }
-    } );
+        onfinish: { restart: true }
+      } );
+    }, 1000 );
   </script>
 </fieldset>
