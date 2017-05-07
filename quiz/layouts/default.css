@@ -5,9 +5,8 @@
  */
 
 #main {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overflow-x: auto;
-  padding: 0.5em;
 }
 
 .title > div {
@@ -29,7 +28,6 @@
 .description {
   padding-top: 0.8em;
   font-size: 80%;
-  font-style: italic;
 }
 
 .answers {
