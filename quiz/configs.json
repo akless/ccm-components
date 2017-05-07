@@ -131,16 +131,16 @@
   },
   "demo2": {
     "html_templates.start.inner": [
-      {
-        "tag": "p",
-        "inner": "Damit ein Quiz auf Wunsch auch ordnungsgemäß gestartet und beendet werden kann, ist auch ein \"Start\"-Button einstellbar."
-      },
+      "Damit ein Quiz auf Wunsch auch ordnungsgemäß gestartet und beendet werden kann, ist auch ein \"Start\"-Button einstellbar. Der folgende Quiz hat ein leicht verändertes Layout. Struktur und Layout eines Quiz ist individuell anpassbar.",
+      { "tag": "br" },
+      { "tag": "br" },
       {
         "tag": "button",
         "inner": "%caption%",
         "onclick": "%click%"
       }
     ],
+    "css_layout": [ "ccm.load", "./../../ccm-components/quiz/layouts/akless.css" ],
     "time": 100,
     "shuffle": true,
     "random": true,
