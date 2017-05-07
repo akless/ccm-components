@@ -7,6 +7,39 @@
 <p>Der folgende Demo-Quiz gibt einen Einblick, was mit der Quiz-Komponente machbar ist.</p>
 <fieldset>
   <legend>Demo-Quiz</legend>
-  <!-- Demo Quiz via ccm Custom Element and embed code -->
+  <!-- Demo Quiz via embed code -->
   <ccm-quiz key='["ccm.get","../../ccm-components/quiz/configs.json","demo"]'></ccm-quiz>
+</fieldset>
+
+<h2>Deklarative Erstellung eines Quiz</h2>
+<p>Der Demo-Quiz wurde per HTML-Einbettungscode in die Webseite eingefügt. Der folgende Quiz dagegen ist rein deklarativ über HTML-Tags und Attribute definiert (siehe Quelltext dieser Webseite) und gibt einen Einblick in deren Bedeutung.</p>
+<fieldset>
+  <legend>Deklarativ definierter Quiz</legend>
+  <!-- Demo Quiz via declarative way -->
+  <ccm-quiz feedback="true" shuffle="false" start_button="true" anytime_finish="false" time="100">
+    <ccm-quiz-question text="Welche HTML-Tags wurden zur Erstellung dieses Quiz verwendet?" encode="true">
+      <ccm-quiz-answer text="<ccm-quiz>" correct="true" comment="Dient zum Definieren eines neuen Quiz."></ccm-quiz-answer>
+      <ccm-quiz-answer text="<ccm-quiz-question>" correct="true" comment="Dient zum Definieren einer neuen Frage."></ccm-quiz-answer>
+      <ccm-quiz-answer text="<ccm-quiz-answer>" correct="true" comment="Dient zum Definieren einer neuen Antwort."></ccm-quiz-answer>
+      <ccm-quiz-answer text="<ccm-list-placeholder>" correct="true" comment="Über dessen Attribute können beispielsweise die Beschriftungen der Buttons festgelegt werden."></ccm-quiz-answer>
+      <ccm-quiz-answer text="<ccm-list-onfinish>" correct="true" comment="Über dessen Attribute kann festgelegt werden, was nach dem Quiz passieren soll."></ccm-quiz-answer>
+    </ccm-quiz-question>
+    <ccm-quiz-question text="Welche HTML-Attribute wurden zur Erstellung dieses Quiz verwendet?">
+      <ccm-quiz-answer text="text" correct="true" comment="Legt den Text einer Frage oder einer Antwort fest."></ccm-quiz-answer>
+      <ccm-quiz-answer text="input" correct="true" comment="Legt fest welcher Typ von Eingabefeld verwendet wird."></ccm-quiz-answer>
+      <ccm-quiz-answer text="feedback" correct="true" comment="Legt fest ob ein unmittelbares Feedback erfolgt."></ccm-quiz-answer>
+      <ccm-quiz-answer text="encode" correct="true" comment="Legt fest ob der Text einer Frage oder einer Antwort HTML-codiert wird."></ccm-quiz-answer>
+      <ccm-quiz-answer text="correct" correct="true" comment="Legt fest, ob eine Antwort richtig ist."></ccm-quiz-answer>
+      <ccm-quiz-answer text="shuffle" correct="true" comment="Legt fest, ob die Fragen in zufälliger Reihenfolge gestellt werden."></ccm-quiz-answer>
+      <ccm-quiz-answer text="random" correct="true" comment="Legt fest, ob die Antworten einer Frage in zufälliger Reihenfolge erscheinen."></ccm-quiz-answer>
+      <ccm-quiz-answer text="start_button" correct="true" comment="Legt fest, ob anfangs zunächst ein 'Start'-Button erscheint."></ccm-quiz-answer>
+      <ccm-quiz-answer text="anytime_finish" correct="true" comment="Legt fest, ob der 'Finish'-Button jederzeit verfügbar ist."></ccm-quiz-answer>
+      <ccm-quiz-answer text="time" correct="true" comment="Legt fest, ob und wenn ja wie viel Zeit zur Bearbeitung des Quiz zur Verfügung steht."></ccm-quiz-answer>
+    </ccm-quiz-question>
+    <ccm-quiz-question text="Was passiert, wenn der Quiz abgeschlossen ist?" input="radio" ramdom="true">
+      <ccm-quiz-answer text="Der Quiz wird beendet." correct="true"></ccm-quiz-answer>
+    </ccm-quiz-question>
+    <ccm-list-placeholder start="Start" question="Frage" prev="Zurück" submit="Abschicken" next="Weiter" finish="Fertig"></ccm-list-placeholder>
+    <ccm-list-onfinish restart="true"></ccm-list-onfinish>
+  </ccm-quiz>
 </fieldset>
