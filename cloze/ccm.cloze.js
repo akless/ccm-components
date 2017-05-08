@@ -48,16 +48,15 @@
       },
       css_layout: [ 'ccm.load', '../cloze/layouts/default.css' ]
 
-  //  blank: true,
-  //  ignore_case: true,
   //  keywords: [ 'keyword1', 'keyword2', ... ],
-  //  points_per_gap: 1,
-  //  time: 60,
+  //  blank: true,
   //  button_caption: 'finish',
-  //  user: [ 'ccm.instance', '../user/ccm.user.js' ],
+  //  time: 60,
+  //  feedback: true,
   //  logger: [ 'ccm.instance', '../log/ccm.log.js', [ 'ccm.get', '../log/configs.json', 'greedy' ] ],
+  //  user:   [ 'ccm.instance', '../user/ccm.user.js' ],
   //  onchange: function ( instance, data ) { console.log( data ); },
-  //  oninput: function ( instance, data ) { console.log( data ); },
+  //  oninput:  function ( instance, data ) { console.log( data ); },
   //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
@@ -120,7 +119,7 @@
       this.start = function ( callback ) {
 
         // initial result data
-        var results = { points: 0, max_points: 0, details: [] };
+        var results = { details: [] };
 
         // prepare main HTML structure
         var main_elem = self.ccm.helper.html( my.html_templates.main, onFinish );
@@ -128,16 +127,12 @@
         var   text_elem  = main_elem.querySelector( '#text'   );  // container for text with containing gaps
         var button_elem  = main_elem.querySelector( '#button' );  // container for finish button
         var  timer_elem  = main_elem.querySelector( '#timer'  );  // container for timer
-        var  timer_value = my.time;                               // timer value
 
         // add content for inner containers
         renderKeywords();
         renderText();
         renderButton();
-        if ( my.time ) renderTimer(); else self.ccm.helper.removeElement( timer_elem );
-
-        // remember start time
-        var time = new Date().getTime();
+        renderTimer();
 
         // set content of own website area
         self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
@@ -260,13 +255,19 @@
         /** renders the timer */
         function renderTimer() {
 
-          timer();  // start timer
+          var timer_value = my.time;
+
+          // no limited time? => remove timer button and abort
+          if ( !my.time ) return self.ccm.helper.removeElement( timer_elem );
+
+          // start timer
+          timer();
 
           /** updates countdown timer */
           function timer() {
 
-            // already finished? => remove timer
-            if ( !main_elem.querySelector( '#timer' ) ) return;
+            // already finished? => stop timer
+            if ( !timer_elem ) return;
 
             // (re)render timer value
             self.ccm.helper.setContent( timer_elem, self.ccm.helper.html( my.html_templates.timer, timer_value ) );
@@ -287,37 +288,33 @@
           // prevent page reload
           if ( event ) event.preventDefault();
 
-          time = new Date().getTime() - time;            // calculate result time
-          button_elem.innerHTML = '';                    // remove button
-          self.ccm.helper.removeElement( timer_elem  );  // remove timer container
+          self.ccm.helper.removeElement( button_elem );  // remove button
+          self.ccm.helper.removeElement(  timer_elem );  // remove timer container
 
           // has user instance? => login user
           if ( self.user ) self.user.login( proceed ); else proceed();
 
           function proceed() {
 
-            // give visual feedback for correctness
+            // iterate over all gap input fields
             self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
-              var correct = my.ignore_case ? gap.value.toLowerCase() === keywords[ i ].word.toLowerCase() : gap.value === keywords[ i ].word;
-              gap.removeAttribute( 'placeholder' );
-              gap.parentNode.className += correct ? ' correct' : ' wrong';
 
-              // correct input? => give points
-              if ( my.points_per_gap ) {
-                results.max_points += my.points_per_gap;
-                if ( correct ) results.points += my.points_per_gap;
+              // give visual feedback for correctness
+              if ( my.feedback ) {
+                var nearly = gap.value.toLowerCase().trim() === keywords[ i ].word.toLowerCase().trim();
+                var correct = gap.value === keywords[ i ].word;
+                if ( !nearly ) gap.value = '';
+                gap.setAttribute( 'placeholder', keywords[ i ].word );
+                gap.parentNode.classList.add( correct ? 'correct' : ( nearly ? 'nearly' : 'wrong' ) );
               }
 
               // set detail informations for current gap result
-              results.details.push( { input: gap.value, solution: keywords[ i ].word, correct: correct } );
+              results.details.push( { input: gap.value, solution: keywords[ i ].word } );
 
             } );
 
             // finalize result data
-            if ( !my.points_per_gap ) { delete results.points; delete results.max_points; }
             if ( self.user ) results.user = self.user.data().key;
-            if (   my.time ) results.time_left = timer_value + 1;
-            results.time = time;
 
             // has logger instance? => log finish event
             if ( self.logger ) self.logger.log( 'finish', results );

@@ -41,6 +41,10 @@
   background-color: lime;
 }
 
+.gap.nearly input {
+  background-color: orange;
+}
+
 .gap.wrong input {
   background-color: red;
 }
