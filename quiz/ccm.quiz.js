@@ -137,16 +137,10 @@
             if ( question_tag.tagName !== 'CCM-QUIZ-QUESTION' ) return;
             var question = self.ccm.helper.generateConfig( question_tag );
             question.answers = [];
-            question.correct = [];
             self.ccm.helper.makeIterable( question.node.children ).map( function ( answer_tag ) {
               if ( answer_tag.tagName !== 'CCM-QUIZ-ANSWER' ) return;
               var answer = self.ccm.helper.generateConfig( answer_tag );
-              if ( answer.correct !== undefined )
-                if ( question.input === 'radio' )
-                  question.correct = question.answers.length;
-                else
-                  question.correct[ question.answers.length ] = question.input === 'number' ? parseInt( answer.correct ) : answer.correct;
-              delete answer.node; delete answer.correct;
+              delete answer.node;
               question.answers.push( answer );
             } );
             delete question.node;
@@ -209,7 +203,14 @@
                   question.correct[ i ] = question.input === 'checkbox' ? false : '';
 
             // iterate over all answers (find data that must be converted to uniform data structure)
-            question.answers.map( function ( answer ) {
+            question.answers.map( function ( answer, i ) {
+
+              // informations about correct answers could be given via answer data
+              if ( answer.correct !== undefined )
+                if ( question.input === 'radio' )
+                  question.correct = i;
+                else
+                  question.correct[ i ] = question.input === 'number' ? parseInt( answer.correct ) : answer.correct;
 
               // consider default answer values from question data
               self.ccm.helper.integrate( self.ccm.helper.filterProperties( question, 'attributes', 'swap', 'encode' ), answer, true );
