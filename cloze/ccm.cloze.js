@@ -18,6 +18,14 @@
 
       text: 'Hello, [[(W)o(rl)d]]!',
       html_templates: {
+        start: {
+          id: 'start',
+          inner: {
+            tag: 'button',
+            inner: '%caption%',
+            onclick: '%click%'
+          }
+        },
         main: {
           id: 'main',
           inner: {
@@ -46,11 +54,14 @@
           inner: '%%'
         }
       },
-      css_layout: [ 'ccm.load', '../cloze/layouts/default.css' ]
+      css_layout: [ 'ccm.load', '../cloze/layouts/default.css' ],
+      placeholder: {
+        start: 'Start',
+        finish: 'Finish'
+      }
 
   //  keywords: [ 'keyword1', 'keyword2', ... ],
   //  blank: true,
-  //  button_caption: 'finish',
   //  time: 60,
   //  feedback: true,
   //  logger: [ 'ccm.instance', '../log/ccm.log.js', [ 'ccm.get', '../log/configs.json', 'greedy' ] ],
@@ -118,215 +129,232 @@
 
       this.start = function ( callback ) {
 
-        // initial result data
-        var results = { details: [] };
+        // no start button? => start quiz
+        if ( !my.start_button ) return start();
 
-        // prepare main HTML structure
-        var main_elem = self.ccm.helper.html( my.html_templates.main, onFinish );
+        // has logger instance? => log 'render' event
+        if ( self.logger ) self.logger.log( 'render' );
 
-        var   text_elem  = main_elem.querySelector( '#text'   );  // container for text with containing gaps
-        var button_elem  = main_elem.querySelector( '#button' );  // container for finish button
-        var  timer_elem  = main_elem.querySelector( '#timer'  );  // container for timer
+        // render start button (start quiz when button is clicked)
+        self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.start, {
+          caption: my.placeholder.start,
+          click: start
+        } ) ) );
 
-        // add content for inner containers
-        renderKeywords();
-        renderText();
-        renderButton();
-        renderTimer();
+        /** starts the fill-in-the-blank text */
+        function start() {
 
-        // set content of own website area
-        self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
+          // initial result data
+          var results = { details: [] };
 
-        // has logger instance? => log start event
-        if ( self.logger ) self.logger.log( 'start', my );
+          // prepare main HTML structure
+          var main_elem = self.ccm.helper.html( my.html_templates.main, onFinish );
 
-        if ( callback ) callback();
+          var   text_elem  = main_elem.querySelector( '#text'   );  // container for text with containing gaps
+          var button_elem  = main_elem.querySelector( '#button' );  // container for finish button
+          var  timer_elem  = main_elem.querySelector( '#timer'  );  // container for timer
 
-        /**
-         * @summary renders given keywords for text gaps
-         * @description
-         * Keywords could be given (individual) via instance configuration (my.keywords is string array)
-         * or (automatic generated) via private variable 'keywords' (my.keywords is boolean true).
-         */
-        function renderKeywords() {
+          // add content for inner containers
+          renderKeywords();
+          renderText();
+          renderButton();
+          renderTimer();
 
-          var keywords_elem = main_elem.querySelector( '#keywords' );  // container for keywords
-          var entries = [];                                            // inner container for each keyword
+          // set content of own website area
+          self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
 
-          // has given keywords? => create inner container for each keyword
-          if ( my.keywords )
-            ( Array.isArray( my.keywords ) ? my.keywords : keywords ).map( addKeyword );
-          else
-            return keywords_elem.parentNode.removeChild( keywords_elem );  // no given keywords? => remove container for keywords and abort
+          // has logger instance? => log start event
+          if ( self.logger ) self.logger.log( 'start', my );
 
-          // generated keyword list? => sort keywords lexicographical (keyword order gives no hint about correct solution)
-          if ( my.keywords === true ) entries.sort( function ( a, b ) { return a.innerHTML.localeCompare( b.innerHTML ) } );
+          if ( callback ) callback();
 
-          // add each inner keyword container to container for keywords
-          entries.map( function ( entry ) { keywords_elem.appendChild( entry ); } );
+          /**
+           * @summary renders given keywords for text gaps
+           * @description
+           * Keywords could be given (individual) via instance configuration (my.keywords is string array)
+           * or (automatic generated) via private variable 'keywords' (my.keywords is boolean true).
+           */
+          function renderKeywords() {
 
-          /** adds a inner container for a keyword */
-          function addKeyword( keyword ) {
-            entries.push( self.ccm.helper.html( my.html_templates.keyword, Array.isArray( my.keywords ) ? keyword : keyword.word ) );
-          }
+            var keywords_elem = main_elem.querySelector( '#keywords' );  // container for keywords
+            var entries = [];                                            // inner container for each keyword
 
-        }
+            // has given keywords? => create inner container for each keyword
+            if ( my.keywords )
+              ( Array.isArray( my.keywords ) ? my.keywords : keywords ).map( addKeyword );
+            else
+              return keywords_elem.parentNode.removeChild( keywords_elem );  // no given keywords? => remove container for keywords and abort
 
-        /** renders the text with containing gaps */
-        function renderText() {
+            // generated keyword list? => sort keywords lexicographical (keyword order gives no hint about correct solution)
+            if ( my.keywords === true ) entries.sort( function ( a, b ) { return a.innerHTML.localeCompare( b.innerHTML ) } );
 
-          // render text with containing gaps
-          text_elem.innerHTML = my.text;
+            // add each inner keyword container to container for keywords
+            entries.map( function ( entry ) { keywords_elem.appendChild( entry ); } );
 
-          // render input field in each gap
-          self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap' ) ).map( function ( gap_elem, i ) {
-
-            // blank input fields and shown keywords? => input fields should give no hint for the length of the searched word
-            if ( my.blank && my.keywords ) return gap_elem.appendChild( self.ccm.helper.html( { tag: 'input', type: 'text', oninput: onInput, onchange: onChange } ) );
-
-            // shorter access to keyword
-            var keyword = keywords[ i ].word;
-
-            // prepare ccm HTML data for input field
-            var input = {
-              tag: 'input',
-              type: 'text',
-              oninput: onInput,
-              onchange: onChange,
-              maxlength: keyword.length,
-              size: keyword.length * 1.5  // works tolerably for words with a length up to 30
-            };
-
-            // no blank input fields? => set placeholder attribute
-            if ( !my.blank ) {
-              input.placeholder = '';
-              for ( var j = 0; j < keyword.length; j++ )
-                input.placeholder += Math.pow( 2, j ) & keywords[ i ].givens ? keyword.charAt( j ) : '_';
+            /** adds a inner container for a keyword */
+            function addKeyword( keyword ) {
+              entries.push( self.ccm.helper.html( my.html_templates.keyword, Array.isArray( my.keywords ) ? keyword : keyword.word ) );
             }
-
-            // render input field in the current gap
-            gap_elem.appendChild( self.ccm.helper.html( input ) );
-
-            /** oninput callback for input fields */
-            function onInput() {
-
-              var data = { gap: 1 + i, input: this.value };  // input field informations
-
-              // has logger instance? => log input event
-              if ( self.logger ) self.logger.log( 'input', data );
-
-              // has individual input callback? => perform it
-              if ( self.oninput ) self.oninput( self, data );
-
-            }
-
-            /** onchange callback for input fields */
-            function onChange() {
-
-              var data = { gap: 1 + i, input: this.value };  // input field informations
-
-              // has logger instance? => log change event
-              if ( self.logger ) self.logger.log( 'change', data );
-
-              // has individual change callback? => perform it
-              if ( self.onchange ) self.onchange( self, data );
-
-            }
-
-          } );
-
-        }
-
-        /** renders the finish button */
-        function renderButton() {
-
-          // set content of container for finish button
-          self.ccm.helper.setContent( button_elem, self.ccm.helper.html( my.html_templates.button, {
-            caption: my.button_caption,
-            click:   onFinish
-          } ) );
-
-          // finish button is a input tag? => allow use of browser specific default caption
-          var submit_elem = button_elem.querySelector( 'input[type=submit]' );
-          if ( submit_elem && !my.button_caption ) submit_elem.removeAttribute( 'value' );
-
-        }
-
-        /** renders the timer */
-        function renderTimer() {
-
-          var timer_value = my.time;
-
-          // no limited time? => remove timer button and abort
-          if ( !my.time ) return self.ccm.helper.removeElement( timer_elem );
-
-          // start timer
-          timer();
-
-          /** updates countdown timer */
-          function timer() {
-
-            // already finished? => stop timer
-            if ( !timer_elem ) return;
-
-            // (re)render timer value
-            self.ccm.helper.setContent( timer_elem, self.ccm.helper.html( my.html_templates.timer, timer_value ) );
-
-            // countdown
-            if ( timer_value-- )
-              self.ccm.helper.wait( 1000, timer );
-            else if ( button_elem )
-              onFinish();           // perform finish callback at timeout
 
           }
 
-        }
+          /** renders the text with containing gaps */
+          function renderText() {
 
-        /** onclick callback for finish button */
-        function onFinish( event ) {
+            // render text with containing gaps
+            text_elem.innerHTML = my.text;
 
-          // prevent page reload
-          if ( event ) event.preventDefault();
+            // render input field in each gap
+            self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap' ) ).map( function ( gap_elem, i ) {
 
-          self.ccm.helper.removeElement( button_elem );  // remove button
-          self.ccm.helper.removeElement(  timer_elem );  // remove timer container
+              // blank input fields and shown keywords? => input fields should give no hint for the length of the searched word
+              if ( my.blank && my.keywords ) return gap_elem.appendChild( self.ccm.helper.html( { tag: 'input', type: 'text', oninput: onInput, onchange: onChange } ) );
 
-          // has user instance? => login user
-          if ( self.user ) self.user.login( proceed ); else proceed();
+              // shorter access to keyword
+              var keyword = keywords[ i ].word;
 
-          function proceed() {
+              // prepare ccm HTML data for input field
+              var input = {
+                tag: 'input',
+                type: 'text',
+                oninput: onInput,
+                onchange: onChange,
+                maxlength: keyword.length,
+                size: keyword.length * 1.5  // works tolerably for words with a length up to 30
+              };
 
-            // iterate over all gap input fields
-            self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
-
-              // give visual feedback for correctness
-              if ( my.feedback ) {
-                var nearly = gap.value.toLowerCase().trim() === keywords[ i ].word.toLowerCase().trim();
-                var correct = gap.value === keywords[ i ].word;
-                if ( !nearly ) gap.value = '';
-                gap.setAttribute( 'placeholder', keywords[ i ].word );
-                gap.parentNode.classList.add( correct ? 'correct' : ( nearly ? 'nearly' : 'wrong' ) );
+              // no blank input fields? => set placeholder attribute
+              if ( !my.blank ) {
+                input.placeholder = '';
+                for ( var j = 0; j < keyword.length; j++ )
+                  input.placeholder += Math.pow( 2, j ) & keywords[ i ].givens ? keyword.charAt( j ) : '_';
               }
 
-              // set detail informations for current gap result
-              results.details.push( { input: gap.value, solution: keywords[ i ].word } );
+              // render input field in the current gap
+              gap_elem.appendChild( self.ccm.helper.html( input ) );
+
+              /** oninput callback for input fields */
+              function onInput() {
+
+                var data = { gap: 1 + i, input: this.value };  // input field informations
+
+                // has logger instance? => log input event
+                if ( self.logger ) self.logger.log( 'input', data );
+
+                // has individual input callback? => perform it
+                if ( self.oninput ) self.oninput( self, data );
+
+              }
+
+              /** onchange callback for input fields */
+              function onChange() {
+
+                var data = { gap: 1 + i, input: this.value };  // input field informations
+
+                // has logger instance? => log change event
+                if ( self.logger ) self.logger.log( 'change', data );
+
+                // has individual change callback? => perform it
+                if ( self.onchange ) self.onchange( self, data );
+
+              }
 
             } );
 
-            // finalize result data
-            if ( self.user ) results.user = self.user.data().key;
+          }
 
-            // has logger instance? => log finish event
-            if ( self.logger ) self.logger.log( 'finish', results );
+          /** renders the finish button */
+          function renderButton() {
 
-            // provide result data
-            self.ccm.helper.onFinish( self, results );
+            // set content of container for finish button
+            self.ccm.helper.setContent( button_elem, self.ccm.helper.html( my.html_templates.button, {
+              caption: my.placeholder.submit,
+              click:   onFinish
+            } ) );
+
+            // finish button is a input tag? => allow use of browser specific default caption
+            var submit_elem = button_elem.querySelector( 'input[type=submit]' );
+            if ( submit_elem && !my.placeholder.submit ) submit_elem.removeAttribute( 'value' );
+
+          }
+
+          /** renders the timer */
+          function renderTimer() {
+
+            var timer_value = my.time;
+
+            // no limited time? => remove timer button and abort
+            if ( !my.time ) return self.ccm.helper.removeElement( timer_elem );
+
+            // start timer
+            timer();
+
+            /** updates countdown timer */
+            function timer() {
+
+              // already finished? => stop timer
+              if ( !timer_elem ) return;
+
+              // (re)render timer value
+              self.ccm.helper.setContent( timer_elem, self.ccm.helper.html( my.html_templates.timer, timer_value ) );
+
+              // countdown
+              if ( timer_value-- )
+                self.ccm.helper.wait( 1000, timer );
+              else if ( button_elem )
+                onFinish();           // perform finish callback at timeout
+
+            }
+
+          }
+
+          /** onclick callback for finish button */
+          function onFinish( event ) {
+
+            // prevent page reload
+            if ( event ) event.preventDefault();
+
+            self.ccm.helper.removeElement( button_elem );  // remove button
+            self.ccm.helper.removeElement(  timer_elem );  // remove timer container
+
+            // has user instance? => login user
+            if ( self.user ) self.user.login( proceed ); else proceed();
+
+            function proceed() {
+
+              // iterate over all gap input fields
+              self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
+
+                // give visual feedback for correctness
+                if ( my.feedback ) {
+                  var nearly = gap.value.toLowerCase().trim() === keywords[ i ].word.toLowerCase().trim();
+                  var correct = gap.value === keywords[ i ].word;
+                  if ( !nearly ) gap.value = '';
+                  gap.setAttribute( 'placeholder', keywords[ i ].word );
+                  gap.parentNode.classList.add( correct ? 'correct' : ( nearly ? 'nearly' : 'wrong' ) );
+                }
+
+                // set detail informations for current gap result
+                results.details.push( { input: gap.value, solution: keywords[ i ].word } );
+
+              } );
+
+              // finalize result data
+              if ( self.user ) results.user = self.user.data().key;
+
+              // has logger instance? => log finish event
+              if ( self.logger ) self.logger.log( 'finish', results );
+
+              // provide result data
+              self.ccm.helper.onFinish( self, results );
+
+            }
 
           }
 
         }
 
-      };
+      }
 
     }
 
