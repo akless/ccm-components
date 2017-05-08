@@ -4,6 +4,10 @@
  * @license The MIT License (MIT)
  */
 
+#main {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 #keywords {
   font-family: monospace;
   margin-bottom: 1em;
@@ -16,6 +20,10 @@
 .keyword:not(:last-child):after {
   padding-right: 0.5em;
   content: ',';
+}
+
+#text {
+  line-height: 1.6em;
 }
 
 .gap input {
