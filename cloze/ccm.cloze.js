@@ -55,6 +55,7 @@
       placeholder : {
         start: 'Start',
         cancel: 'Cancel',
+        submit: 'Submit',
         finish: 'Finish'
       }
 
