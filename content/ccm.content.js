@@ -85,6 +85,7 @@
 
         // render content that is given via own ccm Custom Element
         self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.node ) );
+        self.node.id = 'main';
 
         // embed dependent components
         var i = 0; solveDependencies();
