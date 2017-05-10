@@ -30,7 +30,7 @@
           inner: [
             { id: 'questions' },
             {
-              id: 'nav',
+              id: 'buttons',
               inner: [
                 { id: 'cancel' },
                 { id: 'prev' },
@@ -101,7 +101,6 @@
   //  navigation: true,
   //  skippable: true,
   //  anytime_finish: true,
-  //  show_results: true,
   //  time: 60,
   //  shuffle: true,
   //  random: true,
@@ -312,16 +311,13 @@
           var evaluated = {};
 
           /**
-           * result data
+           * initial result data
            * @type {object}
            */
           var results = { details: [] };
 
           // has logger instance? => log 'start' event
           if ( self.logger ) self.logger.log( 'start', self.ccm.helper.clone( my ) );
-
-          // individual 'start' callback? => perform it
-          if ( self.onstart ) self.onstart( self );
 
           // prepare main HTML structure
           var main_elem = self.ccm.helper.html( my.html_templates.main );
@@ -358,6 +354,9 @@
 
           // set content of own website area
           self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
+
+          // has individual 'start' callback? => perform it
+          if ( self.onstart ) self.onstart( self );
 
           /**
            * renders a specific question
@@ -474,13 +473,12 @@
             self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.question' ) ).map( function ( question_elem ) { question_elem.style.display = 'none'; } );
             my.questions[ current_question ].elem.style.display = 'block';
 
-            // update navigation buttons
-            updateNav();
+            updateButtons();
 
           }
 
-          /** (re)renders navigation buttons */
-          function updateNav() {
+          /** (re)renders the buttons */
+          function updateButtons() {
 
             /**
              * question data of the current question
@@ -596,7 +594,7 @@
             // prepare event data
             var event_data = { question_nr: question.i + 1, original_nr: question.nr, number_of_questions: my.questions.length, input: getResult() };
 
-            // has individual 'validation' callback? => perform it
+            // has individual 'validation' callback? => perform it (abort evaluation if user input value is not valid)
             if ( self.onvalidation && !self.onvalidation( self, self.ccm.helper.clone( event_data ) ) ) return;
 
             // add solution information to event data
@@ -604,9 +602,6 @@
 
             // has logger instance? => log 'feedback' event
             if ( self.logger ) self.logger.log( 'feedback', event_data );
-
-            // has individual 'feedback' callback? => perform it
-            if ( self.onfeedback ) self.onfeedback( self, self.ccm.helper.clone( event_data ) );
 
             // add result data of this question to result data of hole quiz
             delete event_data.number_of_questions;
@@ -621,8 +616,10 @@
             // remember that this question is already evaluated
             evaluated[ question.nr ] = true;
 
-            // update navigation buttons
-            updateNav();
+            // has individual 'feedback' callback? => perform it
+            if ( self.onfeedback ) self.onfeedback( self, self.ccm.helper.clone( event_data ) );
+
+            updateButtons();
 
             /**
              * get input field values of this question
@@ -766,7 +763,7 @@
 
             function proceed() {
 
-              // make sure that user could not use finish button again
+              // make sure that user could not use 'finish' button again
               self.ccm.helper.removeElement( finish_elem );
               self.ccm.helper.removeElement(  timer_elem );
 
@@ -776,10 +773,10 @@
               // finalize result data
               if ( self.user ) results.user = self.user.data().key;
 
-              // has logger instance? => log finish event
+              // has logger instance? => log 'finish' event
               if ( self.logger ) self.logger.log( 'finish', results );
 
-              // perform finish actions and provide result data
+              // perform 'finish' actions and provide result data
               self.ccm.helper.onFinish( self, results );
 
             }
