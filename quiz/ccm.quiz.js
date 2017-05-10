@@ -32,8 +32,10 @@
             {
               id: 'nav',
               inner: [
+                { id: 'cancel' },
                 { id: 'prev' },
                 { id: 'next' },
+                { id: 'submit' },
                 { id: 'finish' },
                 { id: 'timer' }
               ]
@@ -84,34 +86,41 @@
       },
       css_layout: [ 'ccm.load', './../../ccm-components/quiz/layouts/default.css' ],
       placeholder: {
-        start: 'Start',
         question: 'Question',
+        start: 'Start',
+        cancel: 'Cancel',
         prev: 'Previous',
-        submit: 'Submit',
         next: 'Next',
+        submit: 'Submit',
         finish: 'Finish'
       }
 
-  //  answers: [],
-  //  correct: [],
-  //  encode: true,
+  //  start_button: true,
+  //  cancel_button: true,
+  //  feedback: true,
+  //  navigation: true,
+  //  skippable: true,
+  //  anytime_finish: true,
+  //  show_results: true,
+  //  time: 60,
   //  shuffle: true,
   //  random: true,
+  //  answers: [],
+  //  correct: [],
   //  input: 'radio',
   //  attributes: {},
-  //  feedback: true,
+  //  encode: true,
   //  swap: true,
-  //  anytime_finish: true,
-  //  start_button: true,
-  //  time: 60,
   //  user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
   //  logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', [ 'ccm.get', './../../ccm-components/log/configs.json', 'greedy' ] ],
-  //  onchange: function ( instance, data ) { console.log( data ); },
-  //  oninput: function ( instance, data ) { console.log( data ); },
+  //  onstart: function ( instance ) { console.log( 'Quiz started' ); },
+  //  oncancel: function ( instance ) { console.log( 'Quiz canceled' ); },
   //  onprev: function ( instance, data ) { console.log( data ); },
+  //  onnext: function ( instance, data ) { console.log( data ); },
+  //  oninput: function ( instance, data ) { console.log( data ); },
+  //  onchange: function ( instance, data ) { console.log( data ); },
   //  onvalidation: function ( instance, data ) { console.log( data ); return true; },
   //  onfeedback: function ( instance, data ) { console.log( data ); },
-  //  onnext: function ( instance, data ) { console.log( data ); },
   //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
@@ -131,21 +140,62 @@
         /** converts inner HTML to instance configuration data */
         function convertInnerHTML() {
 
+          // no inner HTML of own ccm Custom Element? => skip
           if ( !self.node ) return;
+
+          /**
+           * question data sets (generated out of ccm Custom Element)
+           * @type {object[]}
+           */
           var questions = [];
+
+          // iterate over all children of own ccm Custom Element
           self.ccm.helper.makeIterable( self.node.children ).map( function ( question_tag ) {
+
+            // no question tag? => skip
             if ( question_tag.tagName !== 'CCM-QUIZ-QUESTION' ) return;
+
+            /**
+             * question data (generated out of question tag)
+             * @type {object}
+             */
             var question = self.ccm.helper.generateConfig( question_tag );
+
+            /**
+             * answer data sets (generated out of question tag)
+             * @type {object[]}
+             */
             question.answers = [];
+
+            // iterate over all children of the question tag
             self.ccm.helper.makeIterable( question.node.children ).map( function ( answer_tag ) {
+
+              // no answer tag? => skip
               if ( answer_tag.tagName !== 'CCM-QUIZ-ANSWER' ) return;
+
+              /**
+               * answer data (generated out of answer tag)
+               * @type {object}
+               */
               var answer = self.ccm.helper.generateConfig( answer_tag );
+
+              // remove no needed properties in answer data
               delete answer.node;
+
+              // add answer data to question data
               question.answers.push( answer );
+
             } );
+
+            // remove no needed properties in question data
             delete question.node;
+
+            // add question data to question data sets
             questions.push( question );
+
           } );
+
+          // has founded question data sets? => use them for quiz (with higher priority)
           if ( questions.length > 0 ) self.questions = questions;
 
         }
@@ -165,30 +215,30 @@
         /** brings given data to uniform data structure */
         function uniformData() {
 
-          // questions could be given without array as single object if quiz has only one question
+          // question data sets could be given without array as single object if quiz has only one question
           if ( !Array.isArray( my.questions ) ) my.questions = [ my.questions ];
 
-          // iterate over all questions
+          // iterate over all question data sets
           my.questions.map( function ( question ) {
 
-            // consider default question values from config
-            self.ccm.helper.integrate( self.ccm.helper.filterProperties( my, 'text', 'description', 'answers', 'input', 'attributes', 'swap', 'encode', 'random', 'feedback', 'correct' ), question, true );
+            // consider default values for question data from config
+            self.ccm.helper.integrate( self.ccm.helper.filterProperties( my, 'text', 'description', 'answers', 'input', 'attributes', 'swap', 'encode', 'random', 'correct' ), question, true );
 
             // default input type is checkbox
             if ( !question.input ) question.input = 'checkbox';
 
-            // question answers could be given without array as single value if question has only one answer
+            // answer data sets could be given without array as single object (or string) if question has only one answer
             if ( !Array.isArray( question.answers ) ) question.answers = [ question.answers ];
 
-            // answers could be given as single string instead of object
+            // answer data sets could be given as single string (answer text) instead of object
             for ( var i = 0; i < question.answers.length; i++ )
               if ( !self.ccm.helper.isObject( question.answers[ i ] ) )
                 question.answers[ i ] = { text: question.answers[ i ] };
 
-            // information about correct answer with only one answer could be given without array as single value
+            // informations about the correct answers of questions that have only one answer could be given without array as single value
             if ( question.input !== 'radio' && !Array.isArray( question.correct ) ) question.correct = [ question.correct ];
 
-            // informations about correct answers of a multiple choice question could be given as integer array instead of boolean array
+            // informations about the correct answers of a multiple choice question could be given as integer array instead of boolean array
             if ( question.input === 'checkbox' && typeof question.correct[ 0 ] === 'number' ) {
               var correct = [];
               for ( var i = 0; i < question.answers.length; i++ )
@@ -196,7 +246,7 @@
               question.correct = correct;
             }
 
-            // fill up array of informations about correct answers with default values
+            // fill up the array of informations about the correct answers with default values (checkbox -> false, otherwise empty string)
             if ( Array.isArray( question.correct ) )
               for ( var i = 0; i < question.answers.length; i++ )
                 if ( question.correct[ i ] === undefined )
@@ -205,25 +255,25 @@
             // iterate over all answers (find data that must be converted to uniform data structure)
             question.answers.map( function ( answer, i ) {
 
-              // informations about correct answers could be given via answer data
+              // informations about the correct answers of a question could be given via answer data
               if ( answer.correct !== undefined )
                 if ( question.input === 'radio' )
                   question.correct = i;
                 else
                   question.correct[ i ] = question.input === 'number' ? parseInt( answer.correct ) : answer.correct;
 
-              // consider default answer values from question data
+              // consider default values for answer data from question data
               self.ccm.helper.integrate( self.ccm.helper.filterProperties( question, 'attributes', 'swap', 'encode' ), answer, true );
 
             } );
 
-            // remove no more needed question properties
+            // remove no more needed properties in question data
             delete question.attributes; delete question.swap;
 
           } );
 
-          // remove no more needed instance configuration properties
-          delete my.text; delete my.description; delete my.answers; delete my.input; delete my.attributes; delete my.swap; delete my.encode; delete my.random; delete my.feedback; delete my.correct;
+          // remove no more needed properties in config
+          delete my.text; delete my.description; delete my.answers; delete my.input; delete my.attributes; delete my.swap; delete my.encode; delete my.random; delete my.correct;
 
         }
 
@@ -231,17 +281,20 @@
 
       this.start = function ( callback ) {
 
-        // no start button? => start quiz
-        if ( !my.start_button ) return start();
-
         // has logger instance? => log 'render' event
         if ( self.logger ) self.logger.log( 'render' );
 
-        // render start button (start quiz when button is clicked)
-        self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.start, {
-          caption: my.placeholder.start,
-          click: start
-        } ) ) );
+        // user must click on a start button before quiz is starting? => render start button
+        if ( my.start_button ) {
+          self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.start, {
+            caption: my.placeholder.start,
+            click: start
+          } ) ) );
+        }
+        // no need for a start button? => start quiz directly
+        else start();
+
+        if ( callback ) callback();
 
         /** starts the quiz */
         function start() {
@@ -253,16 +306,10 @@
           var current_question = 0;
 
           /**
-           * which questions are already evaluated?
+           * stores which questions are already evaluated
            * @type {Object.<number,boolean>}
            */
           var evaluated = {};
-
-          /**
-           * is quiz already finished?
-           * @type {boolean}
-           */
-          var finished = false;
 
           /**
            * result data
@@ -273,18 +320,27 @@
           // has logger instance? => log 'start' event
           if ( self.logger ) self.logger.log( 'start', self.ccm.helper.clone( my ) );
 
+          // individual 'start' callback? => perform it
+          if ( self.onstart ) self.onstart( self );
+
           // prepare main HTML structure
           var main_elem = self.ccm.helper.html( my.html_templates.main );
 
+          // select inner containers (mostly for buttons)
+          var cancel_elem = main_elem.querySelector( '#cancel' );
           var   prev_elem = main_elem.querySelector( '#prev'   );
           var   next_elem = main_elem.querySelector( '#next'   );
+          var submit_elem = main_elem.querySelector( '#submit' );
           var finish_elem = main_elem.querySelector( '#finish' );
           var  timer_elem = main_elem.querySelector( '#timer'  );
 
-          // only one question? => remove containers for 'prev' and 'next' button
+          // remove unneeded buttons
+          if ( !my.cancel_button ) self.ccm.helper.removeElement( cancel_elem );
+          if ( !my.navigation    ) self.ccm.helper.removeElement(   prev_elem );
+          if ( !my.feedback      ) self.ccm.helper.removeElement( submit_elem );
           if ( my.questions.length === 1 ) {
             self.ccm.helper.removeElement( prev_elem );
-            if ( !my.questions[ 0 ].feedback ) self.ccm.helper.removeElement( next_elem );
+            self.ccm.helper.removeElement( next_elem );
           }
 
           // each question knows her original number and HTML ID
@@ -297,13 +353,11 @@
           my.questions.map( renderQuestion );
           showQuestion();
 
-          // render timer in case of time limited quiz
+          // render timer (in case of time limited quiz)
           renderTimer();
 
           // set content of own website area
           self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
-
-          if ( callback ) callback();
 
           /**
            * renders a specific question
@@ -312,7 +366,10 @@
            */
           function renderQuestion( question, i ) {
 
-            // prepare question HTML structure
+            // each question knows her index
+            question.i = i;
+
+            // prepare HTML structure of the question
             question.elem = self.ccm.helper.html( my.html_templates.question, {
               question:    my.placeholder.question,
               id:          question.id,
@@ -321,7 +378,7 @@
               description: question.description
             } );
 
-            // no description? => remove description container
+            // question has no description? => remove description container
             if ( !question.description ) self.ccm.helper.removeElement( question.elem.querySelector( '.description' ) );
 
             // each answer knows her original number, HTML class and HTML ID
@@ -330,10 +387,10 @@
             // want random order for the answers? => shuffle answers
             if ( question.random ) self.ccm.helper.shuffleArray( question.answers );
 
-            // render question answers
+            // render all question answers
             question.answers.map( renderAnswer );
 
-            // add question to main HTML structure
+            // add prepared question container to main HTML structure
             main_elem.querySelector( '#questions' ).appendChild( question.elem );
 
             /**
@@ -342,15 +399,15 @@
              */
             function renderAnswer( answer ) {
 
-              // prepare answer HTML structure
+              // prepare HTML structure of the answer
               answer.elem = self.ccm.helper.html( my.html_templates.answer, {
                 id: answer.id,
                 class: answer.class,
                 text: answer.encode ? self.ccm.helper.htmlEncode( answer.text ) : answer.text
               } );
-              addInput();
+              addInput();  // add input field of the answer
 
-              // add answer to main HTML structure
+              // add prepared answer container to the HTML structure of the question
               question.elem.querySelector( '.answers' ).appendChild( answer.elem );
 
               /** adds the input field */
@@ -388,10 +445,10 @@
                   }
                 };
 
-                // radio buttons? => set same name and different value
+                // is a single choice answer? => set same name and different value for the radio button
                 if ( question.input === 'radio' ) { input_html.name = question.id; input_html.value = answer.nr - 1; }
 
-                // add individual attributes to input field
+                // add individual attributes to the input field (if any)
                 self.ccm.helper.integrate( answer.attributes, input_html );
 
                 // add input field to HTML structure of the answer
@@ -426,31 +483,46 @@
           function updateNav() {
 
             /**
-             * current question data
+             * question data of the current question
              * @type {object}
              */
             var question = my.questions[ current_question ];
 
-            // render 'prev' button
-            self.ccm.helper.setContent( prev_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+            // render 'cancel' button (if needed)
+            if ( my.cancel_button ) self.ccm.helper.setContent( cancel_elem, self.ccm.helper.protect( self.ccm.helper.html( {
               tag: 'button',
-              disabled: current_question === 0,
+              inner: my.placeholder.cancel,
+              onclick: function () { if ( self.oncancel ) self.oncancel( self ); else self.start( callback ); }
+            } ) ) );
+
+            // render 'prev' button (if needed)
+            if ( my.navigation ) self.ccm.helper.setContent( prev_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+              tag: 'button',
+              disabled: question.i === 0,
               inner: my.placeholder.prev,
               onclick: previousQuestion
             } ) ) );
 
-            // render 'submit' or 'next' button
+            // render 'next' button
             self.ccm.helper.setContent( next_elem, self.ccm.helper.protect( self.ccm.helper.html( {
               tag: 'button',
-              disabled: current_question === my.questions.length - 1 && ( !question.feedback || evaluated[ question.nr ] ),
-              inner: my.placeholder[ question.feedback && !evaluated[ question.nr ] ? 'submit' : 'next' ],
-              onclick: question.feedback && !evaluated[ question.nr ] ? function () { evaluate( question ) } : nextQuestion
+              disabled: question.i === my.questions.length - 1 || my.feedback && !my.skippable && !evaluated[ question.nr ],
+              inner: my.placeholder.next,
+              onclick: nextQuestion
+            } ) ) );
+
+            // render 'submit' button (if needed)
+            if ( my.feedback ) self.ccm.helper.setContent( submit_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+              tag: 'button',
+              disabled: evaluated[ question.nr ],
+              inner: my.placeholder.submit,
+              onclick: function () { evaluate( question ); }
             } ) ) );
 
             // render 'finish' button
-            if ( !finished ) self.ccm.helper.setContent( finish_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+            self.ccm.helper.setContent( finish_elem, self.ccm.helper.protect( self.ccm.helper.html( {
               tag: 'button',
-              disabled: !my.anytime_finish && ( current_question !== my.questions.length - 1 || question.feedback && !evaluated[ question.nr ] ),
+              disabled: !my.anytime_finish && ( question.i !== my.questions.length - 1 || !evaluated[ question.nr ] ),
               inner: my.placeholder.finish,
               onclick: onFinish
             } ) ) );
@@ -458,34 +530,52 @@
             /** switch to previous question */
             function previousQuestion() {
 
-              // decrease current question number
+              // decrease index of current question
               current_question--;
 
               // show previous question
               showQuestion();
 
+              /**
+               * question data of the current question
+               * @type {object}
+               */
+              var question = my.questions[ current_question ];
+
+              // prepare event data
+              var event_data = { question_nr: question.i + 1, original_nr: question.nr, number_of_questions: my.questions.length };
+
               // has logger instance? => log 'prev' event
-              if ( self.logger ) self.logger.log( 'prev', current_question );
+              if ( self.logger ) self.logger.log( 'prev', event_data );
 
               // has individual 'prev' callback? => perform it
-              if ( self.onPrev ) self.onPrev( self, current_question );
+              if ( self.onprev ) self.onprev( self, event_data );
 
             }
 
             /** switch to next question */
             function nextQuestion() {
 
-              // increase current question number
+              // increase index of current question
               current_question++;
 
               // show next question
               showQuestion();
 
+              /**
+               * question data of the current question
+               * @type {object}
+               */
+              var question = my.questions[ current_question ];
+
+              // prepare event data
+              var event_data = { question_nr: question.i + 1, original_nr: question.nr, number_of_questions: my.questions.length };
+
               // has logger instance? => log 'next' event
-              if ( self.logger ) self.logger.log( 'next', current_question );
+              if ( self.logger ) self.logger.log( 'next', event_data );
 
               // has individual 'next' callback? => perform it
-              if ( self.onNext ) self.onNext( self, current_question );
+              if ( self.onnext ) self.onnext( self, event_data );
 
             }
 
@@ -493,18 +583,18 @@
 
           /**
            * evaluates a question
-           * @param {object} [question] - question data (default: evaluate all questions)
+           * @param {object} [question] - question data (default: evaluate all not already evaluated questions)
            */
           function evaluate( question ) {
 
-            // no specific question? => show feedback for all questions
+            // no specific question? => evaluate all questions
             if ( !question ) return my.questions.map( evaluate );
 
             // question is already evaluated? => abort
             if ( results.details[ question.nr - 1 ] ) return;
 
             // prepare event data
-            var event_data = { question: question.nr, input: getResult() };
+            var event_data = { question_nr: question.i + 1, original_nr: question.nr, number_of_questions: my.questions.length, input: getResult() };
 
             // has individual 'validation' callback? => perform it
             if ( self.onvalidation && !self.onvalidation( self, self.ccm.helper.clone( event_data ) ) ) return;
@@ -519,7 +609,7 @@
             if ( self.onfeedback ) self.onfeedback( self, self.ccm.helper.clone( event_data ) );
 
             // add result data of this question to result data of hole quiz
-            delete event_data.question;
+            delete event_data.number_of_questions;
             results.details[ question.nr - 1 ] = event_data;
 
             // disable evaluated input fields
@@ -528,7 +618,7 @@
             // show visual feedback for this question
             showFeedback();
 
-            // next time show next question instead of feedback
+            // remember that this question is already evaluated
             evaluated[ question.nr ] = true;
 
             // update navigation buttons
@@ -552,7 +642,7 @@
             /** gives the user a visual feedback */
             function showFeedback() {
 
-              // iterate over all answers of this question
+              // iterate over all answer data sets of the current question
               question.answers.map( function ( answer ) {
 
                 // render answer comment
@@ -561,7 +651,7 @@
                 // no informations about correct answer? => abort
                 if ( event_data.correct === undefined ) return;
 
-                // is single choice? => abort
+                // current question is a single choice question? => skip
                 if ( question.input === 'radio' ) return;
 
                 /**
@@ -571,7 +661,7 @@
                 var correct = event_data.correct[ answer.nr - 1 ];
 
                 /**
-                 * input value for this answer
+                 * user input value for this answer
                  * @type {boolean|number|string}
                  */
                 var input = event_data.input[ answer.nr - 1 ];
@@ -582,7 +672,7 @@
                 // user gives wrong value for this answer? => mark answer as wrong
                 if ( input !== '' && input !== false && input !== correct ) answer.elem.classList.add( 'wrong' );
 
-                // user gives no value for a correct answer? => mark missed correct answer as correct
+                // user gives no value for this (correct) answer? => mark missed correct answer as correct
                 if ( ( input === '' || input === false ) && correct !== '' && correct !== false ) answer.elem.classList.add( 'correct' );
 
                 // number or text input field and user gives not correct value? => show user correct value (via placeholder attribute)
@@ -597,17 +687,17 @@
               // no informations about correct answers? => abort
               if ( event_data.correct === undefined ) return;
 
-              // is single choice?
+              // is a single choice question?
               if ( question.input === 'radio' ) {
 
                 /**
-                 * correct value for this answer
+                 * correct value for this question
                  * @type {number}
                  */
                 var correct = event_data.correct;
 
                 /**
-                 * input value for this answer
+                 * user input value for this question
                  * @type {number}
                  */
                 var input = event_data.input;
@@ -618,7 +708,7 @@
                  */
                 var id_prefix = '#' + question.id + '-answer-';
 
-                // user chooses correct answer? => mark as right
+                // user chooses correct answer? => mark correct answer as right
                 if ( event_data.input === correct )
                   question.elem.querySelector( id_prefix + ( input + 1 ) ).classList.add( 'right' );
                 else {
@@ -637,43 +727,46 @@
           /** renders the timer */
           function renderTimer() {
 
-            var timer_value = my.time;
-
             // no limited time? => remove timer button and abort
             if ( !my.time ) return self.ccm.helper.removeElement( timer_elem );
+
+            /**
+             * given seconds for working with the quiz
+             * @type {number}
+             */
+            var timer_value = my.time;
 
             // start timer
             timer();
 
-            /** updates countdown timer */
+            /** updates countdown timer (recursive function) */
             function timer() {
 
-              // already finished? => stop timer
-              if ( !timer_elem ) return;
+              // no existing finish button? => stop timer
+              if ( !finish_elem ) return;
 
               // (re)render timer value
               self.ccm.helper.setContent( timer_elem, self.ccm.helper.html( my.html_templates.timer, timer_value ) );
 
               // countdown
               if ( timer_value-- )
-                self.ccm.helper.wait( 1000, timer );
-              else if ( finish_elem )
-                onFinish();           // perform finish callback at timeout
+                self.ccm.helper.wait( 1000, timer );  // recursive call
+              else
+                onFinish();  // finish quiz at timeout
 
             }
 
           }
 
-          /** onclick callback for finish button */
+          /** finishes the quiz */
           function onFinish() {
 
-            // has user instance? => login user
+            // has user instance? => login user (if not already logged in)
             if ( self.user ) self.user.login( proceed ); else proceed();
 
             function proceed() {
 
               // make sure that user could not use finish button again
-              finished = true;
               self.ccm.helper.removeElement( finish_elem );
               self.ccm.helper.removeElement(  timer_elem );
 
@@ -686,7 +779,7 @@
               // has logger instance? => log finish event
               if ( self.logger ) self.logger.log( 'finish', results );
 
-              // provide result data
+              // perform finish actions and provide result data
               self.ccm.helper.onFinish( self, results );
 
             }

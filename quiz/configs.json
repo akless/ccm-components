@@ -1,6 +1,7 @@
 {
   "demo": {
     "feedback": true,
+    "navigation": true,
     "user": [ "ccm.instance", "./../../ccm-components/user/ccm.user.js" ],
     "logger": [ "ccm.instance", "./../../ccm-components/log/ccm.log.js", [ "ccm.get", "./../../ccm-components/log/configs.json", "greedy" ] ],
     "onfinish": {
@@ -21,7 +22,7 @@
     "questions": [
       {
         "text": "Wie viele dieser Antworten sind korrekt?",
-        "description": "Die ist ein Beispiel für eine Single-Choice-Frage. Für jedes Quiz ist einstellbar, ob zu jeder Frage nach deren Beantwortung ein unmittelbares Feedback erfolgt. Für diesen Demo-Quiz ist dies eingeschaltet. Zu einer Antwort kann beim Erstellen eines Quiz ein Kommentar oder eine Begründung angegeben werden, warum diese Antwort richtig oder falsch ist. Bei dieser Frage wurde für eine Antwort eine solche Begründung hinterlegt, die dann beim unmittelbaren Feedback mit erscheint.",
+        "description": "Dies ist ein Beispiel für eine Single-Choice-Frage. Für jedes Quiz ist einstellbar, ob zu jeder Frage nach deren Beantwortung ein unmittelbares Feedback erfolgt. Für diesen Demo-Quiz ist dies eingeschaltet. Zu einer Antwort kann beim Erstellen eines Quiz ein Kommentar oder eine Begründung angegeben werden, warum diese Antwort richtig oder falsch ist. Bei dieser Frage wurde für eine Antwort eine solche Begründung hinterlegt, die dann beim unmittelbaren Feedback mit erscheint.",
         "answers": [
           {
             "text": "eins",
@@ -141,6 +142,7 @@
       }
     ],
     "css_layout": [ "ccm.load", "./../../ccm-components/quiz/layouts/akless.css" ],
+    "navigation": true,
     "time": 100,
     "shuffle": true,
     "random": true,
@@ -156,7 +158,7 @@
     "questions": [
       {
         "text": "Dieser Quiz...",
-        "description": "Für diesen Quiz ist das unmittelbare Feedback deaktiviert. Über den \"Zurück\"- und den \"Weiter\"-Button kann zwischen den Fragen vor und zurück navigiert werden. Für den \"Fertig\"-Button ist einstellbar, ob er von Anfang an oder erst nach der Beantwortung aller Fragen aktiviert ist. Die Beschriftung der Buttons ist individuell einstellbar. Für jede Frage kann eine eigene Beschreibung angegeben werden. Dieser Text hier ist eine solche Beschreibung. Nach dem Abschließen des Quiz können die Ergebnisse durch Verwendung der Buttons betrachtet werden. Die erfolgten Angaben können nach Abschluss des Quiz nicht mehr verändert werden, da die Eingabefelder dann deaktiviert sind.",
+        "description": "Für diesen Quiz ist das unmittelbare Feedback deaktiviert. Über den \"Vorherige\"- und den \"Nächste\"-Button kann zwischen den Fragen vor und zurück navigiert werden. Für den \"Beenden\"-Button ist einstellbar, ob er von Anfang an oder erst nach der Beantwortung aller Fragen aktiviert ist. Die Beschriftung der Buttons ist individuell einstellbar. Für jede Frage kann eine eigene Beschreibung angegeben werden. Dieser Text hier ist eine solche Beschreibung. Nach dem Abschließen des Quiz können die Ergebnisse durch Verwendung der Buttons betrachtet werden. Die erfolgten Angaben können nach Abschluss des Quiz nicht mehr verändert werden, da die Eingabefelder dann deaktiviert sind.",
         "answers": [
           "kann jederzeit beendet werden.",
           "fängt endlos immer wieder von vorne an.",

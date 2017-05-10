@@ -45,6 +45,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         suite.component.start( {
           questions: {},
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
               suite.assertSame( 1, results.data.questions.length );
@@ -54,9 +55,10 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       },
       defaultsByConfig: function ( suite ) {
         suite.component.start( {
-          text: true, description: true, answers: true, input: true, attributes: true, swap: true, encode: true, random: true, feedback: true, correct: true,
+          text: true, description: true, answers: true, input: true, attributes: true, swap: true, encode: true, random: true, correct: true,
           questions: {},
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
 
@@ -69,7 +71,6 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
               if ( data.swap        ) return suite.failed( 'swap property not deleted' );
               if ( data.encode      ) return suite.failed( 'encode property not deleted' );
               if ( data.random      ) return suite.failed( 'random property not deleted' );
-              if ( data.feedback    ) return suite.failed( 'feedback property not deleted' );
               if ( data.correct     ) return suite.failed( 'correct property not deleted' );
 
               var question = data.questions[ 0 ];
@@ -78,7 +79,6 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
               if ( !question.answers     ) return suite.failed( 'missing answers property' );
               if ( !question.input       ) return suite.failed( 'missing input property' );
               if ( !question.random      ) return suite.failed( 'missing random property' );
-              if ( !question.feedback    ) return suite.failed( 'missing feedback property' );
               if ( !question.correct     ) return suite.failed( 'missing correct property' );
 
               var answer = question.answers[ 0 ];
@@ -95,6 +95,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         suite.component.start( {
           questions: {},
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
               suite.assertSame( 'checkbox', results.data.questions[ 0 ].input );
@@ -106,6 +107,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         suite.component.start( {
           questions: { answers: {} },
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
               suite.assertSame( 1, results.data.questions[ 0 ].answers.length );
@@ -117,6 +119,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         suite.component.start( {
           questions: { answers: [ 'foo', {}, 'bar' ] },
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
               suite.assertEquals( [ { text: 'foo' }, {}, { text: 'bar' } ], results.data.questions[ 0 ].answers );
@@ -128,6 +131,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         suite.component.start( {
           questions: { answers: [ '', '', '' ], correct: 1 },
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
               suite.assertEquals( [ false, true, false ], results.data.questions[ 0 ].correct );
@@ -139,6 +143,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         suite.component.start( {
           questions: { input: 'number', answers: [ '', '', '' ], correct: 5711 },
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
               suite.assertEquals( [ 5711, '', '' ], results.data.questions[ 0 ].correct );
@@ -154,6 +159,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
             answers: ''
           },
           logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
 
@@ -179,6 +185,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         start: function ( suite ) {
           suite.component.start( {
             logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+              events: { start: true },
               logging: { data: true },
               onfinish: function ( instance, results ) {
                 if ( results.event !== 'start' ) return suite.failed( 'wrong event' );
@@ -189,6 +196,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         },
         finish: function ( suite ) {
           suite.component.start( {
+            anytime_finish: true,
             logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
               events: { finish: true },
               onfinish: function ( instance, results ) {
@@ -197,6 +205,46 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
             } ]
           }, function ( instance ) {
             instance.element.querySelector( 'button' ).click();
+          } );
+        }
+      }
+    },
+    html_templates: {
+      setup: function ( suite, callback ) {
+        suite.component.start( { questions: [ {}, {} ] }, function ( instance ) {
+          suite.instance = instance;
+          callback();
+        } );
+      },
+      tests: {
+        main: function ( suite ) {
+          if ( !suite.instance.element.querySelector( '#questions' ) ) return suite.failed( 'missing "questions" container' );
+          if ( !suite.instance.element.querySelector( '#next button' ) ) return suite.failed( 'missing "next" button' );
+          if ( !suite.instance.element.querySelector( '#finish button' ) ) return suite.failed( 'missing "finish" button' );
+          suite.passed();
+        },
+        question: function ( suite ) {
+          var questions = suite.instance.element.querySelectorAll( '.question' );
+          if ( questions.length !== 2 ) return suite.failed( 'missing "question" container(s)' );
+          suite.ccm.helper.makeIterable( questions ).map( function ( question, i ) {
+            var title = question.querySelector( '.title' );
+            if ( parseInt( title.children[ 1 ].innerHTML !== i + 1 ) ) return suite.failed( 'wrong question number' );
+          } );
+          suite.passed();
+        }
+      }
+    },
+    placeholder: {
+      tests: {
+        question: function ( suite ) {
+          suite.component.start( function ( instance ) {
+            suite.assertSame( 'Question', instance.element.querySelector( '.question' ).querySelector( '.title' ).children[ 0 ].innerHTML );
+          } );
+        },
+        prev: function ( suite ) {
+          suite.component.start( { questions: [ {}, {} ], navigation: true }, function ( instance ) {
+            console.log( instance.element.querySelector( '#prev button' ) );
+            suite.assertSame( 'Previous', instance.element.querySelector( '#prev button' ).innerHTML );
           } );
         }
       }
@@ -211,7 +259,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       },
       shuffle: function ( suite ) {
         suite.component.instance( {
-          questions: [ { text: 'foo' }, { text: 'bar' } ],
+          questions: [ { text: 'foo' }, { text: 'bar' }, { text: 'baz' } ],
           shuffle: true
         }, function ( instance ) {
           var i = 0;
@@ -219,7 +267,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
           function start() {
             i++;
             instance.start( function () {
-              if ( instance.element.querySelectorAll( '.title' )[ 0 ].children[ 2 ].innerHTML === 'bar' )
+              if ( instance.element.querySelectorAll( '.title' )[ 0 ].children[ 2 ].innerHTML !== 'foo' )
                 return suite.passed();
               else if ( i < 10 )
                 start();
@@ -231,6 +279,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       },
       loggedInUser: function ( suite ) {
         suite.component.start( {
+          anytime_finish: true,
           user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
           onfinish: function ( instance ) {
             suite.assertTrue( instance.user.isLoggedIn() );
@@ -239,23 +288,6 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
           if ( instance.user.isLoggedIn() ) suite.failed( 'user is already logged in' );
           instance.element.querySelector( 'button' ).click();
         } );
-      }
-    }
-  },
-  templates: {
-    setup: function ( suite, callback ) {
-      suite.component.start( { questions: [ {}, {} ] }, function ( instance ) {
-        suite.instance = instance;
-        callback();
-      } );
-    },
-    tests: {
-      main: function ( suite ) {
-        if ( !suite.instance.element.querySelector( '#questions' ) ) return suite.failed( 'missing "questions" container' );
-        if ( !suite.instance.element.querySelector( '#prev' ) ) return suite.failed( 'missing "prev" container' );
-        if ( !suite.instance.element.querySelector( '#next' ) ) return suite.failed( 'missing "next" container' );
-        if ( !suite.instance.element.querySelector( '#finish' ) ) return suite.failed( 'missing "finish" container' );
-        suite.passed();
       }
     }
   },
