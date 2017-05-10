@@ -1,5 +1,5 @@
 /**
- * @overview default layout of ccm component for rendering a fill-in-the-blank text
+ * @overview default layout of ccm component for rendering a fill-in-the-blank texts
  * @author André Kless <andre.kless@web.de.de> 2017
  * @license The MIT License (MIT)
  */
@@ -29,7 +29,7 @@
 .gap input {
   font-family: monospace;
   font-size: 111%;
-  padding-left: 0.2em;
+  padding-left: 0.1em;
   letter-spacing: 0.2em;
 }
 
@@ -42,22 +42,16 @@
 }
 
 .gap.wrong input {
-  background-color: red;
+  background-color: rgba(255,0,0,0.3);
 }
 
-#button, #timer {
-  display: inline-block;
-  margin-top: 0.5em;
+#buttons {
+  padding-top: 0.25em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-input[type=submit] {
-  cursor: pointer;
-}
-
-#timer {
-  padding-left: 1em;
-}
-
-#timer:before {
-  content: 'time left: ';
+#buttons > div {
+  padding: 0.25em;
 }

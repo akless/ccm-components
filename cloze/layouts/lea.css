@@ -1,5 +1,5 @@
 /**
- * @overview LEA-like layout of ccm component for rendering a fill-in-the-blank text
+ * @overview LEA-like layout of ccm component for rendering a fill-in-the-blank texts
  * @author André Kless <andre.kless@web.de.de> 2017
  * @license The MIT License (MIT)
  */
@@ -34,7 +34,7 @@
   font-family: monospace;
   font-size: 111%;
   padding-left: 0.2em;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
 }
 
 .gap.correct input {
@@ -46,15 +46,21 @@
 }
 
 .gap.wrong input {
-  background-color: red;
+  background-color: rgba(255,0,0,0.3);
 }
 
-#button, #timer {
-  display: inline-block;
-  margin-top: 0.8em;
+#buttons {
+  padding-top: 0.25em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-#button input[type=submit] {
+#buttons > div {
+  padding: 0.25em;
+}
+
+button {
   color: white;
   background-color: #a2c21f;
   border-radius: 0;
@@ -67,6 +73,11 @@
 #button input[type=submit]:hover {
   border-color: #768d17;
   background-color: #7d9618;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.5;
 }
 
 #timer {
