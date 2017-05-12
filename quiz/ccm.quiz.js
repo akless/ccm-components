@@ -218,7 +218,10 @@
           if ( !Array.isArray( my.questions ) ) my.questions = [ my.questions ];
 
           // iterate over all question data sets
-          my.questions.map( function ( question ) {
+          my.questions.map( function ( question, i ) {
+
+            // each question knows her original number and HTML ID
+            question.nr = i + 1; question.id = 'question-' + question.nr;
 
             // consider default values for question data from config
             self.ccm.helper.integrate( self.ccm.helper.filterProperties( my, 'text', 'description', 'answers', 'input', 'attributes', 'swap', 'encode', 'random', 'correct' ), question, true );
@@ -230,7 +233,7 @@
             if ( !Array.isArray( question.answers ) ) question.answers = [ question.answers ];
 
             // answer data sets could be given as single string (answer text) instead of object
-            for ( var i = 0; i < question.answers.length; i++ )
+            for ( i = 0; i < question.answers.length; i++ )
               if ( !self.ccm.helper.isObject( question.answers[ i ] ) )
                 question.answers[ i ] = { text: question.answers[ i ] };
 
@@ -240,19 +243,22 @@
             // informations about the correct answers of a multiple choice question could be given as integer array instead of boolean array
             if ( question.input === 'checkbox' && typeof question.correct[ 0 ] === 'number' ) {
               var correct = [];
-              for ( var i = 0; i < question.answers.length; i++ )
+              for ( i = 0; i < question.answers.length; i++ )
                 correct.push( question.correct.indexOf( i ) >= 0 );
               question.correct = correct;
             }
 
             // fill up the array of informations about the correct answers with default values (checkbox -> false, otherwise empty string)
             if ( Array.isArray( question.correct ) )
-              for ( var i = 0; i < question.answers.length; i++ )
+              for ( i = 0; i < question.answers.length; i++ )
                 if ( question.correct[ i ] === undefined )
                   question.correct[ i ] = question.input === 'checkbox' ? false : '';
 
             // iterate over all answers (find data that must be converted to uniform data structure)
             question.answers.map( function ( answer, i ) {
+
+              // each answer knows her original number, HTML class and HTML ID
+              answer.nr = i + 1; answer.class = 'answer-' + answer.nr; answer.id = question.id + '-' + answer.class;
 
               // informations about the correct answers of a question could be given via answer data
               if ( answer.correct !== undefined )
@@ -339,9 +345,6 @@
             self.ccm.helper.removeElement( next_elem );
           }
 
-          // each question knows her original number and HTML ID
-          my.questions.map( function ( question, i ) { question.nr = i + 1; question.id = 'question-' + question.nr; } );
-
           // want random order for the questions? => shuffle questions
           if ( my.shuffle ) self.ccm.helper.shuffleArray( my.questions );
 
@@ -379,9 +382,6 @@
 
             // question has no description? => remove description container
             if ( !question.description ) self.ccm.helper.removeElement( question.elem.querySelector( '.description' ) );
-
-            // each answer knows her original number, HTML class and HTML ID
-            question.answers.map( function ( answer, i ) { answer.nr = i + 1; answer.class = 'answer-' + answer.nr; answer.id = question.id + '-' + answer.class; } );
 
             // want random order for the answers? => shuffle answers
             if ( question.random ) self.ccm.helper.shuffleArray( question.answers );
@@ -520,7 +520,7 @@
             // render 'finish' button
             self.ccm.helper.setContent( finish_elem, self.ccm.helper.protect( self.ccm.helper.html( {
               tag: 'button',
-              disabled: !my.anytime_finish && ( question.i !== my.questions.length - 1 || !evaluated[ question.nr ] ),
+              disabled: !my.anytime_finish && ( question.i !== my.questions.length - 1 || my.feedback && !evaluated[ question.nr ] ),
               inner: my.placeholder.finish,
               onclick: onFinish
             } ) ) );
@@ -631,7 +631,7 @@
               if ( question.input === 'radio' ) return parseInt( values[ Object.keys( values )[ 0 ] ] );
               var array = [];
               for ( var i in values )
-                array.push( question.input === 'checkbox' ? !!values[ i ] : values[ i ] );
+                array[ i.split( '-' ).pop() - 1 ] = question.input === 'checkbox' ? !!values[ i ] : values[ i ];
               return array;
 
             }
@@ -643,7 +643,7 @@
               question.answers.map( function ( answer ) {
 
                 // render answer comment
-                if ( answer.comment ) answer.elem.querySelector( '.comment' ).innerHTML = answer.comment;
+                if ( answer.comment ) answer.elem.querySelector( '.comment' ).innerHTML = answer.encode ? self.ccm.helper.htmlEncode( answer.comment ) : answer.comment;
 
                 // no informations about correct answer? => abort
                 if ( event_data.correct === undefined ) return;
