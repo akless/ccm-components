@@ -88,14 +88,14 @@ input[type=checkbox]:enabled, input[type=radio]:enabled, button:enabled {
   padding-top: 0.15em;
 }
 
-#nav {
+#buttons {
   padding-top: 0.25em;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
 
-#nav > div {
+#buttons > div {
   padding: 0.25em;
 }
 
