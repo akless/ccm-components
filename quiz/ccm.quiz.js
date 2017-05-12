@@ -50,7 +50,7 @@
               class: 'title',
               inner: [
                 { inner: '%question%' },
-                { inner: '%nr%' },
+                { inner: '%nr%/%count%' },
                 { inner: '%text%' }
               ]
             },
@@ -376,6 +376,7 @@
               question:    my.placeholder.question,
               id:          question.id,
               nr:          i + 1,
+              count:       my.questions.length,
               text:        question.encode ? self.ccm.helper.htmlEncode( question.text ) : question.text,
               description: question.description
             } );
