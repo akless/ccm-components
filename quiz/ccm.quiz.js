@@ -681,8 +681,8 @@
                 // user gives wrong value for this answer? => mark answer as wrong
                 if ( input !== '' && input !== false && input !== correct ) answer.elem.classList.add( 'wrong' );
 
-                // user gives no value for this (correct) answer? => mark missed correct answer as correct
-                if ( ( input === '' || input === false ) && correct !== '' && correct !== false ) answer.elem.classList.add( 'correct' );
+                // user gives no value for a (correct) multiple choice answer? => mark missed correct answer as correct
+                if ( input === false && correct !== false ) answer.elem.classList.add( 'correct' );
 
                 // number or text input field and user gives not correct value? => show user correct value (via placeholder attribute)
                 if ( question.input !== 'checkbox' && correct !== '' && input !== correct )
