@@ -1,5 +1,5 @@
 /**
- * @overview default layout of ccm component for rendering a quiz
+ * @overview WeblySleek layout of ccm component for rendering a quiz
  * @author André Kless <andre.kless@web.de.de> 2016-2017
  * @license The MIT License (MIT)
  */
@@ -52,26 +52,84 @@
 
 .entry {
   display: flex;
+  align-items: center;
 }
 
 .entry > div:first-child {
   padding-right: 0.5em;
 }
 
-.input, .text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+label {
+  padding-bottom: 0.1em;
+}
+
+input {
+  font-family: inherit;
+  font-size: 80%;
+  padding: 0.2em 0.5em;
 }
 
 input[type=checkbox]:enabled, input[type=radio]:enabled, button:enabled {
   cursor: pointer;
 }
 
-.comment:not(:empty) {
+.comment {
+  display: inline-block;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  margin-left: 0.5em;
+  border: 1px solid black;
+  border-radius: 1em;
+  padding: 0 0.3em;
+  font-family: monospace;
+  cursor: help;
+}
+
+.tooltiptext {
+  font-family: WeblySleekUI, sans-serif;
   font-size: 80%;
-  font-style: italic;
-  padding-top: 0.15em;
+  visibility: hidden;
+  width: 160px;
+  height: 150px;
+  cursor: auto;
+  position: absolute;
+  z-index: 1;
+  top: -70px;
+  left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltiptext::after {
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  border: 5px solid transparent;
+  border-right-color: black;
+}
+
+.tooltiptext > div {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.tooltiptext > div > div {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 0.3em;;
+  border-radius: 6px;
+}
+
+.tooltiptext a, .tooltiptext a:visited, .tooltiptext a:hover {
+  color: white;
 }
 
 #buttons {

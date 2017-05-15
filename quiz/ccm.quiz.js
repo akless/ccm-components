@@ -34,8 +34,8 @@
               inner: [
                 { id: 'cancel' },
                 { id: 'prev' },
-                { id: 'next' },
                 { id: 'submit' },
+                { id: 'next' },
                 { id: 'finish' },
                 { id: 'timer' }
               ]
@@ -64,19 +64,34 @@
         answer: {
           id: '%id%',
           class: 'answer %class%',
-          inner: [
-            {
-              class: 'entry',
-              inner: {
-                class: 'text',
-                inner: {
+          inner: {
+            class: 'entry',
+            inner: {
+              class: 'text',
+              inner: [
+                {
                   tag: 'label',
                   inner: '%text%',
                   for: '%id%-input'
+                },
+                { class: 'comment' }
+              ]
+            }
+          }
+        },
+        comment: {
+          class: 'tooltip',
+          inner: [
+            'i',
+            {
+              tag: 'div',
+              class: 'tooltiptext',
+              inner: {
+                inner: {
+                  inner: '%%'
                 }
               }
-            },
-            { class: 'comment' }
+            }
           ]
         },
         timer: {
@@ -643,9 +658,6 @@
               // iterate over all answer data sets of the current question
               question.answers.map( function ( answer ) {
 
-                // render answer comment
-                if ( answer.comment ) answer.elem.querySelector( '.comment' ).innerHTML = answer.encode ? self.ccm.helper.htmlEncode( answer.comment ) : answer.comment;
-
                 // no informations about correct answer? => abort
                 if ( event_data.correct === undefined ) return;
 
@@ -682,8 +694,8 @@
 
               } );
 
-              // no informations about correct answers? => abort
-              if ( event_data.correct === undefined ) return;
+              // no informations about correct answers? => abort and render answer comments
+              if ( event_data.correct === undefined ) return renderComments();
 
               // is a single choice question?
               if ( question.input === 'radio' ) {
@@ -715,6 +727,22 @@
                   // mark missed correct answer as correct
                   question.elem.querySelector( id_prefix + ( correct + 1 ) ).classList.add( 'correct' );
                 }
+
+              }
+
+              // render answer comments
+              renderComments();
+
+              /** renders the comments of the question answers (if any) */
+              function renderComments() {
+
+                // iterate over all answer data sets of the current question
+                question.answers.map( function ( answer ) {
+
+                  // answer has a comment? => render it
+                  if ( answer.comment ) self.ccm.helper.setContent( answer.elem.querySelector( '.comment' ), self.ccm.helper.html( my.html_templates.comment, answer.encode ? self.ccm.helper.htmlEncode( answer.comment ) : answer.comment ) );
+
+                } );
 
               }
 
