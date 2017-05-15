@@ -105,8 +105,9 @@
         start: 'Start',
         cancel: 'Cancel',
         prev: 'Previous',
-        next: 'Next',
         submit: 'Submit',
+        next: 'Next',
+        correct: 'Correct solution: ',
         finish: 'Finish'
       }
 
@@ -684,11 +685,8 @@
                 if ( ( input === '' || input === false ) && correct !== '' && correct !== false ) answer.elem.classList.add( 'correct' );
 
                 // number or text input field and user gives not correct value? => show user correct value (via placeholder attribute)
-                if ( question.input !== 'checkbox' && correct !== '' && input !== correct ) {
-                  var input_tag = answer.elem.querySelector( 'input' );
-                  input_tag.value = '';
-                  input_tag.setAttribute( 'placeholder', correct );
-                }
+                if ( question.input !== 'checkbox' && correct !== '' && input !== correct )
+                  answer.comment = my.placeholder.correct + correct + ( answer.comment ? '. ' + answer.comment : '' );
 
               } );
 
