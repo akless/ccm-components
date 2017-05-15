@@ -66,17 +66,17 @@
           class: 'answer %class%',
           inner: {
             class: 'entry',
-            inner: {
-              class: 'text',
-              inner: [
-                {
+            inner: [
+              {
+                class: 'text',
+                inner: {
                   tag: 'label',
                   inner: '%text%',
                   for: '%id%-input'
-                },
-                { class: 'comment' }
-              ]
-            }
+                }
+              },
+              { class: 'comment' }
+            ]
           }
         },
         comment: {
@@ -469,13 +469,11 @@
                 // add input field to HTML structure of the answer
                 var entry_elem = answer.elem.querySelector( '.entry' );
                 var input_elem = self.ccm.helper.html( { class: 'input', inner: input_html } );
+                entry_elem.insertBefore( input_elem, entry_elem.firstChild );
                 if ( answer.swap ) {
-                  entry_elem.appendChild( input_elem );
+                  entry_elem.insertBefore( entry_elem.children[ 1 ], input_elem );
                   entry_elem.classList.add( 'swap' );
                 }
-                else
-                  entry_elem.insertBefore( input_elem, entry_elem.firstChild );
-
               }
 
             }
