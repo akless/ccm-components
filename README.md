@@ -1,5 +1,5 @@
-# Client-side Component Model (_ccm_) - Components made by André Kless
+# _ccm_ Components made by André Kless
 
-nothing here yet
+See https://github.com/akless/ccm to know what _ccm_ and what a _ccm_ component is.
 
-My own components are as yet in a private BitBucket repository and will be moved here step by step.
+The not-ready branch contains the _ccm_ components which are not ready yet.
