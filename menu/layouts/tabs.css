@@ -1,0 +1,54 @@
+/**
+ * @overview tab layout for <i>ccm</i> component for menus
+ * @author André Kless <andre.kless@web.de.de> 2015-2016
+ * @license The MIT License (MIT)
+ */
+
+.ccm-menu_tabs {
+  border: 0.08em solid #aaa;
+  border-radius: 0.3em;
+  background-color: white;
+  padding: 0.2em;
+}
+
+.ccm-menu_tabs > .entries {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  margin-bottom: 0.2em;
+  border: 0.08em solid #aaa;
+  border-radius: 0.3em;
+  padding: 0.1em 0.2em 0;
+
+  background-color: #ddd;
+  font-family: Verdana,Arial,sans-serif;
+  color: #555;
+}
+
+.ccm-menu_tabs > .entries > .entry {
+  flex-grow: 1;
+
+  margin-top: 0.1em;
+  border: 0.08em solid #d3d3d3;
+  border-bottom: 0;
+  border-radius: 0.3em 0.3em 0 0;
+  padding: 0.5em 1em;
+
+  background-color: #e9e9e9;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ccm-menu_tabs > .entries > .entry:hover:not( .selected ) {
+  background-color: #d3d3d3;
+  border-color: #aaa;
+}
+
+.ccm-menu_tabs > .entries > .selected {
+  background-color: white;
+  border-color: #aaa;
+  margin-bottom: -0.08em;
+  cursor: auto;
+}

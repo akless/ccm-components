@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for user inputs
+ * @overview ccm component for user inputs
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  */
@@ -21,21 +21,27 @@
           id: 'main',
           inner: {
             tag: 'form',
-            id: '%id%',
             onsubmit: '%submit%',
             inner: [
               { id: 'inputs' },
               {
                 tag: 'input',
                 type: 'submit',
+                class: 'button',
                 value: '%caption%'
               }
             ]
           }
         },
+        fieldset: {         // TODO: fieldset
+          tag: 'fieldset',
+          inner: {
+            tag: 'legend',
+            inner: '%%'
+          }
+        },
         entry: {
           class: 'entry',
-          'data-name': '%name%',
           inner: [
             {
               class: 'label',
@@ -85,14 +91,16 @@
         }
       },
       css_layout: [ 'ccm.load', '../input/layouts/default.css' ],
-      form: true,
-      button: true,
-      inputs: [],
-      onfinish: function ( instance, results ) { console.log( results ); }
+      inputs: []
 
-      // initial_data
-      // user instance
-      // onchange: function ( instance, results, name ) { console.log( name, results ); }
+  //  form: true,
+  //  button: true,
+  //  initial_data: {},
+  //  user: [ 'ccm.instance', '../user/ccm.user.js' ],
+  //  logger: [ 'ccm.instance', '../log/ccm.log.js', [ 'ccm.get', '../log/configs.json', 'greedy' ] ],
+  //  oninput: function ( instance, data ) { console.log( data ); },
+  //  onchange: function ( instance, results, name ) { console.log( name, results ); },
+  //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
 
@@ -113,9 +121,8 @@
 
         // prepare main HTML structure
         var main_elem = self.ccm.helper.html( my.html_templates.main, {
-          id: 'ccm-' + self.index,
           caption: my.button,
-          submit: submit
+          submit: onSubmit
         } );
 
         var   form_elem = main_elem.querySelector( 'form'    );  // container for the HTML form
@@ -125,7 +132,7 @@
         if ( !my.form )
           form_elem.parentNode.replaceChild( inputs_elem, form_elem );
         else if ( !my.button )
-          form_elem.removeChild( form_elem.querySelector( 'input[type=submit]' ) );
+          form_elem.removeChild( form_elem.querySelector( '.button' ) );
         else if ( my.button === true )
           form_elem.querySelector( 'input[type=submit]' ).removeAttribute( 'value' );
 
@@ -353,7 +360,7 @@
         }
 
         /** submit callback of the HTML form */
-        function submit( event ) {
+        function onSubmit( event ) {
 
           // prevent page reload
           if ( event ) event.preventDefault();

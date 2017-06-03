@@ -1,0 +1,57 @@
+{
+  "publication": {
+    "key": "publication",
+    "inputs": [
+      {
+        "label": "URL*",
+        "name": "url",
+        "input": "url",
+        "placeholder": "public url of component",
+        "required": true
+      },
+      {
+        "label": "API",
+        "name": "api",
+        "input": "url",
+        "placeholder": "link to component API"
+      },
+      {
+        "label": "Title",
+        "name": "title",
+        "input": "text",
+        "placeholder": "component title"
+      },
+      {
+        "label": "Abstract",
+        "name": "abstract",
+        "input": "textarea",
+        "placeholder": "short description of component"
+      },
+      {
+        "label": "Description",
+        "name": "description",
+        "input": "textarea",
+        "placeholder": "full description of component"
+      },
+      {
+        "label": "Licence",
+        "name": "licence",
+        "input": "select",
+        "options":
+        [
+          { "value": "None" },
+          { "value": "Apache Licence 2.0" },
+          { "value": "GNU General Public License v3.0" },
+          { "value": "MIT License", "selected": true },
+          { "value": "Other" }
+        ]
+      },
+      {
+        "label": "HTTPS only",
+        "name": "https",
+        "input": "checkbox",
+        "title": "Only if component and all dependent resources are HTTPS or WSS."
+      }
+    ]
+  }
+}

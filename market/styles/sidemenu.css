@@ -1,0 +1,55 @@
+/**
+ * @overview menu style of market place for ccm components
+ * @author André Kless <andre.kless@web.de> 2016
+ * @author Tea Kless <tea.kless@web.de> 2016
+ * @license The MIT License (MIT)
+ */
+
+.ccm-menu_market_sidemenu {
+  font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.ccm-menu_market_sidemenu > .entries {
+  color: #fff;
+  height: 100%;
+  background-color: #009ee0;
+}
+
+.ccm-menu_market_sidemenu > .entries > .entry {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 2em;
+
+  padding: 1em;
+  cursor: pointer;
+  border-top: 0.15em solid #fff;
+}
+
+.ccm-menu_market_sidemenu > .entries > .entry:last-child {
+  border-bottom: 0.15em solid #fff;
+}
+
+.ccm-menu_market_sidemenu > .entries > .entry:not( .selected ) {
+  background-color: #009ee0;
+}
+
+.ccm-menu_market_sidemenu > .entries > .selected {
+  background-color: #008eca;
+}
+
+.ccm-menu_market_sidemenu > .entries > .entry:hover {
+  background-color: #008eca;
+}
+
+.ccm-menu_market_sidemenu > .entries > .entry > div {
+  display: flex;
+  align-items: center;
+}
+
+.ccm-menu_market_sidemenu > .entries > .entry > div > div:last-child {
+  padding-left: 0.5em;
+}

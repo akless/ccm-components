@@ -1,0 +1,19 @@
+{
+  "demo": {
+    "key": "demo",
+    "title": "<h2>Task: Explore this exercise</h2>",
+    "description": "<p>Please answer the following questions.</p>",
+    "inputs": [
+      {
+        "label": "How are you?",
+        "name": "how",
+        "input": "textarea"
+      },
+      {
+        "label": "Why are you doing this exercise?",
+        "name": "why",
+        "input": "textarea"
+      }
+    ]
+  }
+}

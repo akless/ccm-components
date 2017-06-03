@@ -1,5 +1,7 @@
 {
   "demo": {
+    "form": true,
+    "button": true,
     "inputs": [
       {
         "label": "Username",
@@ -190,6 +192,8 @@
     }
   },
   "test": {
+    "form": true,
+    "button": true,
     "inputs": [
       {
         "label": "FooBar",
