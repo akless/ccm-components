@@ -66,7 +66,7 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', '../../ccm-components/testsuite/layouts/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/testsuite/layouts/default.css' ],
       onfinish: function ( instance, result ) { console.log( result ); }
 
   //  tests

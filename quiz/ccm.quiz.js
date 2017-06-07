@@ -99,7 +99,7 @@
           inner: '%%'
         }
       },
-      css_layout: [ 'ccm.load', './../../ccm-components/quiz/layouts/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/quiz/layouts/default.css' ],
       placeholder: {
         question: 'Question',
         start: 'Start',
@@ -126,8 +126,8 @@
   //  attributes: {},
   //  encode: true,
   //  swap: true,
-  //  user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
-  //  logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', [ 'ccm.get', './../../ccm-components/log/configs.json', 'greedy' ] ],
+  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.js' ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/configs.json', 'greedy' ] ],
   //  onstart: function ( instance ) { console.log( 'Quiz started' ); },
   //  oncancel: function ( instance ) { console.log( 'Quiz canceled' ); },
   //  onprev: function ( instance, data ) { console.log( data ); },

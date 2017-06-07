@@ -51,7 +51,7 @@
           inner: '%%'
         }
       },
-      css_layout: [ 'ccm.load', '../cloze/layouts/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/cloze/layouts/default.css' ],
       placeholder : {
         start: 'Start',
         cancel: 'Cancel',

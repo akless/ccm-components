@@ -32,9 +32,9 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', '../cloze_builder/layouts/default.css' ],
-      input_mask: [ 'ccm.component', '../input/ccm.input.js', {
-        css_layout: [ 'ccm.load', '../input/layouts/table.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/cloze_builder/layouts/default.css' ],
+      input_mask: [ 'ccm.component', 'https://akless.github.io/ccm-components/input/ccm.input.js', {
+        css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/input/layouts/table.css' ],
         inputs: [
           {
             label: 'Layout',
@@ -42,11 +42,11 @@
             input: 'select',
             options: [
               {
-                value: "['ccm.load','../cloze/layouts/default.css']",
+                value: "['ccm.load','https://akless.github.io/ccm-components/cloze/layouts/default.css']",
                 caption: 'Standard-Layout'
               },
               {
-                value: "['ccm.load','../cloze/layouts/lea.css']",
+                value: "['ccm.load','https://akless.github.io/ccm-components/cloze/layouts/lea.css']",
                 caption: 'LEA-ähnliches Layout'
               }
             ]
@@ -104,15 +104,15 @@
                 caption: 'Öffentlich'
               },
               {
-                value: "['ccm.instance','../user/ccm.user.js',{'sign_on':'guest'}]",
+                value: "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'guest'}]",
                 caption: 'Gast'
               },
               {
-                value: "['ccm.instance','../user/ccm.user.js',{'sign_on':'demo'}]",
+                value: "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'demo'}]",
                 caption: 'Demo'
               },
               {
-                value: "['ccm.instance','../user/ccm.user.js',{'sign_on':'hbrsinfkaul'}]",
+                value: "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'hbrsinfkaul'}]",
                 caption: 'FB02'
               },
               {
@@ -129,7 +129,7 @@
       } ]
 
   //  initial_data: {},
-  //  cloze_preview: [ 'ccm.component', '../cloze/ccm.cloze.js' ],
+  //  cloze_preview: [ 'ccm.component', 'https://akless.github.io/ccm-components/cloze/ccm.cloze.js' ],
   //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },

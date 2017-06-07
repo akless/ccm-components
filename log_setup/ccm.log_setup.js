@@ -32,15 +32,15 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', '../log_setup/layouts/default.css' ],
-      input_mask: [ 'ccm.component', '../input/ccm.input.js', {
-        css_layout: [ 'ccm.load', '../input/layouts/table.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/log_setup/layouts/default.css' ],
+      input_mask: [ 'ccm.component', 'https://akless.github.io/ccm-components/input/ccm.input.js', {
+        css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/input/layouts/table.css' ],
         inputs: [
           {
             label: 'Pseudonymisierung',
             name: 'hash',
             input: 'checkbox',
-            value: "['ccm.load','../libs/md5/md5.min.js']"
+            value: "['ccm.load','https://akless.github.io/ccm-components/libs/md5/md5.min.js']"
           },
           {
             label: 'Zu erfassende Ereignisse',
@@ -109,8 +109,8 @@
           }
         ]
       } ],
-      logger: [ 'ccm.component', '../log/ccm.log.js' ],
-      app: [ 'ccm.component', '../cloze/ccm.cloze.js' ],
+      logger: [ 'ccm.component', 'https://akless.github.io/ccm-components/log/ccm.log.js' ],
+      app: [ 'ccm.component', 'https://akless.github.io/ccm-components/cloze/ccm.cloze.js' ],
       onfinish: function ( instance, results ) { console.log( results ); }
 
       // initial_data

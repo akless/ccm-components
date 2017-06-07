@@ -32,12 +32,12 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', './../../ccm-components/eval/layouts/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/eval/layouts/default.css' ],
       expression: '"Hello, World!"',
       button_caption: 'Evaluate expression'
 
-  //  user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
-  //  logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', [ 'ccm.get', './../../ccm-components/log/configs.json', 'greedy' ] ],
+  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.js' ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/configs.json', 'greedy' ] ],
   //  json_parse: true,
   //  oninput: function ( instance, expression ) { console.log( expression ); },
   //  onchange: function ( instance, expression ) { console.log( expression ); },
