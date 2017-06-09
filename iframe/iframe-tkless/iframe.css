@@ -1,0 +1,28 @@
+/**
+ * @overview default style of ccm component for responsive iframe
+ * @author André Kless <andre.kless@h-brs.de> 2016
+ * @copyright Copyright (c) 2016 Bonn-Rhein-Sieg University of Applied Sciences
+ * @license The MIT License (MIT)
+ */
+
+.ccm-iframe {
+  overflow: hidden;
+  max-width: 640px;
+  max-height: 480px;
+}
+
+.ccm-iframe > .video_iframe {
+  position: relative;
+  padding-bottom: 55%;
+  padding-top: 15px;
+  height: 0;
+  overflow: hidden;
+}
+
+.ccm-iframe > .video_iframe > iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
