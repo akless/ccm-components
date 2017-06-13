@@ -82,6 +82,7 @@
 
               case 'A':
                 child.setAttribute( 'target', '_blank' );
+                if ( !child.innerHTML ) child.innerHTML = child.getAttribute( 'href' );
                 break;
 
               case 'CCM-LE-LINK':
