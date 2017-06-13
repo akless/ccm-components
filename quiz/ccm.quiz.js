@@ -6,8 +6,8 @@
 
 ( function () {
 
-  var ccm_version = '8.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-8.0.0.min.js';
+  var ccm_version = '8.1.0';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-8.1.0.min.js';
 
   var component_name = 'quiz';
   var component_obj  = {
