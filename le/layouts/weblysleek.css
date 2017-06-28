@@ -1,0 +1,121 @@
+/**
+ * @overview WeblySleek layout for rendering a learning unit
+ * @author André Kless <andre.kless@web.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+.ccm-content {
+	display: flex;
+	justify-content: center;
+	background-color: #00709B;
+}
+
+#main {
+	margin: 0.5em;
+	border-radius: 0.5em;
+	background-color: white;
+	padding: 0 2em;
+	font-family: WeblySleekUI, sans-serif;
+	font-size: 19px;
+	overflow-x: hidden;
+	max-width: 720px;
+}
+
+header {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 2em;
+}
+
+header img {
+  margin-right: 1em;
+  margin-bottom: 0.2em;
+  border-right: 1px solid black;
+  padding-right: 0.6em;
+  width: 100px;
+  height: 100px;
+}
+
+header h1 {
+  display: block;
+  line-height: 1em;
+  margin: 0;
+  font-size: 38px;
+}
+
+.prefix {
+  font-size: 29px;
+}
+
+.topic {
+  color: #00ACEE;
+}
+
+footer {
+  padding-bottom: 1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 2em;
+	letter-spacing: 0.05em;
+}
+
+p, li {
+	line-height: 1.6em;
+}
+
+figure {
+	text-align: center;
+}
+
+figure > * {
+	width: 100%;
+	max-width: 640px;
+	box-shadow: 0 0 5px #00709B;
+}
+
+a {
+	color: #00ACEE;
+}
+
+a:visited {
+	color: #00709B;
+}
+
+a:hover {
+	color: darkred;
+}
+
+a[rel=license] {
+  text-decoration: none;
+}
+
+hr {
+	margin-top: 2em;
+}
+
+button {
+	color: white;
+	background-color: #00709B;
+	padding: 0.5em 1em 0.6em 1em;
+	border: none;
+	font-family: inherit;
+	font-size: 80%;
+	border-radius: 0.5em;
+	transition: background-color 0.4s;
+	letter-spacing: 0.1em;
+}
+
+button:hover:enabled {
+	cursor: pointer;
+	background-color: #00ACEE;
+	border-color: #6FD1F7;
+}
+
+button:active {
+	outline: none;
+}
+
+button:disabled {
+	opacity: 0.5;
+}

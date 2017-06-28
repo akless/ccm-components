@@ -1,8 +1,5 @@
 {
   "demo": {
-    "text": "Headline: Welcome! Hello, [[world]]. This is an [[e(x)a(mpl)e]] cloze. [[Elefant(fahrstuhl)führer(aufzugs)l(eit)er]]"
-  },
-  "Products_and_Innovation_I": {
     "css_layout": [ "ccm.load", "../cloze/layouts/lea.css" ],
     "feedback": true,
     "time": 300,

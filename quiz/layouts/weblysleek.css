@@ -1,0 +1,177 @@
+/**
+ * @overview WeblySleek layout for rendering a quiz
+ * @author André Kless <andre.kless@web.de> 2016-2017
+ * @license The MIT License (MIT)
+ */
+
+#main {
+  font-family: WeblySleekUI, sans-serif;
+  font-size: 19px;
+  overflow-x: auto;
+  padding: 0.5em 0;
+}
+
+.title {
+  font-size: 1.17em;
+}
+
+.title > div {
+  display: inline;
+}
+
+.title > div:not(:last-child) {
+  font-weight: bold;
+}
+
+.title > div:first-child:after {
+  content: ' ';
+}
+
+.title > div:nth-child(2):after {
+  content: ': ';
+}
+
+.description {
+  padding-top: 0.8em;
+}
+
+.answers {
+  padding-top: 0.5em;
+}
+
+.answer {
+  padding: 0.25em;
+}
+
+.right {
+  background-color: lime;
+}
+
+.wrong {
+  background-color: red;
+}
+
+.correct {
+  background-color: rgba(0,255,0,0.3);
+}
+
+.entry {
+  display: flex;
+  align-items: center;
+}
+
+.entry > div:first-child {
+  padding-right: 0.5em;
+}
+
+input {
+  font-family: inherit;
+  font-size: 80%;
+  padding: 0.2em 0.5em;
+}
+
+input[type=checkbox]:enabled, input[type=radio]:enabled, button:enabled {
+  cursor: pointer;
+}
+
+.tooltip {
+  position: relative;
+  margin-left: 0.7em;
+  border: 1px solid #00709B;
+  border-radius: 1em;
+  padding: 0 0.3em;
+  font-family: monospace;
+  font-size: 80%;
+  font-weight: bold;
+  color: #00709B;
+  cursor: help;
+}
+
+.tooltiptext {
+  font-family: WeblySleekUI, sans-serif;
+  visibility: hidden;
+  width: 160px;
+  height: 150px;
+  cursor: auto;
+  position: absolute;
+  z-index: 1;
+  top: -70px;
+  left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltiptext::after {
+  content: ' ';
+  position: absolute;
+  top: 49%;
+  right: 100%;
+  border: 5px solid transparent;
+  border-right-color: black;
+}
+
+.tooltiptext > div {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.tooltiptext > div > div {
+  background-color: black;
+  border-radius: 0.6em;
+  padding: 0.2em;
+  font-weight: normal;
+  text-align: center;
+  color: white;
+}
+
+.tooltiptext a {
+  color: #6FD1F7;
+}
+
+.tooltiptext a:visited {
+  color: lightblue;
+}
+
+.tooltiptext a:hover {
+  color: orangered;
+}
+
+#buttons {
+  padding-top: 0.25em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#buttons > div {
+  padding: 0.25em;
+}
+
+button {
+  color: white;
+  background-color: #00709B;
+  padding: 0.5em 1em 0.6em 1em;
+  border: none;
+  font-family: inherit;
+  font-size: 80%;
+  border-radius: 0.5em;
+  transition: background-color 0.4s;
+  letter-spacing: 0.1em;
+}
+
+button:hover:enabled {
+  cursor: pointer;
+  background-color: #00ACEE;
+  border-color: #6FD1F7;
+}
+
+button:active {
+  outline: none;
+}
+
+button:disabled {
+  opacity: 0.5;
+}

@@ -15,10 +15,10 @@
     name: component_name,
 
     config: {
-      css_file: 'https://akless.github.io/akless/we/css/le.css',
+      css_file: 'https://akless.github.io/ccm-components/le/layouts/weblysleek.css',
       font: 'https://akless.github.io/ccm-components/libs/weblysleekui/font.css',
-      logo_file: 'https://akless.github.io/akless/we/image/logo.png',
-      poster_file: 'https://akless.github.io/akless/we/image/poster.jpg',
+      logo_file: 'https://akless.github.io/akless/we/logo.png',
+      poster_file: 'https://akless.github.io/akless/we/poster.jpg',
       content: [ 'ccm.component', 'https://akless.github.io/ccm-components/content/ccm.content.min.js' ],
       topic_prefix: 'Lerneinheit:',
       link_prefix: 'Link: ',

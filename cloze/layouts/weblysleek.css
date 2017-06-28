@@ -1,0 +1,85 @@
+/**
+ * @overview WeblySleek layout for rendering a fill-in-the-blank text
+ * @author André Kless <andre.kless@web.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+#main {
+  font-family: WeblySleekUI, sans-serif;
+  font-size: 19px;
+  overflow-x: auto;
+}
+
+#text {
+  line-height: 1.6em;
+}
+
+.gap input {
+  font-family: inherit;
+  font-size: inherit;
+  padding-left: 0.2em;
+  letter-spacing: 0.1em;
+}
+
+.gap.correct input {
+  background-color: lime;
+}
+
+.gap.nearly input {
+  background-color: orange;
+}
+
+.gap.wrong input {
+  background-color: rgba(255,0,0,0.3);
+}
+
+#buttons {
+  padding-top: 0.25em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#buttons > div {
+  padding: 0.25em;
+}
+
+button {
+  color: white;
+  background-color: #00709B;
+  padding: 0.5em 1em 0.6em 1em;
+  border: none;
+  font-family: inherit;
+  font-size: 80%;
+  border-radius: 0.5em;
+  transition: background-color 0.4s;
+  letter-spacing: 0.1em;
+}
+
+button:hover:enabled {
+  cursor: pointer;
+  background-color: #00ACEE;
+  border-color: #6FD1F7;
+}
+
+button:active {
+  outline: none;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0.1em;
+}
+
+code {
+  display: block;
+  margin: 0.5em 0;
+  border: 0.1em solid gray;
+  border-radius: 0.5em;
+  background-color: snow;
+  padding: 0.5em;
+  font-size: 80%;
+}
