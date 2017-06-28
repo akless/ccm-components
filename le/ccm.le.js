@@ -16,6 +16,7 @@
 
     config: {
       css_file: 'https://akless.github.io/akless/we/css/le.css',
+      font: 'https://akless.github.io/ccm-components/libs/weblysleekui/font.css',
       logo_file: 'https://akless.github.io/akless/we/image/logo.png',
       poster_file: 'https://akless.github.io/akless/we/image/poster.jpg',
       content: [ 'ccm.component', 'https://akless.github.io/ccm-components/content/ccm.content.min.js' ],
