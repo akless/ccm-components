@@ -6,8 +6,8 @@
 
 ( function () {
 
-  var ccm_version = '8.1.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-8.1.0.min.js';
+  var ccm_version = '9.0.0';
+  var ccm_url     = '../../../ccm/ccm.js';
 
   var component_name = 'blank';
   var component_obj  = {
@@ -16,11 +16,9 @@
 
     Instance: function () {
 
-      var self = this;
-
       this.start = function ( callback ) {
 
-        self.element.innerHTML = 'Hello, World!';
+        this.element.innerHTML = 'Hello, World!';
 
         if ( callback ) callback();
       };
