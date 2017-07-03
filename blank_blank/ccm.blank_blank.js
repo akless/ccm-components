@@ -23,6 +23,8 @@
 
       this.start = function ( callback ) {
 
+        this.element.innerHTML = '';
+
         this.element.appendChild( this.instance_a.root );
         this.instance_a.start();
 
