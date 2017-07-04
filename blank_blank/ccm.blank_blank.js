@@ -7,7 +7,7 @@
 ( function () {
 
   var ccm_version = '9.0.0';
-  var ccm_url     = '../../../ccm/ccm.js';
+  var ccm_url     = 'https://akless.github.io/ccm/ccm.js';
 
   var component_name = 'blank_blank';
   var component_obj  = {
