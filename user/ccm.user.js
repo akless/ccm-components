@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for user authentication
+ * @overview <i>ccm</i> component for user authentication
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
