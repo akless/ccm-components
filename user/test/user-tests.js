@@ -4,10 +4,9 @@
  * @license The MIT License (MIT)
  */
 
-if ( !ccm.components.testsuite ) ccm.components.testsuite = {};
-ccm.components.testsuite.user = {
+ccm.files[ 'user-tests.min.js' ] = {
   setup: function ( suite, callback ) {
-    ccm.component( './../../ccm-components/user/ccm.user.js', function ( component ) {
+    suite.ccm.component( '../user/ccm.user.min.js', function ( component ) {
       suite.user = component;
       callback();
     } );
