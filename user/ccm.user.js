@@ -22,8 +22,8 @@
           id: 'logged_in',
           inner: [
             {
-              id: 'username',
-              inner: '%full_name%'
+              id: 'user',
+              inner: '%username%'
             },
             {
               id: 'button',
