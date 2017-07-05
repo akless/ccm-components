@@ -23,7 +23,7 @@
           inner: [
             {
               id: 'username',
-              inner: '%user%'
+              inner: '%full_name%'
             },
             {
               id: 'button',
@@ -119,7 +119,8 @@
 
         // prepare main HTML structure
         var main_elem = self.isLoggedIn() ? self.ccm.helper.html( my.html_templates.logged_in, {
-          user:  self.data().key,
+          username:  self.data().key,
+          full_name:  self.data().name,
           click: function () { self.logout( self.start ); }
         } ) : self.ccm.helper.html( my.html_templates.logged_out, {
           click: function () { self.login( self.start ); }
@@ -174,7 +175,7 @@
         function success( response ) {
 
           // hold user data
-          dataset = self.ccm.helper.filterProperties( response, 'user', 'token', 'name' );
+          dataset = self.ccm.helper.filterProperties( response, 'key', 'token', 'name' );
 
           // request is finished
           loading = false;
@@ -261,6 +262,7 @@
         // context mode? => delegate method call
         if ( my.context ) return my.context.data();
 
+        console.log( dataset );
         return dataset;
       };
 
