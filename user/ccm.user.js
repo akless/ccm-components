@@ -154,15 +154,15 @@
             success( { key: my.guest.username, name: my.guest.full_name } );
             break;
           case 'demo':
-            self.ccm.load( [ 'https://kaul.inf.h-brs.de/login/demo_login.php', { realm: 'hbrsinfkaul' } ], success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/demo_login.php', params: { realm: 'hbrsinfkaul' } }, success );
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( [ 'https://kaul.inf.h-brs.de/login/login.php', { realm: 'hbrsinfkaul' } ], success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', params: { realm: 'hbrsinfkaul' } }, function ( response ) { response.key = response.user; success( response ); } );
             break;
           case 'VCRP_OpenOLAT':
             var username = prompt( 'Please enter your OpenOLAT username' );
             var password = prompt( 'Please enter your OpenOLAT password' );
-            self.ccm.load( [ 'https://olat.vcrp.de/restapi/auth/' + username, { password: password } ], success );
+            self.ccm.load( { url: 'https://olat.vcrp.de/restapi/auth/' + username, params: { password: password } }, success );
             break;
         }
 
@@ -213,10 +213,10 @@
             success();
             break;
           case 'demo':
-            self.ccm.load( [ 'https://logout@kaul.inf.h-brs.de/login/demo_logout.php', { realm: 'hbrsinfkaul' } ], success );
+            self.ccm.load( { url: 'https://logout@kaul.inf.h-brs.de/login/demo_logout.php', params: { realm: 'hbrsinfkaul' } }, success );
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( [ 'https://logout@kaul.inf.h-brs.de/login/logout.php', { realm: 'hbrsinfkaul' } ], success );
+            self.ccm.load( { url: 'https://logout@kaul.inf.h-brs.de/login/logout.php', params: { realm: 'hbrsinfkaul' } }, success );
             break;
         }
 
@@ -262,7 +262,6 @@
         // context mode? => delegate method call
         if ( my.context ) return my.context.data();
 
-        console.log( dataset );
         return dataset;
       };
 
