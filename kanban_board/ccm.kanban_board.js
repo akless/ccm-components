@@ -41,7 +41,7 @@
       this.init = function ( callback ) {
 
         // listen to datastore change event => update own content
-        self.store.onChange = function () { self.start(); };
+        self.data.store.onChange = function () { self.start(); };
 
         callback();
       };
@@ -57,7 +57,7 @@
       this.start = function ( callback ) {
 
         // get dataset for rendering
-        ccm.helper.dataset( self.data, function ( dataset ) {
+        self.ccm.helper.dataset( my.data, function ( dataset ) {
           console.log( dataset );
           return;
 
