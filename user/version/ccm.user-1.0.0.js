@@ -1,19 +1,19 @@
 /**
- * @overview ccm component for user authentication
+ * @overview <i>ccm</i> component for user authentication
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
+ * @version 1.0.0
  */
 
 ( function () {
 
-  var ccm_version = '8.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-8.0.0.min.js';
+  var ccm_version = '9.0.0';
+  var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
 
   var component_name = 'user';
   var component_obj  = {
 
     name: component_name,
-    version: [ 1, 0, 0 ],
 
     config: {
 
@@ -22,16 +22,15 @@
           id: 'logged_in',
           inner: [
             {
-              id: 'username',
+              id: 'user',
               inner: '%user%',
-              title: '%user_title%'
+              title: '%name%'
             },
             {
               id: 'button',
               inner: {
                 tag: 'button',
-                inner: '%logout%',
-                title: '%logout_title%',
+                inner: 'Logout',
                 onclick: '%click%'
               }
             }
@@ -43,8 +42,7 @@
             id: 'button',
             inner: {
               tag: 'button',
-              inner: '%login%',
-              title: '%title%',
+              inner: 'Login',
               onclick: '%click%'
             }
           }
@@ -54,48 +52,37 @@
       context: true,
       logged_in: false,
       sign_on: 'guest',
-      texts: {
-        login:        'Login',
-        login_title:  'click here for login',
-        logout:       'Logout',
-        logout_title: 'click here for logout',
-        user_title:   'this is your username'
-      },
       guest: {
-        key:   'guest',
-        name:  'Guest User'
+        user: 'guest',
+        name: 'Guest User'
       }
 
     },
 
+    /** @class */
     Instance: function () {
 
-      /**
-       * own context
-       * @type {Instance}
-       */
       var self = this;
+      var my;           // contains privatized instance members
 
       /**
-       * privatized instance members
-       * @type {object}
-       */
-      var my;
-
-      /**
-       * dataset of the current logged in user
+       * data of the current logged in user
+       * @private
        * @type {ccm.components.user.types.dataset}
        */
       var dataset = null;
 
       /**
-       * observers for login and logout event
+       * @summary observers for login and logout event
+       * @description List of functions that must be performed on a login and logout event.
+       * @private
        * @type {function[]}
        */
       var observers = [];
 
       /**
        * true during a login or logout request
+       * @private
        * @type {boolean}
        */
       var loading = false;
@@ -103,6 +90,7 @@
       /**
        * @summary waitlist during a login or logout request
        * @description Waitlist of actions that must be performed after a successful login or logout request.
+       * @private
        * @type {ccm.types.action[]}
        */
       var waitlist = [];
@@ -127,59 +115,55 @@
 
       this.start = function ( callback ) {
 
-        // context mode? => delegate function call
+        // context mode? => delegate method call
         if ( my.context ) return my.context.start( callback );
 
         // prepare main HTML structure
         var main_elem = self.isLoggedIn() ? self.ccm.helper.html( my.html_templates.logged_in, {
-              user:           self.data().key,
-              user_title: my.texts.user_title,
-              logout:         my.texts.logout,
-              logout_title:   my.texts.logout_title,
-              click:          function () { self.logout( self.start ); }
-            } ) : self.ccm.helper.html( my.html_templates.logged_out, {
-              login: my.texts.login,
-              title: my.texts.login_title,
-              click: function () { self.login( self.start ); }
-            } );
+          user: self.data().user,
+          name: self.data().name,
+          click: function () { self.logout( self.start ); }
+        } ) : self.ccm.helper.html( my.html_templates.logged_out, {
+          click: function () { self.login( self.start ); }
+        } );
 
-        // set content of own website area
+        // set own content
         self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
 
-        if ( callback ) callback();
+        if ( callback ) callback(); return self;
       };
 
       /**
        * login user
-       * @param {function} [callback] will be called after login (or directly if user is already logged in)
-       * @returns {ccm.instance} <i>ccm</i> user instance
+       * @param {function} [callback] - will be called after login (or directly if user is already logged in)
+       * @returns {self}
        */
       this.login = function ( callback ) {
 
-        // context mode? => delegate function call
+        // context mode? => delegate method call
         if ( my.context ) return my.context.login( callback );
 
         // user already logged in? => perform callback directly
         if ( self.isLoggedIn() ) { if ( callback ) callback(); return self; }
 
         // prevent more than one request on parallel login/logout calls
-        if ( loading ) return waitlist.push( [ self.login, callback ] ); loading = true;
+        if ( loading ) { waitlist.push( [ self.login, callback ] ); return self; }
 
         // choose sign on and proceed login
         switch ( my.sign_on ) {
           case 'guest':
-            success( my.guest.key, '', my.guest.name );
+            success( { key: my.guest.username, name: my.guest.full_name } );
             break;
           case 'demo':
-            self.ccm.load( [ 'https://kaul.inf.h-brs.de/login/demo_login.php', { realm: 'hbrsinfkaul' } ], function ( response ) { success( response.user, response.token ); } );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/demo_login.php', params: { realm: 'hbrsinfkaul' } }, success );
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( [ 'https://kaul.inf.h-brs.de/login/login.php', { realm: 'hbrsinfkaul' } ], function ( response ) { success( response.user, response.token, response.name ); } );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', params: { realm: 'hbrsinfkaul' } }, success);
             break;
-          case 'VCRP_OpenOLAT':
+          case 'VCRP_OpenOLAT':  // experimental (not working yet)
             var username = prompt( 'Please enter your OpenOLAT username' );
             var password = prompt( 'Please enter your OpenOLAT password' );
-            self.ccm.load( [ 'https://olat.vcrp.de/restapi/auth/' + username, { password: password } ], function () { success( username ); } );
+            self.ccm.load( { url: 'https://olat.vcrp.de/restapi/auth/' + username, params: { password: password } }, success );
             break;
         }
 
@@ -187,21 +171,22 @@
 
         /**
          * callback when login was successful
-         * @param {string} key - dataset key and username, respectively
-         * @param {string} [token] - security token
-         * @param {string} [name] - full name of user
+         * @param {ccm.components.user.types.dataset} response - server response with user data
          */
-        function success( key, token, name ) {
+        function success( response ) {
 
-          dataset = { key: key, token: token, name: name };  // hold user data
-          loading = false;                                   // request is finished
+          // hold user data
+          dataset = self.ccm.helper.filterProperties( response, 'user', 'token', 'name' );
+
+          // request is finished
+          loading = false;
 
           // perform waiting functions
           while ( waitlist.length > 0 ) self.ccm.helper.action( waitlist.shift() );
 
           if ( self.element ) self.start();  // (re)render own content
-          if ( callback ) callback();         // perform callback
-          notify( true );                     // notify observers about login event
+          if ( callback ) callback();        // perform callback
+          notify( true );                    // notify observers about login event
 
         }
 
@@ -210,18 +195,18 @@
       /**
        * logout user
        * @param {function} [callback] will be called after logout (or directly if user is already logged out)
-       * @returns {ccm.instance} <i>ccm</i> user instance
+       * @returns {self}
        */
       this.logout = function ( callback ) {
 
-        // context mode? => delegate function call
+        // context mode? => delegate method call
         if ( my.context ) return my.context.logout( callback );
 
         // user already logged out? => perform callback directly
         if ( !self.isLoggedIn() ) { if ( callback ) callback(); return self; }
 
         // prevent more than one request on parallel login/logout calls
-        if ( loading ) return waitlist.push( [ self.logout, callback ] ); loading = true;
+        if ( loading ) { waitlist.push( [ self.logout, callback ] ); return self; }
 
         // choose sign on and proceed logout
         switch ( my.sign_on ) {
@@ -229,10 +214,12 @@
             success();
             break;
           case 'demo':
-            self.ccm.load( [ 'https://logout@kaul.inf.h-brs.de/login/demo_logout.php', { realm: 'hbrsinfkaul' } ], success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/demo_logout.php', params: { realm: 'hbrsinfkaul' } } );
+            success();
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( [ 'https://logout@kaul.inf.h-brs.de/login/logout.php', { realm: 'hbrsinfkaul' } ], success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/logout.php', params: { realm: 'hbrsinfkaul' } } );
+            success();
             break;
         }
 
@@ -248,8 +235,8 @@
           while ( waitlist.length > 0 ) self.ccm.helper.action( waitlist.shift() );
 
           if ( self.element ) self.start();  // (re)render own content
-          if ( callback ) callback();         // perform callback
-          notify( false );                    // notify observers about logout event
+          if ( callback ) callback();        // perform callback
+          notify( false );                   // notify observers about logout event
 
         }
 
@@ -261,7 +248,7 @@
        */
       this.isLoggedIn = function () {
 
-        // context mode? => delegate function call
+        // context mode? => delegate method call
         if ( my.context ) return my.context.isLoggedIn();
 
         // user is logged in if user data exists
@@ -270,13 +257,12 @@
       };
 
       /**
-       * returns user dataset
-       * @returns {object}
-       * @example { key: 'john_doe', name: 'John Doe', token: 'd41d8cd98f00b204e9800998ecf8427e' }
+       * returns user data
+       * @returns {ccm.components.user.types.dataset}
        */
       this.data = function () {
 
-        // context mode? => delegate function call
+        // context mode? => delegate method call
         if ( my.context ) return my.context.data();
 
         return dataset;
@@ -284,38 +270,34 @@
 
       /**
        * returns sign-on
-       * @returns {string}
-       * @example 'guest'
-       * @example 'demo'
-       * @example 'hbrsinfkaul'
+       * @returns {ccm.components.user.types.config.sign_on}
        */
       this.getSignOn = function () {
 
-        // context mode? => delegate function call
+        // context mode? => delegate method call
         if ( my.context ) return my.context.getSignOn();
 
         return my.sign_on;
       };
 
       /**
-       * adds an observer for login and logout events
+       * adds an observer for login and logout event
        * @param {function} observer - will be performed when event fires (first parameter is kind of event -> true: login, false: logout)
-       * @returns {ccm.instance} <i>ccm</i> user instance
+       * @returns {self}
        */
       this.addObserver = function ( observer ) {
 
-        // context mode? => delegate function call
+        // context mode? => delegate method call
         if ( my.context ) return my.context.addObserver( observer );
 
         // add function to observers
         observers.push( observer );
 
         return self;
-
       };
 
       /**
-       * notify observers
+       * notifies observers
        * @param {boolean} event - true: login, false: logout
        * @private
        */
@@ -327,6 +309,42 @@
       }
 
     }
+
+    /**
+     * @namespace ccm.components.user.types
+     */
+
+    /**
+     * @summary possible configuration members
+     * @typedef {object} ccm.components.user.types.config
+     * @property {ccm.types.element} element - contains own content
+     * @property {Object.<string,ccm.types.html>} html_templates - contains HTML templates
+     * @property {ccm.types.dependency} css_layout - layout CSS file
+     * @property {boolean} context - context mode: if enabled, all method calls will be delegated to the highest <i>ccm</i> instance for user authentication in the current <i>ccm</i> context
+     * @property {boolean} logged_in - if enabled, user will be directly logged in
+     * @property {string} sign_on - <table>
+     *   <tr><th>sign-on</th><th>description</th></tr>
+     *   <tr><td>"guest"</td><td>guest mode: every user has the same username and full name without a password</td></tr>
+     *   <tr><td>"demo"</td><td>demo mode: login with any username and password; full name is equal to the username</td></tr>
+     *   <tr><td>"hbrsinfkaul"</td><td>login with an account of the department of computer science of the Hochschule Bonn-Rhein-Sieg (University of Applied Sciences)</td></tr>
+     * </table>
+     * @property {string} guest.username - username for guest mode
+     * @property {string} guest.full_name - full name of user for guest mode
+     */
+
+    /**
+     * @summary contains user data
+     * @typedef {object} ccm.components.user.types.dataset
+     * @property {string} key - unique user key and username, respectively
+     * @property {string} name - full name of user
+     * @property {string} token - security token (contains encrypted password)
+     * @example { key: 'john_doe', name: 'John Doe', token: 'd41d8cd98f00b204e9800998ecf8427e' }
+     */
+
+    /**
+     * @external ccm.types
+     * @see {@link https://akless.github.io/ccm/api/ccm.types.html}
+     */
 
   };
 
