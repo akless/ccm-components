@@ -29,7 +29,7 @@ ccm.files[ 'user-tests.js' ] = {
   login: {
     tests: {
       'defaultGuestKey': function ( suite ) {
-        suite.assertSame( 'guest', suite.user.instance().login().data().key );
+        suite.assertSame( 'guest', suite.user.instance().login().data().user );
       },
       'defaultGuestName': function ( suite ) {
         suite.assertSame( 'Guest User', suite.user.instance().login().data().name );

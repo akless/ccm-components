@@ -152,7 +152,7 @@
         // choose sign on and proceed login
         switch ( my.sign_on ) {
           case 'guest':
-            success( { key: my.guest.username, name: my.guest.full_name } );
+            success( { user: my.guest.user, name: my.guest.name } );
             break;
           case 'demo':
             self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/demo_login.php', params: { realm: 'hbrsinfkaul' } }, success );
@@ -335,10 +335,10 @@
     /**
      * @summary contains user data
      * @typedef {object} ccm.components.user.types.dataset
-     * @property {string} key - unique user key and username, respectively
+     * @property {string} user - unique user key and username, respectively
      * @property {string} name - full name of user
      * @property {string} token - security token (contains encrypted password)
-     * @example { key: 'john_doe', name: 'John Doe', token: 'd41d8cd98f00b204e9800998ecf8427e' }
+     * @example { user: 'john_doe', name: 'John Doe', token: 'd41d8cd98f00b204e9800998ecf8427e' }
      */
 
     /**
