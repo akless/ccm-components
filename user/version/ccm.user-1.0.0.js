@@ -14,6 +14,7 @@
   var component_obj  = {
 
     name: component_name,
+    version: [ 1, 0, 0 ],
 
     config: {
 
