@@ -214,10 +214,12 @@
             success();
             break;
           case 'demo':
-            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/demo_logout.php', params: { realm: 'hbrsinfkaul' } }, success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/demo_logout.php', params: { realm: 'hbrsinfkaul' } } );
+            success();
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/logout.php', params: { realm: 'hbrsinfkaul' } }, success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/logout.php', params: { realm: 'hbrsinfkaul' } } );
+            success();
             break;
         }
 
