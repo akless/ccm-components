@@ -23,7 +23,8 @@
           inner: [
             {
               id: 'user',
-              inner: '%username%'
+              inner: '%user%',
+              title: '%name%'
             },
             {
               id: 'button',
@@ -52,8 +53,8 @@
       logged_in: false,
       sign_on: 'guest',
       guest: {
-        username:  'guest',
-        full_name: 'Guest User'
+        user: 'guest',
+        name: 'Guest User'
       }
 
     },
@@ -119,8 +120,8 @@
 
         // prepare main HTML structure
         var main_elem = self.isLoggedIn() ? self.ccm.helper.html( my.html_templates.logged_in, {
-          username:  self.data().key,
-          full_name:  self.data().name,
+          user: self.data().user,
+          name: self.data().name,
           click: function () { self.logout( self.start ); }
         } ) : self.ccm.helper.html( my.html_templates.logged_out, {
           click: function () { self.login( self.start ); }
@@ -157,9 +158,9 @@
             self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/demo_login.php', params: { realm: 'hbrsinfkaul' } }, success );
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', params: { realm: 'hbrsinfkaul' } }, function ( response ) { response.key = response.user; success( response ); } );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', params: { realm: 'hbrsinfkaul' } }, success);
             break;
-          case 'VCRP_OpenOLAT':
+          case 'VCRP_OpenOLAT':  // experimental (not working yet)
             var username = prompt( 'Please enter your OpenOLAT username' );
             var password = prompt( 'Please enter your OpenOLAT password' );
             self.ccm.load( { url: 'https://olat.vcrp.de/restapi/auth/' + username, params: { password: password } }, success );
@@ -175,7 +176,7 @@
         function success( response ) {
 
           // hold user data
-          dataset = self.ccm.helper.filterProperties( response, 'key', 'token', 'name' );
+          dataset = self.ccm.helper.filterProperties( response, 'user', 'token', 'name' );
 
           // request is finished
           loading = false;
@@ -213,10 +214,10 @@
             success();
             break;
           case 'demo':
-            self.ccm.load( { url: 'https://logout@kaul.inf.h-brs.de/login/demo_logout.php', params: { realm: 'hbrsinfkaul' } }, success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/demo_logout.php', params: { realm: 'hbrsinfkaul' } }, success );
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( { url: 'https://logout@kaul.inf.h-brs.de/login/logout.php', params: { realm: 'hbrsinfkaul' } }, success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/logout.php', params: { realm: 'hbrsinfkaul' } }, success );
             break;
         }
 
