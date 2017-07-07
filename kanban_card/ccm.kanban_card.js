@@ -22,10 +22,11 @@
           "id": "main",
           "inner": [
             {
-              "class": "header",
+              "id": "header",
               "inner": [
                 {
-                  "class": "title entry",
+                  "id": "title",
+                  "class": "entry",
                   "inner": [
                     {
                       "class": "value",
@@ -33,11 +34,12 @@
                       "contenteditable": true,
                       "oninput": "%input_title%"
                     },
-                    { "class": "status" }
+                    { "id": "status" }
                   ]
                 },
                 {
-                  "class": "owner entry",
+                  "id": "owner",
+                  "class": "entry",
                   "inner": [
                     { "class": "fa fa-user" },
                     {
@@ -50,9 +52,10 @@
               ]
             },
             {
-              "class": "content",
+              "id": "content",
               "inner": {
-                "class": "summary entry",
+                "id": "summary",
+                "class": "entry",
                 "inner": {
                   "class": "value",
                   "inner": "%summary%",
@@ -62,10 +65,11 @@
               }
             },
             {
-              "class": "footer",
+              "id": "footer",
               "inner": [
                 {
-                  "class": "priority entry",
+                  "id": "priority",
+                  "class": "entry",
                   "inner": {
                     "class": "value",
                     "inner": "%priority%",
@@ -73,7 +77,8 @@
                   }
                 },
                 {
-                  "class": "deadline entry",
+                  "id": "deadline",
+                  "class": "entry",
                   "inner": [
                     { "class": "fa fa-calendar-check-o" },
                     {
@@ -88,16 +93,14 @@
           ]
         }
       },
-      //css_layout: [ 'ccm.load',  'https://akless.github.io/ccm-components/kanban_card/layout/default.css' ],
+      css_layout: [ 'ccm.load',  'https://akless.github.io/ccm-components/kanban_card/layouts/default.css' ],
       data: {
-        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.js' ],
+        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js' ],
         key: 'homework'
       },
       icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', context: document.head } ],
       members: [ 'John', 'Jane' ],
-      priorities: [ 'A', 'B', 'C' ],
-      lanes: [ 'ToDo', 'Doing', 'Done' ]
-      //jquery_ui_sortable:  [ 'ccm.load',  './lib/jquery-ui/sortable/jquery-ui.min.js' ]
+      priorities: [ 'A', 'B', 'C' ]
 
     },
 

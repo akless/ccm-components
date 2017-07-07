@@ -1,0 +1,81 @@
+/**
+ * @overview default layout for rendering a kanban card
+ * @author André Kless <andre.kless@web.de> 2016-2017
+ * @license The MIT License (MIT)
+ */
+
+#main {
+  font-family: Arial, sans-serif;
+  overflow-x: auto;
+  border: 0.1em solid lightgrey;
+  border-radius: 0.5em;
+  margin: 0.5em;
+  background-color: white;
+  cursor: move;
+}
+
+#header, #footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0.25em;
+  min-height: 1.85em;
+}
+
+#header > div, #footer > div {
+  padding: 0.2em;
+  overflow-x: hidden;
+}
+
+#owner, #priority, #deadline {
+  white-space: nowrap;
+}
+
+#header > div > div,
+.ccm-kanban > .lanes > .lane > .tasks > .task > .footer > div > div {
+
+  display: inline-block;
+  margin-right: 0.3em;
+
+}
+
+.value {
+  cursor: text;
+}
+
+div[contenteditable='true'] {
+  word-wrap: break-word;
+}
+
+input {
+  width: 11em;
+}
+
+select {
+  max-width: 11em;
+  cursor: pointer;
+}
+
+#title {
+  font-weight: bold;
+  overflow-x: auto;
+}
+
+#content {
+  border-top: 0.1em solid lightgrey;
+  border-bottom: 0.1em solid lightgrey;
+}
+
+#summary .value {
+  padding: 0.5em;
+  font-size: 80%;
+  overflow-x: auto;
+}
+
+#priority .value {
+  background-color: black;
+  border-radius: 1em;
+  padding: 0 0.4em;
+  color: white;
+}
