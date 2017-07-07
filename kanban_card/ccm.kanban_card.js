@@ -10,7 +10,7 @@
   var ccm_version = '9.0.0';
   var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
 
-  var component_name = 'kanban_board';
+  var component_name = 'kanban_card';
   var component_obj  = {
 
     name: component_name,
@@ -90,8 +90,8 @@
       },
       //css_layout: [ 'ccm.load',  'https://akless.github.io/ccm-components/kanban_card/layout/default.css' ],
       data: {
-        store: [ 'ccm.store', { store: 'kanban_cards', url: 'wss://ccm.inf.h-brs.de' } ],
-        key: 'demo'
+        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.js' ],
+        key: 'homework'
       },
       icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', context: document.head } ],
       members: [ 'John', 'Jane' ],
@@ -122,7 +122,7 @@
         // get dataset for rendering
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
-          self.ccm.helper.content( self.element, self.ccm.helper.protect( self.ccm.helper.html( self.html_templates.main, self.ccm.helper.integrate( {
+          self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.main, self.ccm.helper.integrate( {
 
             input_title:    inputTitle,
             click_owner:    clickOwner,
