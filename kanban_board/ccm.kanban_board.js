@@ -22,7 +22,7 @@
         store: [ 'ccm.store', { store: 'kanban', url: 'wss://ccm.inf.h-brs.de' } ],
         key: 'demo'
       },
-      icons:    [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', context: document.head } ],
+      icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', context: document.head } ]
       //style:    [ 'ccm.load',  'https://akless.github.io/ccm-components/kanban_board/layout/default.css' ]
 
       //html:     [ ccm.load,  './json/kanban_html.json' ],
