@@ -12,7 +12,8 @@
   font-family: Arial, sans-serif;
 }
 
-#header, #footer {
+#header,
+#footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,11 +36,17 @@
 }
 
 #summary .value {
+  flex-grow: 1;
+}
+
+#summary .value {
   padding: 0.3em;
   font-size: 80%;
 }
 
-#owner, #priority, #deadline {
+#owner,
+#priority,
+#deadline {
   overflow-x: hidden;
   white-space: nowrap;
 }
@@ -51,19 +58,24 @@
   background-color: black;
 }
 
-.entry div {
-  display: inline-block;
+.entry {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
 }
 
-.entry div:first-child {
+.entry:not(#summary) div:last-child {
   margin-right: 0.3em;
 }
 
-#title .value, #summary .value, #deadline .value {
+#title .value,
+#summary .value,
+#deadline .value {
   cursor: text;
 }
 
-#owner .value, #priority .value {
+#owner .value,
+#priority .value {
   cursor: pointer;
 }
 
@@ -71,8 +83,14 @@
   word-break: break-all;
 }
 
-.value:empty {
+.value:empty,
+.value:empty + div {
   color: lightgrey;
+}
+
+#priority .value {
+  color: white;
+  background-color: lightgrey;
 }
 
 #title .value:empty:before {

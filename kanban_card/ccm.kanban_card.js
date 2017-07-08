@@ -33,25 +33,25 @@
                   "id": "title",
                   "class": "entry",
                   "inner": [
+                    { "id": "status" },
                     {
                       "class": "value",
                       "inner": "%title%",
                       "contenteditable": true,
                       "oninput": "%input_title%"
-                    },
-                    { "id": "status" }
+                    }
                   ]
                 },
                 {
                   "id": "owner",
                   "class": "entry",
                   "inner": [
-                    { "class": "fa fa-user" },
                     {
                       "class": "value",
                       "inner": "%owner%",
                       "onclick": "%click_owner%"
-                    }
+                    },
+                    { "class": "fa fa-user" }
                   ]
                 }
               ]
@@ -85,12 +85,12 @@
                   "id": "deadline",
                   "class": "entry",
                   "inner": [
-                    { "class": "fa fa-calendar-check-o" },
                     {
                       "class": "value",
                       "inner": "%deadline%",
                       "onclick": "%click_deadline%"
-                    }
+                    },
+                    { "class": "fa fa-calendar-check-o" }
                   ]
                 }
               ]
