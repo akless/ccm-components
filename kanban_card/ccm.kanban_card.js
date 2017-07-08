@@ -149,13 +149,14 @@
 
           }, self.ccm.helper.clone( dataset ), true ) ) ) );
 
-          self.ccm.helper.makeIterable( self.element.querySelectorAll( '.value' ) ).map( empty );
+          empty( self.element.querySelector( '#title .value' ) );
+          empty( self.element.querySelector( '#summary .value' ) );
 
           if ( callback ) callback();
 
           function empty( elem ) {
 
-            if ( elem.innerHTML.trim().replace( /<br>/g, '' ) === '' ) elem.innerHTML = '';
+            if ( elem.innerHTML.trim().replace( /<br>|<div>|<\/div>/g, '' ) === '' ) elem.innerHTML = '';
 
           }
 
