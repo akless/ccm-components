@@ -137,15 +137,36 @@
 
           if ( callback ) callback();
 
-          function inputTitle() { console.log( 'title' ); }
+          function inputTitle() {
+
+            empty( this );
+
+          }
 
           function clickOwner() { console.log( 'owner' ); }
 
-          function inputSummary() { console.log( 'summary' ); }
+          function inputSummary() {
+
+            empty( this );
+
+          }
 
           function clickPriority() { console.log( 'priority' ); }
 
           function clickDeadline() { console.log( 'deadline' ); }
+
+          function empty( elem ) {
+
+            var value = elem.innerHTML.trim();
+
+            if ( value.replace( /<br>/g, '' ) === '' ) {
+              elem.classList.add( 'empty' );
+              elem.innerHTML = '';
+            }
+            else
+              elem.classList.remove( 'empty' );
+
+          }
 
         } );
 

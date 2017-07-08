@@ -67,6 +67,18 @@
   word-break: break-all;
 }
 
+.empty[contenteditable='true'] {
+  color: lightgrey;
+}
+
+#title .empty:before {
+  content: 'Title';
+}
+
+#summary .empty:before {
+  content: 'Summary';
+}
+
 /*
 input {
   width: 11em;
