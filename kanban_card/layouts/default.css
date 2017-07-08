@@ -51,32 +51,48 @@
   background-color: black;
 }
 
-.fa, .value {
+.entry div {
   display: inline-block;
 }
 
-.fa {
+.entry div:first-child {
   margin-right: 0.3em;
 }
 
-.value {
-  /*cursor: text;*/
+#title .value, #summary .value, #deadline .value {
+  cursor: text;
+}
+
+#owner .value, #priority .value {
+  cursor: pointer;
 }
 
 *[contenteditable='true'] {
   word-break: break-all;
 }
 
-.empty[contenteditable='true'] {
+.value:empty {
   color: lightgrey;
 }
 
-#title .empty:before {
+#title .value:empty:before {
   content: 'Title';
 }
 
-#summary .empty:before {
+#owner .value:empty:before {
+  content: 'Owner';
+}
+
+#summary .value:empty:before {
   content: 'Summary';
+}
+
+#priority .value:empty:before {
+  content: '...';
+}
+
+#deadline .value:empty:before {
+  content: 'Deadline';
 }
 
 /*

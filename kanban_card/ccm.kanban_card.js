@@ -3,6 +3,11 @@
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
+ * TODO: declarative way
+ * TODO: docu comments
+ * TODO: permission settings
+ * TODO: logging
+ * TODO: realtime update
  */
 
 ( function () {
@@ -95,7 +100,7 @@
       },
       css_layout: [ 'ccm.load',  'layouts/default.css' ],
       data: {
-        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js' ],
+        store: [ 'ccm.store', { /*local: 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js',*/ store: 'kanban_cards', url: 'wss://ccm.inf.h-brs.de' } ],
         key: 'homework'
       },
       icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', context: document.head } ],
@@ -115,7 +120,7 @@
         my = self.ccm.helper.privatize( self );
 
         // listen to datastore change event => update own content
-        my.data.store.onChange = function () { self.start(); };
+        my.data.store.onChange = function () { console.log( 'update', arguments ); self.start(); };
 
         callback();
       };
@@ -127,19 +132,27 @@
 
           self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.main, self.ccm.helper.integrate( {
 
+            title: '',
+            owner: '',
+            summary: '',
+            priority: '',
+            deadline: '',
             input_title:    inputTitle,
             click_owner:    clickOwner,
             input_summary:  inputSummary,
             click_priority: clickPriority,
             click_deadline: clickDeadline
 
-          }, self.ccm.helper.clone( dataset ) ) ) ) );
+          }, self.ccm.helper.clone( dataset ), true ) ) ) );
+
+          self.ccm.helper.makeIterable( self.element.querySelectorAll( '.value' ) ).map( empty );
 
           if ( callback ) callback();
 
           function inputTitle() {
 
             empty( this );
+            update( 'title', this.innerHTML.trim() );
 
           }
 
@@ -148,6 +161,7 @@
           function inputSummary() {
 
             empty( this );
+            update( 'summary', this.innerHTML.trim() );
 
           }
 
@@ -157,14 +171,21 @@
 
           function empty( elem ) {
 
-            var value = elem.innerHTML.trim();
+            if ( elem.innerHTML.trim().replace( /<br>/g, '' ) === '' ) elem.innerHTML = '';
 
-            if ( value.replace( /<br>/g, '' ) === '' ) {
-              elem.classList.add( 'empty' );
-              elem.innerHTML = '';
+          }
+
+          function update( prop, value ) {
+
+            status();
+            dataset[ prop ] = value;
+            my.data.store.set( dataset, status );
+
+            function status( finished ) {
+
+              self.ccm.helper.setContent( self.element.querySelector( '#status' ), finished ? '' : self.ccm.helper.loading( self ) );
+
             }
-            else
-              elem.classList.remove( 'empty' );
 
           }
 
