@@ -5,10 +5,11 @@
  */
 
 #main {
-  font-family: Arial, sans-serif;
+  width: 18em;
   border: 0.1em solid lightgrey;
   border-radius: 0.5em;
-  width: 18em;
+  margin: 0.5em;
+  font-family: Arial, sans-serif;
 }
 
 #header, #footer {
@@ -16,8 +17,8 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 0.25em;
   min-height: 1.85em;
+  padding: 0.25em;
 }
 
 #content {
@@ -44,10 +45,10 @@
 }
 
 #priority .value {
-  background-color: black;
   border-radius: 1em;
   padding: 0 0.4em;
   color: white;
+  background-color: black;
 }
 
 .fa, .value {
