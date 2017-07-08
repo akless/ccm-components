@@ -4,6 +4,10 @@
  * @license The MIT License (MIT)
  */
 
+#element {
+  padding: 0.2em;
+}
+
 #logged_in {
   display: flex;
 }
