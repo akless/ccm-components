@@ -176,7 +176,11 @@
 
           }
 
-          function clickDeadline() { console.log( 'deadline' ); }
+          function clickDeadline() {
+
+            input( this );
+
+          }
 
           function empty( elem ) {
 
@@ -205,7 +209,7 @@
 
             my[ owner_or_prio ? 'members' : 'priorities' ].map( function ( entry ) {
 
-              entries.push( { tag: 'option', inner: entry, selected: entry === elem.innerHTML } );
+              entries.push( { tag: 'option', inner: entry, selected: entry === dataset[ owner_or_prio ? 'owner' : 'prio' ] || '' } );
 
             } );
 
@@ -238,6 +242,38 @@
 
           }
 
+          function input( elem ) {
+
+            var restored = false;
+
+            elem.parentNode.replaceChild( self.ccm.helper.protect( self.ccm.helper.html( { tag: 'input', type: 'date', value: dataset.deadline || '', oninput: onInput, onblur: onBlur } ) ), elem );
+
+            self.element.querySelector( 'input' ).focus();
+
+            function onInput() {
+
+              elem.innerHTML = this.value;
+              var prop = 'deadline';
+              restore( prop, elem );
+              update( prop, this.value );
+
+            }
+
+            function onBlur() {
+
+              if ( !restored ) restore( 'deadline', elem );
+
+            }
+
+            function restore( prop, elem ) {
+
+              var parent = self.element.querySelector( '#' + prop );
+              restored = true;
+              parent.replaceChild( elem, parent.querySelector( 'input' ) );
+
+            }
+
+          }
 
         } );
 
