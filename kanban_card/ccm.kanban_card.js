@@ -8,6 +8,7 @@
  * TODO: permission settings
  * TODO: logging
  * TODO: realtime update
+ * TODO: protect
  */
 
 ( function () {
@@ -156,7 +157,11 @@
 
           }
 
-          function clickOwner() { console.log( 'owner' ); }
+          function clickOwner() {
+
+            select( this, true );
+
+          }
 
           function inputSummary() {
 
@@ -165,7 +170,11 @@
 
           }
 
-          function clickPriority() { console.log( 'priority' ); }
+          function clickPriority() {
+
+            select( this, false );
+
+          }
 
           function clickDeadline() { console.log( 'deadline' ); }
 
@@ -188,6 +197,47 @@
             }
 
           }
+
+          function select( elem, owner_or_prio ) {
+
+            var restored = false;
+            var entries = [ { tag: 'option' } ];
+
+            my[ owner_or_prio ? 'members' : 'priorities' ].map( function ( entry ) {
+
+              entries.push( { tag: 'option', inner: entry, selected: entry === elem.innerHTML } );
+
+            } );
+
+            elem.parentNode.replaceChild( self.ccm.helper.protect( self.ccm.helper.html( { tag: 'select', inner: entries, onchange: onChange, onblur: onBlur } ) ), elem );
+
+            self.element.querySelector( 'select' ).focus();
+
+            function onChange() {
+
+              elem.innerHTML = this.value;
+              var prop = owner_or_prio ? 'owner' : 'priority';
+              restore( prop, elem );
+              update( prop, this.value );
+
+            }
+
+            function onBlur() {
+
+              if ( !restored ) restore( owner_or_prio ? 'owner' : 'priority', elem );
+
+            }
+
+            function restore( prop, elem ) {
+
+              var parent = self.element.querySelector( '#' + prop );
+              restored = true;
+              parent.replaceChild( elem, parent.querySelector( 'select' ) );
+
+            }
+
+          }
+
 
         } );
 
