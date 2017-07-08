@@ -131,56 +131,27 @@
         // get dataset for rendering
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
+          var restored;
+
           self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.main, self.ccm.helper.integrate( {
 
-            title: '',
-            owner: '',
-            summary: '',
+            title:    '',
+            owner:    '',
+            summary:  '',
             priority: '',
             deadline: '',
-            input_title:    inputTitle,
-            click_owner:    clickOwner,
-            input_summary:  inputSummary,
-            click_priority: clickPriority,
-            click_deadline: clickDeadline
+
+            input_title:    function () { empty ( this ); update( 'title', this.innerHTML ); },
+            click_owner:    function () { select( this, true ); },
+            input_summary:  function () { empty ( this ); update( 'summary', this.innerHTML ); },
+            click_priority: function () { select( this, false ); },
+            click_deadline: function () { input ( this ); }
 
           }, self.ccm.helper.clone( dataset ), true ) ) ) );
 
           self.ccm.helper.makeIterable( self.element.querySelectorAll( '.value' ) ).map( empty );
 
           if ( callback ) callback();
-
-          function inputTitle() {
-
-            empty( this );
-            update( 'title', this.innerHTML.trim() );
-
-          }
-
-          function clickOwner() {
-
-            select( this, true );
-
-          }
-
-          function inputSummary() {
-
-            empty( this );
-            update( 'summary', this.innerHTML.trim() );
-
-          }
-
-          function clickPriority() {
-
-            select( this, false );
-
-          }
-
-          function clickDeadline() {
-
-            input( this );
-
-          }
 
           function empty( elem ) {
 
@@ -191,7 +162,7 @@
           function update( prop, value ) {
 
             status();
-            dataset[ prop ] = value;
+            dataset[ prop ] = value.trim();
             my.data.store.set( dataset, status );
 
             function status( finished ) {
@@ -204,12 +175,13 @@
 
           function select( elem, owner_or_prio ) {
 
-            var restored = false;
+            restored = false;
+
             var entries = [ { tag: 'option' } ];
 
             my[ owner_or_prio ? 'members' : 'priorities' ].map( function ( entry ) {
 
-              entries.push( { tag: 'option', inner: entry, selected: entry === dataset[ owner_or_prio ? 'owner' : 'prio' ] || '' } );
+              entries.push( { tag: 'option', inner: entry, selected: entry === dataset[ owner_or_prio ? 'owner' : 'priority' ] || '' } );
 
             } );
 
@@ -220,23 +192,14 @@
             function onChange() {
 
               elem.innerHTML = this.value;
-              var prop = owner_or_prio ? 'owner' : 'priority';
-              restore( prop, elem );
-              update( prop, this.value );
+              restore( 'select', elem );
+              update( owner_or_prio ? 'owner' : 'priority', this.value );
 
             }
 
             function onBlur() {
 
-              if ( !restored ) restore( owner_or_prio ? 'owner' : 'priority', elem );
-
-            }
-
-            function restore( prop, elem ) {
-
-              var parent = self.element.querySelector( '#' + prop );
-              restored = true;
-              parent.replaceChild( elem, parent.querySelector( 'select' ) );
+              restore( 'select', elem );
 
             }
 
@@ -244,7 +207,7 @@
 
           function input( elem ) {
 
-            var restored = false;
+            restored = false;
 
             elem.parentNode.replaceChild( self.ccm.helper.protect( self.ccm.helper.html( { tag: 'input', type: 'date', value: dataset.deadline || '', oninput: onInput, onblur: onBlur } ) ), elem );
 
@@ -253,25 +216,28 @@
             function onInput() {
 
               elem.innerHTML = this.value;
-              var prop = 'deadline';
-              restore( prop, elem );
-              update( prop, this.value );
+              restore( 'input', elem );
+              update( 'deadline', this.value );
 
             }
 
             function onBlur() {
 
-              if ( !restored ) restore( 'deadline', elem );
+              restore( 'input', elem );
 
             }
 
-            function restore( prop, elem ) {
+          }
 
-              var parent = self.element.querySelector( '#' + prop );
-              restored = true;
-              parent.replaceChild( elem, parent.querySelector( 'input' ) );
+          function restore( tag, elem ) {
 
-            }
+            if ( restored ) return;
+
+            var select = self.element.querySelector( tag );
+            var parent = select.parentNode;
+
+            restored = true;
+            parent.replaceChild( elem, select );
 
           }
 
