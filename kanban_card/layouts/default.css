@@ -6,11 +6,9 @@
 
 #main {
   font-family: Arial, sans-serif;
-  overflow-x: auto;
   border: 0.1em solid lightgrey;
   border-radius: 0.5em;
-  margin: 0.5em;
-  background-color: white;
+  width: 18em;
 }
 
 #header, #footer {
@@ -22,54 +20,27 @@
   min-height: 1.85em;
 }
 
-#header > div, #footer > div {
-  padding: 0.2em;
-  overflow-x: hidden;
-}
-
-#owner, #priority, #deadline {
-  white-space: nowrap;
-}
-
-#header > div > div,
-#footer > div > div {
-
-  display: inline-block;
-  margin-right: 0.3em;
-
-}
-
-.value {
-  cursor: text;
-}
-
-div[contenteditable='true'] {
-  word-wrap: break-word;
-}
-
-input {
-  width: 11em;
-}
-
-select {
-  max-width: 11em;
-  cursor: pointer;
-}
-
-#title {
-  font-weight: bold;
-  overflow-x: auto;
-}
-
 #content {
   border-top: 0.1em solid lightgrey;
   border-bottom: 0.1em solid lightgrey;
 }
 
+.entry {
+  padding: 0.2em;
+}
+
+#title {
+  font-weight: bold;
+}
+
 #summary .value {
-  padding: 0.5em;
+  padding: 0.3em;
   font-size: 80%;
-  overflow-x: auto;
+}
+
+#owner, #priority, #deadline {
+  overflow-x: hidden;
+  white-space: nowrap;
 }
 
 #priority .value {
@@ -78,3 +49,30 @@ select {
   padding: 0 0.4em;
   color: white;
 }
+
+.fa, .value {
+  display: inline-block;
+}
+
+.fa {
+  margin-right: 0.3em;
+}
+
+.value {
+  /*cursor: text;*/
+}
+
+*[contenteditable='true'] {
+  word-break: break-all;
+}
+
+/*
+input {
+  width: 11em;
+}
+
+select {
+  max-width: 11em;
+  cursor: pointer;
+}
+*/

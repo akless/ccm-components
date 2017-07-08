@@ -93,7 +93,7 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load',  'https://akless.github.io/ccm-components/kanban_card/layouts/default.css' ],
+      css_layout: [ 'ccm.load',  'layouts/default.css' ],
       data: {
         store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js' ],
         key: 'homework'
