@@ -111,6 +111,7 @@
       members: [ 'John', 'Jane' ],
       priorities: [ 'A', 'B', 'C' ]
 
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/configs.json', 'greedy' ] ],
   //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ]
 
     },
