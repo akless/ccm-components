@@ -3,7 +3,6 @@
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
- * TODO: declarative way
  * TODO: docu comments
  * TODO: logging
  * TODO: unit tests
@@ -100,9 +99,9 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load',  'layouts/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/layouts/default.css' ],
       data: {
-        store: [ 'ccm.store', { /*local: 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js',*/ store: 'kanban_cards', url: 'wss://ccm.inf.h-brs.de' } ],
+        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js' ],
         key: 'homework',
         permission_settings: {
           access: 'group'
@@ -110,8 +109,9 @@
       },
       icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', context: document.head } ],
       members: [ 'John', 'Jane' ],
-      priorities: [ 'A', 'B', 'C' ],
-      user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ]
+      priorities: [ 'A', 'B', 'C' ]
+
+  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ]
 
     },
 
