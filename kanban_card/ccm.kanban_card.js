@@ -9,6 +9,7 @@
  * TODO: logging
  * TODO: realtime update
  * TODO: protect
+ * TODO: user
  */
 
 ( function () {
@@ -50,7 +51,8 @@
                     {
                       "class": "value",
                       "inner": "%owner%",
-                      "onclick": "%click_owner%"
+                      "contenteditable": true,
+                      "onfocus": "%focus_owner%"
                     },
                     { "class": "fa fa-user" }
                   ]
@@ -79,7 +81,8 @@
                   "inner": {
                     "class": "value",
                     "inner": "%priority%",
-                    "onclick": "%click_priority%"
+                    "contenteditable": true,
+                    "onfocus": "%focus_priority%"
                   }
                 },
                 {
@@ -89,7 +92,8 @@
                     {
                       "class": "value",
                       "inner": "%deadline%",
-                      "onclick": "%click_deadline%"
+                      "contenteditable": true,
+                      "onfocus": "%focus_deadline%"
                     },
                     { "class": "fa fa-calendar-check-o" }
                   ]
@@ -142,10 +146,10 @@
             deadline: '',
 
             input_title:    function () { empty ( this ); update( 'title', this.innerHTML ); },
-            click_owner:    function () { select( this, true ); },
+            focus_owner:    function () { select( this, true ); },
             input_summary:  function () { empty ( this ); update( 'summary', this.innerHTML ); },
-            click_priority: function () { select( this, false ); },
-            click_deadline: function () { input ( this ); }
+            focus_priority: function () { select( this, false ); },
+            focus_deadline: function () { input ( this ); }
 
           }, self.ccm.helper.clone( dataset ), true ) ) ) );
 

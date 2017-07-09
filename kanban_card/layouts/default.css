@@ -69,15 +69,8 @@
   margin-right: 0.3em;
 }
 
-#title .value,
-#summary .value,
-#deadline .value {
+.value {
   cursor: text;
-}
-
-#owner .value,
-#priority .value {
-  cursor: pointer;
 }
 
 *[contenteditable='true'] {
