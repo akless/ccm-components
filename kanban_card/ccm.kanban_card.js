@@ -5,11 +5,9 @@
  * @version latest (1.0.0)
  * TODO: declarative way
  * TODO: docu comments
- * TODO: permission settings
  * TODO: logging
  * TODO: realtime update
- * TODO: protect
- * TODO: user
+ * TODO: unit tests
  */
 
 ( function () {
@@ -106,11 +104,15 @@
       css_layout: [ 'ccm.load',  'layouts/default.css' ],
       data: {
         store: [ 'ccm.store', { /*local: 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js',*/ store: 'kanban_cards', url: 'wss://ccm.inf.h-brs.de' } ],
-        key: 'homework'
+        key: 'homework',
+        permission_settings: {
+          access: 'group'
+        }
       },
       icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', context: document.head } ],
       members: [ 'John', 'Jane' ],
-      priorities: [ 'A', 'B', 'C' ]
+      priorities: [ 'A', 'B', 'C' ],
+      user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ]
 
     },
 
@@ -137,7 +139,7 @@
 
           var restored;
 
-          self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.main, self.ccm.helper.integrate( {
+          self.ccm.helper.setContent( self.element, self.ccm.helper.html( my.html_templates.main, self.ccm.helper.integrate( {
 
             title:    '',
             owner:    '',
@@ -151,7 +153,7 @@
             focus_priority: function () { select( this, false ); },
             focus_deadline: function () { input ( this ); }
 
-          }, self.ccm.helper.clone( dataset ), true ) ) ) );
+          }, self.ccm.helper.clone( dataset ), true ) ) );
 
           empty( self.element.querySelector( '#title .value' ) );
           empty( self.element.querySelector( '#summary .value' ) );
@@ -166,13 +168,20 @@
 
           function update( prop, value ) {
 
-            status();
-            dataset[ prop ] = value.trim();
-            my.data.store.set( dataset, status );
+            if ( self.user ) self.user.login( proceed ); else proceed();
 
-            function status( finished ) {
+            function proceed() {
 
-              self.ccm.helper.setContent( self.element.querySelector( '#status' ), finished ? '' : self.ccm.helper.loading( self ) );
+              status();
+              dataset[ prop ] = value.trim();
+              if ( self.user && !dataset._ ) dataset._ = self.ccm.helper.integrate( { creator: self.user.data().user, group: self.ccm.helper.transformStringArray( my.members ) }, my.data.permission_settings );
+              my.data.store.set( dataset, status );
+
+              function status( finished ) {
+
+                self.ccm.helper.setContent( self.element.querySelector( '#status' ), finished ? '' : self.ccm.helper.loading( self ) );
+
+              }
 
             }
 
