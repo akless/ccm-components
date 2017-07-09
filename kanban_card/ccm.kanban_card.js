@@ -6,7 +6,6 @@
  * TODO: declarative way
  * TODO: docu comments
  * TODO: logging
- * TODO: realtime update
  * TODO: unit tests
  */
 
@@ -121,23 +120,41 @@
       var self = this;
       var my;           // contains privatized instance members
 
+      this.init = function ( callback ) {
+
+        // listen to datastore change event => update own content
+        self.data.store.onchange = function ( dataset ) {
+
+          if ( !my ) return; my.dataset = dataset;
+
+          Object.keys( my.dataset ).map( refresh );
+
+          function refresh( prop ) {
+
+            var elem = self.element.querySelector( '#' + prop + ' .value' );
+            if ( elem && elem.innerHTML !== my.dataset[ prop ] ) elem.innerHTML = my.dataset[ prop ];
+
+          }
+
+        };
+
+        callback();
+      };
+
       this.ready = function ( callback ) {
 
         // privatize all possible instance members
         my = self.ccm.helper.privatize( self );
-
-        // listen to datastore change event => update own content
-        my.data.store.onChange = function () { console.log( 'update', arguments ); self.start(); };
 
         callback();
       };
 
       this.start = function ( callback ) {
 
-        // get dataset for rendering
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
           var restored;
+          my.dataset = dataset;
 
           self.ccm.helper.setContent( self.element, self.ccm.helper.html( my.html_templates.main, self.ccm.helper.integrate( {
 
@@ -153,7 +170,7 @@
             focus_priority: function () { select( this, false ); },
             focus_deadline: function () { input ( this ); }
 
-          }, self.ccm.helper.clone( dataset ), true ) ) );
+          }, self.ccm.helper.clone( my.dataset ), true ) ) );
 
           empty( self.element.querySelector( '#title .value' ) );
           empty( self.element.querySelector( '#summary .value' ) );
@@ -173,9 +190,9 @@
             function proceed() {
 
               status();
-              dataset[ prop ] = value.trim();
-              if ( self.user && !dataset._ ) dataset._ = self.ccm.helper.integrate( { creator: self.user.data().user, group: self.ccm.helper.transformStringArray( my.members ) }, my.data.permission_settings );
-              my.data.store.set( dataset, status );
+              my.dataset[ prop ] = value.trim();
+              if ( self.user && !my.dataset._ ) my.dataset._ = self.ccm.helper.integrate( { creator: self.user.data().user, group: self.ccm.helper.transformStringArray( my.members ) }, my.data.permission_settings );
+              my.data.store.set( my.dataset, status );
 
               function status( finished ) {
 
@@ -195,7 +212,7 @@
 
             my[ owner_or_prio ? 'members' : 'priorities' ].map( function ( entry ) {
 
-              entries.push( { tag: 'option', inner: entry, selected: entry === dataset[ owner_or_prio ? 'owner' : 'priority' ] || '' } );
+              entries.push( { tag: 'option', inner: entry, selected: entry === my.dataset[ owner_or_prio ? 'owner' : 'priority' ] || '' } );
 
             } );
 
@@ -223,7 +240,7 @@
 
             restored = false;
 
-            elem.parentNode.replaceChild( self.ccm.helper.protect( self.ccm.helper.html( { tag: 'input', type: 'date', value: dataset.deadline || '', oninput: onInput, onblur: onBlur } ) ), elem );
+            elem.parentNode.replaceChild( self.ccm.helper.protect( self.ccm.helper.html( { tag: 'input', type: 'date', value: my.dataset.deadline || '', oninput: onInput, onblur: onBlur } ) ), elem );
 
             self.element.querySelector( 'input' ).focus();
 
