@@ -7,6 +7,8 @@
  * TODO: logging
  * TODO: unit tests
  * TODO: realtime listening only for needed dataset
+ * TODO: multilingualism
+ * TODO: factory
  */
 
 ( function () {
