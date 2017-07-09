@@ -9,19 +9,9 @@ ccm.files[ "kanban_board_datastore.min.js" ] = {
     "lanes": [
       {
         "title": "ToDo",
-        "cards": {
-          "comp": [ "ccm.component", "https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.min.js" ],
-          "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js" ],
-          "keys": [ "homework", "presentation" ]
-        }
+        "cards": [ {}, { "data.key": "presentation" } ]
       },
-      {
-        "title": "Doing",
-        "cards": [
-          [ "ccm.instance", "https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.min.js" ],
-          [ "ccm.instance", "https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.min.js", { "data.key": "presentation" } ]
-        ]
-      },
+      { "title": "Doing" },
       { "title": "Done" }
     ]
   }
