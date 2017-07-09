@@ -4,13 +4,13 @@ ccm.files[ "kanban_card_datastore.min.js" ] = {
     "owner": "John",
     "summary": "Very important homework.",
     "priority": "A",
-    "deadline": "March 15th"
+    "deadline": "2017-03-15"
   },
   "presentation": {
     "title": "Presentation",
     "owner": "Jane",
     "summary": "Team presentation for the next milestone.",
     "priority": "B",
-    "deadline": "April 7th"
+    "deadline": "2017-04-07"
   }
 };
