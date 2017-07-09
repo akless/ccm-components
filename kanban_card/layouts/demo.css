@@ -94,12 +94,7 @@
 
 .value:empty,
 .value:empty + div {
-  color: silver;
-}
-
-#priority .value:empty {
-  color: white;
-  background-color: silver;
+  opacity: 0.5;
 }
 
 #title .value:empty:before {
