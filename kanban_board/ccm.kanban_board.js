@@ -1,8 +1,17 @@
 /**
- * @overview <i>ccm</i> component for user authentication
+ * @overview <i>ccm</i> component for rendering a kanban board
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
+ * TODO: modernisation -in progress-
+ * TODO: declarative
+ * TODO: user
+ * TODO: logging
+ * TODO: docu comments
+ * TODO: unit tests
+ * TODO: version file/folder
+ * TODO: factory
+ * TODO: multilingualism
  */
 
 ( function () {
@@ -17,19 +26,13 @@
 
     config: {
 
-      html_templates: {},
+      //css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_board/layout/default.css' ],
+      kanban_card: [ 'ccm.component', 'https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.min.js' ],
       data: {
-        store: [ 'ccm.store', { store: 'kanban', url: 'wss://ccm.inf.h-brs.de' } ],
+        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_board/kanban_board_datastore.min.js' ],
         key: 'demo'
-      },
-      icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', context: document.head } ]
-      //style:    [ 'ccm.load',  'https://akless.github.io/ccm-components/kanban_board/layout/default.css' ]
-
-      //html:     [ ccm.load,  './json/kanban_html.json' ],
-      //key:      'demo',
-      //store:    [ ccm.store, { /*local: './json/kanban.json',*/ store: 'kanban', url: 'wss://ccm.inf.h-brs.de/index.js' } ],
-
-      //ui_sort:  [ 'ccm.load',  './lib/jquery-ui/sortable/jquery-ui.min.js' ]
+      }
+      //jquery_ui_sortable: [ 'ccm.load', './lib/jquery-ui/sortable/jquery-ui.min.js' ]
 
     },
 
@@ -37,14 +40,6 @@
 
       var self = this;
       var my;           // contains privatized instance members
-
-      this.init = function ( callback ) {
-
-        // listen to datastore change event => update own content
-        self.data.store.onChange = function () { self.start(); };
-
-        callback();
-      };
 
       this.ready = function ( callback ) {
 
@@ -58,23 +53,6 @@
 
         // get dataset for rendering
         self.ccm.helper.dataset( my.data, function ( dataset ) {
-          console.log( dataset );
-          return;
-
-          // render main html structure
-          element.html( ccm.helper.html( self.html.main, {
-
-            title:       ccm.helper.val( self.title       || dataset.title       ),
-            description: ccm.helper.val( self.description || dataset.description )
-
-          } ) );
-
-          if ( !( self.title       || dataset.title       ) ) ccm.helper.find( self, '.title'       ).remove();
-          if ( !( self.description || dataset.description ) ) ccm.helper.find( self, '.description' ).remove();
-
-          if ( !dataset.members     ) dataset.members    = [ 'Adam', 'Eva', 'Romeo', 'Julia'  ];
-          if ( !dataset.priorities  ) dataset.priorities = [ 'A', 'B', 'C' ];
-          if ( !dataset.lanes       ) dataset.lanes      = [ 'ToDo', 'Doing', 'Done' ];
 
           var lanes_div = ccm.helper.find( self, '.lanes' );
 
@@ -101,189 +79,6 @@
 
             for ( var j = 0; j < dataset.lanes[ i ].tasks.length; j++ )
               renderTask( tasks_div, i, j );
-
-          }
-
-          function renderTask( tasks_div, i, j ) {
-
-            var lane_div, task_div, entry_div, value_div, value, property;
-
-            tasks_div.append( ccm.helper.html( self.html.task, {
-
-              title:         ccm.helper.val( dataset.lanes[ i ].tasks[ j ].title    ).replace( /_quot_/g, "&quot;" ),
-              owner:         ccm.helper.val( dataset.lanes[ i ].tasks[ j ].owner    ).replace( /_quot_/g, "&quot;" ),
-              summary:       ccm.helper.val( dataset.lanes[ i ].tasks[ j ].summary  ).replace( /_quot_/g, "&quot;" ),
-              priority:      ccm.helper.val( dataset.lanes[ i ].tasks[ j ].priority ).replace( /_quot_/g, "&quot;" ),
-              deadline:      ccm.helper.val( dataset.lanes[ i ].tasks[ j ].deadline ).replace( /_quot_/g, "&quot;" ),
-
-              inputTitle:    inputTitle,
-              clickOwner:    clickOwner,
-              inputSummary:  inputSummary,
-              clickPriority: clickPriority,
-              clickDeadline: clickDeadline
-
-            } ) );
-
-            task_div = ccm.helper.find( self, tasks_div, '.task:last' );
-
-            ccm.helper.find( self, task_div, '.value' ).each( function () {
-
-              value_div = jQuery( this );
-              entry_div = value_div.closest( '.entry' );
-              value = jQuery.trim( value_div.html() );
-              empty();
-
-            } );
-
-            function inputTitle() {
-
-              refresh( jQuery( this ), 'title' );
-              editable();
-
-            }
-
-            function clickOwner() {
-
-              refresh( jQuery( this ), 'owner' );
-              select( 'members', clickOwner );
-
-            }
-
-            function inputSummary() {
-
-              refresh( jQuery( this ), 'summary' );
-              editable();
-
-            }
-
-            function clickPriority() {
-
-              refresh( jQuery( this ), 'priority' );
-              select( 'priorities', clickPriority );
-
-            }
-
-            function clickDeadline() {
-
-              refresh( jQuery( this ), 'deadline' );
-              input( 'date', clickDeadline );
-
-            }
-
-            function refresh( div, prop ) {
-
-              lane_div  = div.closest( '.lane' );
-              task_div  = div.closest( '.task' );
-              entry_div = div.closest( '.entry' );
-              value_div = div;
-              value     = jQuery.trim( value_div.is( 'input' ) ? value_div.val() : value_div.html() );
-              property  = prop;
-
-              i = ccm.helper.find( self, '.lane' ).index( div.closest( '.lane' ) );
-              j = ccm.helper.find( self, lane_div, '.task' ).index( task_div );
-
-            }
-
-            function editable() {
-
-              empty();
-              add_del( task_div );
-              update();
-
-            }
-
-            function select( values, click ) {
-
-              var temp = entry_div.html();
-              var entries = [ { tag: 'option' } ];
-              var entry_value;
-
-              for ( var k = 0; k < dataset[ values ].length; k++ ) {
-
-                entry_value = dataset[ values ][ k ];
-                entries.push( { tag: 'option', value: entry_value, inner: entry_value, selected: entry_value === dataset.lanes[ i ].tasks[ j ][ property ] } );
-
-              }
-
-              entry_div.html( ccm.helper.html( { tag: 'select', inner: entries, onchange: onChange, onblur: onBlur } ) );
-
-              ccm.helper.find( self, entry_div, 'select' ).focus();
-
-              function onChange() {
-
-                value = jQuery.trim( jQuery( this ).val() );
-                restore( temp, click );
-                update();
-
-              }
-
-              function onBlur() {
-
-                restore( temp, click );
-
-              }
-
-            }
-
-            function input( type, click ) {
-
-              var temp = entry_div.html();
-
-              entry_div.html( ccm.helper.html( { tag: 'input', type: type, value: dataset.lanes[ i ].tasks[ j ][ property ], oninput: onInput, onblur: onBlur } ) );
-
-              ccm.helper.find( self, entry_div, 'input' ).focus();
-
-              function onInput() {
-
-                value_div = jQuery( this );
-                value = jQuery.trim( value_div.val() );
-                update();
-
-              }
-
-              function onBlur() {
-
-                restore( temp, click );
-
-              }
-
-            }
-
-            function restore( temp, click ) {
-
-              entry_div.html( temp );
-              value_div = ccm.helper.find( self, entry_div, '.value' ).click( click );
-
-              if ( value !== undefined ) {
-
-                value_div.html( value );
-                empty();
-                add_del( task_div );
-
-              }
-
-            }
-
-            function empty() {
-
-              if ( value === '' || value === '<br>' ) {
-                entry_div.addClass( 'empty' );
-                value_div.html( '' );
-              }
-              else
-                entry_div.removeClass( 'empty' );
-
-            }
-
-            function update() {
-
-              var status_div = ccm.helper.find( self, task_div, '.status' ).stop().html( '' ).fadeTo( 0, 1 );
-              ccm.helper.loading( status_div );
-              refresh( value_div, property );
-              if ( i >= 0 && j >= 0 ) dataset.lanes[ i ].tasks[ j ][ property ] = ccm.helper.val( value ).replace( /"/g, '_quot_' );
-              self.store.set( dataset, function () { status_div.fadeOut(); } );
-
-            }
 
           }
 
