@@ -9,6 +9,7 @@
  * TODO: realtime listening only for needed dataset
  * TODO: multilingualism
  * TODO: factory
+ * TODO: version file/folder
  */
 
 ( function () {
