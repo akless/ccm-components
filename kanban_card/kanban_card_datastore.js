@@ -8,7 +8,7 @@ ccm.files[ "kanban_card_datastore.min.js" ] = {
   },
   "presentation": {
     "title": "Presentation",
-    "owner": "guest",
+    "owner": "Jane",
     "summary": "Team presentation for the next milestone.",
     "priority": "B",
     "deadline": "April 7th"
