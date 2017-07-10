@@ -43,7 +43,9 @@
       data: {
         store: [ 'ccm.store', 'kanban_board_datastore.min.js' ],
         key: 'demo'
-      }
+      },
+      sortable: [ 'ccm.load', '//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js' ]
+      //jquery_ui: [ 'ccm.load', [ 'https://code.jquery.com/jquery-3.2.1.min.js', 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js' ] ]
       //jquery_ui_sortable: [ 'ccm.load', './lib/jquery-ui/sortable/jquery-ui.min.js' ]
 
     },
@@ -65,13 +67,12 @@
 
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
+          var counter = 1;
           if ( !dataset.lanes ) dataset.lanes = [];
 
           self.element.innerHTML = '';
           dataset.lanes.map( renderLane );
-
-          // perform callback
-          if ( callback ) callback();
+          check();
 
           function renderLane( lane, i, lanes ) {
 
@@ -86,53 +87,70 @@
 
             function renderCard( card_cfg ) {
 
-              my.kanban_card.start( card_cfg, function ( card_inst ) {
-                cards_elem.appendChild( card_inst.root );
-              } );
+              counter++;
+              card_cfg = self.ccm.helper.clone( card_cfg );
+              cards_elem.appendChild( card_cfg.element = document.createElement( 'div' ) );
+              card_cfg.element.classList.add( 'card' );
+              my.kanban_card.start( card_cfg, check );
 
             }
 
           }
 
+          function check() {
+
+            counter--;
+            if ( counter !== 0 ) return;
+
+            //sortable( self.element.querySelectorAll( '.card' ), self.element.querySelectorAll( '.placeholder' ), function () { console.log( 'drag!' ); }, function () { console.log( 'drop!' ); } );
+            sortable();
+
+            if ( callback ) callback();
+
+            /*
+            function sortable( drag, drop, ondrag, ondrop ) {
+
+              self.ccm.helper.makeIterable( drag ).map( function ( elem ) {
+                elem.ondragstart = function () {
+                  ondrag();
+                }
+              } );
+
+            }*/
+
+          }
+
           function sortable() {
 
-            var start_lane;
-            var start_task;
-            var end_lane;
-            var end_task;
+            var cards_elems = self.ccm.helper.makeIterable( self.element.querySelectorAll( '.cards' ) );
+            var start_lane, start_pos, end_lane, end_pos;
 
-            ccm.helper.find( self, '.tasks' ).sortable( {
+            cards_elems.map( function ( cards_elem ) {
 
-              connectWith: ccm.helper.find( self, '.tasks' ),
-              forcePlaceholderSize: true,
-              placeholder: 'placeholder',
-              cancel: '.task > div *',
-              start: function ( event, ui ) {
+              Sortable.create( cards_elem, {
 
-                start_lane = ccm.helper.find( self, '.lane' ).index( ui.item.parent().parent() );
-                start_task = ui.item.index();
+                group: 'cards',
+                animation: 150,
+                onStart: function ( evt ) {
 
-              },
-              update: function ( event, ui ) {
+                  start_lane = cards_elems.indexOf( evt.item.parentNode );
+                  start_pos = evt.oldIndex;
 
-                if ( ui.sender !== null ) return;
+                },
+                onEnd: function ( evt ) {
 
-                var div = ui.item;
-                var task = dataset.lanes[ start_lane ].tasks[ start_task ];
+                  end_lane = cards_elems.indexOf( evt.item.parentNode );
+                  end_pos = evt.newIndex;
 
-                end_lane = ccm.helper.find( self, '.lane' ).index( div.parent().parent() );
-                end_task = div.index();
+                  var card = dataset.lanes[ start_lane ].cards[ start_pos ];
+                  dataset.lanes[ end_lane ].cards.splice( end_pos, 0, card );
+                  dataset.lanes[ start_lane ].cards.splice( start_pos, 1 );
 
-                dataset.lanes[ start_lane ].tasks.splice( start_task, 1 );
-                dataset.lanes[ end_lane ].tasks.splice( end_task, 0, task );
+                  my.data.store.set( dataset );
 
-                add_del();
+                }
 
-                div = ccm.helper.find( self, div, '.status' ).stop().html( '' ).fadeTo( 0, 1 );
-                ccm.helper.loading( div );
-                self.store.set( dataset, function () { div.fadeOut(); } );
-
-              }
+              } );
 
             } );
 
