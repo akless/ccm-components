@@ -9,10 +9,10 @@ ccm.files[ "kanban_board_datastore.min.js" ] = {
     "lanes": [
       {
         "title": "ToDo",
-        "cards": [ {}, { "data.key": "presentation" } ]
+        "cards": [ {}, { "data.key": "presentation" }, { "data": { "store": [ "ccm.store", { "store": "kanban_cards", "url": "https://ccm.inf.h-brs.de" } ], "key": "demo" } } ]
       },
-      { "title": "Doing" },
-      { "title": "Done" }
+      "Doing",
+      "Done"
     ]
   }
 };

@@ -26,10 +26,22 @@
 
     config: {
 
-      //css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_board/layout/default.css' ],
+      html_templates: {
+        "lane": {
+          "class": "lane",
+          "inner": [
+            {
+              "class": "title",
+              "inner": "%title%"
+            },
+            { "class": "cards" }
+          ]
+        }
+      },
+      css_layout: [ 'ccm.load', 'layouts/default.css' ],
       kanban_card: [ 'ccm.component', 'https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.min.js' ],
       data: {
-        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_board/kanban_board_datastore.min.js' ],
+        store: [ 'ccm.store', 'kanban_board_datastore.min.js' ],
         key: 'demo'
       }
       //jquery_ui_sortable: [ 'ccm.load', './lib/jquery-ui/sortable/jquery-ui.min.js' ]
@@ -51,34 +63,34 @@
 
       this.start = function ( callback ) {
 
-        // get dataset for rendering
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
-          var lanes_div = ccm.helper.find( self, '.lanes' );
+          if ( !dataset.lanes ) dataset.lanes = [];
 
-          for ( var i = 0; i < dataset.lanes.length; i++ )
-            renderLane( i );
-
-          sortable();
-
-          // translate own content
-          if ( self.lang ) self.lang.render();
+          self.element.innerHTML = '';
+          dataset.lanes.map( renderLane );
 
           // perform callback
           if ( callback ) callback();
 
-          function renderLane( i ) {
+          function renderLane( lane, i, lanes ) {
 
-            if ( typeof dataset.lanes[ i ] === 'string' ) dataset.lanes[ i ] = { title: dataset.lanes[ i ] };
-            if ( !dataset.lanes[ i ].tasks ) dataset.lanes[ i ].tasks = i === 0 ? [ {} ] : [];
+            if ( typeof lane === 'string' ) lanes[ i ] = { title: lane };
+            if ( !lane.cards ) lane.cards = [];
 
-            lanes_div.append( ccm.helper.html( self.html.lane, { title: ccm.helper.val( dataset.lanes[ i ].title ) } ) );
+            var lane_elem = self.ccm.helper.html( my.html_templates.lane, { title: lane.title } );
+            var cards_elem = lane_elem.querySelector( '.cards' );
 
-            var lane_div  = ccm.helper.find( self, lanes_div, '.lane:last' );
-            var tasks_div = ccm.helper.find( self, lane_div,  '.tasks'     );
+            lane.cards.map( renderCard );
+            self.element.appendChild( self.ccm.helper.protect( lane_elem ) );
 
-            for ( var j = 0; j < dataset.lanes[ i ].tasks.length; j++ )
-              renderTask( tasks_div, i, j );
+            function renderCard( card_cfg ) {
+
+              my.kanban_card.start( card_cfg, function ( card_inst ) {
+                cards_elem.appendChild( card_inst.root );
+              } );
+
+            }
 
           }
 
