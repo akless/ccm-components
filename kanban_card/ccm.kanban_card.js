@@ -4,6 +4,8 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * TODO: realtime listening only for needed dataset
+ * TODO: priority HTML class
+ * TODO: weblysleek layout
  * TODO: logging
  * TODO: docu comments
  * TODO: unit tests
