@@ -75,7 +75,7 @@
 
           function renderLane( lane, i, lanes ) {
 
-            if ( typeof lane === 'string' ) lanes[ i ] = { title: lane };
+            if ( typeof lane === 'string' ) lanes[ i ] = lane = { title: lane };
             if ( !lane.cards ) lane.cards = [];
 
             var lane_elem = self.ccm.helper.html( my.html_templates.lane, { title: lane.title } );
