@@ -38,10 +38,10 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', 'layouts/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_board/resources/default.css' ],
       kanban_card: [ 'ccm.component', 'https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.min.js' ],
       data: {
-        store: [ 'ccm.store', 'kanban_board_datastore.min.js' ],
+        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_board/resources/kanban_board_datasets.min.js' ],
         key: 'demo'
       },
       lanes: [ 'ToDo', 'Doing', 'Done' ],
