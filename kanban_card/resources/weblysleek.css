@@ -1,5 +1,5 @@
 /**
- * @overview demo layout of ccm component for rendering a kanban card
+ * @overview WeblySleek layout of ccm component for rendering a kanban card
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
@@ -7,7 +7,7 @@
 #main {
   width: 18em;
   margin: 0.5em;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: WeblySleekUI, sans-serif;
 }
 
 #header,
@@ -18,8 +18,8 @@
   flex-wrap: wrap;
   min-height: 1.85em;
   padding: 0.25em;
-  background-color: gold;
-  border: 0.1em solid silver;
+  background-color: #cfeaf6;
+  border: 0.1em solid #008eca;
 }
 
 #header {
@@ -35,7 +35,7 @@
 }
 
 #content {
-  border: 0.1em solid silver;
+  border: 0.1em solid #008eca;
   background-color: white;
 }
 
@@ -67,6 +67,7 @@
 
 .value {
   cursor: text;
+  margin-bottom: 0.1em;
 }
 
 #summary .value {
@@ -79,9 +80,10 @@
   max-width: 6em;
   overflow: hidden;
   border-radius: 1em;
-  padding: 0 0.4em;
-  color: black;
-  background-color: white;
+  padding: 0 0.5em 0.1em 0.5em;
+  font-size: 90%;
+  color: white;
+  background-color: #008eca;
 }
 
 *[contenteditable='true'] {

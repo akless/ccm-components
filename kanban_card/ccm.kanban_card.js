@@ -29,7 +29,6 @@
       html_templates: {
         "main": {
           "id": "main",
-          "class": "%priority%",
           "inner": [
             {
               "id": "header",
@@ -143,7 +142,6 @@
 
             var elem = self.element.querySelector( '#' + prop + ' .value' );
             if ( elem && elem.innerHTML !== my.dataset[ prop ] ) elem.innerHTML = my.dataset[ prop ];
-            if ( prop === 'priority' ) self.element.querySelector( '#main' ).setAttribute( 'class', my.dataset[ prop ] );
 
           }
 
@@ -236,7 +234,6 @@
               elem.innerHTML = this.value;
               restore( 'select', elem );
               update( owner_or_prio ? 'owner' : 'priority', this.value );
-              if ( !owner_or_prio ) self.element.querySelector( '#main' ).setAttribute( 'class', this.value );
 
             }
 
