@@ -106,9 +106,9 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_card/layouts/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_card/resources/default.css' ],
       data: {
-        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/kanban_card_datasets.min.js' ],
+        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/resources/kanban_card_datasets.min.js' ],
         key: 'homework',
         permission_settings: {
           access: 'group'
