@@ -22,7 +22,7 @@ ccm.files[ "kanban_card_configs.min.js" ] = {
   "realtime": {
     "css_layout": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/demo.css" ],
     "data": {
-      "store": [ "ccm.store", { "store": "kanban_cards", "url": "https://ccm.inf.h-brs.de" } ],
+      "store": [ "ccm.store", { "store": "kanban_cards", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "demo",
       "permission_settings": {
         "access": "group"
