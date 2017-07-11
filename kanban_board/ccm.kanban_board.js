@@ -3,7 +3,7 @@
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
- * TODO: modernisation -in progress-
+ * TODO: add and delete of a kanban card
  * TODO: declarative
  * TODO: user
  * TODO: logging
@@ -146,43 +146,6 @@
               } );
 
             } );
-
-          }
-
-          function add_del( task_div ) {
-
-            var max_empties = 5;
-
-            if ( task_div ) del( task_div ); else ccm.helper.find( self, '.task' ).each( function () { del( jQuery( this ) ); } );
-
-            add();
-
-            function add() {
-
-              var task_div = ccm.helper.find( self, '.lane:first .task:last' );
-
-              if ( ccm.helper.find( self, task_div, '.empty' ).length < max_empties ) {
-
-                dataset.lanes[ 0 ].tasks.push( {} );
-                renderTask( ccm.helper.find( self, '.lane:first .tasks' ), 0, dataset.lanes[ 0 ].tasks.length - 1 );
-
-              }
-
-            }
-
-            function del( task_div ) {
-
-              if ( ccm.helper.find( self, task_div, '.empty' ).length < max_empties ) return;
-
-              var i = ccm.helper.find( self, '.lane' ).index( task_div.parent().parent() );
-              var j = task_div.index();
-
-              if ( i === 0 && j === dataset.lanes[ 0 ].tasks[ dataset.lanes[ 0 ].tasks.length - 1 ] ) return;
-
-              task_div.remove();
-              dataset.lanes[ i ].tasks.splice( j, 1 );
-
-            }
 
           }
 
