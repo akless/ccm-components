@@ -4,16 +4,8 @@
 <meta name="license" content="The MIT License (MIT)">
 
 <style>body { margin: 0 }</style>
-<script src="https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.js"></script>
+<script src="../../ccm/ccm.js"></script>
+<script src="ccm.kanban_card.js"></script>
 
-<ccm-kanban_card></ccm-kanban_card>
-
-<ccm-kanban_card data.key="presentation">
-  <ccm-load-css_layout src="https://akless.github.io/ccm-components/kanban_card/layouts/demo.css"></ccm-load-css_layout>
-  <ccm-store-data.store local="https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js"></ccm-store-data.store>
-</ccm-kanban_card>
-
-<ccm-kanban_card data.key="demo">
-  <ccm-load-css_layout src="https://akless.github.io/ccm-components/kanban_card/layouts/demo.css"></ccm-load-css_layout>
-  <ccm-store-data.store store="kanban_cards" url="wss://ccm.inf.h-brs.de"></ccm-store-data.store>
-</ccm-kanban_card>
+<ccm-kanban_card key='["ccm.get","https://akless.github.io/ccm-components/kanban_card/kanban_card_configs.min.js","homework"]'></ccm-kanban_card>
+<ccm-kanban_card key='["ccm.get","https://akless.github.io/ccm-components/kanban_card/kanban_card_configs.min.js","presentation"]'></ccm-kanban_card>
