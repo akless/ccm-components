@@ -1,10 +1,10 @@
 /**
- * @overview <i>ccm</i> datasets of ccm component for rendering a kanban card
- * @author André Kless <andre.kless@web.de> 2016-2017
+ * @overview datasets of <i>ccm</i> component for rendering a kanban card
+ * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "kanban_card_datastore.min.js" ] = {
+ccm.files[ "kanban_card_datasets.min.js" ] = {
   "homework": {
     "title": "Homework",
     "owner": "John",
