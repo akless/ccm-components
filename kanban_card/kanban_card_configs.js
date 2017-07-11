@@ -8,14 +8,14 @@ ccm.files[ "kanban_card_configs.min.js" ] = {
   "homework": {
     "css_layout": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/layouts/default.css" ],
     "data": {
-      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js" ],
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/kanban_card_datasets.min.js" ],
       "key": "homework"
     }
   },
   "presentation": {
     "css_layout": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/layouts/demo.css" ],
     "data": {
-      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/kanban_card_datastore.min.js" ],
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/kanban_card_datasets.min.js" ],
       "key": "presentation"
     }
   }
