@@ -7,6 +7,7 @@
  * TODO: priority HTML class
  * TODO: weblysleek layout
  * TODO: logging
+ * TODO: events (onchange)
  * TODO: docu comments
  * TODO: unit tests
  * TODO: version file/folder
