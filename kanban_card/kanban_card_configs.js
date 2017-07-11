@@ -18,5 +18,12 @@ ccm.files[ "kanban_card_configs.min.js" ] = {
       "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/kanban_card_datasets.min.js" ],
       "key": "presentation"
     }
+  },
+  "realtime": {
+    "css_layout": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/layouts/demo.css" ],
+    "data": {
+      "store": [ "ccm.store", { "store": "kanban_cards", "url": "https://ccm.inf.h-brs.de" } ],
+      "key": "demo"
+    }
   }
 };
