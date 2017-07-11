@@ -44,9 +44,8 @@
         store: [ 'ccm.store', 'kanban_board_datastore.min.js' ],
         key: 'demo'
       },
+      lanes: [ 'ToDo', 'Doing', 'Done' ],
       sortable: [ 'ccm.load', '//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js' ]
-      //jquery_ui: [ 'ccm.load', [ 'https://code.jquery.com/jquery-3.2.1.min.js', 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js' ] ]
-      //jquery_ui_sortable: [ 'ccm.load', './lib/jquery-ui/sortable/jquery-ui.min.js' ]
 
     },
 
@@ -67,19 +66,18 @@
 
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
-          var counter = 1;
           if ( !dataset.lanes ) dataset.lanes = [];
+          my.lanes.map( function ( lane, i ) {
+            if ( !dataset.lanes[ i ] ) dataset.lanes[ i ] = { cards: [] };
+          } );
 
-          self.element.innerHTML = '';
+          var counter = 1;
           dataset.lanes.map( renderLane );
           check();
 
-          function renderLane( lane, i, lanes ) {
+          function renderLane( lane, i ) {
 
-            if ( typeof lane === 'string' ) lanes[ i ] = lane = { title: lane };
-            if ( !lane.cards ) lane.cards = [];
-
-            var lane_elem = self.ccm.helper.html( my.html_templates.lane, { title: lane.title } );
+            var lane_elem = self.ccm.helper.html( my.html_templates.lane, { title: my.lanes[ i ] } );
             var cards_elem = lane_elem.querySelector( '.cards' );
 
             lane.cards.map( renderCard );
@@ -89,8 +87,8 @@
 
               counter++;
               card_cfg = self.ccm.helper.clone( card_cfg );
-              cards_elem.appendChild( card_cfg.element = document.createElement( 'div' ) );
-              card_cfg.element.classList.add( 'card' );
+              cards_elem.appendChild( card_cfg.root = document.createElement( 'div' ) );
+              card_cfg.root.classList.add( 'card' );
               my.kanban_card.start( card_cfg, check );
 
             }
@@ -102,21 +100,9 @@
             counter--;
             if ( counter !== 0 ) return;
 
-            //sortable( self.element.querySelectorAll( '.card' ), self.element.querySelectorAll( '.placeholder' ), function () { console.log( 'drag!' ); }, function () { console.log( 'drop!' ); } );
             sortable();
 
             if ( callback ) callback();
-
-            /*
-            function sortable( drag, drop, ondrag, ondrop ) {
-
-              self.ccm.helper.makeIterable( drag ).map( function ( elem ) {
-                elem.ondragstart = function () {
-                  ondrag();
-                }
-              } );
-
-            }*/
 
           }
 
