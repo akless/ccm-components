@@ -8,7 +8,7 @@ ccm.files[ "kanban_board_configs.min.js" ] = {
   "demo": {
     "css_layout": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_board/resources/default.css" ],
     "data": {
-      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/kanban_board_datasets.min.js" ],
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_board/resources/kanban_board_datasets.min.js" ],
       "key": "demo"
     }
   }
