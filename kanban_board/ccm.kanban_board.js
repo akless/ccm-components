@@ -91,7 +91,7 @@
               counter++;
               var card_elem = document.createElement( 'div' );
               cards_elem.appendChild( card_elem );
-              my.kanban_card.start( card_cfg, function ( card_inst ) {
+              my.kanban_card.start( self.ccm.helper.clone( card_cfg ), function ( card_inst ) {
                 card_inst.root.classList.add( 'card' );
                 cards_elem.replaceChild( card_inst.root, card_elem );
                 check();
