@@ -10,7 +10,7 @@ ccm.files[ "kanban_board_datastore.min.js" ] = {
       {
         "cards": [
           {},
-          { "data": { "key": "presentation", "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/kanban_card_datastore.min.js" ] } },
+          { "data": { "key": "presentation", "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/kanban_card_dataset.min.js" ] } },
           { "data": { "key": "demo", "store": [ "ccm.store", { "store": "kanban_cards", "url": "wss://ccm.inf.h-brs.de" } ] } }
         ]
       }
