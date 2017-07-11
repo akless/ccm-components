@@ -133,7 +133,9 @@
         // listen to datastore change event => update own content
         self.data.store.onchange = function ( dataset ) {
 
-          if ( !my ) return; my.dataset = dataset;
+          if ( !my || dataset.key !== my.data.key ) return;
+
+          my.dataset = dataset;
 
           Object.keys( my.dataset ).map( refresh );
 
