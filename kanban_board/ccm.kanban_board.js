@@ -64,6 +64,8 @@
 
       this.start = function ( callback ) {
 
+        self.ccm.helper.setContent( self.element, self.ccm.helper.loading( self ) );
+
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
           if ( !dataset.lanes ) dataset.lanes = [];
@@ -71,6 +73,7 @@
             if ( !dataset.lanes[ i ] ) dataset.lanes[ i ] = { cards: [] };
           } );
 
+          var element = document.createDocumentFragment();
           var counter = 1;
           dataset.lanes.map( renderLane );
           check();
@@ -81,15 +84,18 @@
             var cards_elem = lane_elem.querySelector( '.cards' );
 
             lane.cards.map( renderCard );
-            self.element.appendChild( self.ccm.helper.protect( lane_elem ) );
+            element.appendChild( self.ccm.helper.protect( lane_elem ) );
 
             function renderCard( card_cfg ) {
 
               counter++;
-              card_cfg = self.ccm.helper.clone( card_cfg );
-              cards_elem.appendChild( card_cfg.root = document.createElement( 'div' ) );
-              card_cfg.root.classList.add( 'card' );
-              my.kanban_card.start( card_cfg, check );
+              var card_elem = document.createElement( 'div' );
+              cards_elem.appendChild( card_elem );
+              my.kanban_card.start( card_cfg, function ( card_inst ) {
+                card_inst.root.classList.add( 'card' );
+                cards_elem.replaceChild( card_inst.root, card_elem );
+                check();
+              } );
 
             }
 
@@ -101,6 +107,7 @@
             if ( counter !== 0 ) return;
 
             sortable();
+            self.ccm.helper.setContent( self.element, element );
 
             if ( callback ) callback();
 
@@ -108,7 +115,7 @@
 
           function sortable() {
 
-            var cards_elems = self.ccm.helper.makeIterable( self.element.querySelectorAll( '.cards' ) );
+            var cards_elems = self.ccm.helper.makeIterable( element.querySelectorAll( '.cards' ) );
             var start_lane, start_pos, end_lane, end_pos;
 
             cards_elems.map( function ( cards_elem ) {
