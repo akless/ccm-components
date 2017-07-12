@@ -45,7 +45,7 @@
         key: 'demo'
       },
       lanes: [ 'ToDo', 'Doing', 'Done' ],
-      sortable: [ 'ccm.load', '//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js' ]
+      sortable: [ 'ccm.load', 'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js' ]
 
     },
 
