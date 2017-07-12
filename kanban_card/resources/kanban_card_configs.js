@@ -28,6 +28,7 @@ ccm.files[ "kanban_card_configs.min.js" ] = {
       "permission_settings": {
         "access": "group"
       }
-    }
+    },
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/ccm.log.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/log_configs.min.js", "greedy" ] ]
   }
 };
