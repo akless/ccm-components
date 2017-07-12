@@ -4,7 +4,6 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * TODO: realtime listening only for needed dataset
- * TODO: logging
  * TODO: events (onchange)
  * TODO: docu comments
  * TODO: unit tests

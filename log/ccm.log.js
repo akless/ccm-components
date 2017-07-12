@@ -16,17 +16,17 @@
 
     config: {
 
-      logging:  {},
-      onfinish: function ( instance, results ) { console.log( results ); }
+      logging: {}
 
-  //  events: {object} logged events, default: all
-  //  logging.data:    {boolean|object} log event specific informations
-  //  logging.browser: {boolean|object} log browser informations
-  //  logging.parent:  {boolean|object} log ccm context parent information
-  //  logging.root:    {boolean|object} log ccm context root information
-  //  logging.user:    {boolean|object} log user informations
-  //  logging.website: {boolean|object} log website informations (string[] -> log informations only for these events)
+  //  events: {string[]} logged events, default: all
+  //  logging.data:    {boolean|string[]} log event specific informations (string[] -> log informations only for these events)
+  //  logging.browser: {boolean|string[]} log browser informations
+  //  logging.parent:  {boolean|string[]} log ccm context parent information
+  //  logging.root:    {boolean|string[]} log ccm context root information
+  //  logging.user:    {boolean|string[]} log user informations
+  //  logging.website: {boolean|string[]} log website informations
   //  hash: [ 'ccm.load', 'https://akless.github.io/ccm-components/libs/md5/md5.min.js' ],
+  //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
 
