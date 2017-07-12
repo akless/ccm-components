@@ -81,7 +81,7 @@
          * result data
          * @type {object}
          */
-        var results = { instance: id, event: event };
+        var results = { session: id, event: event };
 
         // add event specific informations
         if ( data !== undefined && ( self.ccm.helper.isObject( my.logging.data ) ? my.logging.data[ event ] : my.logging.data ) ) results.data = self.ccm.helper.clone( data );
