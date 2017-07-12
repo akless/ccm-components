@@ -1,13 +1,13 @@
 /**
- * @overview ccm component for data logging
+ * @overview <i>ccm</i> component for data logging
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  */
 
 ( function () {
 
-  var ccm_version = '8.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-8.0.0.min.js';
+  var ccm_version = '9.0.0';
+  var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
 
   var component_name = 'log';
   var component_obj  = {
@@ -16,17 +16,17 @@
 
     config: {
 
-      hash:     [ 'ccm.load', 'https://akless.github.io/ccm-components/libs/md5/md5.min.js' ],
       logging:  {},
       onfinish: function ( instance, results ) { console.log( results ); }
 
-      // events: {string[]} logged events, default: all
-      // logging.data:    {boolean|string[]} log event specific informations
-      // logging.browser: {boolean|string[]} log browser informations
-      // logging.parent:  {boolean|string[]} log ccm context parent information
-      // logging.root:    {boolean|string[]} log ccm context root information
-      // logging.user:    {boolean|string[]} log user informations
-      // logging.website: {boolean|string[]} log website informations (string[] -> log informations only for these events)
+  //  events: {object} logged events, default: all
+  //  logging.data:    {boolean|object} log event specific informations
+  //  logging.browser: {boolean|object} log browser informations
+  //  logging.parent:  {boolean|object} log ccm context parent information
+  //  logging.root:    {boolean|object} log ccm context root information
+  //  logging.user:    {boolean|object} log user informations
+  //  logging.website: {boolean|object} log website informations (string[] -> log informations only for these events)
+  //  hash: [ 'ccm.load', 'https://akless.github.io/ccm-components/libs/md5/md5.min.js' ],
 
     },
 
@@ -36,12 +36,32 @@
       var my;           // contains privatized instance members
       var id;           // global unique id of this instance
 
+      this.init = function ( callback ) {
+
+        arrToObj( self, 'events' );
+        for ( var key in self.logging )
+          arrToObj( self.logging[ key ] );
+
+        callback();
+
+        function arrToObj( obj, key ) {
+
+          if ( !Array.isArray( obj[ key ] ) ) return;
+
+          var result = {};
+          obj[ key ].map( function ( value ) { result[ value ] = true; } );
+          obj[ key ] = result;
+
+        }
+
+      };
+
       this.ready = function ( callback ) {
 
         // privatize all possible instance members
         my = self.ccm.helper.privatize( self );
 
-        // determine global unique instance id
+        // generate global unique instance id
         id = self.ccm.helper.generateKey();
 
         callback();
