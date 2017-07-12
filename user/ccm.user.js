@@ -3,6 +3,12 @@
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
+ * TODO: logging
+ * TODO: docu comments
+ * TODO: unit tests
+ * TODO: version file/folder
+ * TODO: factory
+ * TODO: multilingualism
  */
 
 ( function () {
