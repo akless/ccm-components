@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="ccm.cloze.js"></script>
-<h3>Products and Innovation I <i>(15 Punkte)</i></h3>
-<p>Fill in the blanks in the sentences with a word from the box. You will not need all the words.</p>
-<ccm-cloze key='["ccm.get","configs.json","demo"]'>
-  <ccm-list-onfinish log="true"></ccm-list-onfinish>
-</ccm-cloze>
+<meta name="author" content="André Kless <andre.kless@web.de> 2017">
+<meta name="license" content="The MIT License (MIT)">
+
+<script src="https://akless.github.io/ccm-components/cloze/versions/ccm.cloze-1.0.0.js"></script>
+
+Bookmarklet: <a href="javascript:(function(){var comp='cloze';var key='demo';var x=document.createElement('script');x.setAttribute('src','https://akless.github.io/ccm-components/'+comp+'/ccm.'+comp+'.min.js');document.head.appendChild(x);x=document.createElement('link');x.rel='stylesheet';x.href='https://akless.github.io/ccm-components/libs/weblysleekui/font.css';document.head.appendChild(x);x=document.createElement('div');x.innerHTML='<ccm-'+comp+' key=[&quot;ccm.get&quot;,&quot;https://akless.github.io/ccm-components/'+comp+'/resources/'+comp+'_configs.min.js&quot;,&quot;'+key+'&quot;]>';document.body.insertBefore(x,document.body.firstChild);})();">Lückentext</a>
+
+<hr>
+
+<ccm-cloze-1-0-0 key='["ccm.get","https://akless.github.io/ccm-components/cloze/resources/cloze_configs.min.js","demo"]'></ccm-cloze-1-0-0>
