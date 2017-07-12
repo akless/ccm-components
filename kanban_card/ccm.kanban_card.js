@@ -116,7 +116,7 @@
       members: [ 'John', 'Jane' ],
       priorities: [ 'A', 'B', 'C' ]
 
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/configs.json', 'greedy' ] ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/log_configs.js', 'greedy' ] ],
   //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ]
 
     },
@@ -159,6 +159,8 @@
 
       this.start = function ( callback ) {
 
+        if ( self.logger ) self.logger.log( 'start' );
+
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
           var restored;
@@ -192,6 +194,8 @@
           }
 
           function update( prop, value ) {
+
+            if ( self.logger ) self.logger.log( 'change', { prop: prop, value: value } );
 
             if ( self.user ) self.user.login( proceed ); else proceed();
 
