@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for rendering a fill-in-the-blank text
+ * @overview <i>ccm</i> component for rendering a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
@@ -51,7 +51,7 @@
           inner: '%%'
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/cloze/layouts/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/resources/default.css' ],
       placeholder : {
         start: 'Start',
         cancel: 'Cancel',
@@ -65,8 +65,8 @@
   //  keywords: [ 'keyword1', 'keyword2', ... ],
   //  blank: true,
   //  time: 60,
-  //  logger: [ 'ccm.instance', '../log/ccm.log.js', [ 'ccm.get', '../log/configs.json', 'greedy' ] ],
-  //  user:   [ 'ccm.instance', '../user/ccm.user.js' ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/log_configs.min.js', 'greedy' ] ],
+  //  user:   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ],
   //  onstart: function ( instance ) { console.log( 'Fill-in-the-blank text started' ); },
   //  oncancel: function ( instance ) { console.log( 'Fill-in-the-blank text canceled' ); },
   //  onvalidation: function ( instance, data ) { console.log( data ); return true; },
