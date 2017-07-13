@@ -6,8 +6,8 @@
 
 ( function () {
 
-  var ccm_version = '8.1.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-8.1.0.min.js';
+  var ccm_version = '9.0.0';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
 
   var component_name = 'cloze';
   var component_obj  = {
@@ -51,7 +51,7 @@
           inner: '%%'
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/resources/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/cloze/resources/default.css' ],
       placeholder : {
         start: 'Start',
         cancel: 'Cancel',
@@ -139,10 +139,10 @@
 
         // user must click on a start button before fill-in-the-blank text is starting? => render start button
         if ( my.start_button ) {
-          self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.start, {
+          self.ccm.helper.setContent( self.element, self.ccm.helper.html( my.html_templates.start, {
             caption: my.placeholder.start,
             click: start
-          } ) ) );
+          } ) );
         }
         // no need for a start button? => start fill-in-the-blank text directly
         else start();
@@ -302,26 +302,26 @@
           function updateButtons() {
 
             // render 'cancel' button (if needed)
-            if ( my.cancel_button ) self.ccm.helper.setContent( cancel_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+            if ( my.cancel_button ) self.ccm.helper.setContent( cancel_elem, self.ccm.helper.html( {
               tag: 'button',
               inner: my.placeholder.cancel,
               onclick: function () { if ( self.oncancel ) self.oncancel( self ); else self.start( callback ); }
-            } ) ) );
+            } ) );
 
             // render 'submit' button (if needed)
-            if ( my.feedback ) self.ccm.helper.setContent( submit_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+            if ( my.feedback ) self.ccm.helper.setContent( submit_elem, self.ccm.helper.html( {
               tag: 'button',
               disabled: results.details.length > 0,
               inner: my.placeholder.submit,
               onclick: evaluate
-            } ) ) );
+            } ) );
 
             // render 'finish' button
-            self.ccm.helper.setContent( finish_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+            self.ccm.helper.setContent( finish_elem, self.ccm.helper.html( {
               tag: 'button',
               inner: my.placeholder.finish,
               onclick: onFinish
-            } ) ) );
+            } ) );
 
             /** evaluates the fill-in-the-blank text and shows feedback */
             function evaluate() {
