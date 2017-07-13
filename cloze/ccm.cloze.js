@@ -56,7 +56,7 @@
         start: 'Start',
         cancel: 'Cancel',
         submit: 'Submit',
-        finish: 'Finish'
+        finish: 'Close'
       },
       onfinish: { clear: true, log: true }
 
