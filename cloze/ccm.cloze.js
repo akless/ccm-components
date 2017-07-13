@@ -57,7 +57,8 @@
         cancel: 'Cancel',
         submit: 'Submit',
         finish: 'Finish'
-      }
+      },
+      onfinish: { clear: true, log: true }
 
   //  start_button: true,
   //  cancel_button: true,
@@ -73,7 +74,6 @@
   //  onfeedback: function ( instance, data ) { console.log( data ); },
   //  onchange: function ( instance, data ) { console.log( data ); },
   //  oninput:  function ( instance, data ) { console.log( data ); },
-  //  onfinish: function ( instance, results ) { console.log( results ); }
 
     },
 
