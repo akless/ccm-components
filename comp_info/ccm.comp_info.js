@@ -104,6 +104,8 @@
         licence: 'Licence'
       }
 
+  //  compact: true
+
     },
 
     Instance: function () {
@@ -123,12 +125,19 @@
 
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
-          var main_elem = self.ccm.helper.html( my.html_templates.main, {
+          var main_templ = self.ccm.helper.clone( my.html_templates.main );
+          if ( my.compact ) {
+            main_templ = main_templ.inner[ 0 ];
+          }
+
+          var main_elem = self.ccm.helper.html( main_templ, {
             logo: dataset.logo,
             title: dataset.title,
             developer: dataset.developer,
             abstract: dataset.abstract
           } );
+
+          if ( my.compact ) { self.ccm.helper.setContent( self.element, main_elem ); if ( callback ) callback(); return; }
 
           var entries_data = self.ccm.helper.filterProperties( dataset, 'name', 'url', 'developer', 'licence' );
           var info_elem = main_elem.querySelector( '#info' );
