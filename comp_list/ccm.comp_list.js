@@ -17,9 +17,7 @@
     config: {
 
       comp_info: [ 'ccm.component', 'https://akless.github.io/ccm-components/comp_info/ccm.comp_info.min.js', { compact: true } ],
-      comp_info_configs: [
-        [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "cloze" ]
-      ]
+      comp_info_configs: []
 
     },
 
@@ -50,7 +48,7 @@
           element.appendChild( child );
           counter++;
           my.comp_info.start( config, function ( instance ) {
-            element.replaceChild( instance.root, child );
+            child.appendChild( instance.root );
             check();
           } );
 
@@ -59,6 +57,8 @@
         function check() {
           counter--;
           if ( counter !== 0 ) return;
+
+          self.ccm.helper.setContent( self.element, element );
 
           if ( callback ) callback();
         }
