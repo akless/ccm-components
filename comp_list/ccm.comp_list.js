@@ -49,6 +49,7 @@
           counter++;
           my.comp_info.start( config, function ( instance ) {
             child.appendChild( instance.root );
+            child.addEventListener( 'click', function () { console.log( 'click!' ); } );
             check();
           } );
 
