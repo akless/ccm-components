@@ -19,7 +19,20 @@
       html_templates: {
         "main": {
           "tag": "main",
-          "inner": [ { "tag": "nav" }, { "tag": "article" } ]
+          "class": "container",
+          "inner": {
+            "class": "row",
+            "inner": [
+              {
+                "tag": "nav",
+                "class": "col-md-3"
+              },
+              {
+                "tag": "article",
+                "class": "col-md-9"
+              }
+            ]
+          }
         }
       },
       comp_info: [ 'ccm.component', 'https://akless.github.io/ccm-components/comp_info/ccm.comp_info.min.js', { compact: true } ],
