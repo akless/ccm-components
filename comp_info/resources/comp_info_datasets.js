@@ -18,5 +18,18 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "license": "The MIT License (MIT)",
     "website": "https://akless.github.io/ccm-components/cloze/",
     "demo": [ "ccm.get", "https://akless.github.io/ccm-components/cloze/resources/cloze_configs.min.js", "demo" ]
+  },
+  "fill_in_the_blank_text_builder": {
+    "logo": "https://akless.github.io/ccm-components/component.png",
+    "link": "https://github.com/tkless",
+    "title": "Fill-in-the-Blank Text Builder",
+    "abstract": "<i>ccm</i> component for creating a fill-in-the-blank text.",
+    "name": "fill_in_the_blank_text_builder",
+    "version": "1.0.0",
+    "url": "https://tkless.github.io/ccm-components/fill_in_the_blank_text_builder/ccm.fill_in_the_blank_text_builder.js",
+    "developer": "Tea Kless",
+    "license": "The MIT License (MIT)",
+    "website": "https://tkless.github.io/ccm-components/fill_in_the_blank_text_builder/",
+    "demo": {}
   }
 };
