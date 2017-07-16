@@ -1,12 +1,14 @@
 /**
  * @overview datasets of <i>ccm</i> component for rendering component informations
  * @author André Kless <andre.kless@web.de> 2017
+ * @author Tea Kless <tea.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
 
 ccm.files[ "comp_info_datasets.min.js" ] = {
   "cloze": {
     "logo": "https://akless.github.io/ccm-components/component.png",
+    "link": "https://github.com/akless",
     "title": "Fill-in-the-Blank Text",
     "abstract": "<i>ccm</i> component for rendering a fill-in-the-blank text.",
     "name": "cloze",
