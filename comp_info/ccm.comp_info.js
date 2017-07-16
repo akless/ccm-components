@@ -57,7 +57,79 @@
                 },
                 {
                   "tag": "section",
-                  "id": "info"
+                  "id": "info",
+                  "inner": [
+                    {
+                      "id": "name",
+                      "class": "entry",
+                      "inner": [
+                        {
+                          "class": "label",
+                          "inner": "Name"
+                        },
+                        {
+                          "class": "value",
+                          "inner": "%name%"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "version",
+                      "class": "entry",
+                      "inner": [
+                        {
+                          "class": "label",
+                          "inner": "Version"
+                        },
+                        {
+                          "class": "value",
+                          "inner": "%version%"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "url",
+                      "class": "entry",
+                      "inner": [
+                        {
+                          "class": "label",
+                          "inner": "URL"
+                        },
+                        {
+                          "class": "value",
+                          "inner": "%url%"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "developer",
+                      "class": "entry",
+                      "inner": [
+                        {
+                          "class": "label",
+                          "inner": "Developer"
+                        },
+                        {
+                          "class": "value",
+                          "inner": "%developer%"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "licence",
+                      "class": "entry",
+                      "inner": [
+                        {
+                          "class": "label",
+                          "inner": "Licence"
+                        },
+                        {
+                          "class": "value",
+                          "inner": "%licence%"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -78,20 +150,6 @@
                   ]
                 }
               ]
-            }
-          ]
-        },
-        "entry": {
-          "id": "%key%",
-          "class": "entry",
-          "inner": [
-            {
-              "class": "label",
-              "inner": "%label%"
-            },
-            {
-              "class": "value",
-              "inner": "%value%"
             }
           ]
         }
@@ -130,19 +188,9 @@
             main_templ = main_templ.inner[ 0 ];
           }
 
-          var main_elem = self.ccm.helper.html( main_templ, {
-            logo: dataset.logo,
-            title: dataset.title,
-            developer: dataset.developer,
-            abstract: dataset.abstract
-          } );
+          var main_elem = self.ccm.helper.html( main_templ, dataset );
 
           if ( my.compact ) { self.ccm.helper.setContent( self.element, main_elem ); if ( callback ) callback(); return; }
-
-          var entries_data = self.ccm.helper.filterProperties( dataset, 'name', 'url', 'developer', 'licence' );
-          var info_elem = main_elem.querySelector( '#info' );
-
-          for ( var prop in entries_data ) renderEntry( prop, entries_data[ prop ] );
 
           self.ccm.start( dataset.url, dataset.demo, function ( instance ) {
 
@@ -154,14 +202,8 @@
 
           } );
 
-          function renderEntry( key, value ) {
-            if ( key === 'url' ) value = '<a target="_blank" href="'+value+'">' + value + '</a>';
-            info_elem.appendChild( self.ccm.helper.html( my.html_templates.entry, { key: key, label: my.placeholder[ key ], value: value } ) );
-          }
-
         } );
 
-        if ( callback ) callback();
       };
 
     }

@@ -8,8 +8,9 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
   "cloze": {
     "logo": "https://akless.github.io/ccm-components/component.png",
     "title": "Fill-in-the-Blank Text",
-    "name": "cloze",
     "abstract": "<i>ccm</i> component for rendering a fill-in-the-blank text.",
+    "name": "cloze",
+    "version": "1.0.0",
     "url": "https://akless.github.io/ccm-components/cloze/ccm.cloze.js",
     "developer": "André Kless",
     "licence": "The MIT License (MIT)",
