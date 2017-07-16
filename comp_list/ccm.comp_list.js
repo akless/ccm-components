@@ -16,8 +16,15 @@
 
     config: {
 
+      html_templates: {
+        "main": {
+          "tag": "main",
+          "inner": [ { "tag": "nav" }, { "tag": "article" } ]
+        }
+      },
       comp_info: [ 'ccm.component', 'https://akless.github.io/ccm-components/comp_info/ccm.comp_info.min.js', { compact: true } ],
-      comp_info_configs: []
+      comp_info_configs: [],
+      bootstrap: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', { context: 'head', url: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' } ]
 
     },
 
@@ -36,7 +43,9 @@
 
       this.start = function ( callback ) {
 
-        var element = document.createDocumentFragment();
+        var main_elem = self.ccm.helper.html( my.html_templates.main );
+        var nav_elem = main_elem.querySelector( 'nav' );
+        var article_elem = main_elem.querySelector( 'article' );
 
         var counter = 1;
         my.comp_info_configs.map( render );
@@ -45,11 +54,17 @@
         function render( config ) {
 
           var child = document.createElement( 'div' );
-          element.appendChild( child );
+          nav_elem.appendChild( child );
           counter++;
           my.comp_info.start( config, function ( instance ) {
+            config.compact = false;
             child.appendChild( instance.root );
-            child.addEventListener( 'click', function () { console.log( 'click!' ); } );
+            child.addEventListener( 'click', function () {
+              self.ccm.helper.setContent( article_elem, self.ccm.helper.loading( self ) );
+              my.comp_info.start( config, function ( instance ) {
+                self.ccm.helper.setContent( article_elem, instance.root );
+              } );
+            } );
             check();
           } );
 
@@ -59,7 +74,7 @@
           counter--;
           if ( counter !== 0 ) return;
 
-          self.ccm.helper.setContent( self.element, element );
+          self.ccm.helper.setContent( self.element, main_elem );
 
           if ( callback ) callback();
         }

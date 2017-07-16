@@ -326,7 +326,7 @@
         developer: 'Developer',
         licence: 'Licence'
       },
-      "bootstrap": [ "ccm.load", "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", { context: "head", url: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" } ]
+      bootstrap: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', { context: 'head', url: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' } ]
 
   //  compact: true
 
