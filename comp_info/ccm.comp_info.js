@@ -116,16 +116,16 @@
                       ]
                     },
                     {
-                      "id": "licence",
+                      "id": "license",
                       "class": "entry",
                       "inner": [
                         {
                           "class": "label",
-                          "inner": "Licence"
+                          "inner": "License"
                         },
                         {
                           "class": "value",
-                          "inner": "%licence%"
+                          "inner": "%license%"
                         }
                       ]
                     }
