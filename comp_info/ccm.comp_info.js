@@ -154,13 +154,7 @@
           ]
         }
       },
-      data: { store: [ 'ccm.store' ] },
-      placeholder: {
-        name: 'Name',
-        url: 'URL',
-        developer: 'Developer',
-        licence: 'Licence'
-      }
+      data: { store: [ 'ccm.store' ] }
 
   //  compact: true
 
@@ -184,9 +178,8 @@
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
           var main_templ = self.ccm.helper.clone( my.html_templates.main );
-          if ( my.compact ) {
-            main_templ = main_templ.inner[ 0 ];
-          }
+
+          if ( my.compact ) main_templ = main_templ.inner[ 0 ];
 
           var main_elem = self.ccm.helper.html( main_templ, dataset );
 
@@ -194,7 +187,7 @@
 
           self.ccm.start( dataset.url, dataset.demo, function ( instance ) {
 
-            main_elem.querySelector( '#demo' ).appendChild( instance.root );
+            self.ccm.helper.setContent( main_elem.querySelector( '#demo' ), instance.root );
 
             self.ccm.helper.setContent( self.element, main_elem );
 
