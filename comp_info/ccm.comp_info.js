@@ -121,7 +121,7 @@
                 },
                 {
                   "tag": "p",
-                  "inner": "description"
+                  "inner": "%description%"
                 },
                 {
                   "tag": "h4",
@@ -348,6 +348,7 @@
             link_to_developer: dataset.link,
             developer: dataset.developer,
             abstract: dataset.abstract,
+            description: dataset.description,
             name: dataset.name,
             version: dataset.version,
             url: dataset.url,
