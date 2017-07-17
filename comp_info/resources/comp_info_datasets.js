@@ -39,5 +39,22 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "website": "https://tkless.github.io/ccm-components/fill_in_the_blank_text_builder/",
     "previews": [ "https://akless.github.io/ccm-components/cloze_builder/resources/preview.png" ],
     "demo": {}
+  },
+  "quiz": {
+    "logo": "https://akless.github.io/ccm-components/component.png",
+    "link": "https://github.com/akless",
+    "title": "Quiz",
+    "abstract": "<i>ccm</i> component for rendering a quiz.",
+    "name": "quiz",
+    "version": "1.0.0",
+    "url": "https://akless.github.io/ccm-components/quiz/ccm.quiz.js",
+    "developer": "André Kless",
+    "license": "The MIT License (MIT)",
+    "website": "https://akless.github.io/ccm-components/quiz/",
+    "previews": [
+      "https://akless.github.io/ccm-components/quiz/resources/preview_1.png",
+      "https://akless.github.io/ccm-components/quiz/resources/preview_2.png"
+    ],
+    "demo": [ "ccm.get", "https://akless.github.io/akless/we/was-ist-html/configs.min.js", "quiz" ]
   }
 };
