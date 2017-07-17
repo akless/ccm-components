@@ -15,7 +15,8 @@ ccm.files[ "comp_info_configs.min.js" ] = {
     "data": {
       "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
       "key": "fill_in_the_blank_text_builder"
-    }
+    },
+    "onfinish.embed_code_url": "https://akless.github.io/ccm-components/cloze/ccm.cloze.min.js"
   },
   "quizz": {
     "data": {
