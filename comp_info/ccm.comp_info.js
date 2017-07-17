@@ -371,9 +371,7 @@
             }
 
           } );
-          self.ccm.helper.makeIterable( main_elem.querySelectorAll( 'img[src="none"]' ) ).map( function ( node ) {
-            node.parentNode.parentNode.style.display = 'none';
-          } );
+          self.ccm.helper.makeIterable( main_elem.querySelectorAll( 'img[src="none"]' ) ).map( self.ccm.helper.removeElement );
 
           self.ccm.start( dataset.url, dataset.demo, function ( instance ) {
 

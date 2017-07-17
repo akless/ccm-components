@@ -85,7 +85,9 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "license": "The MIT License (MIT)",
     "website": "https://akless.github.io/ccm-components/kanban_card/",
     "previews": [
-      "https://akless.github.io/ccm-components/kanban_card/resources/preview_1.png"
+      "https://akless.github.io/ccm-components/kanban_card/resources/preview_1.png",
+      "https://akless.github.io/ccm-components/kanban_card/resources/preview_2.png",
+      "https://akless.github.io/ccm-components/kanban_card/resources/preview_3.png"
     ],
     "demo": [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/kanban_card_configs.min.js", "demo" ]
   }
