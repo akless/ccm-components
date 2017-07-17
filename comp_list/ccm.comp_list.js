@@ -76,6 +76,15 @@
                           "tag": "li",
                           "inner": {
                             "tag": "a",
+                            "href":"#all",
+                            "inner": "All Components",
+                            "onclick": "%all%"
+                          }
+                        },
+                        {
+                          "tag": "li",
+                          "inner": {
+                            "tag": "a",
                             "href":"# ",
                             "inner": "Home"
                           }
@@ -94,15 +103,6 @@
                             "tag": "a",
                             "href":"#kontakt",
                             "inner": "Contact"
-                          }
-                        },
-                        {
-                          "tag": "li",
-                          "inner": {
-                            "tag": "a",
-                            "href":"#all",
-                            "inner": "All Components",
-                            "onclick": "%all%"
                           }
                         }
                       ]
@@ -152,7 +152,7 @@
             "class":"col-sm-6 col-md-3",
             "inner": {
             "class": "thumbnail",
-              "inner": [
+            "inner": [
               {
                 "tag": "img",
                 "width": "242",
