@@ -155,8 +155,6 @@
             "inner": [
               {
                 "tag": "img",
-                "width": "242",
-                "height": "200",
                 "src": "%preview%"
               },
               {
@@ -235,7 +233,7 @@
                 list_elem.appendChild( self.ccm.helper.html( my.html_templates.list_item, {
                   comp_title: dataset.title,
                   abstract: dataset.abstract,
-                  preview: dataset.previews[0],
+                  preview: Array.isArray( dataset.preview ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : 'https://https://akless.github.io/ccm-components/component.png',
                   detail: function () {
                     instance.start( function () {
                       self.ccm.helper.setContent( list_elem, instance.root );
