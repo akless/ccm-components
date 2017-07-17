@@ -237,9 +237,7 @@
                     {
                       "class": "col-xs-6 col-md-3",
                       "inner":{
-                        "tag": "a",
                         "class": "thumbnail",
-                        "href": "https://placeholder.com",
                         "inner":{
                           "tag": "img",
                           "src": "%placeholder1%"
@@ -249,9 +247,7 @@
                     {
                       "class": "col-xs-6 col-md-3",
                       "inner":{
-                        "tag": "a",
                         "class": "thumbnail",
-                        "href": "https://placeholder.com",
                         "inner":{
                           "tag": "img",
                           "src": "%placeholder2%"
@@ -261,9 +257,7 @@
                     {
                       "class": "col-xs-6 col-md-3",
                       "inner":{
-                        "tag": "a",
                         "class": "thumbnail",
-                        "href": "https://placeholder.com",
                         "inner":{
                           "tag": "img",
                           "src": "%placeholder3%"
@@ -354,9 +348,9 @@
             url: dataset.url,
             u: dataset.url,
             license: dataset.license,
-            placeholder1: Array.isArray( dataset.previews ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : '',
-            placeholder2: Array.isArray( dataset.previews ) && dataset.previews[ 1 ] ? dataset.previews[ 1 ] : '',
-            placeholder3: Array.isArray( dataset.previews ) && dataset.previews[ 2 ] ? dataset.previews[ 2 ] : '',
+            placeholder1: Array.isArray( dataset.previews ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : 'none',
+            placeholder2: Array.isArray( dataset.previews ) && dataset.previews[ 1 ] ? dataset.previews[ 1 ] : 'none',
+            placeholder3: Array.isArray( dataset.previews ) && dataset.previews[ 2 ] ? dataset.previews[ 2 ] : 'none',
             info: function () {
               self.element.querySelector( '#info' ).scrollIntoView();
             },
@@ -377,6 +371,7 @@
             }
 
           } );
+          main_elem.querySelector( 'img[src="none"]' ).style.display = 'none';
 
           self.ccm.start( dataset.url, dataset.demo, function ( instance ) {
 
