@@ -1,0 +1,58 @@
+.apps {
+    position: relative;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: flex-start;
+}
+
+.app {
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+}
+
+.app:hover {
+    /* opacity: 0.75; */
+}
+
+.app img {
+    width: 100%;
+    height: auto;
+}
+
+.dialog {
+    position: absolute;
+    background: #f6f6f6;
+    padding: 5px;
+    border: 1px solid;
+}
+
+.dialog .head {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog .main {
+    padding: 5px;
+}
+
+/* responsive stuff */
+
+@media (max-width: 425px){
+    .app {
+        flex-basis: 25%;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 768px){
+    .app {
+        flex-basis: 16.666666666%;
+    }
+}
+
+@media (min-width: 769px){
+    .app {
+       flex-basis: 12.5%;
+    }
+}

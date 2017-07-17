@@ -88,5 +88,11 @@ ccm.files[ "comp_info_configs.min.js" ] = {
       "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
       "key": "voting"
     }
+  },
+  "desktop": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "desktop"
+    }
   }
 };

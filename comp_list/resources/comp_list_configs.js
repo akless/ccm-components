@@ -20,7 +20,8 @@ ccm.files[ "comp_list_configs.min.js" ] = {
       [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "star_rating" ],
       [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "star_rating_result" ],
       [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "thumb_rating" ],
-      [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "voting" ]
+      [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "voting" ],
+      [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "desktop" ]
     ]
   }
 };

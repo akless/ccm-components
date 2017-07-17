@@ -219,5 +219,19 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "website": "https://tkless.github.io/ccm-components/voting/",
     "previews": [ "https://akless.github.io/ccm-components/libs/screenshots/voting_preview_1.png" ],
     "demo": {}
+  },
+  "desktop": {
+    "logo": "https://akless.github.io/ccm-components/component.png",
+    "link": "https://github.com/DeSchm",
+    "title": "Desktop",
+    "abstract": "<i>ccm</i> component for rendering a desktop.",
+    "name": "voting",
+    "version": "1.0.0",
+    "url": "https://akless.github.io/ccm-components/libs/desktop/ccm.desktop.js",
+    "developer": "Dennis Schmidt",
+    "license": "The MIT License (MIT)",
+    "website": "https://akless.github.io/ccm-components/libs/desktop/",
+    "previews": [ "https://akless.github.io/ccm-components/libs/screenshots/desktop_preview_1.png" ],
+    "demo": {}
   }
 };

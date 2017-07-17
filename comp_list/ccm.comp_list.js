@@ -247,9 +247,11 @@
 
           function render( config ) {
 
+            var div = document.createElement( 'div' );
+            list_elem.appendChild( div );
             my.comp_info.instance( config, function ( instance ) {
               self.ccm.helper.dataset( instance.data, function ( dataset ) {
-                list_elem.appendChild( self.ccm.helper.html( my.html_templates.list_item, {
+                list_elem.replaceChild( self.ccm.helper.html( my.html_templates.list_item, {
                   comp_title: dataset.title,
                   abstract: dataset.abstract,
                   preview: Array.isArray( dataset.previews ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : 'https://akless.github.io/ccm-components/component.png',
@@ -258,7 +260,7 @@
                       self.ccm.helper.setContent( list_elem, instance.root );
                     } );
                   }
-                } ) );
+                } ), div );
               } );
             } );
           }
