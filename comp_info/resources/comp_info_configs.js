@@ -34,5 +34,59 @@ ccm.files[ "comp_info_configs.min.js" ] = {
       "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
       "key": "kanban_card"
     }
+  },
+  "editor": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "editor"
+    }
+  },
+  "forum": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "forum"
+    }
+  },
+  "posts": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "posts"
+    }
+  },
+  "question": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "question"
+    }
+  },
+  "slidecast": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "slidecast"
+    }
+  },
+  "star_rating": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "star_rating"
+    }
+  },
+  "star_rating_result": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "star_rating_result"
+    }
+  },
+  "thumb_rating": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "thumb_rating"
+    }
+  },
+  "voting": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "voting"
+    }
   }
 };
