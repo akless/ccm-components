@@ -102,7 +102,8 @@
                           "inner": {
                             "tag": "a",
                             "href":"#kontakt",
-                            "inner": "Contact"
+                            "inner": "Contact",
+                            "onclick": "%contact%"
                           }
                         }
                       ]
@@ -122,25 +123,7 @@
                   }
                 },
                 {
-                  "id": "component_view"
-                },
-                {
-                  "tag":"adress",
-                  "class": "contact",
-                  "inner": [
-                    {
-                      "tag": "strong",
-                      "inner": "Andre Kless"
-                    },
-                    "<br> Hochschule Bonn-rhein-sieg <br>Granthamalee 20 <br> 53757 Sankt Augustin <br>",
-                    {
-                      "tag": "abbr",
-                      "title": "Ttelefonnummer",
-                      "inner": "Tel:"
-                    },
-
-                    "+49 2241 865 695"
-                  ]
+                  "id": "address"
                 }
               ]
             }
@@ -149,43 +132,63 @@
 
         "list_item": {
           "inner": {
-            "class":"col-sm-6 col-md-3",
+            "class":"col-lg-3 col-md-3 col-sm-3 col-xs-3",
             "inner": {
-            "class": "thumbnail",
-            "inner": [
-              {
-                "tag": "img",
-                "src": "%preview%"
-              },
-              {
-                "class": "caption",
-                "inner": [
-                  {
-                    "tag": "h3",
-                    "inner": "%comp_title%"
-                  },
-                  {
-                    "tag": "p",
-                    "inner": "%abstract%"
-                  },
-                  {
-                    "tag": "p",
-                    "inner": {
-                      "tag": "a",
-                      "href": "#",
-                      "class": "btn btn-primary",
-                      "role":"button",
-                      "inner": "Detail",
-                      "onclick": "%detail%"
+              "class": "thumbnail",
+              "style": "height: 400px",
+              "inner": [
+                {
+                  "tag": "img",
+                  "src": "%preview%"
+                },
+                {
+                  "class": "caption",
+                  "inner": [
+                    {
+                      "tag": "h3",
+                      "inner": "%comp_title%"
+                    },
+                    {
+                      "tag": "p",
+                      "inner": "%abstract%"
+                    },
+                    {
+                      "tag": "p",
+                      "inner": {
+                        "tag": "a",
+                        "href": "#",
+                        "class": "btn btn-primary",
+                        "role":"button",
+                        "inner": "Detail",
+                        "onclick": "%detail%"
+                      }
                     }
-                  }
 
-                ]
-              }
-            ]
+                  ]
+                }
+              ]
 
             }
           }
+        },
+
+        "contact": {
+          "tag":"address",
+          "class": "contact",
+          "inner": [
+            {
+              "tag": "strong",
+              "inner": "Andre Kless"
+            },
+            "<br> Hochschule Bonn-rhein-sieg <br>Granthamalee 20 <br> 53757 Sankt Augustin <br>",
+            {
+              "tag": "abbr",
+              "title": "Ttelefonnummer",
+              "inner": "Tel:"
+            },
+
+            "+49 2241 865 695"
+          ]
         }
       },
       comp_info: [ 'ccm.component', 'https://akless.github.io/ccm-components/comp_info/ccm.comp_info.min.js' ],
@@ -214,6 +217,14 @@
         var main_elem = self.ccm.helper.html( my.html_templates.main, {
           all: function () {
             renderList();
+          },
+          contact: function () {
+
+            main_elem.querySelector( '#components_list' ).innerHTML = '';
+
+            var contact_elem = main_elem.querySelector( '#address' );
+            contact_elem.innerHTML = '';
+            contact_elem.appendChild( self.ccm.helper.html( self.html_templates.contact ) );
           }
         } );
         renderList();
