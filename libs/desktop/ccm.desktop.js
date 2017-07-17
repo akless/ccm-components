@@ -14,9 +14,9 @@
 
         config: {
             style: [
-                ['ccm.load', './styles/example/desktop.css']
+                ['ccm.load', 'https://akless.github.io/ccm-components/libs/desktop/styles/example/desktop.css']
             ],
-            apps: [ "ccm.get", "apps_config.js", "example"],
+            apps: [ "ccm.get", "https://akless.github.io/ccm-components/libs/desktop/apps_config.js", "example"],
             html_templates: {
                 'main': {
                     tag: 'div',
