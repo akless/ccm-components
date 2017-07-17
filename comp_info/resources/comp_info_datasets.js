@@ -47,7 +47,7 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "abstract": "<i>ccm</i> component for rendering a quiz.",
     "name": "quiz",
     "version": "1.0.0",
-    "url": "https://akless.github.io/ccm-components/quiz/ccm.quiz.min.js",
+    "url": "https://akless.github.io/ccm-components/quiz/ccm.quizz.min.js",
     "developer": "André Kless",
     "license": "The MIT License (MIT)",
     "website": "https://akless.github.io/ccm-components/quiz/",
