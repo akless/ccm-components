@@ -354,9 +354,9 @@
             url: dataset.url,
             u: dataset.url,
             license: dataset.license,
-            preview1: Array.isArray( dataset.previews ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : '',
-            preview2: Array.isArray( dataset.previews ) && dataset.previews[ 1 ] ? dataset.previews[ 1 ] : '',
-            preview3: Array.isArray( dataset.previews ) && dataset.previews[ 2 ] ? dataset.previews[ 2 ] : '',
+            placeholder1: Array.isArray( dataset.previews ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : '',
+            placeholder2: Array.isArray( dataset.previews ) && dataset.previews[ 1 ] ? dataset.previews[ 1 ] : '',
+            placeholder3: Array.isArray( dataset.previews ) && dataset.previews[ 2 ] ? dataset.previews[ 2 ] : '',
             info: function () {
               self.element.querySelector( '#info' ).scrollIntoView();
             },
