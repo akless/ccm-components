@@ -71,6 +71,6 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "previews": [
       "https://akless.github.io/ccm-components/kanban_board/resources/preview_1.png"
     ],
-    "demo": [ "ccm.get", "https://akless.github.io/ccm-components/kanban_bord/resources/kanban_board_configs.min.js", "demo" ]
+    "demo": [ "ccm.get", "https://akless.github.io/ccm-components/kanban_board/resources/kanban_board_configs.min.js", "demo" ]
   }
 };
