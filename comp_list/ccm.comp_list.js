@@ -195,8 +195,7 @@
       bootstrap: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', { context: 'head', url: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' } ],
       bootstrap_js: [ 'ccm.load',
         [ 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'] ],
-      style: [ 'ccm.load', 'style.css' ]
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'] ]
     },
 
     Instance: function () {
