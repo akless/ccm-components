@@ -242,7 +242,7 @@
                         "href": "https://placeholder.com",
                         "inner":{
                           "tag": "img",
-                          "src": "http://via.placeholder.com/650x850"
+                          "src": "%placeholder1%"
                         }
                       }
                     },
@@ -254,7 +254,7 @@
                         "href": "https://placeholder.com",
                         "inner":{
                           "tag": "img",
-                          "src": "http://via.placeholder.com/650x850"
+                          "src": "%placeholder2%"
                         }
                       }
                     },
@@ -266,7 +266,7 @@
                         "href": "https://placeholder.com",
                         "inner":{
                           "tag": "img",
-                          "src": "http://via.placeholder.com/650x850"
+                          "src": "%placeholder3%"
                         }
                       }
                     }
@@ -354,6 +354,9 @@
             url: dataset.url,
             u: dataset.url,
             license: dataset.license,
+            preview1: Array.isArray( dataset.previews ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : '',
+            preview2: Array.isArray( dataset.previews ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : '',
+            preview3: Array.isArray( dataset.previews ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : '',
             info: function () {
               self.element.querySelector( '#info' ).scrollIntoView();
             },
