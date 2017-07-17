@@ -233,7 +233,7 @@
                 list_elem.appendChild( self.ccm.helper.html( my.html_templates.list_item, {
                   comp_title: dataset.title,
                   abstract: dataset.abstract,
-                  preview: Array.isArray( dataset.preview ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : 'https://akless.github.io/ccm-components/component.png',
+                  preview: Array.isArray( dataset.previews ) && dataset.previews[ 0 ] ? dataset.previews[ 0 ] : 'https://akless.github.io/ccm-components/component.png',
                   detail: function () {
                     instance.start( function () {
                       self.ccm.helper.setContent( list_elem, instance.root );
