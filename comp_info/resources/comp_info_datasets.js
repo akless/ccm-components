@@ -40,12 +40,12 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "previews": [ "https://akless.github.io/ccm-components/cloze_builder/resources/preview.png" ],
     "demo": {}
   },
-  "quiz": {
+  "quizz": {
     "logo": "https://akless.github.io/ccm-components/component.png",
     "link": "https://github.com/akless",
     "title": "Quiz",
     "abstract": "<i>ccm</i> component for rendering a quiz.",
-    "name": "quiz",
+    "name": "quizz",
     "version": "1.0.0",
     "url": "https://akless.github.io/ccm-components/quiz/ccm.quizz.min.js",
     "developer": "André Kless",
