@@ -18,6 +18,11 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "developer": "André Kless",
     "license": "The MIT License (MIT)",
     "website": "https://akless.github.io/ccm-components/cloze/",
+    "previews": [
+      "https://akless.github.io/ccm-components/cloze/resources/preview_1.png",
+      "https://akless.github.io/ccm-components/cloze/resources/preview_2.png",
+      "https://akless.github.io/ccm-components/cloze/resources/preview_3.png"
+    ],
     "demo": [ "ccm.get", "https://akless.github.io/ccm-components/cloze/resources/cloze_configs.min.js", "demo" ]
   },
   "fill_in_the_blank_text_builder": {
@@ -32,6 +37,7 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "developer": "Tea Kless",
     "license": "The MIT License (MIT)",
     "website": "https://tkless.github.io/ccm-components/fill_in_the_blank_text_builder/",
+    "previews": [ "https://akless.github.io/ccm-components/cloze_builder/resources/preview.png" ],
     "demo": {}
   }
 };
