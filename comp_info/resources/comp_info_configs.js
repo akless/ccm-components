@@ -28,5 +28,11 @@ ccm.files[ "comp_info_configs.min.js" ] = {
       "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
       "key": "kanban_board"
     }
+  },
+  "kanban_card": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "kanban_card"
+    }
   }
 };

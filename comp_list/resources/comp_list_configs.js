@@ -10,7 +10,8 @@ ccm.files[ "comp_list_configs.min.js" ] = {
       [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "cloze" ],
       [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "fill_in_the_blank_text_builder" ],
       [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "quizz" ],
-      [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "kanban_board" ]
+      [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "kanban_board" ],
+      [ "ccm.get", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_configs.min.js", "kanban_card" ]
     ]
   }
 };
