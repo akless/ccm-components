@@ -80,13 +80,13 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "abstract": "<i>ccm</i> component for rendering a kanban card.",
     "name": "kanban_card",
     "version": "1.0.0",
-    "url": "https://akless.github.io/ccm-components/kanban_board/ccm.kanban_card.min.js",
+    "url": "https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.min.js",
     "developer": "André Kless",
     "license": "The MIT License (MIT)",
     "website": "https://akless.github.io/ccm-components/kanban_card/",
     "previews": [
       "https://akless.github.io/ccm-components/kanban_card/resources/preview_1.png"
     ],
-    "demo": [ "ccm.get", "https://akless.github.io/ccm-components/kanban_board/resources/kanban_card_configs.min.js", "demo" ]
+    "demo": [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/kanban_card_configs.min.js", "demo" ]
   }
 };
