@@ -371,7 +371,9 @@
             }
 
           } );
-          main_elem.querySelector( 'img[src="none"]' ).style.display = 'none';
+          self.ccm.helper.makeIterable( main_elem.querySelector( 'img[src="none"]' ) ).map( function ( node ) {
+            node.parentNode.parentNode.style.display = 'none';
+          } );
 
           self.ccm.start( dataset.url, dataset.demo, function ( instance ) {
 
