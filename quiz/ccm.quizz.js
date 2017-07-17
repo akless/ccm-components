@@ -9,7 +9,7 @@
   var ccm_version = '9.0.0';
   var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
 
-  var component_name = 'quiz';
+  var component_name = 'quizz';
   var component_obj  = {
 
     name: component_name,
