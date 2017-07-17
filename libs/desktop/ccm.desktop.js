@@ -96,7 +96,8 @@
 
                 var apps = [];
 
-                self.ccm.helper.makeIterable(self.node.children).map(function (tag) {
+                if ( self.node && self.ccm.helper.makeIterable( self.node.children() ).length > 0 )
+                    self.ccm.helper.makeIterable(self.node.children).map(function (tag) {
 
                     switch (tag.tagName) {
                         case 'CCM-DESKTOP-APP':
