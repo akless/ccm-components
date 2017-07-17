@@ -335,23 +335,12 @@
     Instance: function () {
 
       var self = this;
-      var my;           // contains privatized instance members
-
-      this.ready = function ( callback ) {
-
-        // privatize all possible instance members
-        my = self.ccm.helper.privatize( self );
-
-        callback();
-      };
 
       this.start = function ( callback ) {
 
-        self.ccm.helper.dataset( my.data, function ( dataset ) {
+        self.ccm.helper.dataset( self.data, function ( dataset ) {
 
-          var main_templ = self.ccm.helper.clone( my.html_templates.main );
-
-          if ( my.compact ) main_templ = main_templ.inner[ 0 ];
+          var main_templ = self.ccm.helper.clone( self.html_templates.main );
 
           var main_elem = self.ccm.helper.html( main_templ, {
             logo: dataset.logo,
@@ -384,8 +373,6 @@
             }
 
           } );
-
-          if ( my.compact ) { self.ccm.helper.setContent( self.element, main_elem ); if ( callback ) callback(); return; }
 
           self.ccm.start( dataset.url, dataset.demo, function ( instance ) {
 
