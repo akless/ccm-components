@@ -16,5 +16,17 @@ ccm.files[ "comp_info_configs.min.js" ] = {
       "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
       "key": "fill_in_the_blank_text_builder"
     }
+  },
+  "quiz": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "quiz"
+    }
+  },
+  "kanban_board": {
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/comp_info/resources/comp_info_datasets.min.js" ],
+      "key": "kanban_board"
+    }
   }
 };
