@@ -371,7 +371,7 @@
             }
 
           } );
-          self.ccm.helper.makeIterable( main_elem.querySelector( 'img[src="none"]' ) ).map( function ( node ) {
+          self.ccm.helper.makeIterable( main_elem.querySelectorAll( 'img[src="none"]' ) ).map( function ( node ) {
             node.parentNode.parentNode.style.display = 'none';
           } );
 
