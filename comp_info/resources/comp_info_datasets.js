@@ -14,7 +14,7 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "description": "The component supports solution hints, visual feedback, point allocation, time limitation, different layouts, authentication procedures, customization of buttons and learning analysis.",
     "name": "cloze",
     "version": "1.0.0",
-    "url": "https://akless.github.io/ccm-components/cloze/ccm.cloze.js",
+    "url": "https://akless.github.io/ccm-components/cloze/ccm.cloze.min.js",
     "developer": "André Kless",
     "license": "The MIT License (MIT)",
     "website": "https://akless.github.io/ccm-components/cloze/",
@@ -47,7 +47,7 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
     "abstract": "<i>ccm</i> component for rendering a quiz.",
     "name": "quiz",
     "version": "1.0.0",
-    "url": "https://akless.github.io/ccm-components/quiz/ccm.quiz.js",
+    "url": "https://akless.github.io/ccm-components/quiz/ccm.quiz.min.js",
     "developer": "André Kless",
     "license": "The MIT License (MIT)",
     "website": "https://akless.github.io/ccm-components/quiz/",
@@ -56,5 +56,21 @@ ccm.files[ "comp_info_datasets.min.js" ] = {
       "https://akless.github.io/ccm-components/quiz/resources/preview_2.png"
     ],
     "demo": [ "ccm.get", "https://akless.github.io/akless/we/was-ist-html/configs.min.js", "quiz" ]
+  },
+  "kanban_board": {
+    "logo": "https://akless.github.io/ccm-components/component.png",
+    "link": "https://github.com/akless",
+    "title": "Kanban Board",
+    "abstract": "<i>ccm</i> component for rendering a kanban board.",
+    "name": "kanban_board",
+    "version": "1.0.0",
+    "url": "https://akless.github.io/ccm-components/kanban_board/ccm.kanban_board.min.js",
+    "developer": "André Kless",
+    "license": "The MIT License (MIT)",
+    "website": "https://akless.github.io/ccm-components/kanban_board/",
+    "previews": [
+      "https://akless.github.io/ccm-components/kanban_board/resources/preview_1.png"
+    ],
+    "demo": [ "ccm.get", "https://akless.github.io/ccm-components/kanban_bord/resources/kanban_board_configs.min.js", "demo" ]
   }
 };
