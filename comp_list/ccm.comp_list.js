@@ -17,6 +17,7 @@
     config: {
 
       html_templates: {
+
         "main": {
           "tag": "main",
           "inner": [
@@ -173,23 +174,30 @@
         },
 
         "contact": {
-          "tag":"address",
-          "class": "contact",
           "inner": [
             {
-              "tag": "strong",
-              "inner": "Andre Kless"
+              "tag":"address",
+              "class": "contact",
+              "inner": [
+                {
+                  "tag": "strong",
+                  "inner": "André Kless"
+                },
+                "<br>Hochschule Bonn-Rhein-Sieg<br>University of Applied Sciences<br>Grantham-Allee 20<br>53757 Sankt Augustin<br>Germany<br>"
+              ]
             },
-            "<br> Hochschule Bonn-rhein-sieg <br>Granthamalee 20 <br> 53757 Sankt Augustin <br>",
             {
-              "tag": "abbr",
-              "title": "Ttelefonnummer",
-              "inner": "Tel:"
-            },
-
-            "+49 2241 865 695"
+              "tag":"address",
+              "class": "email",
+              "inner": {
+                "tag": "a",
+                "href": "mailto:#",
+                "inner": "andre.kless@h-brs.de"
+              }
+            }
           ]
         }
+
       },
       comp_info: [ 'ccm.component', 'https://akless.github.io/ccm-components/comp_info/ccm.comp_info.min.js' ],
       comp_info_configs: [],
