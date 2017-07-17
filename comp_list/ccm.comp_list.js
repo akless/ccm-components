@@ -224,7 +224,7 @@
 
             var contact_elem = main_elem.querySelector( '#address' );
             contact_elem.innerHTML = '';
-            contact_elem.appendChild( self.ccm.helper.html( self.html_templates.contact ) );
+            contact_elem.appendChild( self.ccm.helper.html( my.html_templates.contact ) );
           }
         } );
         renderList();
