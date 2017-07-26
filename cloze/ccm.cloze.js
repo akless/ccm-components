@@ -2,6 +2,17 @@
  * @overview <i>ccm</i> component for rendering a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
+ * @version 2.0.0 (latest)
+ * @changes
+ * version 2.0.0 (26.07.2017):
+ * - uses ccm v9.0.0 instead of v8.1.0
+ * - renaming of some instance properties
+ * - add HTML template for a button
+ * - visual feedback as default,
+ * - default value for finish event
+ * - reductions in HTML template for start button
+ * - remove no more needed ccm.helper.protect call
+ * version 1.0.0 (12.07.2017)
  */
 
 ( function () {
@@ -13,6 +24,7 @@
   var component_obj  = {
 
     name: component_name,
+    version: [ 2, 0, 0 ],
 
     config: {
 
