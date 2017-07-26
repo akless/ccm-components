@@ -15,7 +15,7 @@
     name: component_name,
 
     config:  {
-      component_obj: [ 'ccm.component', 'http://akless.github.io/ccm-components/blank/ccm.blank.js' ],
+      component_obj: [ 'ccm.component', 'https://akless.github.io/ccm-components/blank/ccm.blank.js' ],
       times: 5
     },
 
