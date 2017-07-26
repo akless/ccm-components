@@ -1,0 +1,6 @@
+{
+  "demo": {
+    "initial_data": [ "ccm.get", "../cloze/resources/cloze_configs.js", "demo" ],
+    "cloze_preview": [ "ccm.component", "../cloze/ccm.cloze.js" ]
+  }
+}
