@@ -17,13 +17,13 @@
     config: {
 
       text: 'Hello, [[(W)o(rl)d]]!',
-      html_templates: {
+      html: {
         start: {
           id: 'start',
           inner: {
             tag: 'button',
-            inner: '%caption%',
-            onclick: '%click%'
+            inner: 'Start',
+            onclick: '%%'
           }
         },
         main: {
@@ -46,28 +46,33 @@
           class: 'keyword',
           inner: '%%'
         },
+        button: {
+          tag: 'button',
+          disabled: '%disabled%',
+          inner: '%caption%',
+          onclick: '%click%'
+        },
         timer: {
           tag: 'span',
           inner: '%%'
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/cloze/resources/default.css' ],
-      placeholder : {
-        start: 'Start',
+      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/cloze/resources/default.css' ],
+      captions: {
         cancel: 'Cancel',
         submit: 'Submit',
         finish: 'Close'
       },
+      feedback: true,
       onfinish: { clear: true, log: true }
 
   //  start_button: true,
   //  cancel_button: true,
-  //  feedback: true,
   //  keywords: [ 'keyword1', 'keyword2', ... ],
   //  blank: true,
   //  time: 60,
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/log_configs.min.js', 'greedy' ] ],
   //  user:   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/log_configs.min.js', 'greedy' ] ],
   //  onstart: function ( instance ) { console.log( 'Fill-in-the-blank text started' ); },
   //  oncancel: function ( instance ) { console.log( 'Fill-in-the-blank text canceled' ); },
   //  onvalidation: function ( instance, data ) { console.log( data ); return true; },
@@ -138,12 +143,8 @@
         if ( self.logger ) self.logger.log( 'render' );
 
         // user must click on a start button before fill-in-the-blank text is starting? => render start button
-        if ( my.start_button ) {
-          self.ccm.helper.setContent( self.element, self.ccm.helper.html( my.html_templates.start, {
-            caption: my.placeholder.start,
-            click: start
-          } ) );
-        }
+        if ( my.start_button )
+          self.ccm.helper.setContent( self.element, self.ccm.helper.html( my.html.start, start ) );
         // no need for a start button? => start fill-in-the-blank text directly
         else start();
 
@@ -162,7 +163,7 @@
           if ( self.logger ) self.logger.log( 'start', my );
 
           // prepare main HTML structure
-          var main_elem = self.ccm.helper.html( my.html_templates.main );
+          var main_elem = self.ccm.helper.html( my.html.main );
 
           // select inner containers (mostly for buttons)
           var   text_elem = main_elem.querySelector( '#text'   );
@@ -182,7 +183,7 @@
           renderTimer();
 
           // set content of own website area
-          self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
+          self.ccm.helper.setContent( self.element, main_elem );
 
           // has individual 'start' callback? => perform it
           if ( self.onstart ) self.onstart( self );
@@ -220,7 +221,7 @@
 
             /** adds a inner container for a keyword */
             function addKeyword( keyword ) {
-              entries.push( self.ccm.helper.html( my.html_templates.keyword, Array.isArray( my.keywords ) ? keyword : keyword.word ) );
+              entries.push( self.ccm.helper.html( my.html.keyword, Array.isArray( my.keywords ) ? keyword : keyword.word ) );
             }
 
           }
@@ -302,25 +303,24 @@
           function updateButtons() {
 
             // render 'cancel' button (if needed)
-            if ( my.cancel_button ) self.ccm.helper.setContent( cancel_elem, self.ccm.helper.html( {
-              tag: 'button',
-              inner: my.placeholder.cancel,
-              onclick: function () { if ( self.oncancel ) self.oncancel( self ); else self.start( callback ); }
+            if ( my.cancel_button ) self.ccm.helper.setContent( cancel_elem, self.ccm.helper.html( my.html.button, {
+              disabled: '',
+              caption: my.captions.cancel,
+              click: function () { if ( self.oncancel ) self.oncancel( self ); else self.start( callback ); }
             } ) );
 
             // render 'submit' button (if needed)
-            if ( my.feedback ) self.ccm.helper.setContent( submit_elem, self.ccm.helper.html( {
-              tag: 'button',
-              disabled: results.details.length > 0,
-              inner: my.placeholder.submit,
-              onclick: evaluate
+            if ( my.feedback ) self.ccm.helper.setContent( submit_elem, self.ccm.helper.html( my.html.button, {
+              disabled: results.details.length > 0 || '',
+              caption: my.captions.submit,
+              click: evaluate
             } ) );
 
             // render 'finish' button
-            self.ccm.helper.setContent( finish_elem, self.ccm.helper.html( {
-              tag: 'button',
-              inner: my.placeholder.finish,
-              onclick: onFinish
+            self.ccm.helper.setContent( finish_elem, self.ccm.helper.html( my.html.button, {
+              disabled: '',
+              caption: my.captions.finish,
+              click: onFinish
             } ) );
 
             /** evaluates the fill-in-the-blank text and shows feedback */
@@ -393,7 +393,7 @@
               if ( !finish_elem ) return;
 
               // (re)render timer value
-              self.ccm.helper.setContent( timer_elem, self.ccm.helper.html( my.html_templates.timer, timer_value ) );
+              self.ccm.helper.setContent( timer_elem, self.ccm.helper.html( my.html.timer, timer_value ) );
 
               // countdown
               if ( timer_value-- )
