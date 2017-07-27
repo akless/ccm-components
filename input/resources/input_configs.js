@@ -1,4 +1,10 @@
-{
+/**
+ * @overview configurations of <i>ccm</i> component for user inputs
+ * @author André Kless <andre.kless@web.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+ccm.files[ "input_configs.min.js" ] = {
   "demo": {
     "form": true,
     "button": true,
@@ -189,7 +195,8 @@
       "week": "2017-W10",
       "time": "08:15",
       "localtime": "2017-03-11T08:15"
-    }
+    },
+    "onfinish": { "log": true }
   },
   "test": {
     "form": true,
@@ -276,6 +283,7 @@
           }
         }
       }
-    }
+    },
+    "onfinish": { "log": true }
   }
-}
+};

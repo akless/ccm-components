@@ -1,13 +1,20 @@
 /**
- * @overview ccm component for user inputs
+ * @overview <i>ccm</i> component for user inputs
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
+ * TODO: fieldset
+ * TODO: logging
+ * TODO: docu comments -> API
+ * TODO: unit tests
+ * TODO: version file/folder
+ * TODO: factory
+ * TODO: multilingualism
  */
 
 ( function () {
 
-  var ccm_version = '8.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-8.0.0.min.js';
+  var ccm_version = '9.0.0';
+  var ccm_url     = 'https://akless.github.io/ccm/ccm.js';
 
   var component_name = 'input';
   var component_obj  = {
@@ -47,7 +54,7 @@
               class: 'label',
               inner: {
                 tag: 'label',
-                for: '%input_id%',
+                for: '%name%',
                 inner: '%label%'
               }
             },
@@ -90,14 +97,14 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', '../input/layouts/default.css' ],
+      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/input/resources/default.css' ],
       inputs: []
 
   //  form: true,
   //  button: true,
   //  initial_data: {},
-  //  user: [ 'ccm.instance', '../user/ccm.user.js' ],
-  //  logger: [ 'ccm.instance', '../log/ccm.log.js', [ 'ccm.get', '../log/configs.json', 'greedy' ] ],
+  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js' ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
   //  oninput: function ( instance, data ) { console.log( data ); },
   //  onchange: function ( instance, results, name ) { console.log( name, results ); },
   //  onfinish: function ( instance, results ) { console.log( results ); }
@@ -143,7 +150,7 @@
           addInput( my.inputs );
 
         // set content for own website area
-        self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
+        self.ccm.helper.setContent( self.element, main_elem );
 
         if ( callback ) callback();
 
@@ -153,16 +160,12 @@
          */
         function addInput( input_data ) {
 
-          // set HTML ID of the input field
-          input_data.id = 'ccm-' + self.index + '-' + input_data.name;
-
           // restore existing value for the input field
           setInputValue();
 
           // prepare container for input field entry
           var entry_elem = self.ccm.helper.html( my.html_templates.entry, {
             name: input_data.name || '',
-            input_id: input_data.id,
             label: input_data.label || input_data.name
           } );
           var input_elem = entry_elem.querySelector( '.input' );
@@ -217,6 +220,7 @@
               default:
                 input_data.value = value;
             }
+
           }
 
           /**
@@ -286,7 +290,7 @@
                   checkbox_data.tag   = input_data.tag;
                   checkbox_data.type  = input_data.type;
                   checkbox_data.name  = ( input_data.name ? input_data.name + '.' : '' ) + checkbox_data.name;
-                  checkbox_data.id    = 'ccm-' + self.index + '-' + checkbox_data.name;
+                  checkbox_data.id    = checkbox_data.name;
 
                   var checkbox_elem = self.ccm.helper.html( my.html_templates.checkbox, checkbox_data.caption || checkbox_data.value );
                   delete checkbox_data.caption;
