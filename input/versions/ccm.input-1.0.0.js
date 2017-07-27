@@ -2,11 +2,12 @@
  * @overview <i>ccm</i> component for user inputs
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version 1.0.0
+ * TODO: fieldset
  * TODO: logging
  * TODO: docu comments -> API
- * TODO: recursive factories
  * TODO: unit tests
+ * TODO: version file/folder
  * TODO: factory
  * TODO: multilingualism
  */
@@ -20,6 +21,7 @@
   var component_obj  = {
 
     name: component_name,
+    version: [ 1, 0, 0 ],
 
     config: {
 
@@ -38,6 +40,13 @@
                 value: '%caption%'
               }
             ]
+          }
+        },
+        fieldset: {         // TODO: fieldset
+          tag: 'fieldset',
+          inner: {
+            tag: 'legend',
+            inner: '%%'
           }
         },
         entry: {
