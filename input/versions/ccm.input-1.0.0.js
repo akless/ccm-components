@@ -3,11 +3,10 @@
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  * @version 1.0.0
- * TODO: fieldset
  * TODO: logging
  * TODO: docu comments -> API
+ * TODO: recursive factories
  * TODO: unit tests
- * TODO: version file/folder
  * TODO: factory
  * TODO: multilingualism
  */
@@ -25,7 +24,7 @@
 
     config: {
 
-      html_templates: {
+      html: {
         main: {
           id: 'main',
           inner: {
@@ -40,13 +39,6 @@
                 value: '%caption%'
               }
             ]
-          }
-        },
-        fieldset: {         // TODO: fieldset
-          tag: 'fieldset',
-          inner: {
-            tag: 'legend',
-            inner: '%%'
           }
         },
         entry: {
@@ -99,7 +91,7 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/input/resources/default.css' ],
+      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/input/resources/default.css' ],
       inputs: []
 
   //  form: true,
@@ -129,7 +121,7 @@
       this.start = function ( callback ) {
 
         // prepare main HTML structure
-        var main_elem = self.ccm.helper.html( my.html_templates.main, {
+        var main_elem = self.ccm.helper.html( my.html.main, {
           caption: my.button,
           submit: onSubmit
         } );
@@ -166,7 +158,7 @@
           setInputValue();
 
           // prepare container for input field entry
-          var entry_elem = self.ccm.helper.html( my.html_templates.entry, {
+          var entry_elem = self.ccm.helper.html( my.html.entry, {
             name: input_data.name || '',
             label: input_data.label || input_data.name
           } );
@@ -275,7 +267,7 @@
 
               function singleCheckbox() {
 
-                var checkbox_elem = self.ccm.helper.html( my.html_templates.checkbox, input_data.caption );
+                var checkbox_elem = self.ccm.helper.html( my.html.checkbox, input_data.caption );
                 if ( !input_data.caption ) checkbox_elem.removeChild( checkbox_elem.querySelector( '.caption' ) );
                 delete input_data.caption;
                 checkbox_elem.querySelector( '.field' ).appendChild( self.ccm.helper.html( input_data ) );
@@ -285,7 +277,7 @@
 
               function manyCheckboxes() {
 
-                var checkboxes_elem = self.ccm.helper.html( my.html_templates.checkboxes );
+                var checkboxes_elem = self.ccm.helper.html( my.html.checkboxes );
 
                 input_data.values.map( function ( checkbox_data ) {
 
@@ -294,7 +286,7 @@
                   checkbox_data.name  = ( input_data.name ? input_data.name + '.' : '' ) + checkbox_data.name;
                   checkbox_data.id    = checkbox_data.name;
 
-                  var checkbox_elem = self.ccm.helper.html( my.html_templates.checkbox, checkbox_data.caption || checkbox_data.value );
+                  var checkbox_elem = self.ccm.helper.html( my.html.checkbox, checkbox_data.caption || checkbox_data.value );
                   delete checkbox_data.caption;
                   checkbox_elem.querySelector( '.field' ).appendChild( self.ccm.helper.html( checkbox_data ) );
                   checkboxes_elem.appendChild( checkbox_elem );
@@ -309,7 +301,7 @@
 
             function radio() {
 
-              var radios_elem = self.ccm.helper.html( my.html_templates.radios );
+              var radios_elem = self.ccm.helper.html( my.html.radios );
 
               input_data.values.map( function ( radio_data, i ) {
 
@@ -318,7 +310,7 @@
                 radio_data.name  = input_data.name;
                 radio_data.id    = input_data.id + '-' + ( 1 + i );
 
-                var radio_elem = self.ccm.helper.html( my.html_templates.radio, radio_data.caption || radio_data.value );
+                var radio_elem = self.ccm.helper.html( my.html.radio, radio_data.caption || radio_data.value );
                 delete radio_data.caption;
                 radio_elem.querySelector( '.field' ).appendChild( self.ccm.helper.html( radio_data ) );
                 radios_elem.appendChild( radio_elem );
@@ -333,7 +325,7 @@
 
               input_data.oninput = function ( event ) { input_elem.querySelector( '.value' ).innerHTML = event.__target.value };
 
-              var range_elem = self.ccm.helper.html( my.html_templates.range, input_data.value || input_data.min || 0 );
+              var range_elem = self.ccm.helper.html( my.html.range, input_data.value || input_data.min || 0 );
               range_elem.querySelector( '.field' ).appendChild( self.ccm.helper.html( input_data ) );
               return range_elem;
 
