@@ -6,6 +6,6 @@
 
 ccm.files[ "user_configs.min.js" ] = {
   "demo": {
-    "css_layout": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ]
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ]
   }
 };

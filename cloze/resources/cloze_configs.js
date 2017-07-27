@@ -6,7 +6,7 @@
 
 ccm.files[ "cloze_configs.min.js" ] = {
   "demo": {
-    "css_layout": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/lea.css" ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/lea.css" ],
     "feedback": true,
     "time": 300,
     "keywords": [ "convenience", "conducting", "objectives", "durable", "competitive", "breakdown", "reasons", "evaluate", "adding", "breakthroughs", "withdraw", "patterns", "non-durable", "deleting", "feasible", "making", "sources", "niche" ],
