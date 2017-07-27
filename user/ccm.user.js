@@ -23,7 +23,7 @@
 
     config: {
 
-      html_templates: {
+      html: {
         logged_in: {
           id: 'logged_in',
           inner: [
@@ -54,7 +54,6 @@
           }
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/user/layouts/default.css' ],
       context: true,
       logged_in: false,
       sign_on: 'guest',
@@ -125,11 +124,11 @@
         if ( my.context ) return my.context.start( callback );
 
         // prepare main HTML structure
-        var main_elem = self.isLoggedIn() ? self.ccm.helper.html( my.html_templates.logged_in, {
+        var main_elem = self.isLoggedIn() ? self.ccm.helper.html( my.html.logged_in, {
           user: self.data().user,
           name: self.data().name,
           click: function () { self.logout( self.start ); }
-        } ) : self.ccm.helper.html( my.html_templates.logged_out, {
+        } ) : self.ccm.helper.html( my.html.logged_out, {
           click: function () { self.login( self.start ); }
         } );
 
@@ -324,8 +323,8 @@
      * @summary possible configuration members
      * @typedef {object} ccm.components.user.types.config
      * @property {ccm.types.element} element - contains own content
-     * @property {Object.<string,ccm.types.html>} html_templates - contains HTML templates
-     * @property {ccm.types.dependency} css_layout - layout CSS file
+     * @property {Object.<string,ccm.types.html>} html - contains HTML templates
+     * @property {ccm.types.dependency} css - layout CSS file
      * @property {boolean} context - context mode: if enabled, all method calls will be delegated to the highest <i>ccm</i> instance for user authentication in the current <i>ccm</i> context
      * @property {boolean} logged_in - if enabled, user will be directly logged in
      * @property {string} sign_on - <table>

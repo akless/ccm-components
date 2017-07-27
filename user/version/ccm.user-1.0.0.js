@@ -3,6 +3,12 @@
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  * @version 1.0.0
+ * TODO: logging
+ * TODO: docu comments
+ * TODO: unit tests
+ * TODO: version file/folder
+ * TODO: factory
+ * TODO: multilingualism
  */
 
 ( function () {
@@ -18,7 +24,7 @@
 
     config: {
 
-      html_templates: {
+      html: {
         logged_in: {
           id: 'logged_in',
           inner: [
@@ -49,7 +55,6 @@
           }
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/user/layouts/default.css' ],
       context: true,
       logged_in: false,
       sign_on: 'guest',
@@ -120,11 +125,11 @@
         if ( my.context ) return my.context.start( callback );
 
         // prepare main HTML structure
-        var main_elem = self.isLoggedIn() ? self.ccm.helper.html( my.html_templates.logged_in, {
+        var main_elem = self.isLoggedIn() ? self.ccm.helper.html( my.html.logged_in, {
           user: self.data().user,
           name: self.data().name,
           click: function () { self.logout( self.start ); }
-        } ) : self.ccm.helper.html( my.html_templates.logged_out, {
+        } ) : self.ccm.helper.html( my.html.logged_out, {
           click: function () { self.login( self.start ); }
         } );
 
@@ -153,7 +158,7 @@
         // choose sign on and proceed login
         switch ( my.sign_on ) {
           case 'guest':
-            success( { key: my.guest.username, name: my.guest.full_name } );
+            success( { user: my.guest.user, name: my.guest.name } );
             break;
           case 'demo':
             self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/demo_login.php', params: { realm: 'hbrsinfkaul' } }, success );
@@ -319,8 +324,8 @@
      * @summary possible configuration members
      * @typedef {object} ccm.components.user.types.config
      * @property {ccm.types.element} element - contains own content
-     * @property {Object.<string,ccm.types.html>} html_templates - contains HTML templates
-     * @property {ccm.types.dependency} css_layout - layout CSS file
+     * @property {Object.<string,ccm.types.html>} html - contains HTML templates
+     * @property {ccm.types.dependency} css - layout CSS file
      * @property {boolean} context - context mode: if enabled, all method calls will be delegated to the highest <i>ccm</i> instance for user authentication in the current <i>ccm</i> context
      * @property {boolean} logged_in - if enabled, user will be directly logged in
      * @property {string} sign_on - <table>
@@ -336,10 +341,10 @@
     /**
      * @summary contains user data
      * @typedef {object} ccm.components.user.types.dataset
-     * @property {string} key - unique user key and username, respectively
+     * @property {string} user - unique user key and username, respectively
      * @property {string} name - full name of user
      * @property {string} token - security token (contains encrypted password)
-     * @example { key: 'john_doe', name: 'John Doe', token: 'd41d8cd98f00b204e9800998ecf8427e' }
+     * @example { user: 'john_doe', name: 'John Doe', token: 'd41d8cd98f00b204e9800998ecf8427e' }
      */
 
     /**

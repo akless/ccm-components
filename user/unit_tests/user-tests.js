@@ -20,7 +20,7 @@ ccm.files[ 'user-tests.js' ] = {
       },
       'publicProperties': function ( suite ) {
         suite.user.instance( function ( instance ) {
-          suite.assertEquals( [ 'start', 'login', 'logout', 'isLoggedIn', 'data', 'getSignOn', 'addObserver', 'ccm', 'id', 'index', 'component', 'element', 'root' ], Object.keys( instance ) );
+          suite.assertEquals( [ 'start', 'login', 'logout', 'isLoggedIn', 'data', 'getSignOn', 'addObserver', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( instance ) );
         } );
       }
     }
@@ -58,7 +58,6 @@ ccm.files[ 'user-tests.js' ] = {
           suite.passed();
         } );
       }
-
     }
   },
   logout: {},
