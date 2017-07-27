@@ -4,9 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * TODO: logging
- * TODO: docu comments
- * TODO: unit tests
- * TODO: version file/folder
+ * TODO: more unit tests
  * TODO: factory
  * TODO: multilingualism
  */
@@ -61,6 +59,8 @@
         user: 'guest',
         name: 'Guest User'
       }
+
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/log_configs.min.js', 'greedy' ] ]
 
     },
 
