@@ -17,12 +17,9 @@
     config: {
       css_file: 'https://akless.github.io/ccm-components/le/layouts/weblysleek.css',
       font: 'https://akless.github.io/ccm-components/libs/weblysleekui/font.css',
-      logo_file: 'https://akless.github.io/akless/we/logo.png',
-      poster_file: 'https://akless.github.io/akless/we/poster.jpg',
-      content: [ 'ccm.component', 'https://akless.github.io/ccm-components/content/ccm.content.min.js' ],
-      topic_prefix: 'Lerneinheit:',
-      link_prefix: 'Link: ',
-      author: 'André Kless'
+      content: [ 'ccm.component', 'https://akless.github.io/ccm-components/content/versions/ccm.content-1.0.0.js' ],
+      topic_prefix: 'Learning Unit:',
+      link_prefix: 'Link: '
     },
 
     Instance: function () {
