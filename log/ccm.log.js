@@ -2,7 +2,6 @@
  * @overview <i>ccm</i> component for data logging
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
- * TODO: version file
  * TODO: docu comments -> API
  * TODO: unit tests
  * TODO: factory

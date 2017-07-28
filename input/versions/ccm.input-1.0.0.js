@@ -3,12 +3,6 @@
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  * @version 1.0.0
- * TODO: logging
- * TODO: docu comments -> API
- * TODO: recursive factories
- * TODO: unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 ( function () {
