@@ -3,6 +3,15 @@
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  * @version 2.0.0
+ * @changes
+ * version 2.0.0 (26.07.2017):
+ * - uses ccm v9.0.0 instead of v8.1.0
+ * - renaming of some instance properties
+ * - add HTML template for a button
+ * - visual feedback as default,
+ * - default value for finish event
+ * - reductions in HTML template for start button
+ * - remove no more needed ccm.helper.protect call
  */
 
 ( function () {
