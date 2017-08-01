@@ -2,7 +2,7 @@
  * @overview <i>ccm</i> component for composed content
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version 2.0.0
  * @changes
  * version 2.0.0 (01.08.2017):
  * - uses ccm v9.0.0 instead of v8.1.0
@@ -15,7 +15,7 @@
 ( function () {
 
   var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/ccm.js';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
 
   var component_name = 'content';
   var component_obj  = {
