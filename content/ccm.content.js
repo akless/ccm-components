@@ -10,6 +10,9 @@
  * - Light DOM can be given as HTML string via 'inner' config property
  * - removed no more needed ccm.helper.protect calls
  * version 1.0.0 (28.07.2017)
+ * TODO: docu comments -> API
+ * TODO: more unit tests
+ * TODO: factory
  */
 
 ( function () {
