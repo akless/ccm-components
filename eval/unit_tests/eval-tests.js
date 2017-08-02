@@ -24,7 +24,7 @@ ccm.files[ 'eval-tests.min.js' ] = {
         suite.assertSame( 'eval', suite.instance.component.name );
       },
       frameworkVersion: function ( suite ) {
-        suite.assertEquals( '8.0.0', suite.instance.ccm.version() );
+        suite.assertEquals( '9.0.0', suite.instance.ccm.version() );
       },
       publicInstanceProperties: function ( suite ) {
         suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( suite.instance ) );
@@ -68,7 +68,7 @@ ccm.files[ 'eval-tests.min.js' ] = {
     tests: {
       loggedInUser: function ( suite ) {
         suite.component.start( {
-          user: [ 'ccm.instance', 'https://github.io/ccm-components/user/versions/ccm.user-1.0.0.js' ],
+          user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.js' ],
           onfinish: function ( instance ) {
             suite.assertTrue( instance.user.isLoggedIn() );
           }
@@ -79,14 +79,14 @@ ccm.files[ 'eval-tests.min.js' ] = {
       },
       logStartEvent: function ( suite ) {
         suite.component.start( {
-          logger: [ 'ccm.instance', 'https://github.io/ccm-components/log/versions/ccm.log-1.0.0.js', { onfinish: function ( instance, results ) {
+          logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.js', { onfinish: function ( instance, results ) {
             suite.assertSame( 'start', results.event );
           } } ]
         } );
       },
       logFinishEvent: function ( suite ) {
         suite.component.start( {
-          logger: [ 'ccm.instance', 'https://github.io/ccm-components/ccm-components/log/versions/ccm.log-1.0.0.js', {
+          logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/ccm-components/log/versions/ccm.log-1.0.0.js', {
             events: { finish: true },
             onfinish: function ( instance, results ) {
               suite.assertSame( 'finish', results.event );
