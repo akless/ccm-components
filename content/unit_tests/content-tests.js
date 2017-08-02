@@ -7,19 +7,19 @@
 ccm.files[ 'content-tests.js' ] = {
   setup: function ( suite, callback ) {
     suite.ccm.component( 'https://akless.github.io/ccm-components/content/ccm.content.js', function ( component ) {
-      suite.comp_obj = component;
+      suite.component = component;
       callback();
     } );
   },
   fundamental: {
     tests: {
       'componentName': function ( suite ) {
-        suite.comp_obj.instance( function ( instance ) {
+        suite.component.instance( function ( instance ) {
           suite.assertSame( 'content', instance.component.name );
         } );
       },
       'publicProperties': function ( suite ) {
-        suite.comp_obj.instance( function ( instance ) {
+        suite.component.instance( function ( instance ) {
           suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( instance ) );
         } );
       }
@@ -29,7 +29,7 @@ ccm.files[ 'content-tests.js' ] = {
     tests: {
       'innerHTMLString': function ( suite ) {
         var inner ='Hello, <b>World</b>!';
-        suite.comp_obj.start( { inner: inner }, function ( instance ) {
+        suite.component.start( { inner: inner }, function ( instance ) {
           suite.assertSame( inner, instance.element.innerHTML );
         } );
       },
@@ -37,7 +37,7 @@ ccm.files[ 'content-tests.js' ] = {
         var script = '<script src="https://akless.github.io/ccm-components/blank/ccm.blank.js"></script>';
         var tag    = '<ccm-blank></ccm-blank>';
         var div    = '<div></div>';
-        suite.comp_obj.start( { inner: script + tag + tag }, function ( instance ) {
+        suite.component.start( { inner: script + tag + tag }, function ( instance ) {
           suite.assertSame( script + div + div, instance.element.innerHTML );
         } );
       }

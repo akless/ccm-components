@@ -4,11 +4,10 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ 'ccm.eval.tests.js' ] = {
+ccm.files[ 'eval-tests.min.js' ] = {
   setup: function ( suite, callback ) {
     suite.container = document.createElement( 'div' );
-    document.body.appendChild( suite.container );
-    suite.ccm.component( './../../ccm-components/eval/ccm.eval.js', { element: suite.container }, function ( component ) {
+    suite.ccm.component( 'https://akless.github.io/ccm-components/eval/ccm.eval.js', function ( component ) {
       suite.component = component;
       callback();
     } );
@@ -28,7 +27,7 @@ ccm.files[ 'ccm.eval.tests.js' ] = {
         suite.assertEquals( '8.0.0', suite.instance.ccm.version() );
       },
       publicInstanceProperties: function ( suite ) {
-        suite.assertEquals( [ 'start', 'ccm', 'element', 'id', 'index', 'component' ], Object.keys( suite.instance ) );
+        suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( suite.instance ) );
       },
       startCallback: function ( suite ) {
         suite.instance.start( suite.passed );
@@ -52,7 +51,7 @@ ccm.files[ 'ccm.eval.tests.js' ] = {
         suite.passed();
       },
       buttonCaption: function ( suite ) {
-        suite.assertEquals( 'Evaluate expression', suite.instance.element.querySelector( 'button' ).innerHTML );
+        suite.assertEquals( 'Evaluate JavaScript expression', suite.instance.element.querySelector( 'button' ).innerHTML );
       },
       onFinish: function ( suite ) {
         suite.instance.onfinish = function ( instance, results ) {
@@ -69,7 +68,7 @@ ccm.files[ 'ccm.eval.tests.js' ] = {
     tests: {
       loggedInUser: function ( suite ) {
         suite.component.start( {
-          user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
+          user: [ 'ccm.instance', 'https://github.io/ccm-components/user/versions/ccm.user-1.0.0.js' ],
           onfinish: function ( instance ) {
             suite.assertTrue( instance.user.isLoggedIn() );
           }
@@ -80,14 +79,14 @@ ccm.files[ 'ccm.eval.tests.js' ] = {
       },
       logStartEvent: function ( suite ) {
         suite.component.start( {
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', { onfinish: function ( instance, results ) {
+          logger: [ 'ccm.instance', 'https://github.io/ccm-components/log/versions/ccm.log-1.0.0.js', { onfinish: function ( instance, results ) {
             suite.assertSame( 'start', results.event );
           } } ]
         } );
       },
       logFinishEvent: function ( suite ) {
         suite.component.start( {
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', 'https://github.io/ccm-components/ccm-components/log/versions/ccm.log-1.0.0.js', {
             events: { finish: true },
             onfinish: function ( instance, results ) {
               suite.assertSame( 'finish', results.event );
@@ -148,11 +147,5 @@ ccm.files[ 'ccm.eval.tests.js' ] = {
         } );
       }
     }
-  },
-  finally: function ( suite, callback ) {
-    document.body.removeChild( suite.container );
-    callback();
   }
 };
-
-ccm.components.testsuite.eval = ccm.files[ 'ccm.eval.tests.js' ];
