@@ -8,7 +8,7 @@ ccm.files[ "eval_configs.min.js" ] = {
   "demo": {
     "expression": "{\n  \"foo\": \"bar\",\n  \"numbers\": [ 1, 2, 3 ],\n  \"i\": 5711,\n  \"valid\": true\n}",
     "json_parse": true,
-    "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/version/ccm.user-1.0.0.min.js" ],
-    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/version/ccm.log-1-0-0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/log_configs.min.js", "greedy" ] ]
+    "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js" ],
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1-0-0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/log_configs.min.js", "greedy" ] ]
   }
 };
