@@ -45,7 +45,7 @@ ccm.files[ 'user-tests.js' ] = {
         suite.user.login( function () {
           suite.passed();
         } );
-      },
+      }/*,
       'hbrsinfkaul': function ( suite ) {
         suite.user = suite.user.instance( { sign_on: 'hbrsinfkaul' } );
         suite.user.login( function () {
@@ -57,7 +57,7 @@ ccm.files[ 'user-tests.js' ] = {
         //suite.user.login( function () {
           suite.passed();
         //} );
-      }
+      }*/
     }
   },
   logout: {},
