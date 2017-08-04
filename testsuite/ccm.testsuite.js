@@ -2,16 +2,13 @@
  * @overview <i>ccm</i> component for running unit tests
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
- *
- * Notes
- * - supports using tests from own global namespace
- * - no finally mechanism yet, only setup and tests
+ * @version latest (1.0.0)
  */
 
 ( function () {
 
   var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
+  var ccm_url     = 'https://akless.github.io/ccm/ccm.js';
 
   var component_name = 'testsuite';
   var component_obj  = {
@@ -20,7 +17,7 @@
 
     config: {
 
-      html_templates: {
+      html: {
         main: {
           id: 'main',
           inner: [
@@ -66,7 +63,7 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/testsuite/layouts/default.css' ],
+      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/testsuite/resources/default.css' ],
       onfinish: function ( instance, result ) { console.log( result ); }
 
   //  tests
@@ -76,17 +73,8 @@
 
     Instance: function () {
 
-      /**
-       * own context
-       * @type {Instance}
-       */
       var self = this;
-
-      /**
-       * privatized instance members
-       * @type {object}
-       */
-      var my;
+      var my;           // contains privatized instance members
 
       /**
        * higher collected setup functions that have to be performed before each test
@@ -100,14 +88,6 @@
        */
       var finallies = [];
 
-      this.init = function ( callback ) {
-
-        // support using tests from own global namespace
-        if ( !self.tests ) self.tests = self.ccm.helper.clone( ccm.components.testsuite );
-
-        callback();
-      };
-
       this.ready = function ( callback ) {
 
         // privatize all possible instance members
@@ -116,7 +96,7 @@
         // no package path? => abort
         if ( !my.package ) return callback();
 
-        // navigate to the relevant test package and collect setup functions along the way
+        // navigate to the relevant test package and collect setup and finally functions along the way
         var array = my.package.split( '.' );
         while ( array.length > 0 ) {
           if ( my.tests.setup ) setups.push( my.tests.setup );            // collect founded setup    function
@@ -139,9 +119,9 @@
 
         // has website area? => render main HTML structure
         if ( self.element ) {
-          var main_elem     = self.ccm.helper.html( my.html_templates.main );
+          var main_elem     = self.ccm.helper.html( my.html.main );
           var packages_elem = main_elem.querySelector( '#packages' );
-          if ( self.element ) self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
+          self.ccm.helper.setContent( self.element, main_elem );
         }
 
         // process relevant test package (including all subpackages)
@@ -200,9 +180,9 @@
 
             // has website area? => render (empty) test package
             if ( self.element ) {
-              var package_elem = self.ccm.helper.html( my.html_templates.package, package_path );
+              var package_elem = self.ccm.helper.html( my.html.package, package_path );
               var table_elem = package_elem.querySelector( '.table' );
-              packages_elem.appendChild( self.ccm.helper.protect( package_elem ) );
+              packages_elem.appendChild( package_elem );
             }
 
             // run first contained test
@@ -221,8 +201,8 @@
                 main_elem.querySelector( '#executed' ).appendChild( self.ccm.helper.loading( self ) );
 
                 // render table row for current test
-                var test_elem = self.ccm.helper.html( my.html_templates.test, tests[ i ].name );
-                table_elem.appendChild( self.ccm.helper.protect( test_elem ) );
+                var test_elem = self.ccm.helper.html( my.html.test, tests[ i ].name );
+                table_elem.appendChild( test_elem ) ;
 
                 // for the moment render loading as result
                 var result_elem = test_elem.querySelector( '.result' );
@@ -330,19 +310,19 @@
               function addResult( result ) {
                 var value = result ? 'passed' : 'failed';
                 if ( result ) results.passed++; else results.failed++;
-                if ( self.element ) self.ccm.helper.setContent( result_elem, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.result, { value: value } ) ) );
+                if ( self.element ) self.ccm.helper.setContent( result_elem, self.ccm.helper.html( my.html.result, { value: value } ) );
                 results.details[ package_path + '.' + tests[ i ].name ] = result;
               }
 
               /** show message as detail information for a failed test */
               function addMessage( message ) {
-                if ( self.element ) test_elem.appendChild( self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.message, message ) ) );
+                if ( self.element ) test_elem.appendChild( self.ccm.helper.html( my.html.message, message ) );
                 results.details[ package_path + '.' + tests[ i ].name ] = message;
               }
 
               /** show expected and actual value as detail information for a failed test */
               function addComparison( expected, actual ) {
-                if ( self.element ) test_elem.appendChild( self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.comparison, expected, actual ) ) );
+                if ( self.element ) test_elem.appendChild( self.ccm.helper.html( my.html.comparison, expected, actual ) );
                 results.details[ package_path + '.' + tests[ i ].name ] = { expected: expected, actual: actual };
               }
 
@@ -356,7 +336,7 @@
                 }
                 runFinallies( runNextTest );  // recursive call
 
-                /** runs all relevant finalize functions (recursive function) */
+                /** runs all relevant finally functions (recursive function) */
                 function runFinallies( callback ) {
                   var i = 0;                           // Remember: Each finalize function could be asynchron
                   runFinally();                        //           and must performed sequentially
