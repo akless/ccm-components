@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ 'eval-tests.min.js' ] = {
+ccm.files[ 'eval-tests.js' ] = {
   setup: function ( suite, callback ) {
     suite.container = document.createElement( 'div' );
     suite.ccm.component( 'https://akless.github.io/ccm-components/eval/ccm.eval.js', function ( component ) {
