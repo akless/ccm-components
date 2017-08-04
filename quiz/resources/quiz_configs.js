@@ -1,4 +1,10 @@
-{
+/**
+ * @overview configurations of ccm component for rendering a quiz
+ * @author André Kless <andre.kless@web.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+ccm.files[ "quiz_configs.min.js" ] = {
   "demo": {
     "feedback": true,
     "navigation": true,
@@ -202,4 +208,4 @@
       }
     ]
   }
-}
+};
