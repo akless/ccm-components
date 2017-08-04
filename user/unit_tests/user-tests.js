@@ -39,13 +39,13 @@ ccm.files[ 'user-tests.js' ] = {
       },
       'individualGuestName': function ( suite ) {
         suite.assertSame( 'John Doe', suite.user.instance( { 'guest.name': 'John Doe' } ).login().data().name );
-      },
+      }/*,
       'demo': function ( suite ) {
         suite.user = suite.user.instance( { sign_on: 'demo' } );
         suite.user.login( function () {
           suite.passed();
         } );
-      }/*,
+      },
       'hbrsinfkaul': function ( suite ) {
         suite.user = suite.user.instance( { sign_on: 'hbrsinfkaul' } );
         suite.user.login( function () {
