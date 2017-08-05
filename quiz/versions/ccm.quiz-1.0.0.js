@@ -798,7 +798,7 @@
               evaluate();
 
               // finalize result data
-              if ( self.user ) results.user = self.user.data().key;
+              if ( self.user ) results.user = self.user.data().user;
 
               // has logger instance? => log 'finish' event
               if ( self.logger ) self.logger.log( 'finish', results );

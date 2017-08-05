@@ -7,8 +7,8 @@
 
 ( function () {
 
-  var ccm_version = '8.1.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-8.1.0.min.js';
+  var ccm_version = '9.0.0';
+  var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
 
   var component_name = 'quiz';
   var component_obj  = {
@@ -17,13 +17,13 @@
 
     config: {
       questions: {},
-      html_templates: {
+      html: {
         start: {
           id: 'start',
           inner: {
             tag: 'button',
-            inner: '%caption%',
-            onclick: '%click%'
+            inner: 'Start',
+            onclick: '%%'
           }
         },
         main: {
@@ -50,7 +50,7 @@
             {
               class: 'title',
               inner: [
-                { inner: '%question%' },
+                { inner: 'Question' },
                 { inner: '%nr%/%count%' },
                 { inner: '%text%' }
               ]
@@ -100,10 +100,8 @@
           inner: '%%'
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/quiz/resources/default.css' ],
+      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/quiz/resources/default.css' ],
       placeholder: {
-        question: 'Question',
-        start: 'Start',
         cancel: 'Cancel',
         prev: 'Previous',
         submit: 'Submit',
@@ -148,25 +146,25 @@
 
       this.init = function ( callback ) {
 
-        // support declarative way for defining a quiz via inner HTML
-        convertInnerHTML();
+        // support declarative way for defining a quiz via HTML
+        evaluateLightDOM();
 
         callback();
 
-        /** converts inner HTML to instance configuration data */
-        function convertInnerHTML() {
+        /** finds Custom Component Elements for generating question data sets */
+        function evaluateLightDOM() {
 
-          // no inner HTML of own ccm Custom Element? => skip
-          if ( !self.node ) return;
+          // no Light DOM? => skip
+          if ( !self.inner ) return;
 
           /**
-           * question data sets (generated out of ccm Custom Element)
+           * question data sets (generated out of Custom Component Elements)
            * @type {object[]}
            */
           var questions = [];
 
-          // iterate over all children of own ccm Custom Element
-          self.ccm.helper.makeIterable( self.node.children ).map( function ( question_tag ) {
+          // iterate over all children of the Light DOM to search for question tags
+          self.ccm.helper.makeIterable( self.inner.children ).map( function ( question_tag ) {
 
             // no question tag? => skip
             if ( question_tag.tagName !== 'CCM-QUIZ-QUESTION' ) return;
@@ -183,8 +181,8 @@
              */
             question.answers = [];
 
-            // iterate over all children of the question tag
-            self.ccm.helper.makeIterable( question.node.children ).map( function ( answer_tag ) {
+            // iterate over all children of the question tag to search for answer tags
+            self.ccm.helper.makeIterable( question.inner.children ).map( function ( answer_tag ) {
 
               // no answer tag? => skip
               if ( answer_tag.tagName !== 'CCM-QUIZ-ANSWER' ) return;
@@ -195,16 +193,16 @@
                */
               var answer = self.ccm.helper.generateConfig( answer_tag );
 
-              // remove no needed properties in answer data
-              delete answer.node;
+              // remove no more needed properties in answer data
+              delete answer.inner;
 
-              // add answer data to question data
+              // add answer data to answer data sets
               question.answers.push( answer );
 
             } );
 
-            // remove no needed properties in question data
-            delete question.node;
+            // remove no more needed properties in question data
+            delete question.inner;
 
             // add question data to question data sets
             questions.push( question );
@@ -240,7 +238,7 @@
             // each question knows her original number and HTML ID
             question.nr = i + 1; question.id = 'question-' + question.nr;
 
-            // consider default values for question data from config
+            // consider default values for question data from instance config
             self.ccm.helper.integrate( self.ccm.helper.filterProperties( my, 'text', 'description', 'answers', 'input', 'attributes', 'swap', 'encode', 'random', 'correct' ), question, true );
 
             // default input type is checkbox
@@ -271,7 +269,7 @@
                 if ( question.correct[ i ] === undefined )
                   question.correct[ i ] = question.input === 'checkbox' ? false : '';
 
-            // iterate over all answers (find data that must be converted to uniform data structure)
+            // iterate over all answers
             question.answers.map( function ( answer, i ) {
 
               // each answer knows her original number, HTML class and HTML ID
@@ -307,12 +305,8 @@
         if ( self.logger ) self.logger.log( 'render' );
 
         // user must click on a start button before quiz is starting? => render start button
-        if ( my.start_button ) {
-          self.ccm.helper.setContent( self.element, self.ccm.helper.protect( self.ccm.helper.html( my.html_templates.start, {
-            caption: my.placeholder.start,
-            click: start
-          } ) ) );
-        }
+        if ( my.start_button ) self.ccm.helper.setContent( self.element, self.ccm.helper.html( my.html.start, start ) );
+
         // no need for a start button? => start quiz directly
         else start();
 
@@ -340,10 +334,10 @@
           var results = { details: [] };
 
           // has logger instance? => log 'start' event
-          if ( self.logger ) self.logger.log( 'start', self.ccm.helper.clone( my ) );
+          if ( self.logger ) self.logger.log( 'start', my );
 
           // prepare main HTML structure
-          var main_elem = self.ccm.helper.html( my.html_templates.main );
+          var main_elem = self.ccm.helper.html( my.html.main );
 
           // select inner containers (mostly for buttons)
           var cancel_elem = main_elem.querySelector( '#cancel' );
@@ -373,7 +367,7 @@
           renderTimer();
 
           // set content of own website area
-          self.ccm.helper.setContent( self.element, self.ccm.helper.protect( main_elem ) );
+          self.ccm.helper.setContent( self.element, main_elem );
 
           // has individual 'start' callback? => perform it
           if ( self.onstart ) self.onstart( self );
@@ -389,8 +383,7 @@
             question.i = i;
 
             // prepare HTML structure of the question
-            question.elem = self.ccm.helper.html( my.html_templates.question, {
-              question:    my.placeholder.question,
+            question.elem = self.ccm.helper.html( my.html.question, {
               id:          question.id,
               nr:          i + 1,
               count:       my.questions.length,
@@ -417,7 +410,7 @@
             function renderAnswer( answer ) {
 
               // prepare HTML structure of the answer
-              answer.elem = self.ccm.helper.html( my.html_templates.answer, {
+              answer.elem = self.ccm.helper.html( my.html.answer, {
                 id: answer.id,
                 class: answer.class,
                 text: answer.encode ? self.ccm.helper.htmlEncode( answer.text ) : answer.text
@@ -503,19 +496,19 @@
             var question = my.questions[ current_question ];
 
             // render 'cancel' button (if needed)
-            if ( my.cancel_button ) self.ccm.helper.setContent( cancel_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+            if ( my.cancel_button ) self.ccm.helper.setContent( cancel_elem, self.ccm.helper.html( {
               tag: 'button',
               inner: my.placeholder.cancel,
               onclick: function () { if ( self.oncancel ) self.oncancel( self ); else self.start( callback ); }
-            } ) ) );
+            } ) );
 
             // render 'prev' button (if needed)
-            if ( my.navigation ) self.ccm.helper.setContent( prev_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+            if ( my.navigation ) self.ccm.helper.setContent( prev_elem, self.ccm.helper.html( {
               tag: 'button',
               disabled: question.i === 0,
               inner: my.placeholder.prev,
               onclick: previousQuestion
-            } ) ) );
+            } ) );
 
             // render 'next' button
             self.ccm.helper.setContent( next_elem, self.ccm.helper.protect( self.ccm.helper.html( {
@@ -526,20 +519,20 @@
             } ) ) );
 
             // render 'submit' button (if needed)
-            if ( my.feedback ) self.ccm.helper.setContent( submit_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+            if ( my.feedback ) self.ccm.helper.setContent( submit_elem, self.ccm.helper.html( {
               tag: 'button',
               disabled: evaluated[ question.nr ],
               inner: my.placeholder.submit,
               onclick: function () { evaluate( question ); }
-            } ) ) );
+            } ) );
 
             // render 'finish' button
-            self.ccm.helper.setContent( finish_elem, self.ccm.helper.protect( self.ccm.helper.html( {
+            self.ccm.helper.setContent( finish_elem, self.ccm.helper.html( {
               tag: 'button',
               disabled: !my.anytime_finish && ( question.i !== my.questions.length - 1 || my.feedback && !evaluated[ question.nr ] ),
               inner: my.placeholder.finish,
               onclick: onFinish
-            } ) ) );
+            } ) );
 
             /** switch to previous question */
             function previousQuestion() {
@@ -737,7 +730,7 @@
                 question.answers.map( function ( answer ) {
 
                   // answer has a comment? => render it
-                  if ( answer.comment ) self.ccm.helper.setContent( answer.elem.querySelector( '.comment' ), self.ccm.helper.html( my.html_templates.comment, answer.encode ? self.ccm.helper.htmlEncode( answer.comment ) : answer.comment ) );
+                  if ( answer.comment ) self.ccm.helper.setContent( answer.elem.querySelector( '.comment' ), self.ccm.helper.html( my.html.comment, answer.encode ? self.ccm.helper.htmlEncode( answer.comment ) : answer.comment ) );
 
                 } );
 
@@ -769,7 +762,7 @@
               if ( !finish_elem ) return;
 
               // (re)render timer value
-              self.ccm.helper.setContent( timer_elem, self.ccm.helper.html( my.html_templates.timer, timer_value ) );
+              self.ccm.helper.setContent( timer_elem, self.ccm.helper.html( my.html.timer, timer_value ) );
 
               // countdown
               if ( timer_value-- )
@@ -797,7 +790,7 @@
               evaluate();
 
               // finalize result data
-              if ( self.user ) results.user = self.user.data().key;
+              if ( self.user ) results.user = self.user.data().user;
 
               // has logger instance? => log 'finish' event
               if ( self.logger ) self.logger.log( 'finish', results );
