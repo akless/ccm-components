@@ -2,7 +2,7 @@
  * @overview <i>ccm</i> component for rendering a quiz
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version 2.0.0
  * @changes
  * version 2.0.0 (05.08.2017):
  * - uses ccm v9.0.0 instead of v8.1.0
@@ -16,12 +16,13 @@
 ( function () {
 
   var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
 
   var component_name = 'quiz';
   var component_obj  = {
 
     name: component_name,
+    version: [ 2, 0, 0 ],
 
     config: {
       questions: {},
@@ -133,8 +134,8 @@
   //  attributes: {},
   //  encode: true,
   //  swap: true,
-  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ],
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
+  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js' ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
   //  onstart: function ( instance ) { console.log( 'Quiz started' ); },
   //  oncancel: function ( instance ) { console.log( 'Quiz canceled' ); },
   //  onprev: function ( instance, data ) { console.log( data ); },
