@@ -8,13 +8,13 @@ ccm.files[ "quiz_configs.min.js" ] = {
   "demo": {
     "feedback": true,
     "navigation": true,
-    "user": [ "ccm.instance", "./../../ccm-components/user/ccm.user.js" ],
-    "logger": [ "ccm.instance", "./../../ccm-components/log/ccm.log.js", [ "ccm.get", "./../../ccm-components/log/configs.json", "greedy" ] ],
+    "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js" ],
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/log_configs.min.js", "greedy" ] ],
     "onfinish": {
       "log": true,
       "render": {
         "component": "quiz",
-        "config": [ "ccm.get", "./../../ccm-components/quiz/configs.json", "demo2" ]
+        "config": [ "ccm.get", "https://akless.github.io/ccm-components/quiz/resources/quiz_configs.min.js", "demo2" ]
       }
     },
     "placeholder": {
