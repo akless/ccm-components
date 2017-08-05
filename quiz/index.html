@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="./../../ccm-components/quiz/ccm.quiz.js"></script>
-<style>body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }</style>
+<meta name="author" content="André Kless <andre.kless@web.de> 2017">
+<meta name="license" content="The MIT License (MIT)">
 
+<script src="https://akless.github.io/ccm-components/quiz/ccm.quiz.js"></script>
+
+<ccm-quiz key='["ccm.get","https://akless.github.io/ccm-components/quiz/resources/quiz_configs.min.js","demo"]'></ccm-quiz>
+
+<!--
 <h2>Was genau ist über die Quiz-Komponente realisierbar?</h2>
 <p>Der folgende Demo-Quiz gibt einen Einblick, was mit der Quiz-Komponente machbar ist.</p>
 <fieldset>
   <legend>Demo-Quiz</legend>
-  <!-- Demo Quiz via embed code -->
-  <ccm-quiz key='["ccm.get","./../../ccm-components/quiz/configs.json","demo"]'></ccm-quiz>
+<ccm-quiz key='["ccm.get","./../../ccm-components/quiz/configs.json","demo"]'></ccm-quiz>
 </fieldset>
 
 <h2>Deklarative Erstellung eines Quiz</h2>
 <p>Der Demo-Quiz wurde per HTML-Einbettungscode in die Webseite eingefügt. Der folgende Quiz dagegen ist rein deklarativ über HTML-Tags und Attribute definiert (siehe Quelltext dieser Webseite) und gibt einen Einblick in deren Bedeutung.</p>
 <fieldset>
   <legend>Deklarativ definierter Quiz</legend>
-  <!-- Demo Quiz via declarative way -->
   <ccm-quiz feedback="true" shuffle="false" start_button="true" anytime_finish="false" time="100">
     <ccm-quiz-question text="Welche HTML-Tags wurden zur Erstellung dieses Quiz verwendet?" encode="true">
       <ccm-quiz-answer text="<ccm-quiz>" correct="true" comment="Dient zum Definieren eines neuen Quiz."></ccm-quiz-answer>
@@ -48,7 +51,6 @@
 <p>Im Folgenden wird der selbe Quiz mittels reinem JavaScript definiert (siehe Quelltext der Webseite).</p>
 <fieldset>
   <legend>Per JavaScript definierter Quiz</legend>
-  <!-- Demo Quiz via pure JavaScript -->
   <div id="quiz"></div>
   <script src="./../../ccm-developer/ccm/ccm.js"></script>
   <script>
@@ -152,3 +154,4 @@
     } );
   </script>
 </fieldset>
+-->
