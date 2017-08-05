@@ -1,14 +1,12 @@
 /**
- * @overview tests for ccm component for rendering a quiz
+ * @overview unit tests of ccm component for rendering a quiz
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
 
-ccm.files[ 'ccm.quiz.tests.js' ] = {
+ccm.files[ 'quiz-tests.js' ] = {
   setup: function ( suite, callback ) {
-    suite.container = document.createElement( 'div' );
-    document.body.appendChild( suite.container );
-    suite.ccm.component( './../../ccm-components/quiz/ccm.quiz.js', { element: suite.container }, function ( component ) {
+    suite.ccm.component( 'https://akless.github.io/ccm-components/quiz/ccm.quiz.js', function ( component ) {
       suite.component = component;
       callback();
     } );
@@ -25,10 +23,10 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         suite.assertSame( 'quiz', suite.instance.component.name );
       },
       frameworkVersion: function ( suite ) {
-        suite.assertEquals( '8.0.0', suite.instance.ccm.version() );
+        suite.assertEquals( '9.0.0', suite.instance.ccm.version() );
       },
       publicProperties: function ( suite ) {
-        suite.assertEquals( [ 'start', 'ccm', 'element', 'id', 'index', 'component' ], Object.keys( suite.instance ) );
+        suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( suite.instance ) );
       },
       startCallback: function ( suite ) {
         suite.instance.start( suite.passed );
@@ -40,11 +38,15 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
     }
   },
   uniform_data_structure: {
+    setup: function ( suite, callback ) {
+      suite.logger_url = 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js';
+      callback();
+    },
     tests: {
       singleQuestion: function ( suite ) {
         suite.component.start( {
           questions: {},
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', suite.logger_url, {
             events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
@@ -57,7 +59,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         suite.component.start( {
           text: true, description: true, answers: true, input: true, attributes: true, swap: true, encode: true, random: true, correct: true,
           questions: {},
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', suite.logger_url, {
             events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
@@ -94,7 +96,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       defaultInput: function ( suite ) {
         suite.component.start( {
           questions: {},
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', suite.logger_url, {
             events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
@@ -106,7 +108,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       singleAnswer: function ( suite ) {
         suite.component.start( {
           questions: { answers: {} },
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', suite.logger_url, {
             events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
@@ -118,7 +120,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       stringAnswers: function ( suite ) {
         suite.component.start( {
           questions: { answers: [ 'foo', {}, 'bar' ] },
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', suite.logger_url, {
             events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
@@ -130,7 +132,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       singleCorrectNumber: function ( suite ) {
         suite.component.start( {
           questions: { answers: [ '', '', '' ], correct: 1 },
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', suite.logger_url, {
             events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
@@ -142,7 +144,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
       fillUpValue: function ( suite ) {
         suite.component.start( {
           questions: { input: 'number', answers: [ '', '', '' ], correct: 5711 },
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', suite.logger_url, {
             events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
@@ -158,7 +160,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
             attributes: true, swap: true, encode: true,
             answers: ''
           },
-          logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+          logger: [ 'ccm.instance', suite.logger_url, {
             events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
@@ -181,10 +183,14 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
   },
   config: {
     logger: {
+      setup: function ( suite, callback ) {
+        suite.logger_url = 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js';
+        callback();
+      },
       tests: {
         start: function ( suite ) {
           suite.component.start( {
-            logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logger: [ 'ccm.instance', suite.logger_url, {
               events: { start: true },
               logging: { data: true },
               onfinish: function ( instance, results ) {
@@ -197,7 +203,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         finish: function ( suite ) {
           suite.component.start( {
             anytime_finish: true,
-            logger: [ 'ccm.instance', './../../ccm-components/log/ccm.log.js', {
+            logger: [ 'ccm.instance', suite.logger_url, {
               events: { finish: true },
               onfinish: function ( instance, results ) {
                 suite.assertSame( 'finish', results.event );
@@ -209,7 +215,7 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         }
       }
     },
-    html_templates: {
+    html: {
       setup: function ( suite, callback ) {
         suite.component.start( { questions: [ {}, {} ] }, function ( instance ) {
           suite.instance = instance;
@@ -290,11 +296,5 @@ ccm.files[ 'ccm.quiz.tests.js' ] = {
         } );
       }
     }
-  },
-  finally: function ( suite, callback ) {
-    document.body.removeChild( suite.container );
-    callback();
   }
 };
-
-ccm.components.testsuite.quiz = ccm.files[ 'ccm.quiz.tests.js' ];
