@@ -30,10 +30,6 @@ ccm.files[ 'quiz-tests.js' ] = {
       },
       startCallback: function ( suite ) {
         suite.instance.start( suite.passed );
-      },
-      componentTag: function ( suite ) {
-        suite.container.innerHTML = '<ccm-quiz></ccm-quiz>';
-        suite.passed();
       }
     }
   },

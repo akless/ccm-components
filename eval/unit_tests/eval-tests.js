@@ -6,7 +6,6 @@
 
 ccm.files[ 'eval-tests.js' ] = {
   setup: function ( suite, callback ) {
-    suite.container = document.createElement( 'div' );
     suite.ccm.component( 'https://akless.github.io/ccm-components/eval/ccm.eval.js', function ( component ) {
       suite.component = component;
       callback();
@@ -31,10 +30,6 @@ ccm.files[ 'eval-tests.js' ] = {
       },
       startCallback: function ( suite ) {
         suite.instance.start( suite.passed );
-      },
-      componentTag: function ( suite ) {
-        suite.container.innerHTML = '<ccm-eval></ccm-eval>';
-        suite.passed();
       }
     }
   },
