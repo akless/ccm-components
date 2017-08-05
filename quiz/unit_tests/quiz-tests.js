@@ -286,7 +286,6 @@ ccm.files[ 'quiz-tests.js' ] = {
         },
         prev: function ( suite ) {
           suite.component.start( { questions: [ {}, {} ], navigation: true }, function ( instance ) {
-            console.log( instance.element.querySelector( '#prev button' ) );
             suite.assertSame( 'Previous', instance.element.querySelector( '#prev button' ).innerHTML );
           } );
         }
