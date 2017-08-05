@@ -11,6 +11,9 @@
  * - remove no more needed ccm.helper.protect calls
  * - remove no more needed ccm.helper.clone call
  * version 1.0.0 (04.08.2017)
+ * TODO: docu comments -> API
+ * TODO: factory
+ * TODO: multilingualism
  */
 
 ( function () {
