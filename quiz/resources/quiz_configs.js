@@ -9,7 +9,7 @@ ccm.files[ "quiz_configs.min.js" ] = {
     "feedback": true,
     "navigation": true,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js" ],
-    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/log_configs.min.js", "greedy" ] ],
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/log_configs.min.js", "greedy" ] ],
     "onfinish": {
       "log": true,
       "render": {
