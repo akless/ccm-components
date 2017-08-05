@@ -19,7 +19,7 @@ ccm.files[ 'user-tests.js' ] = {
         } );
       },
       publicProperties: function ( suite ) {
-        suite.user.instance( function ( instance ) {
+        suite.component.instance( function ( instance ) {
           suite.assertEquals( [ 'start', 'login', 'logout', 'isLoggedIn', 'data', 'getSignOn', 'addObserver', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( instance ) );
         } );
       }
@@ -41,22 +41,20 @@ ccm.files[ 'user-tests.js' ] = {
         suite.assertSame( 'John Doe', suite.component.instance( { 'guest.name': 'John Doe' } ).login().data().name );
       }/*,
       demo: function ( suite ) {
-        suite.component = suite.component.instance( { sign_on: 'demo' } );
-        suite.component.login( function () {
+        suite.component.instance( { sign_on: 'demo' } ).login( function () {
           suite.passed();
         } );
       },
       hbrsinfkaul: function ( suite ) {
-        suite.component = suite.component.instance( { sign_on: 'hbrsinfkaul' } );
-        suite.user.login( function () {
+        suite.component.instance( { sign_on: 'hbrsinfkaul' } ).login( function () {
           suite.passed();
         } );
       },
       vcrp: function ( suite ) {
-        suite.component = suite.component.instance( { sign_on: 'VCRP_OpenOLAT' } );
-        //suite.component.login( function () {
+        return suite.failed();
+        suite.component.instance( { sign_on: 'VCRP_OpenOLAT' } ).login( function () {
           suite.passed();
-        //} );
+        } );
       }*/
     }
   },
