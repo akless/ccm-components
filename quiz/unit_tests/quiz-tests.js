@@ -120,7 +120,7 @@ ccm.files[ 'quiz-tests.js' ] = {
             events: { start: true },
             logging: { data: true },
             onfinish: function ( instance, results ) {
-              suite.assertEquals( [ { text: 'foo' }, {}, { text: 'bar' } ], results.data.questions[ 0 ].answers );
+              suite.assertEquals( [ { text: 'foo', nr: 1, class: 'answer-1', id: 'question-1-answer-1' }, { nr: 2, class: 'answer-2', id: 'question-1-answer-2' }, { text: 'bar', nr: 3, class: 'answer-3', id: 'question-1-answer-3' } ], results.data.questions[ 0 ].answers );
             }
           } ]
         } );
@@ -178,6 +178,47 @@ ccm.files[ 'quiz-tests.js' ] = {
     }
   },
   config: {
+    tests: {
+      oneQuestion: function ( suite ) {
+        suite.component.start( function ( instance ) {
+          var buttons = instance.element.querySelectorAll( 'button' );
+          if ( buttons.length !== 1 ) return suite.failed( 'not one button' );
+          suite.assertSame( 'Finish', buttons[ 0 ].innerHTML );
+        } );
+      },
+      shuffle: function ( suite ) {
+        suite.component.instance( {
+          questions: [ { text: 'foo' }, { text: 'bar' }, { text: 'baz' } ],
+          shuffle: true
+        }, function ( instance ) {
+          var i = 0;
+          start();
+          function start() {
+            i++;
+            instance.start( function () {
+              if ( instance.element.querySelectorAll( '.title' )[ 0 ].children[ 2 ].innerHTML !== 'foo' )
+                return suite.passed();
+              else if ( i < 10 )
+                start();
+              else
+                return suite.failed( 'same order' );
+            } );
+          }
+        } );
+      },
+      loggedInUser: function ( suite ) {
+        suite.component.start( {
+          anytime_finish: true,
+          user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.js' ],
+          onfinish: function ( instance ) {
+            suite.assertTrue( instance.user.isLoggedIn() );
+          }
+        }, function ( instance ) {
+          if ( instance.user.isLoggedIn() ) suite.failed( 'user is already logged in' );
+          instance.element.querySelector( 'button' ).click();
+        } );
+      }
+    },
     logger: {
       setup: function ( suite, callback ) {
         suite.logger_url = 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js';
@@ -191,7 +232,7 @@ ccm.files[ 'quiz-tests.js' ] = {
               logging: { data: true },
               onfinish: function ( instance, results ) {
                 if ( results.event !== 'start' ) return suite.failed( 'wrong event' );
-                suite.assertEquals( [ 'questions', 'html_templates', 'css_layout', 'placeholder' ], Object.keys( results.data ) );
+                suite.assertEquals( [ 'questions', 'html', 'css', 'placeholder' ], Object.keys( results.data ) );
               }
             } ]
           } );
@@ -249,47 +290,6 @@ ccm.files[ 'quiz-tests.js' ] = {
             suite.assertSame( 'Previous', instance.element.querySelector( '#prev button' ).innerHTML );
           } );
         }
-      }
-    },
-    tests: {
-      oneQuestion: function ( suite ) {
-        suite.component.start( function ( instance ) {
-          var buttons = instance.element.querySelectorAll( 'button' );
-          if ( buttons.length !== 1 ) return suite.failed( 'not one button' );
-          suite.assertSame( 'Finish', buttons[ 0 ].innerHTML );
-        } );
-      },
-      shuffle: function ( suite ) {
-        suite.component.instance( {
-          questions: [ { text: 'foo' }, { text: 'bar' }, { text: 'baz' } ],
-          shuffle: true
-        }, function ( instance ) {
-          var i = 0;
-          start();
-          function start() {
-            i++;
-            instance.start( function () {
-              if ( instance.element.querySelectorAll( '.title' )[ 0 ].children[ 2 ].innerHTML !== 'foo' )
-                return suite.passed();
-              else if ( i < 10 )
-                start();
-              else
-                return suite.failed( 'same order' );
-            } );
-          }
-        } );
-      },
-      loggedInUser: function ( suite ) {
-        suite.component.start( {
-          anytime_finish: true,
-          user: [ 'ccm.instance', './../../ccm-components/user/ccm.user.js' ],
-          onfinish: function ( instance ) {
-            suite.assertTrue( instance.user.isLoggedIn() );
-          }
-        }, function ( instance ) {
-          if ( instance.user.isLoggedIn() ) suite.failed( 'user is already logged in' );
-          instance.element.querySelector( 'button' ).click();
-        } );
       }
     }
   }
