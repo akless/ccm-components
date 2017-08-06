@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<title>Demo of <i>ccm</i> Components</title>
-<h2>Demo of my <i>ccm</i> Components</h2>
-<ul>
-  <li><a href="blank">blank template for a <i>ccm</i> component</a>
-  <li><a href="blank_blank">example <i>ccm</i> component for the reuse of two <i>ccm</i> instances</a>
-  <li><a href="cloze"><i>ccm</i> component for rendering a fill-in-the-blank text</a>
-  <li><a href="eval"><i>ccm</i> component for interpreting JavaScript expressions</a>
-  <li><a href="input"><i>ccm</i> component for user inputs</a>
-  <li><a href="multi_blank">example <i>ccm</i> component for the reuse of an unknown amount of <i>ccm</i> instances</a>
-  <li><a href="quiz"><i>ccm</i> component for rendering a quiz</a>
-  <li><a href="testsuite"><i>ccm</i> component for running unit tests</a>
-  <li><a href="user"><i>ccm</i> component for user authentication</a>
-</ul>
+<title>ccm Components by André Kless</title>
+<h2><i>ccm</i> Components by André Kless</h2>
+<table border="1"><tr><th>Component</th><th>Description</th><th>Demo</th></tr></table>
+<script>
+  add( 'blank', 'blank template for a <i>ccm</i> component' );
+  add( 'blank_blank', 'example <i>ccm</i> component for the reuse of two <i>ccm</i> instances' );
+  add( 'cloze', '<i>ccm</i> component for rendering a fill-in-the-blank text' );
+  add( 'content', '<i>ccm</i> component for composed content', true );
+  add( 'eval', '<i>ccm</i> component for interpreting JavaScript expressions' );
+  add( 'input', '<i>ccm</i> component for user inputs' );
+  add( 'log', '<i>ccm</i> component for data logging', true );
+  add( 'multi_blank', 'example <i>ccm</i> component for the reuse of an unknown amount of <i>ccm</i> instances' );
+  add( 'quiz', '<i>ccm</i> component for rendering a quiz' );
+  add( 'testsuite', '<i>ccm</i> component for running unit tests' );
+  add( 'user', '<i>ccm</i> component for user authentication' );
+  function add( name, description, no_demo ) {
+    document.body.querySelector( 'table' ).innerHTML += '<tr><td>ccm.' + name + '.js</td><td>' + description + '</td><td>' + ( no_demo ? '-' : '<a href="' + name + '">Link</a>' ) + '</td></tr>';
+  }
+</script>
