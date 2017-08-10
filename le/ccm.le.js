@@ -43,7 +43,7 @@
         replacements( self.inner );
 
         // remove no more needed config properties
-        delete self.innerHTML; delete self.topic; delete self.video_poster; delete self.link_prefix;
+        delete self.video_poster; delete self.link_prefix;
 
         callback();
 
@@ -113,7 +113,7 @@
         if ( my.logo ) header.innerHTML += '<img src="' + my.logo + '">';
         if ( my.topic ) header.innerHTML += '<h1>' + ( my.topic_prefix ? '<span class="prefix">' + my.topic_prefix + '</span><br>' : '' ) + '<span class="topic">' + my.topic + '</span></h1>';
         if ( header.innerHTML ) self.ccm.helper.prepend( my.inner, header );
-        delete my.logo; delete my.topic_prefix; delete my.topic;
+        delete self.topic; delete my.logo; delete my.topic_prefix; delete my.topic;
 
         // add footer
         if ( my.author ) {
@@ -126,9 +126,14 @@
           delete my.author; delete my.english_licence;
         }
 
+        var main_elem = document.createElement( 'div' );
+        main_elem.id = 'main';
+        main_elem.innerHTML =  my.inner.innerHTML;
+        self.ccm.helper.setContent( my.inner, main_elem );
+
         // hand over inner HTML of own Custom Element to an new content instance
         my.content.instance( {
-          element: self.element,
+          root: self.element,
           inner: my.inner
         }, function ( instance ) {
           my.content = instance;
