@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-.ccm-content {
+.ccm-content, #element {
 	display: flex;
 	justify-content: center;
 	background-color: #00709B;
