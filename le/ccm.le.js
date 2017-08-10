@@ -2,13 +2,13 @@
  * @overview <i>ccm</i> component for rendering a learning unit
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version latest (2.0.0b)
  */
 
 ( function () {
 
-  var ccm_version = '8.1.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-8.1.0.min.js';
+  var ccm_version = '9.0.0';
+  var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
 
   var component_name = 'le';
   var component_obj  = {
@@ -16,11 +16,14 @@
     name: component_name,
 
     config: {
-      css_file: 'https://akless.github.io/ccm-components/le/resources/weblysleek.css',
-      font: 'https://akless.github.io/ccm-components/libs/weblysleekui/font.css',
-      content: [ 'ccm.component', 'https://akless.github.io/ccm-components/content/versions/ccm.content-1.0.0.min.js' ],
-      topic_prefix: 'Learning Unit:',
-      link_prefix: 'Link: '
+      content: [ 'ccm.component', 'https://akless.github.io/ccm-components/content/versions/ccm.content-2.0.0.min.js' ]
+
+  //  logo: 'https://akless.github.io/akless/we/logo.png',
+  //  topic_prefix: 'Learning Unit:',
+  //  topic: 'Title of Learning Unit'
+  //  video_poster: 'https://akless.github.io/akless/we/poster.jpg',
+  //  link_prefix: 'Link:'
+
     },
 
     Instance: function () {
@@ -30,24 +33,21 @@
 
       this.init = function ( callback ) {
 
-        // show loading icon until rendering is finished
-        self.ccm.helper.hide( self );
+        // no Light DOM? => use empty fragment
+        if ( !self.inner ) self.inner = document.createDocumentFragment();
 
-        // no container for inner HTML of own ccm Custom Element? => use empty container
-        if ( !self.node ) self.node = document.createElement( 'div' );
+        // Light DOM is given as HTML string? => use fragment with HTML string as innerHTML
+        if ( typeof self.inner === 'string' ) self.inner = document.createRange().createContextualFragment( self.inner );
 
-        // inner HTML of own ccm Custom Element is given via 'innerHTML' config property? => use it with higher priority
-        if ( self.innerHTML ) self.node.innerHTML = self.innerHTML;
-
-        // do some replacements in inner HTML of own Custom Element
-        recursive( self.node );
+        // do some replacements in inner HTML of own Custom Element (recursive)
+        replacements( self.inner );
 
         // remove no more needed config properties
-        delete self.innerHTML; delete self.poster_file; delete self.link_prefix;
+        delete self.innerHTML; delete self.topic; delete self.video_poster; delete self.link_prefix;
 
         callback();
 
-        function recursive( node ) {
+        function replacements( node ) {
 
           self.ccm.helper.makeIterable( node.children ).map( function ( child ) {
 
@@ -57,6 +57,7 @@
 
               case 'CCM-LE-TOPIC':
                 var topic = document.createElement( 'span' );
+                topic.classList.add( 'topic' );
                 topic.innerHTML = self.topic;
                 node.replaceChild( topic, child );
                 break;
@@ -69,7 +70,7 @@
 
               case 'CCM-LE-VIDEO':
                 figure = document.createElement( 'figure' );
-                figure.innerHTML = '<video controls poster="' + self.poster_file + '"><source src="' + child.getAttribute( 'src' ) + '" type="video/mp4">';
+                figure.innerHTML = '<video controls poster="' + self.video_poster + '"><source src="' + child.getAttribute( 'src' ) + '" type="video/mp4">';
                 node.replaceChild( figure, child );
                 break;
 
@@ -87,12 +88,12 @@
               case 'CCM-LE-LINK':
                 var p = document.createElement( 'p' );
                 var href = child.getAttribute( 'href' );
-                p.innerHTML = self.link_prefix + '<a target="_blank" href="' + href + '">' + ( child.innerHTML ? child.innerHTML : href ) + '</a>';
+                p.innerHTML = self.link_prefix + ' <a target="_blank" href="' + href + '">' + ( child.innerHTML ? child.innerHTML : href ) + '</a>';
                 node.replaceChild( p, child );
                 break;
 
               default:
-                recursive( child );
+                replacements( child );
 
             }
 
@@ -109,10 +110,10 @@
 
         // add header
         var header = document.createElement( 'header' );
-        if ( my.logo_file ) header.innerHTML += '<img src="' + my.logo_file + '">';
+        if ( my.logo ) header.innerHTML += '<img src="' + my.logo + '">';
         if ( my.topic ) header.innerHTML += '<h1>' + ( my.topic_prefix ? '<span class="prefix">' + my.topic_prefix + '</span><br>' : '' ) + '<span class="topic">' + my.topic + '</span></h1>';
-        if ( header.innerHTML ) my.node.insertBefore( header, my.node.firstChild );
-        delete my.logo_file; delete my.topic_prefix; delete my.topic;
+        if ( header.innerHTML ) self.ccm.helper.prepend( my.inner, header );
+        delete my.logo; delete my.topic_prefix; delete my.topic;
 
         // add footer
         if ( my.author ) {
@@ -121,18 +122,16 @@
             footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>To the extent possible under law, <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> has waived all copyright and related or neighboring rights to this work.</p>';
           else
             footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>Soweit unter den gesetzlichen Voraussetzungen möglich hat <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> sämtliche Urheber- und Verwertungsrechte für dieses Werk abgetreten.</p>';
-          my.node.appendChild( footer );
-          delete my.author;
+          my.inner.appendChild( footer );
+          delete my.author; delete my.english_licence;
         }
 
         // hand over inner HTML of own Custom Element to an new content instance
         my.content.instance( {
-          css_layout: my.css_file ? [ 'ccm.load', my.css_file ] : undefined,
           element: self.element,
-          node: my.node
+          inner: my.inner
         }, function ( instance ) {
           my.content = instance;
-          delete my.css_file;
           callback();
         } );
 
@@ -141,13 +140,7 @@
       this.start = function ( callback ) {
 
         // render content
-        my.content.start( function () {
-
-          // replace loading icon with hidden rendered content
-          self.ccm.helper.show( self );
-
-          if ( callback ) callback();
-        } );
+        my.content.start( callback );
 
       };
 
