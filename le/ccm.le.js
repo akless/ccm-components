@@ -3,6 +3,18 @@
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  * @version latest (2.0.0)
+ * @changes
+ * version 2.0.0 (11.08.2017):
+ * - uses ccm v9.0.0 instead of v8.1.0
+ * - changes instance configuration
+ * - changes in HTML templates
+ * - changes in kind of reusing ccm.content.js
+ * - hide and show mechanism removed
+ * - no deletion of no more needed properties
+ * - use fragment instead of empty container as default Light DOM
+ * - Light DOM can be given as HTML string via 'inner' config property
+ * - removed no more needed ccm.helper.protect calls
+ * version 1.0.0 (10.08.2017)
  */
 
 ( function () {
