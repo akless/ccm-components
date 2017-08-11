@@ -2,7 +2,7 @@
  * @overview <i>ccm</i> component for rendering a learning unit
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
- * @version latest (2.0.0b)
+ * @version latest (2.0.0)
  */
 
 ( function () {
@@ -16,6 +16,47 @@
     name: component_name,
 
     config: {
+      html: {
+        wrapper: {
+          id: 'wrapper',
+          inner: [
+            {
+              tag: 'header',
+              inner: [
+                {
+                  id: 'logo',
+                  inner: {
+                    tag: 'img',
+                    src: '%logo%'
+                  }
+                },
+                {
+                  id: 'trailer',
+                  inner: {
+                    tag: 'h1',
+                    inner: [
+                      {
+                        tag: 'span',
+                        id: 'prefix',
+                        inner: '%prefix%'
+                      },
+                      { tag: 'br' },
+                      {
+                        tag: 'span',
+                        id: 'topic',
+                        inner: '%topic%'
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            { tag: 'main' },
+            { tag: 'footer' }
+          ]
+        }
+      },
+      target: '_blank',
       content: [ 'ccm.component', 'https://akless.github.io/ccm-components/content/versions/ccm.content-2.0.0.min.js' ]
 
   //  logo: 'https://akless.github.io/akless/we/logo.png',
@@ -41,9 +82,6 @@
 
         // do some replacements in inner HTML of own Custom Element (recursive)
         replacements( self.inner );
-
-        // remove no more needed config properties
-        delete self.video_poster; delete self.link_prefix;
 
         callback();
 
@@ -81,14 +119,14 @@
                 break;
 
               case 'A':
-                child.setAttribute( 'target', '_blank' );
+                child.setAttribute( 'target', self.target );
                 if ( !child.innerHTML ) child.innerHTML = child.getAttribute( 'href' );
                 break;
 
               case 'CCM-LE-LINK':
                 var p = document.createElement( 'p' );
                 var href = child.getAttribute( 'href' );
-                p.innerHTML = self.link_prefix + ' <a target="_blank" href="' + href + '">' + ( child.innerHTML ? child.innerHTML : href ) + '</a>';
+                p.innerHTML = self.link_prefix + ' <a target="' + self.target + '" href="' + href + '">' + ( child.innerHTML ? child.innerHTML : href ) + '</a>';
                 node.replaceChild( p, child );
                 break;
 
@@ -108,44 +146,31 @@
         // privatize all possible instance members
         my = self.ccm.helper.privatize( self );
 
-        // add header
-        var header = document.createElement( 'header' );
-        if ( my.logo ) header.innerHTML += '<img src="' + my.logo + '">';
-        if ( my.topic ) header.innerHTML += '<h1>' + ( my.topic_prefix ? '<span class="prefix">' + my.topic_prefix + '</span><br>' : '' ) + '<span class="topic">' + my.topic + '</span></h1>';
-        if ( header.innerHTML ) self.ccm.helper.prepend( my.inner, header );
-        delete self.topic; delete my.logo; delete my.topic_prefix; delete my.topic;
-
-        // add footer
-        if ( my.author ) {
-          var footer = document.createElement( 'footer' );
-          if ( my.english_licence )
-            footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>To the extent possible under law, <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> has waived all copyright and related or neighboring rights to this work.</p>';
-          else
-            footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>Soweit unter den gesetzlichen Voraussetzungen möglich hat <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> sämtliche Urheber- und Verwertungsrechte für dieses Werk abgetreten.</p>';
-          my.inner.appendChild( footer );
-          delete my.author; delete my.english_licence;
-        }
-
-        var main_elem = document.createElement( 'div' );
-        main_elem.id = 'main';
-        main_elem.innerHTML =  my.inner.innerHTML;
-        self.ccm.helper.setContent( my.inner, main_elem );
-
-        // hand over inner HTML of own Custom Element to an new content instance
-        my.content.instance( {
-          root: self.element,
-          inner: my.inner
-        }, function ( instance ) {
-          my.content = instance;
-          callback();
-        } );
-
+        callback();
       };
 
       this.start = function ( callback ) {
 
-        // render content
-        my.content.start( callback );
+        var wrapper_elem = self.ccm.helper.html( my.html.wrapper, {
+          logo: my.logo,
+          prefix: my.topic_prefix,
+          topic: my.topic
+        } );
+
+        if ( my.author ) {
+          var footer = wrapper_elem.querySelector( 'footer' );
+          if ( my.english_licence )
+            footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>To the extent possible under law, <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> has waived all copyright and related or neighboring rights to this work.</p>';
+          else
+            footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>Soweit unter den gesetzlichen Voraussetzungen möglich hat <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> sämtliche Urheber- und Verwertungsrechte für dieses Werk abgetreten.</p>';
+        }
+
+        my.content.start( { inner: my.inner }, function ( instance ) {
+          instance.element.id = 'content';
+          self.ccm.helper.setContent( wrapper_elem.querySelector( 'main' ), instance.element );
+          self.ccm.helper.setContent( self.element, wrapper_elem );
+          if ( callback ) callback();
+        } );
 
       };
 

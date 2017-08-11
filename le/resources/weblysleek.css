@@ -4,13 +4,13 @@
  * @license The MIT License (MIT)
  */
 
-.ccm-content, #element {
+#element {
 	display: flex;
 	justify-content: center;
 	background-color: #00709B;
 }
 
-#main {
+#wrapper {
 	margin: 0.5em;
 	border-radius: 0.5em;
 	background-color: white;
@@ -27,7 +27,8 @@ header {
   padding-top: 2em;
 }
 
-header img {
+header #logo img {
+	display: block;
   margin-right: 1em;
   margin-bottom: 0.2em;
   border-right: 1px solid black;
@@ -36,19 +37,18 @@ header img {
   height: 100px;
 }
 
-header h1 {
-  display: block;
-  line-height: 1em;
-  margin: 0;
-  font-size: 38px;
+header #trailer h1 {
+	line-height: 1em;
+	margin: 0;
+	font-size: 38px;
 }
 
-.prefix {
-  font-size: 29px;
+header #trailer #prefix {
+	font-size: 75%;
 }
 
-.topic {
-  color: #00ACEE;
+header #trailer #topic {
+	color: #00ACEE;
 }
 
 footer {
