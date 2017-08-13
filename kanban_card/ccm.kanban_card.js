@@ -24,78 +24,78 @@
 
     config: {
 
-      html_templates: {
-        "main": {
-          "id": "main",
-          "inner": [
+      html: {
+        wrapper: {
+          id: 'wrapper',
+          inner: [
             {
-              "id": "header",
-              "inner": [
+              tag: 'header',
+              inner: [
                 {
-                  "id": "title",
-                  "class": "entry",
-                  "inner": [
-                    { "id": "status" },
+                  tag: 'section',
+                  id: 'title',
+                  inner: [
+                    { id: 'status' },
                     {
-                      "class": "value",
-                      "inner": "%title%",
-                      "contenteditable": true,
-                      "oninput": "%input_title%"
+                      class: 'value',
+                      inner: '%title%',
+                      contenteditable: '%editable%',
+                      oninput: '%input_title%'
                     }
                   ]
                 },
                 {
-                  "id": "owner",
-                  "class": "entry",
-                  "inner": [
+                  tag: 'section',
+                  id: "owner",
+                  inner: [
                     {
-                      "class": "value",
-                      "inner": "%owner%",
-                      "contenteditable": true,
-                      "onfocus": "%focus_owner%"
+                      class: 'value',
+                      inner: '%owner%',
+                      contenteditable: '%editable%',
+                      onfocus: '%focus_owner%'
                     },
-                    { "class": "fa fa-user" }
+                    { class: 'fa fa-user' }
                   ]
                 }
               ]
             },
             {
-              "id": "content",
-              "inner": {
-                "id": "summary",
-                "class": "entry",
-                "inner": {
-                  "class": "value",
-                  "inner": "%summary%",
-                  "contenteditable": true,
-                  "oninput": "%input_summary%"
+              tag: 'main',
+              inner: {
+                tag: 'section',
+                id: 'summary',
+                inner: {
+                  class: 'value',
+                  inner: '%summary%',
+                  contenteditable: '%editable%',
+                  oninput: '%input_summary%'
                 }
               }
             },
             {
-              "id": "footer",
-              "inner": [
+              tag: 'footer',
+              inner: [
                 {
-                  "id": "priority",
-                  "class": "entry",
-                  "inner": {
-                    "class": "value",
-                    "inner": "%priority%",
-                    "contenteditable": true,
-                    "onfocus": "%focus_priority%"
+                  tag: 'section',
+                  id: 'priority',
+                  inner: {
+                    class: 'value',
+                    inner: '%priority%',
+                    contenteditable: '%editable%',
+                    onfocus: '%focus_priority%'
                   }
                 },
                 {
-                  "id": "deadline",
-                  "class": "entry",
-                  "inner": [
+                  tag: 'section',
+                  id: 'deadline',
+                  inner: [
                     {
-                      "class": "value",
-                      "inner": "%deadline%",
-                      "contenteditable": true,
-                      "onfocus": "%focus_deadline%"
+                      class: 'value',
+                      inner: '%deadline%',
+                      contenteditable: '%editable%',
+                      onfocus: '%focus_deadline%'
                     },
-                    { "class": "fa fa-calendar-check-o" }
+                    { class: 'fa fa-calendar-check-o' }
                   ]
                 }
               ]
@@ -103,7 +103,7 @@
           ]
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_card/resources/default.css' ],
+      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_card/resources/default.css' ],
       data: {
         store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/resources/kanban_card_datasets.min.js' ],
         key: 'homework',
@@ -111,11 +111,12 @@
           access: 'group'
         }
       },
-      icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', context: document.head } ],
+      editable: true,
       members: [ 'John', 'Jane' ],
-      priorities: [ 'A', 'B', 'C' ]
+      priorities: [ 'A', 'B', 'C' ],
+      icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { context: 'head', url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' } ]
 
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/log_configs.js', 'greedy' ] ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.js', 'greedy' ] ],
   //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ]
 
     },
@@ -130,7 +131,7 @@
         // listen to datastore change event => update own content
         self.data.store.onchange = function ( dataset ) {
 
-          if ( !my || dataset.key !== my.data.key ) return;
+          if ( !my || !my.dataset || dataset.key !== my.data.key ) return;
 
           my.dataset = dataset;
 
@@ -165,13 +166,15 @@
           var restored;
           my.dataset = dataset;
 
-          self.ccm.helper.setContent( self.element, self.ccm.helper.html( my.html_templates.main, self.ccm.helper.integrate( {
+          self.ccm.helper.setContent( self.element, self.ccm.helper.html( my.html.wrapper, self.ccm.helper.integrate( {
 
             title:    '',
             owner:    '',
             summary:  '',
             priority: '',
             deadline: '',
+
+            editable: !!my.editable,
 
             input_title:    function () { empty ( this ); update( 'title', this.innerHTML ); },
             focus_owner:    function () { select( this, true ); },
@@ -194,12 +197,11 @@
 
           function update( prop, value ) {
 
-            if ( self.logger ) self.logger.log( 'change', { prop: prop, value: value } );
-
             if ( self.user ) self.user.login( proceed ); else proceed();
 
             function proceed() {
 
+              if ( self.logger ) self.logger.log( 'change', { prop: prop, value: value } );
               status();
               my.dataset[ prop ] = value.trim();
               if ( self.user && !my.dataset._ ) my.dataset._ = self.ccm.helper.integrate( { creator: self.user.data().user, group: self.ccm.helper.transformStringArray( my.members ) }, my.data.permission_settings );

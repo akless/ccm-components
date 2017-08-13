@@ -1,5 +1,5 @@
 /**
- * @overview datasets of <i>ccm</i> component for rendering a kanban card
+ * @overview datasets of ccm component for rendering a kanban card
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
