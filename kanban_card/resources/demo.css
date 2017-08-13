@@ -4,14 +4,14 @@
  * @license The MIT License (MIT)
  */
 
-#main {
+#wrapper {
   width: 18em;
   margin: 0.5em;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-#header,
-#footer {
+header,
+footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,25 +22,33 @@
   border: 0.1em solid silver;
 }
 
-#header {
+header {
   border-bottom: 0;
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
 }
 
-#footer {
+footer {
   border-top: 0;
   border-bottom-left-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
 }
 
-#content {
+main {
   border: 0.1em solid silver;
   background-color: white;
 }
 
-.entry {
+section {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
   padding: 0.2em;
+}
+
+section:not(#summary) div:last-child {
+  margin-right: 0.3em;
 }
 
 #title {
@@ -52,17 +60,6 @@
 #deadline {
   overflow-x: hidden;
   white-space: nowrap;
-}
-
-.entry {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.entry:not(#summary) div:last-child {
-  margin-right: 0.3em;
 }
 
 .value {
