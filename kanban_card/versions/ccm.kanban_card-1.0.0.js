@@ -2,25 +2,19 @@
  * @overview <i>ccm</i> component for rendering a kanban card
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
- * TODO: realtime listening only for needed dataset
- * TODO: events (onchange)
- * TODO: docu comments
- * TODO: unit tests
- * TODO: version file/folder
- * TODO: factory
- * TODO: multilingualism
+ * @version 1.0.0
  */
 
 ( function () {
 
   var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
 
   var component_name = 'kanban_card';
   var component_obj  = {
 
     name: component_name,
+    version: [ 1, 0, 0 ],
 
     config: {
 
