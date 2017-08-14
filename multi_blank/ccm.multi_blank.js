@@ -7,7 +7,7 @@
 ( function () {
 
   var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/ccm.js';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
 
   var component_name = 'multi_blank';
   var component_obj  = {
@@ -15,7 +15,7 @@
     name: component_name,
 
     config:  {
-      component_obj: [ 'ccm.component', 'https://akless.github.io/ccm-components/blank/ccm.blank.js' ],
+      component_obj: [ 'ccm.component', 'https://akless.github.io/ccm-components/blank/ccm.blank.min.js' ],
       times: 5
     },
 

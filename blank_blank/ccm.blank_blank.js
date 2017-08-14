@@ -7,7 +7,7 @@
 ( function () {
 
   var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/ccm.js';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
 
   var component_name = 'blank_blank';
   var component_obj  = {
@@ -15,8 +15,8 @@
     name: component_name,
 
     config: {
-      instance_a: [ 'ccm.instance', 'https://akless.github.io/ccm-components/blank/ccm.blank.js' ],
-      instance_b: [ 'ccm.instance', 'https://akless.github.io/ccm-components/blank/ccm.blank.js' ]
+      instance_a: [ 'ccm.instance', 'https://akless.github.io/ccm-components/blank/ccm.blank.min.js' ],
+      instance_b: [ 'ccm.instance', 'https://akless.github.io/ccm-components/blank/ccm.blank.min.js' ]
     },
 
     Instance: function () {
