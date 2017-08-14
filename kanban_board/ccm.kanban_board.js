@@ -3,6 +3,8 @@
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
+ * TODO: moving cards
+ * TODO: restoring card positions
  * TODO: add and delete of a kanban card
  * TODO: declarative
  * TODO: user
@@ -17,7 +19,7 @@
 ( function () {
 
   var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/ccm.min.js';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
 
   var component_name = 'kanban_board';
   var component_obj  = {
@@ -26,26 +28,25 @@
 
     config: {
 
-      html_templates: {
-        "lane": {
-          "class": "lane",
-          "inner": [
+      html: {
+        lane: {
+          tag: 'section',
+          inner: [
             {
-              "class": "title",
-              "inner": "%title%"
+              tag: 'header',
+              inner: '%%'
             },
-            { "class": "cards" }
+            { tag: 'article' }
           ]
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_board/resources/default.css' ],
-      kanban_card: [ 'ccm.component', 'https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.min.js' ],
+      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_board/resources/default.css' ],
+      kanban_card: [ 'ccm.component', 'https://akless.github.io/ccm-components/kanban_card/versions/ccm.kanban_card-1.0.0.min.js' ],
       data: {
         store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_board/resources/kanban_board_datasets.min.js' ],
         key: 'demo'
       },
-      lanes: [ 'ToDo', 'Doing', 'Done' ],
-      sortable: [ 'ccm.load', 'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js' ]
+      lanes: [ 'ToDo', 'Doing', 'Done' ]
 
     },
 
@@ -64,8 +65,6 @@
 
       this.start = function ( callback ) {
 
-        self.ccm.helper.setContent( self.element, self.ccm.helper.loading( self ) );
-
         self.ccm.helper.dataset( my.data, function ( dataset ) {
 
           if ( !dataset.lanes ) dataset.lanes = [];
@@ -80,11 +79,11 @@
 
           function renderLane( lane, i ) {
 
-            var lane_elem = self.ccm.helper.html( my.html_templates.lane, { title: my.lanes[ i ] } );
-            var cards_elem = lane_elem.querySelector( '.cards' );
+            var lane_elem = self.ccm.helper.html( my.html.lane, my.lanes[ i ] );
+            var cards_elem = lane_elem.querySelector( 'article' );
 
             lane.cards.map( renderCard );
-            element.appendChild( self.ccm.helper.protect( lane_elem ) );
+            element.appendChild( lane_elem );
 
             function renderCard( card_cfg ) {
 
@@ -106,46 +105,9 @@
             counter--;
             if ( counter !== 0 ) return;
 
-            sortable();
             self.ccm.helper.setContent( self.element, element );
 
             if ( callback ) callback();
-
-          }
-
-          function sortable() {
-
-            var cards_elems = self.ccm.helper.makeIterable( element.querySelectorAll( '.cards' ) );
-            var start_lane, start_pos, end_lane, end_pos;
-
-            cards_elems.map( function ( cards_elem ) {
-
-              Sortable.create( cards_elem, {
-
-                group: 'cards',
-                animation: 150,
-                onStart: function ( evt ) {
-
-                  start_lane = cards_elems.indexOf( evt.item.parentNode );
-                  start_pos = evt.oldIndex;
-
-                },
-                onEnd: function ( evt ) {
-
-                  end_lane = cards_elems.indexOf( evt.item.parentNode );
-                  end_pos = evt.newIndex;
-
-                  var card = dataset.lanes[ start_lane ].cards[ start_pos ];
-                  dataset.lanes[ end_lane ].cards.splice( end_pos, 0, card );
-                  dataset.lanes[ start_lane ].cards.splice( start_pos, 1 );
-
-                  my.data.store.set( dataset );
-
-                }
-
-              } );
-
-            } );
 
           }
 

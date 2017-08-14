@@ -12,25 +12,19 @@
   font-family: Arial, sans-serif;
 }
 
-.lane {
+section {
   padding: 0.2em;
   width: 20em;
 }
 
-.title {
+section header {
   font-weight: bold;
   text-align: center;
   padding: 0.5em;
   overflow-x: auto;
 }
 
-.cards {
+article {
   border-top: 0.1em solid black;
   padding: 0.5em;
-}
-
-.placeholder {
-  border-radius: 0.5em;
-  background-color: lightgrey;
-  margin: 0.5em;
 }
