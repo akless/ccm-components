@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for interpreting JavaScript expressions
+ * @overview <i>ccm</i> component for interpreting a given JavaScript expression
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)

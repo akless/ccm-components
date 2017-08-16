@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for composed content
+ * @overview <i>ccm</i> component for rendering a predefined content
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (2.0.0)
