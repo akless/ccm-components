@@ -17,7 +17,7 @@
 
 ( function () {
 
-  var filename = 'ccm.cloze-2.0.0.min.js';
+  //var filename = 'ccm.cloze-2.0.0.min.js';
 
   var ccm_version = '9.2.0';
   var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.2.0.min.js';
@@ -452,8 +452,8 @@
 
   };
 
-  if ( window.ccm && window.ccm.files ) window.ccm.files[ filename ] = component_obj;
+  //if ( window.ccm && window.ccm.files ) window.ccm.files[ filename ] = component_obj;
   var namespace = window.ccm && ccm.components[ component_name ]; if ( namespace ) { if ( namespace.ccm_version ) ccm_version = namespace.ccm_version; if ( namespace.ccm_url ) ccm_url = namespace.ccm_url; }
   if ( !window.ccm || !ccm[ ccm_version ] ) { var tag = document.createElement( 'script' ); document.head.appendChild( tag ); tag.onload = register; tag.src = ccm_url; } else register();
-  function register() { ccm[ ccm_version ].component( component_obj ); delete window.ccm.files[ filename ]; }
+  function register() { ccm[ ccm_version ].component( component_obj ); /*delete window.ccm.files[ filename ];*/ }
 }() );
