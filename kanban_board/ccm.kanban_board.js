@@ -90,6 +90,7 @@
             function renderCard( card_cfg ) {
 
               counter++;
+              console.log('++',counter);
               var card_elem = document.createElement( 'div' );
               cards_elem.appendChild( card_elem );
               my.kanban_card.start( self.ccm.helper.clone( card_cfg ), function ( card_inst ) {
@@ -105,6 +106,7 @@
           function check() {
 
             counter--;
+            console.log('--',counter,element);
             if ( counter !== 0 ) return;
 
             self.ccm.helper.setContent( self.element, element );

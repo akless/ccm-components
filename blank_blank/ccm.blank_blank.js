@@ -8,8 +8,8 @@
 
   var filename = 'ccm.blank_blank.min.js';
 
-  var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
+  var ccm_version = '9.2.0';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.2.0.min.js';
 
   var component_name = 'blank_blank';
   var component_obj  = {

@@ -5,7 +5,7 @@
  * @version 2.0.0
  * @changes
  * version 2.0.0 (26.07.2017):
- * - uses ccm v9.0.0 instead of v8.1.0
+ * - uses ccm v9.2.0 instead of v8.1.0
  * - renaming of some instance properties
  * - add HTML template for a button
  * - visual feedback as default,
@@ -19,8 +19,8 @@
 
   var filename = 'ccm.cloze-2.0.0.min.js';
 
-  var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
+  var ccm_version = '9.2.0';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.2.0.min.js';
 
   var component_name = 'cloze';
   var component_obj  = {

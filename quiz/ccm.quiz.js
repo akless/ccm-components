@@ -5,7 +5,7 @@
  * @version latest (2.0.0)
  * @changes
  * version 2.0.0 (05.08.2017):
- * - uses ccm v9.0.0 instead of v8.1.0
+ * - uses ccm v9.2.0 instead of v8.1.0
  * - renaming of some instance properties
  * - reductions in HTML template for start button
  * - remove no more needed ccm.helper.protect calls
@@ -20,8 +20,8 @@
 
   var filename = 'ccm.quiz.min.js';
 
-  var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
+  var ccm_version = '9.2.0';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.2.0.min.js';
 
   var component_name = 'quiz';
   var component_obj  = {

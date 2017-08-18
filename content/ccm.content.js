@@ -5,7 +5,7 @@
  * @version latest (2.0.0)
  * @changes
  * version 2.0.0 (01.08.2017):
- * - uses ccm v9.0.0 instead of v8.1.0
+ * - uses ccm v9.2.0 instead of v8.1.0
  * - use fragment instead of empty container as default Light DOM
  * - Light DOM can be given as HTML string via 'inner' config property
  * - removed no more needed ccm.helper.protect calls
@@ -19,8 +19,8 @@
 
   var filename = 'ccm.content.min.js';
 
-  var ccm_version = '9.0.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.0.0.min.js';
+  var ccm_version = '9.2.0';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.2.0.min.js';
 
   var component_name = 'content';
   var component_obj  = {
