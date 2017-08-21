@@ -23,7 +23,7 @@ ccm.files[ 'eval-tests.js' ] = {
         suite.assertSame( 'eval', suite.instance.component.name );
       },
       frameworkVersion: function ( suite ) {
-        suite.assertEquals( '9.0.0', suite.instance.ccm.version() );
+        suite.assertEquals( '9.3.0', suite.instance.ccm.version() );
       },
       publicInstanceProperties: function ( suite ) {
         suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( suite.instance ) );
