@@ -9,7 +9,7 @@
   var filename = 'ccm.blank.js';
 
   var ccm_version = '9.3.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.3.0.min.js';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.3.0.js';
 
   var component_name = 'blank';
   var component_obj  = {
