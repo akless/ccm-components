@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "quiz_configs.min.js" ] = {
+ccm.files[ "quiz_configs.js" ] = {
   "demo": {
     "html.start.inner.inner": "Start Demo Quiz",
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/quiz/resources/weblysleek.css", { "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css", "context": "head" } ],

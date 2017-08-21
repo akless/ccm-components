@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "kanban_board_configs.min.js" ] = {
+ccm.files[ "kanban_board_configs.js" ] = {
   "demo": {
     "css_layout": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_board/resources/default.css" ],
     "data": {

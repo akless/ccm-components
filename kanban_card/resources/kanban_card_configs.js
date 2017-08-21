@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "kanban_card_configs.min.js" ] = {
+ccm.files[ "kanban_card_configs.js" ] = {
   "homework": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/default.css" ],
     "data": {

@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "cloze_configs.min.js" ] = {
+ccm.files[ "cloze_configs.js" ] = {
   "demo": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/lea.css" ],
     "feedback": true,

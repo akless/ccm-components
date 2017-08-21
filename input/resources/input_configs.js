@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "input_configs.min.js" ] = {
+ccm.files[ "input_configs.js" ] = {
   "demo": {
     "form": true,
     "button": true,

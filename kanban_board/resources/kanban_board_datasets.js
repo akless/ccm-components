@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "kanban_board_datasets.min.js" ] = {
+ccm.files[ "kanban_board_datasets.js" ] = {
   "demo": {
     "lanes": [
       {

@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "eval_configs.min.js" ] = {
+ccm.files[ "eval_configs.js" ] = {
   "demo": {
     "expression": "{\n  \"foo\": \"bar\",\n  \"numbers\": [ 1, 2, 3 ],\n  \"i\": 5711,\n  \"valid\": true\n}",
     "json_parse": true,

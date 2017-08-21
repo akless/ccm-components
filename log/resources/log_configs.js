@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "log_configs.min.js" ] = {
+ccm.files[ "log_configs.js" ] = {
   "greedy": {
     "logging": {
       "data": true,

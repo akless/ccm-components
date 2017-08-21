@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "kanban_card_datasets.min.js" ] = {
+ccm.files[ "kanban_card_datasets.js" ] = {
   "homework": {
     "title": "Homework",
     "owner": "John",
