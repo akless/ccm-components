@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "user_configs.min.js" ] = {
+ccm.files[ "user_configs.js" ] = {
   "demo": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ]
   }
