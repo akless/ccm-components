@@ -3,14 +3,16 @@
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
+ * version 1.0.1 (21.08.2017):
+ * - uses ccm v9.3.0 instead of v9.2.0
  */
 
 ( function () {
 
-  var filename = 'ccm.testsuite.min.js';
+  var filename = 'ccm.testsuite.js';
 
   var ccm_version = '9.3.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.3.0.min.js';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.3.0.js';
 
   var component_name = 'testsuite';
   var component_obj  = {

@@ -18,10 +18,10 @@
 
 ( function () {
 
-  var filename = 'ccm.kanban_board.min.js';
+  var filename = 'ccm.kanban_board.js';
 
-  var ccm_version = '9.2.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.2.0.min.js';
+  var ccm_version = '9.3.0';
+  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.3.0.min.js';
 
   var component_name = 'kanban_board';
   var component_obj  = {
