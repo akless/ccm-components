@@ -13,8 +13,8 @@
     ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
-      instance_a: [ 'ccm.instance', '../blank/ccm.blank.js' ],
-      instance_b: [ 'ccm.instance', '../blank/ccm.blank.js' ]
+      "instance_a": [ "ccm.instance", "../blank/ccm.blank.js" ],
+      "instance_b": [ "ccm.instance", "../blank/ccm.blank.js" ]
     },
 
     Instance: function () {
