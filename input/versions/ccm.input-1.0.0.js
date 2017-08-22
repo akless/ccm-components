@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for user inputs
+ * @overview ccm component for user inputs
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  * @version 1.0.0
@@ -7,94 +7,94 @@
 
 ( function () {
 
-  var filename = 'ccm.input-1.0.0.min.js';
+  var component = {
 
-  var ccm_version = '9.2.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.2.0.min.js';
-
-  var component_name = 'input';
-  var component_obj  = {
-
-    name: component_name,
+    name: 'input',
     version: [ 1, 0, 0 ],
+
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-10.0.0.min.js',
+      integrity: 'sha384-6j2e9RlJGOcd5Ge57Z1lzJSV1t4JrlPnPXZ9nZQ9vG1w0rXFhrMeiWx1EVySMM3Z',
+      crossorigin: 'anonymous'
+    },
 
     config: {
 
       html: {
-        main: {
-          id: 'main',
-          inner: {
-            tag: 'form',
-            onsubmit: '%submit%',
-            inner: [
-              { id: 'inputs' },
+        "main": {
+          "id": "main",
+          "inner": {
+            "tag": "form",
+            "onsubmit": "%submit%",
+            "inner": [
+              { "id": "inputs" },
               {
-                tag: 'input',
-                type: 'submit',
-                class: 'button',
-                value: '%caption%'
+                "tag": "input",
+                "type": "submit",
+                "class": "button",
+                "value": "%caption%"
               }
             ]
           }
         },
-        entry: {
-          class: 'entry',
-          inner: [
+        "entry": {
+          "class": "entry",
+          "inner": [
             {
-              class: 'label',
-              inner: {
-                tag: 'label',
-                for: '%name%',
-                inner: '%label%'
+              "class": "label",
+              "inner": {
+                "tag": "label",
+                "for": "%name%",
+                "inner": "%label%"
               }
             },
-            { class: 'input' }
+            { "class": "input" }
           ]
         },
-        checkbox: {
-          tag: 'label',
-          class: 'checkbox',
-          inner: [
-            { class: 'field' },
+        "checkbox": {
+          "tag": "label",
+          "class": "checkbox",
+          "inner": [
+            { "class": "field" },
             {
-              class: 'caption',
-              inner: '%%'
+              "class": "caption",
+              "inner": "%%"
             }
           ]
         },
-        checkboxes: { class: 'checkboxes' },
-        radios: { class: 'radios' },
-        radio: {
-          tag: 'label',
-          class: 'radio',
-          inner: [
-            { class: 'field' },
+        "checkboxes": { "class": "checkboxes" },
+        "radios": { "class": "radios" },
+        "radio": {
+          "tag": "label",
+          "class": "radio",
+          "inner": [
+            { "class": "field" },
             {
-              class: 'caption',
-              inner: '%%'
+              "class": "caption",
+              "inner": "%%"
             }
           ]
         },
-        range: {
-          tag: 'label',
-          class: 'range',
-          inner: [
-            { class: 'field' },
+        "range": {
+          "tag": "label",
+          "class": "range",
+          "inner": [
+            { "class": "field" },
             {
-              class: 'value',
-              inner: '%%'
+              "class": "value",
+              "inner": "%%"
             }
           ]
         }
       },
-      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/input/resources/default.css' ],
-      inputs: []
+      "css": [ "ccm.load", "https://akless.github.io/ccm-components/input/resources/default.css" ],
+      "inputs": []
 
   //  form: true,
   //  button: true,
   //  initial_data: {},
   //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js' ],
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
   //  oninput: function ( instance, data ) { console.log( data ); },
   //  onchange: function ( instance, results, name ) { console.log( name, results ); },
   //  onfinish: function ( instance, results ) { console.log( results ); }
@@ -376,8 +376,5 @@
 
   };
 
-  if ( window.ccm && window.ccm.files ) window.ccm.files[ filename ] = component_obj;
-  var namespace = window.ccm && ccm.components[ component_name ]; if ( namespace ) { if ( namespace.ccm_version ) ccm_version = namespace.ccm_version; if ( namespace.ccm_url ) ccm_url = namespace.ccm_url; }
-  if ( !window.ccm || !ccm[ ccm_version ] ) { var tag = document.createElement( 'script' ); document.head.appendChild( tag ); tag.onload = register; tag.src = ccm_url; } else register( true );
-  function register( synchron ) { ccm[ ccm_version ].component( component_obj ); if ( !synchron ) delete window.ccm.files[ filename ]; }
+  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
 }() );
