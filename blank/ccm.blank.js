@@ -10,11 +10,7 @@
 
     name: 'blank',
 
-    ccm: {
-      url: 'https://akless.github.io/ccm/ccm.js',
-      integrity: 'sha384-GL22Ogev6AH+OuhhZz5JxXxjXPcfzJcyrr6xd9XXM6zG/1ls/+f3E345FIcjj9B8',
-      crossorigin: 'anonymous'
-    },
+    ccm: 'https://akless.github.io/ccm/ccm.js',
 
     Instance: function () {
 
