@@ -1,10 +1,8 @@
 /**
- * @overview <i>ccm</i> component for data logging
+ * @overview ccm component for data logging
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
- * @version latest (1.0.1)
- * version 1.0.1 (21.08.2017):
- * - uses ccm v9.3.0 instead of v9.2.0
+ * @version latest (1.0.0)
  * TODO: docu comments -> API
  * TODO: unit tests
  * TODO: factory
@@ -13,19 +11,15 @@
 
 ( function () {
 
-  var filename = 'ccm.log.js';
+  var component = {
 
-  var ccm_version = '9.3.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.3.0.min.js';
+    name: 'log',
 
-  var component_name = 'log';
-  var component_obj  = {
-
-    name: component_name,
+    ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
 
-      logging: {}
+      "logging": {}
 
   //  events: {string[]} logged events, default: all
   //  logging.data:    {boolean|string[]} log event specific informations (string[] -> log informations only for these events)
@@ -142,8 +136,5 @@
 
   };
 
-  if ( window.ccm && window.ccm.files ) window.ccm.files[ filename ] = component_obj;
-  var namespace = window.ccm && ccm.components[ component_name ]; if ( namespace ) { if ( namespace.ccm_version ) ccm_version = namespace.ccm_version; if ( namespace.ccm_url ) ccm_url = namespace.ccm_url; }
-  if ( !window.ccm || !ccm[ ccm_version ] ) { var tag = document.createElement( 'script' ); document.head.appendChild( tag ); tag.onload = register; tag.src = ccm_url; } else register( true );
-  function register( synchron ) { ccm[ ccm_version ].component( component_obj ); if ( !synchron ) delete window.ccm.files[ filename ]; }
+  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
 }() );

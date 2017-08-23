@@ -1,10 +1,10 @@
 /**
- * @overview configurations of <i>ccm</i> component for data logging
+ * @overview configurations of ccm component for data logging
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
 
-ccm.files[ "log_configs.js" ] = {
+ccm.files[ 'configs.js' ] = {
   "greedy": {
     "logging": {
       "data": true,
