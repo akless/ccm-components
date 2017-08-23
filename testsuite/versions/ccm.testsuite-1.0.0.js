@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for running unit tests
+ * @overview ccm component for running unit tests
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version 1.0.0
@@ -7,67 +7,67 @@
 
 ( function () {
 
-  var filename = 'ccm.testsuite-1.0.0.min.js';
+  var component = {
 
-  var ccm_version = '9.2.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.2.0.min.js';
-
-  var component_name = 'testsuite';
-  var component_obj  = {
-
-    name: component_name,
+    name: 'testsuite',
     version: [ 1, 0, 0 ],
+
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-10.0.0.min.js',
+      integrity: 'sha384-lFM/OdNL4uOjWgutWPJ/7GhViVV3QX74lVJUwRekoTRnNR6PhGZcKEK28yme5oQR',
+      crossorigin: 'anonymous'
+    },
 
     config: {
 
-      html: {
-        main: {
-          id: 'main',
-          inner: [
+      "html": {
+        "main": {
+          "id": "main",
+          "inner": [
             {
-              id: 'summary',
-              inner: [
-                { id: 'executed', inner: 0 },
-                { id: 'passed'  , inner: 0 },
-                { id: 'failed'  , inner: 0 }
+              "id": "summary",
+              "inner": [
+                { "id": "executed", "inner": 0 },
+                { "id": "passed",   "inner": 0 },
+                { "id": "failed",   "inner": 0 }
               ]
             },
-            { id: 'packages' }
+            { "id": "packages" }
           ]
         },
-        package: {
-          class: 'package',
-          inner: [
-            { class: 'label', inner: '%%' },
-            { class: 'table' },
-            { class: 'conclusion' }
+        "package": {
+          "class": "package",
+          "inner": [
+            { "class": "label", "inner": "%%" },
+            { "class": "table" },
+            { "class": "conclusion" }
           ]
         },
-        test: {
-          class: 'tr',
-          inner: [
-            { class: 'td name', inner: '%%' },
-            { class: 'td result' }
+        "test": {
+          "class": "tr",
+          "inner": [
+            { "class": "td name", "inner": "%%" },
+            { "class": "td result" }
           ]
         },
-        result: {
-          class: '%value%',
-          inner: '%value%'
+        "result": {
+          "class": "%value%",
+          "inner": "%value%"
         },
-        message: {
-          class: 'td details message',
-          inner: '%%'
+        "message": {
+          "class": "td details message",
+          "inner": "%%"
         },
-        comparison: {
-          class: 'td details comparison',
-          inner: [
-            { class: 'expected', inner: '%%' },
-            { class: 'actual',   inner: '%%' }
+        "comparison": {
+          "class": "td details comparison",
+          "inner": [
+            { "class": "expected", "inner": "%%" },
+            { "class": "actual",   "inner": "%%" }
           ]
         }
       },
-      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/testsuite/resources/default.css' ],
-      onfinish: function ( instance, result ) { console.log( result ); }
+      "css": [ "ccm.load", "https://akless.github.io/ccm-components/testsuite/resources/default.css" ],
+      "onfinish": { "log": true }
 
   //  tests
   //  package
@@ -384,8 +384,5 @@
 
   };
 
-  if ( window.ccm && window.ccm.files ) window.ccm.files[ filename ] = component_obj;
-  var namespace = window.ccm && ccm.components[ component_name ]; if ( namespace ) { if ( namespace.ccm_version ) ccm_version = namespace.ccm_version; if ( namespace.ccm_url ) ccm_url = namespace.ccm_url; }
-  if ( !window.ccm || !ccm[ ccm_version ] ) { var tag = document.createElement( 'script' ); document.head.appendChild( tag ); tag.onload = register; tag.src = ccm_url; } else register( true );
-  function register( synchron ) { ccm[ ccm_version ].component( component_obj ); if ( !synchron ) delete window.ccm.files[ filename ]; }
+  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
 }() );
