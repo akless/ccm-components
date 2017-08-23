@@ -4,9 +4,9 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ 'user-tests.js' ] = {
+ccm.files[ 'tests.js' ] = {
   setup: function ( suite, callback ) {
-    suite.ccm.component( 'https://akless.github.io/ccm-components/user/ccm.user.js', function ( component ) {
+    suite.ccm.component( '../user/ccm.user.js', function ( component ) {
       suite.component = component;
       callback();
     } );
