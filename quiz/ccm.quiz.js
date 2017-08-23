@@ -1,13 +1,11 @@
 /**
- * @overview <i>ccm</i> component for rendering a quiz
+ * @overview ccm component for rendering a quiz
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (2.0.0)
  * @changes
- * version 2.0.1 (21.08.2017):
- * - uses ccm v9.3.0 instead of v9.2.0
- * version 2.0.0 (05.08.2017):
- * - uses ccm v9.2.0 instead of v8.1.0
+ * version 2.0.0 (23.08.2017):
+ * - uses ccm v10.0.0 instead of v8.1.0
  * - renaming of some instance properties
  * - reductions in HTML template for start button
  * - remove no more needed ccm.helper.protect calls
@@ -20,109 +18,106 @@
 
 ( function () {
 
-  var filename = 'ccm.quiz.js';
+  var component = {
 
-  var ccm_version = '9.3.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.3.0.min.js';
+    name: 'quiz',
 
-  var component_name = 'quiz';
-  var component_obj  = {
-
-    name: component_name,
+    ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
-      questions: {},
-      html: {
-        start: {
-          id: 'start',
-          inner: {
-            tag: 'button',
-            inner: 'Start',
-            onclick: '%%'
+
+      "html": {
+        "start": {
+          "id": "start",
+          "inner": {
+            "tag": "button",
+            "inner": "Start",
+            "onclick": "%%"
           }
         },
-        main: {
-          id: 'main',
-          inner: [
-            { id: 'questions' },
+        "main": {
+          "id": "main",
+          "inner": [
+            { "id": "questions" },
             {
-              id: 'buttons',
-              inner: [
-                { id: 'cancel' },
-                { id: 'prev' },
-                { id: 'submit' },
-                { id: 'next' },
-                { id: 'finish' },
-                { id: 'timer' }
+              "id": "buttons",
+              "inner": [
+                { "id": "cancel" },
+                { "id": "prev" },
+                { "id": "submit" },
+                { "id": "next" },
+                { "id": "finish" },
+                { "id": "timer" }
               ]
             }
           ]
         },
-        question: {
-          id: '%id%',
-          class: 'question',
-          inner: [
+        "question": {
+          "id": "%id%",
+          "class": "question",
+          "inner": [
             {
-              class: 'title',
-              inner: [
-                { inner: 'Question' },
-                { inner: '%nr%/%count%' },
-                { inner: '%text%' }
+              "class": "title",
+              "inner": [
+                { "inner": "Question" },
+                { "inner": "%nr%/%count%" },
+                { "inner": "%text%" }
               ]
             },
             {
-              class: 'description',
-              inner: '%description%'
+              "class": "description",
+              "inner": "%description%"
             },
-            { class: 'answers' }
+            { "class": "answers" }
           ]
         },
-        answer: {
-          id: '%id%',
-          class: 'answer %class%',
-          inner: {
-            class: 'entry',
-            inner: [
+        "answer": {
+          "id": "%id%",
+          "class": "answer %class%",
+          "inner": {
+            "class": "entry",
+            "inner": [
               {
-                class: 'text',
-                inner: {
-                  tag: 'label',
-                  inner: '%text%',
-                  for: '%id%-input'
+                "class": "text",
+                "inner": {
+                  "tag": "label",
+                  "inner": "%text%",
+                  "for": "%id%-input"
                 }
               },
-              { class: 'comment' }
+              { "class": "comment" }
             ]
           }
         },
-        comment: {
-          class: 'tooltip',
-          inner: [
-            'i',
+        "comment": {
+          "class": "tooltip",
+          "inner": [
+            "i",
             {
-              tag: 'div',
-              class: 'tooltiptext',
-              inner: {
-                inner: {
-                  inner: '%%'
+              "tag": "div",
+              "class": "tooltiptext",
+              "inner": {
+                "inner": {
+                  "inner": "%%"
                 }
               }
             }
           ]
         },
-        timer: {
-          tag: 'span',
-          inner: '%%'
+        "timer": {
+          "tag": "span",
+          "inner": "%%"
         }
       },
-      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/quiz/resources/default.css' ],
-      placeholder: {
-        cancel: 'Cancel',
-        prev: 'Previous',
-        submit: 'Submit',
-        next: 'Next',
-        correct: 'Correct solution: ',
-        finish: 'Finish'
+      "css": [ "ccm.load", "resources/default.css" ],
+      "questions": {},
+      "placeholder": {
+        "cancel": "Cancel",
+        "prev": "Previous",
+        "submit": "Submit",
+        "next": "Next",
+        "correct": "Correct solution: ",
+        "finish": "Finish"
       }
 
   //  start_button: true,
@@ -825,8 +820,5 @@
 
   };
 
-  if ( window.ccm && window.ccm.files ) window.ccm.files[ filename ] = component_obj;
-  var namespace = window.ccm && ccm.components[ component_name ]; if ( namespace ) { if ( namespace.ccm_version ) ccm_version = namespace.ccm_version; if ( namespace.ccm_url ) ccm_url = namespace.ccm_url; }
-  if ( !window.ccm || !ccm[ ccm_version ] ) { var tag = document.createElement( 'script' ); document.head.appendChild( tag ); tag.onload = register; tag.src = ccm_url; } else register( true );
-  function register( synchron ) { ccm[ ccm_version ].component( component_obj ); if ( !synchron ) delete window.ccm.files[ filename ]; }
+  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
 }() );

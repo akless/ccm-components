@@ -4,9 +4,9 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ 'quiz-tests.js' ] = {
+ccm.files[ 'tests.js' ] = {
   setup: function ( suite, callback ) {
-    suite.ccm.component( 'https://akless.github.io/ccm-components/quiz/ccm.quiz.js', function ( component ) {
+    suite.ccm.component( '../quiz/ccm.quiz.js', function ( component ) {
       suite.component = component;
       callback();
     } );
@@ -35,7 +35,7 @@ ccm.files[ 'quiz-tests.js' ] = {
   },
   uniform_data_structure: {
     setup: function ( suite, callback ) {
-      suite.logger_url = 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js';
+      suite.logger_url = '../log/ccm.log.js';
       callback();
     },
     tests: {
@@ -209,7 +209,7 @@ ccm.files[ 'quiz-tests.js' ] = {
       loggedInUser: function ( suite ) {
         suite.component.start( {
           anytime_finish: true,
-          user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.js' ],
+          user: [ 'ccm.instance', '../user/ccm.user.js' ],
           onfinish: function ( instance ) {
             suite.assertTrue( instance.user.isLoggedIn() );
           }
@@ -221,7 +221,7 @@ ccm.files[ 'quiz-tests.js' ] = {
     },
     logger: {
       setup: function ( suite, callback ) {
-        suite.logger_url = 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js';
+        suite.logger_url = '../log/ccm.log.js';
         callback();
       },
       tests: {
