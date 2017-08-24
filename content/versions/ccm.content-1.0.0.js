@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for composed content
+ * @overview ccm component for composed content
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version 1.0.0

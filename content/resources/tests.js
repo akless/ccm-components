@@ -4,9 +4,9 @@
  * @license The MIT License (MIT)
  */
 
-ccm.files[ 'content-tests.js' ] = {
+ccm.files[ 'tests.js' ] = {
   setup: function ( suite, callback ) {
-    suite.ccm.component( 'https://akless.github.io/ccm-components/content/ccm.content.js', function ( component ) {
+    suite.ccm.component( '../content/ccm.content.js', function ( component ) {
       suite.component = component;
       callback();
     } );
@@ -34,7 +34,7 @@ ccm.files[ 'content-tests.js' ] = {
         } );
       },
       customElement: function ( suite ) {
-        var script = '<script src="https://akless.github.io/ccm-components/blank/ccm.blank.js"></script>';
+        var script = '<script src="../blank/ccm.blank.js"></script>';
         var tag    = '<ccm-blank></ccm-blank>';
         var div    = '<div></div>';
         suite.component.start( { inner: script + tag + tag }, function ( instance ) {

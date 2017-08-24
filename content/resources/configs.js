@@ -5,7 +5,7 @@
  */
 
 ccm.files[ 'configs.js' ] = {
-  "demo": {
+  "local": {
     "inner": "<script src=../blank/ccm.blank.js></script>Welcome.<ccm-blank></ccm-blank>"
   }
 };
