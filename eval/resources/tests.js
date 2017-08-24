@@ -1,12 +1,12 @@
 /**
- * @overview unit tests of ccm component for interpreting JavaScript expressions
+ * @overview unit tests of ccm component  for interpreting a given JavaScript expression
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
 
-ccm.files[ 'eval-tests.js' ] = {
+ccm.files[ 'tests.js' ] = {
   setup: function ( suite, callback ) {
-    suite.ccm.component( 'https://akless.github.io/ccm-components/eval/ccm.eval.js', function ( component ) {
+    suite.ccm.component( '../eval/ccm.eval.js', function ( component ) {
       suite.component = component;
       callback();
     } );
@@ -23,7 +23,7 @@ ccm.files[ 'eval-tests.js' ] = {
         suite.assertSame( 'eval', suite.instance.component.name );
       },
       frameworkVersion: function ( suite ) {
-        suite.assertEquals( '9.3.0', suite.instance.ccm.version() );
+        suite.assertEquals( '10.0.0', suite.instance.ccm.version() );
       },
       publicInstanceProperties: function ( suite ) {
         suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( suite.instance ) );
@@ -63,7 +63,7 @@ ccm.files[ 'eval-tests.js' ] = {
     tests: {
       loggedInUser: function ( suite ) {
         suite.component.start( {
-          user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.js' ],
+          user: [ 'ccm.instance', '../user/ccm.user.js' ],
           onfinish: function ( instance ) {
             suite.assertTrue( instance.user.isLoggedIn() );
           }
@@ -74,14 +74,14 @@ ccm.files[ 'eval-tests.js' ] = {
       },
       logStartEvent: function ( suite ) {
         suite.component.start( {
-          logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.js', { onfinish: function ( instance, results ) {
+          logger: [ 'ccm.instance', '../log/ccm.log.js', { onfinish: function ( instance, results ) {
             suite.assertSame( 'start', results.event );
           } } ]
         } );
       },
       logFinishEvent: function ( suite ) {
         suite.component.start( {
-          logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/ccm-components/log/versions/ccm.log-1.0.0.js', {
+          logger: [ 'ccm.instance', '../log/ccm.log.js', {
             events: { finish: true },
             onfinish: function ( instance, results ) {
               suite.assertSame( 'finish', results.event );
