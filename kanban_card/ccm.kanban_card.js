@@ -1,10 +1,8 @@
 /**
- * @overview <i>ccm</i> component for rendering a kanban card
+ * @overview ccm component for rendering a kanban card
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
- * version 1.0.1 (21.08.2017):
- * - uses ccm v9.3.0 instead of v9.2.0
  * TODO: realtime listening only for needed dataset
  * TODO: events (onchange)
  * TODO: docu comments
@@ -16,90 +14,86 @@
 
 ( function () {
 
-  var filename = 'ccm.kanban_card.js';
+  var component = {
 
-  var ccm_version = '9.3.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.3.0.min.js';
+    name: 'kanban_card',
 
-  var component_name = 'kanban_card';
-  var component_obj  = {
-
-    name: component_name,
+    ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
 
-      html: {
-        wrapper: {
-          id: 'wrapper',
-          inner: [
+      "html": {
+        "wrapper": {
+          "id": "wrapper",
+          "inner": [
             {
-              tag: 'header',
-              inner: [
+              "tag": "header",
+              "inner": [
                 {
-                  tag: 'section',
-                  id: 'title',
-                  inner: [
-                    { id: 'status' },
+                  "tag": "section",
+                  "id": "title",
+                  "inner": [
+                    { "id": "status" },
                     {
-                      class: 'value',
-                      inner: '%title%',
-                      contenteditable: '%editable%',
-                      oninput: '%input_title%'
+                      "class": "value",
+                      "inner": "%title%",
+                      "contenteditable": "%editable%",
+                      "oninput": "%input_title%"
                     }
                   ]
                 },
                 {
-                  tag: 'section',
-                  id: "owner",
-                  inner: [
+                  "tag": "section",
+                  "id": "owner",
+                  "inner": [
                     {
-                      class: 'value',
-                      inner: '%owner%',
-                      contenteditable: '%editable%',
-                      onfocus: '%focus_owner%'
+                      "class": "value",
+                      "inner": "%owner%",
+                      "contenteditable": "%editable%",
+                      "onfocus": "%focus_owner%"
                     },
-                    { class: 'fa fa-user' }
+                    { "class": "fa fa-user" }
                   ]
                 }
               ]
             },
             {
-              tag: 'main',
-              inner: {
-                tag: 'section',
-                id: 'summary',
-                inner: {
-                  class: 'value',
-                  inner: '%summary%',
-                  contenteditable: '%editable%',
-                  oninput: '%input_summary%'
+              "tag": "main",
+              "inner": {
+                "tag": "section",
+                "id": "summary",
+                "inner": {
+                  "class": "value",
+                  "inner": "%summary%",
+                  "contenteditable": "%editable%",
+                  "oninput": "%input_summary%"
                 }
               }
             },
             {
-              tag: 'footer',
-              inner: [
+              "tag": "footer",
+              "inner": [
                 {
-                  tag: 'section',
-                  id: 'priority',
-                  inner: {
-                    class: 'value',
-                    inner: '%priority%',
-                    contenteditable: '%editable%',
-                    onfocus: '%focus_priority%'
+                  "tag": "section",
+                  "id": "priority",
+                  "inner": {
+                    "class": "value",
+                    "inner": "%priority%",
+                    "contenteditable": "%editable%",
+                    "onfocus": "%focus_priority%"
                   }
                 },
                 {
-                  tag: 'section',
-                  id: 'deadline',
-                  inner: [
+                  "tag": "section",
+                  "id": "deadline",
+                  "inner": [
                     {
-                      class: 'value',
-                      inner: '%deadline%',
-                      contenteditable: '%editable%',
-                      onfocus: '%focus_deadline%'
+                      "class": "value",
+                      "inner": "%deadline%",
+                      "contenteditable": "%editable%",
+                      "onfocus": "%focus_deadline%"
                     },
-                    { class: 'fa fa-calendar-check-o' }
+                    { "class": "fa fa-calendar-check-o" }
                   ]
                 }
               ]
@@ -107,20 +101,31 @@
           ]
         }
       },
-      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_card/resources/default.css' ],
-      data: {
-        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_card/resources/kanban_card_datasets.min.js' ],
-        key: 'homework',
-        permission_settings: {
-          access: 'group'
+      "css": [ "ccm.load", "resources/default.css" ],
+      "icons": [
+        "ccm.load",
+        {
+          "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
+          "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
+          "crossorigin": "anonymous"
+        },
+        {
+          "context": "head",
+          "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
+          "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
+          "crossorigin": "anonymous"
         }
+      ],
+      "data": {
+        "store": [ "ccm.store", "resources/datasets.js" ],
+        "key": "homework",
+        "permission_settings": { "access": "group" }
       },
-      editable: true,
-      members: [ 'John', 'Jane' ],
-      priorities: [ 'A', 'B', 'C' ],
-      icons: [ 'ccm.load', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', { context: 'head', url: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' } ]
+      "editable": true,
+      "members": [ "John", "Jane" ],
+      "priorities": [ "A", "B", "C" ]
 
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.js', 'greedy' ] ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/configs.js', 'greedy' ] ],
   //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js' ]
 
     },
@@ -297,8 +302,5 @@
 
   };
 
-  if ( window.ccm && window.ccm.files ) window.ccm.files[ filename ] = component_obj;
-  var namespace = window.ccm && ccm.components[ component_name ]; if ( namespace ) { if ( namespace.ccm_version ) ccm_version = namespace.ccm_version; if ( namespace.ccm_url ) ccm_url = namespace.ccm_url; }
-  if ( !window.ccm || !ccm[ ccm_version ] ) { var tag = document.createElement( 'script' ); document.head.appendChild( tag ); tag.onload = register; tag.src = ccm_url; } else register( true );
-  function register( synchron ) { ccm[ ccm_version ].component( component_obj ); if ( !synchron ) delete window.ccm.files[ filename ]; }
+  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
 }() );
