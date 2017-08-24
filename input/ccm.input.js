@@ -21,7 +21,7 @@
 
     config: {
 
-      html: {
+      "html": {
         "main": {
           "id": "main",
           "inner": {
@@ -93,7 +93,7 @@
 
   //  form: true,
   //  button: true,
-  //  initial_data: {},
+  //  initial: {},
   //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js' ],
   //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
   //  oninput: function ( instance, data ) { console.log( data ); },
@@ -169,11 +169,11 @@
           function setInputValue() {
 
             // on initial data? => abort
-            if ( !my.initial_data ) return;
+            if ( !my.initial ) return;
 
             // determine initial value
             var value;
-            if ( input_data.name ) value = self.ccm.helper.deepValue( my.initial_data, input_data.name );
+            if ( input_data.name ) value = self.ccm.helper.deepValue( my.initial, input_data.name );
             if ( value === undefined && !input_data.values ) return;
 
             // set initial value(s) of the input field(s)
@@ -188,7 +188,7 @@
               case 'checkbox':
                 if ( input_data.values )
                   input_data.values.map( function ( checkbox_data ) {
-                    if ( self.ccm.helper.deepValue( my.initial_data, ( input_data.name ? input_data.name + '.' : '' ) + checkbox_data.name ) )
+                    if ( self.ccm.helper.deepValue( my.initial, ( input_data.name ? input_data.name + '.' : '' ) + checkbox_data.name ) )
                       checkbox_data.checked = true;
                     else
                       delete checkbox_data.checked;

@@ -1,5 +1,5 @@
 /**
- * @overview configurations of <i>ccm</i> component for user inputs
+ * @overview configurations of ccm component for user inputs
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
@@ -176,7 +176,7 @@ ccm.files[ 'configs.js' ] = {
         "input": "url"
       }
     ],
-    "initial_data": {
+    "initial": {
       "username": "JohnDoe",
       "password": "1aA",
       "destination": "there",
@@ -223,7 +223,7 @@ ccm.files[ 'configs.js' ] = {
         "input": "text"
       }
     ],
-    "initial_data": {
+    "initial": {
       "key": "test",
       "foo": {
         "bar": "FooBar",

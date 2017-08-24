@@ -14,13 +14,13 @@
 
     ccm: {
       url: 'https://akless.github.io/ccm/version/ccm-10.0.0.min.js',
-      integrity: 'sha384-6j2e9RlJGOcd5Ge57Z1lzJSV1t4JrlPnPXZ9nZQ9vG1w0rXFhrMeiWx1EVySMM3Z',
+      integrity: 'sha384-lFM/OdNL4uOjWgutWPJ/7GhViVV3QX74lVJUwRekoTRnNR6PhGZcKEK28yme5oQR',
       crossorigin: 'anonymous'
     },
 
     config: {
 
-      html: {
+      "html": {
         "main": {
           "id": "main",
           "inner": {
@@ -168,11 +168,11 @@
           function setInputValue() {
 
             // on initial data? => abort
-            if ( !my.initial_data ) return;
+            if ( !my.initial ) return;
 
             // determine initial value
             var value;
-            if ( input_data.name ) value = self.ccm.helper.deepValue( my.initial_data, input_data.name );
+            if ( input_data.name ) value = self.ccm.helper.deepValue( my.initial, input_data.name );
             if ( value === undefined && !input_data.values ) return;
 
             // set initial value(s) of the input field(s)
@@ -187,7 +187,7 @@
               case 'checkbox':
                 if ( input_data.values )
                   input_data.values.map( function ( checkbox_data ) {
-                    if ( self.ccm.helper.deepValue( my.initial_data, ( input_data.name ? input_data.name + '.' : '' ) + checkbox_data.name ) )
+                    if ( self.ccm.helper.deepValue( my.initial, ( input_data.name ? input_data.name + '.' : '' ) + checkbox_data.name ) )
                       checkbox_data.checked = true;
                     else
                       delete checkbox_data.checked;
