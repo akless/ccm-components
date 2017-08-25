@@ -61,7 +61,7 @@
           ]
         }
       },
-      "css": [ "ccm.load", "resources/default.css" ],
+      "css": [ "ccm.load", "../testsuite/resources/default.css" ],
       "onfinish": { "log": true }
 
   //  tests
