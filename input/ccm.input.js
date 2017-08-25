@@ -3,6 +3,7 @@
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
+ * TODO: declarative way
  * TODO: logging
  * TODO: docu comments -> API
  * TODO: recursive factories
