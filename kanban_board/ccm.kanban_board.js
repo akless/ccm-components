@@ -1,5 +1,5 @@
 /**
- * @overview <i>ccm</i> component for rendering a kanban board
+ * @overview ccm component for rendering a kanban board
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
@@ -18,37 +18,33 @@
 
 ( function () {
 
-  var filename = 'ccm.kanban_board.js';
+  var component = {
 
-  var ccm_version = '9.3.0';
-  var ccm_url     = 'https://akless.github.io/ccm/version/ccm-9.3.0.min.js';
+    name: 'kanban_board',
 
-  var component_name = 'kanban_board';
-  var component_obj  = {
-
-    name: component_name,
+    ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
 
-      html: {
-        lane: {
-          tag: 'section',
-          inner: [
+      "html": {
+        "lane": {
+          "tag": "section",
+          "inner": [
             {
-              tag: 'header',
-              inner: '%%'
+              "tag": "header",
+              "inner": "%%"
             },
-            { tag: 'article' }
+            { "tag": "article" }
           ]
         }
       },
-      css: [ 'ccm.load', 'https://akless.github.io/ccm-components/kanban_board/resources/default.css' ],
-      kanban_card: [ 'ccm.component', 'https://akless.github.io/ccm-components/kanban_card/versions/ccm.kanban_card-1.0.0.min.js' ],
-      data: {
-        store: [ 'ccm.store', 'https://akless.github.io/ccm-components/kanban_board/resources/kanban_board_datasets.min.js' ],
-        key: 'demo'
+      "css": [ "ccm.load", "resources/default.css" ],
+      "kanban_card": [ "ccm.component", "../kanban_card/ccm.kanban_card.js" ],
+      "data": {
+        "store": [ "ccm.store", "resources/datasets.js" ],
+        "key": "local"
       },
-      lanes: [ 'ToDo', 'Doing', 'Done' ]
+      "lanes": [ "ToDo", "Doing", "Done" ]
 
     },
 
@@ -123,8 +119,5 @@
 
   };
 
-  if ( window.ccm && window.ccm.files ) window.ccm.files[ filename ] = component_obj;
-  var namespace = window.ccm && ccm.components[ component_name ]; if ( namespace ) { if ( namespace.ccm_version ) ccm_version = namespace.ccm_version; if ( namespace.ccm_url ) ccm_url = namespace.ccm_url; }
-  if ( !window.ccm || !ccm[ ccm_version ] ) { var tag = document.createElement( 'script' ); document.head.appendChild( tag ); tag.onload = register; tag.src = ccm_url; } else register( true );
-  function register( synchron ) { ccm[ ccm_version ].component( component_obj ); if ( !synchron ) delete window.ccm.files[ filename ]; }
+  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
 }() );
