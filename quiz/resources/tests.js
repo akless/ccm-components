@@ -23,7 +23,7 @@ ccm.files[ 'tests.js' ] = {
         suite.assertSame( 'quiz', suite.instance.component.name );
       },
       frameworkVersion: function ( suite ) {
-        suite.assertEquals( '9.3.0', suite.instance.ccm.version() );
+        suite.assertEquals( '10.0.0', suite.instance.ccm.version() );
       },
       publicProperties: function ( suite ) {
         suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( suite.instance ) );
@@ -232,7 +232,7 @@ ccm.files[ 'tests.js' ] = {
               logging: { data: true },
               onfinish: function ( instance, results ) {
                 if ( results.event !== 'start' ) return suite.failed( 'wrong event' );
-                suite.assertEquals( [ 'questions', 'html', 'css', 'placeholder' ], Object.keys( results.data ) );
+                suite.assertEquals( [ 'html', 'css', 'questions', 'placeholder' ], Object.keys( results.data ) );
               }
             } ]
           } );

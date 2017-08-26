@@ -7,42 +7,9 @@
 ccm.files[ 'configs.js' ] = {
   "demo": {
     "html.start.inner.inner": "Start Demo Quiz",
-    "css": [
-      "ccm.load",
-      {
-        "url": "https://akless.github.io/ccm-components/quiz/resources/weblysleek.css",
-        "integrity": "sha384-GmccgQziA4tv4Dy2opWuAnLF0yDCLmWzhdgiJJFOikFuXjW2BMb4Lmkg/zSpRlzq",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css",
-        "integrity": "sha384-UgtnWIHnlTSiLL0vo8T6Uj3wogCGsz/L2e3HfaWPlMjpHkPt5GQC3kgVNS3uyKLe",
-        "crossorigin": "anonymous"
-      }
-    ],
-    "user": [ "ccm.instance", {
-      "url": "https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js",
-      "integrity": "sha384-Br7iSlRBDu1/G/NsGjmN4GLppMHwNowkGQw+DE0270c+REvimjdv1z2VpwWSwvbh",
-      "crossorigin": "anonymous"
-    } ],
-    "logger": [
-      "ccm.instance",
-      {
-        "url": "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js",
-        "integrity": "sha384-O3A4V3rxXG32G0LmZzr8nUQlTI3ceZQO5bdfs7N8GiLdZ10Ch3QTyeg4jUy5PItE",
-        "crossorigin": "anonymous"
-      },
-      [
-        "ccm.get",
-        {
-          "url": "https://akless.github.io/ccm-components/log/resources/configs.min.js",
-          "integrity": "",
-          "crossorigin": "anonymous"
-        },
-        "greedy"
-      ]
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/quiz/resources/weblysleek.css", { "context": "head", "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css" } ],
+    "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js" ],
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ],
     "questions": [
       {
         "text": "How many of these answers are correct?",
