@@ -8,7 +8,7 @@ ccm.files[ 'configs.js' ] = {
   "homework": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/default.css" ],
     "data": {
-      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/datasets.min.js" ],
+      "store": [ "ccm.store", "resources/datasets.min.js" ],
       "key": "homework"
     }
   },
@@ -27,14 +27,6 @@ ccm.files[ 'configs.js' ] = {
       "key": "demo",
       "permission_settings": { "access": "group" }
     },
-    "logger": [
-      "ccm.instance",
-      {
-        "url": "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js",
-        "integrity": "sha384-0io10TM0EA2MCFKCtbY1jNJ31FCVI77gcgoxa4m5vB0+tieOYavM8M1cDT946jPx",
-        "crossorigin": "anonymous"
-      },
-      [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ]
-    ]
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
   }
 };
