@@ -22,7 +22,7 @@
 
     name: 'quiz',
 
-    ccm: '../../ccm/ccm.js',
+    ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
 
