@@ -6,7 +6,6 @@
 
 ccm.files[ 'configs.js' ] = {
   "demo": {
-    "html.start.inner.inner": "Start Demo Quiz",
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/quiz/resources/weblysleek.css", { "context": "head", "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css" } ],
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js" ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ],
@@ -54,13 +53,12 @@ ccm.files[ 'configs.js' ] = {
         "correct": [ 2, 0, -2 ]
       }
     ],
-    "start_button": true,
     "feedback": true,
     "navigation": true,
+    "placeholder.finish": "Restart",
     "onfinish": { "restart": true }
   },
   "local": {
-    "html.start.inner.inner": "Start Demo Quiz",
     "css": [ "ccm.load", "resources/weblysleek.css", { "context": "head", "url": "../libs/weblysleekui/font.css" } ],
     "user": [ "ccm.instance", "../user/ccm.user.js" ],
     "logger": [ "ccm.instance", "../log/ccm.log.js", [ "ccm.get", "../log/resources/configs.js", "greedy" ] ],
@@ -108,9 +106,9 @@ ccm.files[ 'configs.js' ] = {
         "correct": [ 2, 0, -2 ]
       }
     ],
-    "start_button": true,
     "feedback": true,
     "navigation": true,
+    "placeholder.finish": "Restart",
     "onfinish": { "restart": true }
   }
 };
