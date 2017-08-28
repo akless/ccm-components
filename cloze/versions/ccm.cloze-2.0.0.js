@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version 2.0.0
  * @changes
- * version 2.0.0 (22.08.2017):
+ * version 2.0.0 (28.08.2017):
  * - uses ccm v10.0.0 instead of v8.1.0
  * - shortened component backbone
  * - renaming of some instance properties
