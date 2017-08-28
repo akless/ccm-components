@@ -106,7 +106,7 @@
       this.init = function ( callback ) {
 
         // fill-in-the-blank text is given via inner HTML of own Custom Element? => use it with higher priority
-        if ( self.node && self.node.innerHTML.trim() ) self.text = self.node.innerHTML;
+        if ( self.inner && self.inner.innerHTML.trim() ) self.text = self.inner.innerHTML;
 
         callback();
       };
