@@ -29,6 +29,7 @@
     ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
+
       "html": {
         "start": {
           "id": "start",
