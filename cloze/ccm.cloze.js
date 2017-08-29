@@ -14,6 +14,7 @@
  * - reductions in HTML template for start button
  * - remove no more needed ccm.helper.protect call
  * version 1.0.0 (12.07.2017)
+ * TODO: deactivated finish button activates after submit
  * TODO: docu comments -> API
  * TODO: unit tests
  * TODO: factory
