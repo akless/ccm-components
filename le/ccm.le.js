@@ -168,6 +168,11 @@
           topic: my.topic
         } );
 
+        if ( !my.topic_prefix ) {
+          self.ccm.helper.removeElement( wrapper_elem.querySelector( '#prefix' ) );
+          self.ccm.helper.removeElement( wrapper_elem.querySelector( 'br' ) );
+        }
+
         if ( my.author ) {
           var footer = wrapper_elem.querySelector( 'footer' );
           if ( my.english_licence )
