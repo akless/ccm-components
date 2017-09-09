@@ -159,7 +159,7 @@
             success( { user: my.guest.user, name: my.guest.name } );
             break;
           case 'demo':
-            self.ccm.load( { url: 'ccm.inf.h-brs.de', params: { realm: 'ccm' } }, success );
+            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', params: { realm: 'ccm' } }, success );
             break;
           case 'hbrsinfkaul':
             self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', params: { realm: 'hbrsinfkaul' } }, success);
