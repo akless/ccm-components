@@ -2,7 +2,11 @@
  * @overview <i>ccm</i> component for user authentication
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version latest (1.1.0)
+ * @changes
+ * version 1.1.0 (18.09.2017):
+ * - no observer notification if observer is parent of publisher
+ * version 1.0.0 (09.09.2017)
  * TODO: logging
  * TODO: more unit tests
  * TODO: factory
@@ -77,11 +81,11 @@
 
       /**
        * @summary observers for login and logout event
-       * @description List of functions that must be performed on a login and logout event.
+       * @description List of observer functions that must be performed on a login and logout event.
        * @private
-       * @type {function[]}
+       * @type {Object.<string,function>}
        */
-      var observers = [];
+      var observers = {};
 
       /**
        * true during a login or logout request
@@ -139,12 +143,13 @@
       /**
        * login user
        * @param {function} [callback] - will be called after login (or directly if user is already logged in)
+       * @param {boolean} propagated - propagated call (intern parameter)
        * @returns {self}
        */
-      this.login = function ( callback ) {
+      this.login = function ( callback, propagated ) {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.login( callback );
+        if ( my.context ) return my.context.login( callback, true );
 
         // user already logged in? => perform callback directly
         if ( self.isLoggedIn() ) { if ( callback ) callback(); return self; }
@@ -189,7 +194,7 @@
 
           if ( self.element ) self.start();  // (re)render own content
           if ( callback ) callback();        // perform callback
-          notify( true );                    // notify observers about login event
+          notify( true, propagated );        // notify observers about login event
 
         }
 
@@ -198,12 +203,13 @@
       /**
        * logout user
        * @param {function} [callback] will be called after logout (or directly if user is already logged out)
+       * @param {boolean} propagated - propagated call (intern parameter)
        * @returns {self}
        */
-      this.logout = function ( callback ) {
+      this.logout = function ( callback, propagated ) {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.logout( callback );
+        if ( my.context ) return my.context.logout( callback, true );
 
         // user already logged out? => perform callback directly
         if ( !self.isLoggedIn() ) { if ( callback ) callback(); return self; }
@@ -239,7 +245,7 @@
 
           if ( self.element ) self.start();  // (re)render own content
           if ( callback ) callback();        // perform callback
-          notify( false );                   // notify observers about logout event
+          notify( false, propagated );       // notify observers about logout event
 
         }
 
@@ -285,16 +291,17 @@
 
       /**
        * adds an observer for login and logout event
-       * @param {function} observer - will be performed when event fires (first parameter is kind of event -> true: login, false: logout)
+       * @param {string} observer - observer index
+       * @param {function} callback - will be performed when event fires (first parameter is kind of event -> true: login, false: logout)
        * @returns {self}
        */
-      this.addObserver = function ( observer ) {
+      this.addObserver = function ( observer, callback ) {
 
         // context mode? => delegate method call
         if ( my.context ) return my.context.addObserver( observer );
 
         // add function to observers
-        observers.push( observer );
+        observers[ observer ] = callback;
 
         return self;
       };
@@ -302,12 +309,15 @@
       /**
        * notifies observers
        * @param {boolean} event - true: login, false: logout
+       * @param {boolean} propagated - propagated call (intern parameter)
        * @private
        */
-      function notify( event ) {
+      function notify( event, propagated ) {
 
-        // perform observer functions
-        observers.map( function ( observer ) { observer( event ); } );
+        for ( var index in observers ) {
+          if ( !propagated && self.parent && self.parent.index === index ) continue;  // skip if observer is parent of publisher
+          observers[ index ]( event );
+        }
 
       }
 
