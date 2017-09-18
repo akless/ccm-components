@@ -298,7 +298,7 @@
       this.addObserver = function ( observer, callback ) {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.addObserver( observer );
+        if ( my.context ) return my.context.addObserver( observer, callback );
 
         // add function to observers
         observers[ observer ] = callback;
