@@ -31,14 +31,8 @@ ccm.files[ 'tests.js' ] = {
       defaultGuestKey: function ( suite ) {
         suite.assertSame( 'guest', suite.component.instance().login().data().user );
       },
-      defaultGuestName: function ( suite ) {
-        suite.assertSame( 'Guest User', suite.component.instance().login().data().name );
-      },
       individualGuestKey: function ( suite ) {
         suite.assertSame( 'JohnDoe', suite.component.instance( { 'guest.user': 'JohnDoe' } ).login().data().user );
-      },
-      individualGuestName: function ( suite ) {
-        suite.assertSame( 'John Doe', suite.component.instance( { 'guest.name': 'John Doe' } ).login().data().name );
       }/*,
       demo: function ( suite ) {
         suite.component.instance( { sign_on: 'demo' } ).login( function () {
