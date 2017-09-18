@@ -7,10 +7,6 @@
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
  * version 1.0.0 (09.09.2017)
- * TODO: logging
- * TODO: more unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 ( function () {
@@ -18,6 +14,7 @@
   var component = {
 
     name: 'user',
+    version: [ 1, 1, 0 ],
 
     ccm: {
       url: 'https://akless.github.io/ccm/version/ccm-10.0.0.min.js',
