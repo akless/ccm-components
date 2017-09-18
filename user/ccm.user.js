@@ -302,6 +302,7 @@
 
         // add function to observers
         observers[ observer ] = callback;
+        console.log( observers );
 
         return self;
       };
@@ -314,7 +315,9 @@
        */
       function notify( event, propagated ) {
 
+        console.log( observer, event, propagated );
         for ( var index in observers ) {
+          console.log( index );
           if ( !propagated && self.parent && self.parent.index === index ) continue;  // skip if observer is parent of publisher
           observers[ index ]( event );
         }
