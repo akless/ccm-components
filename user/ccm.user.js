@@ -315,7 +315,7 @@
        */
       function notify( event, propagated ) {
 
-        console.log( observer, event, propagated );
+        console.log( observers, event, propagated );
         for ( var index in observers ) {
           console.log( index );
           if ( !propagated && self.parent && self.parent.index === index ) continue;  // skip if observer is parent of publisher
