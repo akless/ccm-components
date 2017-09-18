@@ -2,7 +2,7 @@
  * @overview <i>ccm</i> component for user authentication
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
- * @version latest (1.1.0)
+ * @version 1.1.0
  * @changes
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
@@ -19,7 +19,11 @@
 
     name: 'user',
 
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-10.0.0.min.js',
+      integrity: 'sha384-v24wd6JR8Wl21O3ozdGdJw7DT98cm2HuSXopwgFLI0bXPXv7+X3hh7A/+i+PkAXC',
+      crossorigin: 'anonymous'
+    },
 
     config: {
       "html": {

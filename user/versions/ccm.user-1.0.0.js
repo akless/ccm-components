@@ -53,10 +53,7 @@
       "context": true,
       "logged_in": false,
       "sign_on": "guest",
-      "guest": {
-        "user": "guest",
-        "name": "Guest User"
-      }
+      "guest": "guest"
 
   //  css: [ 'ccm.load', 'https://akless.github.io/ccm-components/user/resources/default.css' ],
   //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ]
@@ -156,7 +153,7 @@
         // choose sign on and proceed login
         switch ( my.sign_on ) {
           case 'guest':
-            success( { user: my.guest.user, name: my.guest.name } );
+            success( { user: my.guest } );
             break;
           case 'demo':
             self.ccm.load( { url: 'https://ccm.inf.h-brs.de', params: { realm: 'ccm' } }, success );
@@ -332,8 +329,7 @@
      *   <tr><td>"demo"</td><td>demo mode: login with any username and password; full name is equal to the username</td></tr>
      *   <tr><td>"hbrsinfkaul"</td><td>login with an account of the department of computer science of the Hochschule Bonn-Rhein-Sieg (University of Applied Sciences)</td></tr>
      * </table>
-     * @property {string} guest.username - username for guest mode
-     * @property {string} guest.full_name - full name of user for guest mode
+     * @property {string} guest - username for guest mode
      */
 
     /**

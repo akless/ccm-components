@@ -32,7 +32,7 @@ ccm.files[ 'tests.js' ] = {
         suite.assertSame( 'guest', suite.component.instance().login().data().user );
       },
       individualGuestKey: function ( suite ) {
-        suite.assertSame( 'JohnDoe', suite.component.instance( { 'guest.user': 'JohnDoe' } ).login().data().user );
+        suite.assertSame( 'JohnDoe', suite.component.instance( { 'guest': 'JohnDoe' } ).login().data().user );
       }/*,
       demo: function ( suite ) {
         suite.component.instance( { sign_on: 'demo' } ).login( function () {
