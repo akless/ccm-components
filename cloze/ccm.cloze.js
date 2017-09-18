@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (2.0.0)
  * @changes
- * version 2.0.0 (28.08.2017):
+ * version 2.0.0 (18.09.2017):
  * - uses ccm v10.0.0 instead of v8.1.0
  * - shortened component backbone
  * - renaming of some instance properties
@@ -13,6 +13,7 @@
  * - default value for finish event
  * - reductions in HTML template for start button
  * - remove no more needed ccm.helper.protect call
+ * - feedback instead of finish when timer has expired
  * version 1.0.0 (12.07.2017)
  * TODO: deactivated finish button activates after submit
  * TODO: docu comments -> API
@@ -338,52 +339,6 @@
               click: onFinish
             } ) );
 
-            /** evaluates the fill-in-the-blank text and shows feedback */
-            function evaluate() {
-
-              // iterate over all gap input fields
-              self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
-
-                /**
-                 * event data (contains informations about the input field)
-                 * @type {object}
-                 */
-                var event_data = { gap: 1 + i, input: gap.value };
-
-                // determine correctness of the user input value
-                var nearly = gap.value.toLowerCase().trim() === keywords[ i ].word.toLowerCase().trim();
-                var correct = gap.value === keywords[ i ].word;
-
-                // has individual 'validation' callback? => perform it (reset evaluation if user input value is not valid)
-                if ( self.onvalidation && !self.onvalidation( self, self.ccm.helper.clone( event_data ) ) ) return results.details = [];
-
-                // add solution information to event data
-                event_data.solution = keywords[ i ].word;
-
-                // give visual feedback for correctness
-                gap.disabled = true;
-                if ( !nearly ) gap.value = '';
-                gap.setAttribute( 'placeholder', keywords[ i ].word );
-                gap.parentNode.classList.add( correct ? 'correct' : ( nearly ? 'nearly' : 'wrong' ) );
-
-                // set detail informations for current gap result
-                results.details.push( event_data );
-
-              } );
-
-              // no evaluation results? => abort
-              if ( results.details.length === 0 ) return;
-
-              // has logger instance? => log 'feedback' event
-              if ( self.logger ) self.logger.log( 'feedback', results );
-
-              // has individual 'feedback' callback? => perform it
-              if ( self.onfeedback ) self.onfeedback( self, self.ccm.helper.clone( results ) );
-
-              updateButtons();
-
-            }
-
           }
 
           /** renders the timer */
@@ -412,11 +367,57 @@
 
               // countdown
               if ( timer_value-- )
-                self.ccm.helper.wait( 1000, timer );  // recursive call
+                self.ccm.helper.wait( 1000, timer );    // recursive call
               else
-                onFinish();  // finish quiz at timeout
+                my.feedback ? evaluate() : onFinish();  // finish quiz at timeout
 
             }
+
+          }
+
+          /** evaluates the fill-in-the-blank text and shows feedback */
+          function evaluate() {
+
+            // iterate over all gap input fields
+            self.ccm.helper.makeIterable( main_elem.querySelectorAll( '.gap input' ) ).map( function ( gap, i ) {
+
+              /**
+               * event data (contains informations about the input field)
+               * @type {object}
+               */
+              var event_data = { gap: 1 + i, input: gap.value };
+
+              // determine correctness of the user input value
+              var nearly = gap.value.toLowerCase().trim() === keywords[ i ].word.toLowerCase().trim();
+              var correct = gap.value === keywords[ i ].word;
+
+              // has individual 'validation' callback? => perform it (reset evaluation if user input value is not valid)
+              if ( self.onvalidation && !self.onvalidation( self, self.ccm.helper.clone( event_data ) ) ) return results.details = [];
+
+              // add solution information to event data
+              event_data.solution = keywords[ i ].word;
+
+              // give visual feedback for correctness
+              gap.disabled = true;
+              if ( !nearly ) gap.value = '';
+              gap.setAttribute( 'placeholder', keywords[ i ].word );
+              gap.parentNode.classList.add( correct ? 'correct' : ( nearly ? 'nearly' : 'wrong' ) );
+
+              // set detail informations for current gap result
+              results.details.push( event_data );
+
+            } );
+
+            // no evaluation results? => abort
+            if ( results.details.length === 0 ) return;
+
+            // has logger instance? => log 'feedback' event
+            if ( self.logger ) self.logger.log( 'feedback', results );
+
+            // has individual 'feedback' callback? => perform it
+            if ( self.onfeedback ) self.onfeedback( self, self.ccm.helper.clone( results ) );
+
+            updateButtons();
 
           }
 
@@ -427,6 +428,9 @@
             if ( self.user ) self.user.login( proceed ); else proceed();
 
             function proceed() {
+
+              // no evaluation results? => evaluate fill-in-the-blank text
+              if ( results.details.length === 0 ) evaluate();
 
               // make sure that user could not use 'finish' button again
               self.ccm.helper.removeElement( finish_elem );
