@@ -6,7 +6,7 @@
 
 #element {
   font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   padding: 0.5em 0;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .gap input {
-  font-family: monospace;
+  font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
   font-size: 111%;
   text-align: center;
   padding-left: 0.2em;
