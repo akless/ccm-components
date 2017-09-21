@@ -1,46 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: ccm.user.js</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
-
-<body>
-
-<div id="main">
-
-    <h1 class="page-title">Source: ccm.user.js</h1>
-
-    
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @overview &lt;i>ccm&lt;/i> component for user authentication
- * @author André Kless &lt;andre.kless@web.de> 2015-2017
+/**
+ * @overview <i>ccm</i> component for user authentication
+ * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
- * @version latest (1.2.0)
+ * @version 1.2.0
  * @changes
  * version 1.2.0 (21.09.2017):
  * - changed structure of user dataset: id, token, name, email
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
  * version 1.0.0 (09.09.2017)
- * TODO: logging
- * TODO: more unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 ( function () {
@@ -48,8 +16,13 @@
   var component = {
 
     name: 'user',
+    version: [ 1, 2, 0 ],
 
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-10.0.0.min.js',
+      integrity: 'sha384-v24wd6JR8Wl21O3ozdGdJw7DT98cm2HuSXopwgFLI0bXPXv7+X3hh7A/+i+PkAXC',
+      crossorigin: 'anonymous'
+    },
 
     config: {
       "html": {
@@ -110,7 +83,7 @@
        * @summary observers for login and logout event
        * @description List of observer functions that must be performed on a login and logout event.
        * @private
-       * @type {Object.&lt;string,function>}
+       * @type {Object.<string,function>}
        */
       var observers = {};
 
@@ -132,7 +105,7 @@
       this.init = function ( callback ) {
 
         // context mode? => set context to highest ccm instance for user authentication in current ccm context
-        if ( self.context ) { var context = self.ccm.context.find( self, 'user' ); self.context = context &amp;&amp; context.context || context || false; }
+        if ( self.context ) { var context = self.ccm.context.find( self, 'user' ); self.context = context && context.context || context || false; }
 
         callback();
       };
@@ -346,7 +319,7 @@
       function notify( event, propagated ) {
 
         for ( var index in observers ) {
-          if ( !propagated &amp;&amp; self.parent &amp;&amp; self.parent.index === index ) continue;  // skip if observer is parent of publisher
+          if ( !propagated && self.parent && self.parent.index === index ) continue;  // skip if observer is parent of publisher
           observers[ index ]( event );
         }
 
@@ -362,16 +335,16 @@
      * @summary possible configuration members
      * @typedef {object} ccm.components.user.types.config
      * @property {Element} element - contains own content
-     * @property {Object.&lt;string,ccm.types.html>} html - contains HTML templates
+     * @property {Object.<string,ccm.types.html>} html - contains HTML templates
      * @property {ccm.types.dependency} css - layout CSS file
-     * @property {boolean} context - context mode: if enabled, all method calls will be delegated to the highest &lt;i>ccm&lt;/i> instance for user authentication in the current &lt;i>ccm&lt;/i> context
+     * @property {boolean} context - context mode: if enabled, all method calls will be delegated to the highest <i>ccm</i> instance for user authentication in the current <i>ccm</i> context
      * @property {boolean} logged_in - if enabled, user will be directly logged in
-     * @property {string} sign_on - &lt;table>
-     *   &lt;tr>&lt;th>sign-on&lt;/th>&lt;th>description&lt;/th>&lt;/tr>
-     *   &lt;tr>&lt;td>"guest"&lt;/td>&lt;td>guest mode: every user has the same username; no authentication&lt;/td>&lt;/tr>
-     *   &lt;tr>&lt;td>"demo"&lt;/td>&lt;td>demo mode: login with any username without password&lt;/td>&lt;/tr>
-     *   &lt;tr>&lt;td>"hbrsinfkaul"&lt;/td>&lt;td>login with an account of the department of computer science of the Hochschule Bonn-Rhein-Sieg (University of Applied Sciences)&lt;/td>&lt;/tr>
-     * &lt;/table>
+     * @property {string} sign_on - <table>
+     *   <tr><th>sign-on</th><th>description</th></tr>
+     *   <tr><td>"guest"</td><td>guest mode: every user has the same username; no authentication</td></tr>
+     *   <tr><td>"demo"</td><td>demo mode: login with any username without password</td></tr>
+     *   <tr><td>"hbrsinfkaul"</td><td>login with an account of the department of computer science of the Hochschule Bonn-Rhein-Sieg (University of Applied Sciences)</td></tr>
+     * </table>
      * @property {string} guest - username for guest mode
      */
 
@@ -397,27 +370,5 @@
 
   };
 
-  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&amp;&amp;null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&amp;&amp;window.ccm.components[component.name];n&amp;&amp;n.ccm&amp;&amp;(component.ccm=n.ccm),"string"==typeof component.ccm&amp;&amp;(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&amp;&amp;v.pop(),v=v.join(".")):v="latest",window.ccm&amp;&amp;window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&amp;&amp;e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&amp;&amp;e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
-}() );</code></pre>
-        </article>
-    </section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="ccm.external_types.html">types</a></li></ul><h3>Classes</h3><ul><li><a href="-_anonymous_-component.Instance.html">Instance</a></li></ul><h3>Namespaces</h3><ul><li><a href="ccm.components.user.types.html">types</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Sep 21 2017 11:58:48 GMT+0200 (CEST)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
-</html>
+  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
+}() );

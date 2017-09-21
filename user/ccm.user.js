@@ -2,8 +2,10 @@
  * @overview <i>ccm</i> component for user authentication
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
- * @version latest (1.1.0)
+ * @version latest (1.2.0)
  * @changes
+ * version 1.2.0 (21.09.2017):
+ * - changed structure of user dataset: id, token, name, email
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
  * version 1.0.0 (09.09.2017)
@@ -157,7 +159,7 @@
         // choose sign on and proceed login
         switch ( my.sign_on ) {
           case 'guest':
-            success( { user: my.guest } );
+            success( { id: my.guest } );
             break;
           case 'demo':
             self.ccm.load( { url: 'https://ccm.inf.h-brs.de', params: { realm: 'ccm' } }, success );
@@ -181,7 +183,11 @@
         function success( response ) {
 
           // hold user data
-          dataset = self.ccm.helper.filterProperties( response, 'user', 'token' );
+          dataset = self.ccm.helper.filterProperties( response, 'id', 'token', 'name', 'email' );
+
+          // missing userername or user identifier? => use default
+          if ( !dataset.name ) dataset.name = dataset.id;
+          if ( !dataset.id   ) dataset.id = dataset.name;
 
           // request is finished
           loading = false;
@@ -327,15 +333,15 @@
     /**
      * @summary possible configuration members
      * @typedef {object} ccm.components.user.types.config
-     * @property {ccm.types.element} element - contains own content
+     * @property {Element} element - contains own content
      * @property {Object.<string,ccm.types.html>} html - contains HTML templates
      * @property {ccm.types.dependency} css - layout CSS file
      * @property {boolean} context - context mode: if enabled, all method calls will be delegated to the highest <i>ccm</i> instance for user authentication in the current <i>ccm</i> context
      * @property {boolean} logged_in - if enabled, user will be directly logged in
      * @property {string} sign_on - <table>
      *   <tr><th>sign-on</th><th>description</th></tr>
-     *   <tr><td>"guest"</td><td>guest mode: every user has the same username and full name without a password</td></tr>
-     *   <tr><td>"demo"</td><td>demo mode: login with any username and password; full name is equal to the username</td></tr>
+     *   <tr><td>"guest"</td><td>guest mode: every user has the same username; no authentication</td></tr>
+     *   <tr><td>"demo"</td><td>demo mode: login with any username without password</td></tr>
      *   <tr><td>"hbrsinfkaul"</td><td>login with an account of the department of computer science of the Hochschule Bonn-Rhein-Sieg (University of Applied Sciences)</td></tr>
      * </table>
      * @property {string} guest - username for guest mode
@@ -344,10 +350,16 @@
     /**
      * @summary contains user data
      * @typedef {object} ccm.components.user.types.dataset
-     * @property {string} user - unique user key and username, respectively
-     * @property {string} name - full name of user
+     * @property {string} id - user identifier
      * @property {string} token - security token (contains encrypted password)
-     * @example { user: 'john_doe', name: 'John Doe', token: 'd41d8cd98f00b204e9800998ecf8427e' }
+     * @property {string} name - username
+     * @property {string} email - email address of the user
+     * @example {
+     *   id: '1505746039655X03060032459121187',
+     *   token: 'd41d8cd98f00b204e9800998ecf8427e',
+     *   name: 'john_doe',
+     *   email: 'john.doe@web.de'
+     * }
      */
 
     /**

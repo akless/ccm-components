@@ -70,7 +70,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ccm.user.js.html">ccm.user.js</a>, <a href="ccm.user.js.html#line314">line 314</a>
+        <a href="ccm.user.js.html">ccm.user.js</a>, <a href="ccm.user.js.html#line329">line 329</a>
     </li></ul></dd>
     
 
@@ -160,7 +160,7 @@
             <td class="type">
             
                 
-<span class="param-type">ccm.types.element</span>
+<span class="param-type">Element</span>
 
 
             
@@ -287,8 +287,8 @@
 
             <td class="description last"><table>
   <tr><th>sign-on</th><th>description</th></tr>
-  <tr><td>"guest"</td><td>guest mode: every user has the same username and full name without a password</td></tr>
-  <tr><td>"demo"</td><td>demo mode: login with any username and password; full name is equal to the username</td></tr>
+  <tr><td>"guest"</td><td>guest mode: every user has the same username; no authentication</td></tr>
+  <tr><td>"demo"</td><td>demo mode: login with any username without password</td></tr>
   <tr><td>"hbrsinfkaul"</td><td>login with an account of the department of computer science of the Hochschule Bonn-Rhein-Sieg (University of Applied Sciences)</td></tr>
 </table></td>
         </tr>
@@ -297,7 +297,7 @@
 
         <tr>
             
-                <td class="name"><code>guest.username</code></td>
+                <td class="name"><code>guest</code></td>
             
 
             <td class="type">
@@ -314,29 +314,6 @@
             
 
             <td class="description last">username for guest mode</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>guest.full_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">full name of user for guest mode</td>
         </tr>
 
     
@@ -375,7 +352,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ccm.user.js.html">ccm.user.js</a>, <a href="ccm.user.js.html#line318">line 318</a>
+        <a href="ccm.user.js.html">ccm.user.js</a>, <a href="ccm.user.js.html#line333">line 333</a>
     </li></ul></dd>
     
 
@@ -442,7 +419,7 @@
 
         <tr>
             
-                <td class="name"><code>user</code></td>
+                <td class="name"><code>id</code></td>
             
 
             <td class="type">
@@ -458,30 +435,7 @@
 
             
 
-            <td class="description last">unique user key and username, respectively</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">full name of user</td>
+            <td class="description last">user identifier</td>
         </tr>
 
     
@@ -505,6 +459,52 @@
             
 
             <td class="description last">security token (contains encrypted password)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">username</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">email address of the user</td>
         </tr>
 
     
@@ -543,7 +543,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ccm.user.js.html">ccm.user.js</a>, <a href="ccm.user.js.html#line336">line 336</a>
+        <a href="ccm.user.js.html">ccm.user.js</a>, <a href="ccm.user.js.html#line350">line 350</a>
     </li></ul></dd>
     
 
@@ -560,7 +560,12 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>{ user: 'john_doe', name: 'John Doe', token: 'd41d8cd98f00b204e9800998ecf8427e' }</code></pre>
+    <pre class="prettyprint"><code>{
+  id: '1505746039655X03060032459121187',
+  token: 'd41d8cd98f00b204e9800998ecf8427e',
+  name: 'john_doe',
+  email: 'john.doe@web.de'
+}</code></pre>
 
 
 
@@ -578,13 +583,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="ccm.external_types.html">types</a></li></ul><h3>Classes</h3><ul><li><a href="-_anonymous_-component_obj.Instance.html">Instance</a></li></ul><h3>Namespaces</h3><ul><li><a href="ccm.components.user.types.html">types</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="ccm.external_types.html">types</a></li></ul><h3>Classes</h3><ul><li><a href="-_anonymous_-component.Instance.html">Instance</a></li></ul><h3>Namespaces</h3><ul><li><a href="ccm.components.user.types.html">types</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Jul 28 2017 10:52:52 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Sep 21 2017 11:58:48 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>
