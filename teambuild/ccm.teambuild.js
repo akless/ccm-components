@@ -1,598 +1,509 @@
 /**
- * TODO: button for not joinable for team members
- * @overview <i>ccm</i> component for team building
- * @author André Kless <andre.kless@web.de> 2015-2016
+ * @overview ccm component for realtime team building
+ * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
+ * @version latest (1.0.0)
+ * TODO: lock and unlock for team joining
+ * TODO: late login
  */
 
-ccm.component( /** @lends ccm.components.teambuild */ {
+( function () {
 
-  /*-------------------------------------------- public component members --------------------------------------------*/
+  var component = {
 
-  /**
-   * @summary component index
-   * @type {ccm.types.index}
-   */
-  index: 'teambuild',
+    name: 'teambuild',
 
-  /**
-   * @summary default instance configuration
-   * @type {ccm.components.teambuild.types.config}
-   */
-  config: {
+    ccm: 'https://akless.github.io/ccm/ccm.js',
 
-    html:  [ ccm.load, '../teambuild/templates.json' ],
-    style: [ ccm.load, '../teambuild/layouts/default.css' ],
-    data:  {
-      store: [ ccm.store ],
-      key:   'demo'
-    },
-    icons: [ ccm.load, 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' ],
-    icon:  {
-      team: 'group',
-      member: 'user'
-    },
-    text:  {
-      free:  'free',
-      join:  'join',
-      leave: 'leave',
-      team:  'Team'
-    }
+    config: {
 
-  },
-
-  /*-------------------------------------------- public component classes --------------------------------------------*/
-
-  /**
-   * @summary constructor for creating <i>ccm</i> instances out of this component
-   * @class
-   */
-  Instance: function () {
-
-    /*------------------------------------- private and public instance members --------------------------------------*/
-
-    /**
-     * @summary own context
-     * @private
-     */
-    var self = this;
-
-    /**
-     * @summary contains privatized config members
-     * @type {ccm.components.teambuild.types.config}
-     * @private
-     */
-    var my;
-
-    /*------------------------------------------- public instance methods --------------------------------------------*/
-
-    /**
-     * @summary when <i>ccm</i> instance is ready
-     * @description
-     * Called one-time when this <i>ccm</i> instance and dependent <i>ccm</i> components, instances and datastores are initialized and ready.
-     * This method will be removed by <i>ccm</i> after the one-time call.
-     * @param {function} callback - callback when this instance is ready
-     * @ignore
-     */
-    this.ready = function ( callback ) {
-
-      // privatize security relevant config members
-      my = ccm.helper.privatize( self, 'html', 'data', 'user', 'lang', 'bigdata', 'icon', 'text' );
-
-      // listen to ccm realtime datastore change event
-      //my.data.store.onChange = update;
-
-      // TODO: listen to login/logout event
-      //if ( my.user ) my.user.addObserver( update );
-
-      // perform callback
-      callback();
-
-    };
-
-    /**
-     * @summary render content in own website area
-     * @param {function} [callback] - callback when content is rendered
-     */
-    this.render = function ( callback ) {
-
-      /**
-       * website area for own content
-       * @type {ccm.types.element}
-       */
-      var $element = ccm.helper.element( self );
-
-      // get dataset for rendering
-      ccm.helper.dataset( my.data, function ( dataset ) {
-
-        // team building dataset has no teams? => add initial or empty team
-        if ( !dataset.teams ) {
-          if ( self.initial_teams ) // => add initial teams
-            dataset.teams = self.initial_teams.get( my.data.key ).teams;
-          else // => add empty team
-            dataset.teams = [];
+      "html": {
+        "main": { "tag": "main" },
+        "team": {
+          "tag": "article",
+          "class": "team",
+          "inner": [
+            {
+              "tag": "header",
+              "inner": [
+                { "class": "icon fa fa-%icon% fa-lg" },
+                {
+                  "class": "name",
+                  "inner": "%name%"
+                },
+                { "class": "button" },
+                { "class": "status" }
+              ]
+            },
+            {
+              "tag": "section",
+              "class": "members"
+            }
+          ]
+        },
+        "button": {
+          "class": "button fa fa-%icon% fa-lg",
+          "title": "%caption%",
+          "onclick": "%click%"
+        },
+        "member": {
+          "class": "member",
+          "inner": [
+            { "class": "icon fa fa-%icon%" },
+            {
+              "class": "name",
+              "inner": "%name%"
+            }
+          ]
         }
+      },
+      "css": [ "ccm.load",
+        "../teambuild/resources/default.css",
+        "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
+        { "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", "context": "head" }
+      ],
+      "data":  {
+        "store": [ "ccm.store" ],
+        "key": "demo"
+      },
+      "text": {
+        "team": "Team",
+        "leave": "leave",
+        "join": "join",
+        "free": "free"
+      },
+      "icon": {
+        "team": "group",
+        "leave": "sign-out",
+        "join": "sign-in",
+        "member": "user"
+      }
 
-        // render main html structure
-        $element.html( ccm.helper.html( my.html.main ) );
+  //  max_teams: 10,
+  //  max_members: 3,
+  //  editable: { join: true, leave: true, rename: true }
 
-        // render team entries
-        renderTeams();
+    },
 
-        // translate own content
-        if ( my.lang ) my.lang.render();
+    Instance: function () {
 
-        // perform callback
-        if ( callback ) callback();
+      var self = this;
+      var my;           // contains privatized instance members
 
-        /**
-         * render team entries
-         */
-        function renderTeams() {
+      this.init = function ( callback ) {
 
-          // render team entries
-          for ( var i = 0; i < dataset.teams.length; i++ )
-            renderTeam( dataset.teams[ i ], i + 1 );
+        // listen to the change event of the ccm realtime datastore => (re)render own content
+        if ( self.data.store ) self.data.store.onChange = function () { self.start(); };
 
-          // number of teams is limited? => add missing empty team entries
-          if ( dataset.max_teams )
-            while ( dataset.max_teams > ccm.helper.find( self, '.team' ).length )
-              addEmptyTeam();
+        callback();
+      };
 
-          // number of teams is unlimited, last team is not empty and teams are joinable? => add empty team entry
-          else if ( ( dataset.teams.length === 0 || !isEmptyTeam( dataset.teams[ dataset.teams.length - 1 ] ) ) && joinableTeams() ) addEmptyTeam();
+      this.ready = function ( callback ) {
 
-          /**
-           * render team entry
-           * @param {ccm.components.teambuild.team} team - team dataset
-           * @param {number} [nr] - team number (default is number of existing teams)
-           */
-          function renderTeam( team, nr ) {
+        // privatize all possible instance members
+        my = self.ccm.helper.privatize( self );
 
-            // generate team number if necessary
-            if ( !nr ) nr = dataset.teams.length;
+        // is user authentication used? => listen to the login and logout event => (re)render own content
+        if ( self.user ) self.user.addObserver( self.index, function () { self.start(); } );
 
-            /**
-             * team name
-             * @type {string}
-             */
-            var name = team.name ? team.name : my.text.team + ( my.lang ? '#' : ' ' ) + nr;
+        callback();
+      };
 
-            /**
-             * team entry
-             * @type {ccm.element}
-             */
-            var team_div = ccm.helper.html( my.html.team, {
+      this.start = function ( callback ) {
 
-              icon: ccm.helper.val( my.icon.team ),
-              name: ccm.helper.val( name )
+        // get team building dataset
+        self.ccm.helper.dataset( my.data, function ( dataset ) {
 
-            } );
+          // new dataset? => set initial state
+          if ( !dataset.teams ) dataset.teams = [];
 
-            /**
-             * maximum number of team members
-             * @type {number}
-             */
-            var max_members = team.max_members || dataset.max_members;
+          // prepare main HTML structure
+          var main_elem = self.ccm.helper.html( my.html.main );
 
-            /**
-             * user dataset
-             * @type {object}
-             */
-            var user;
+          // add HTML structures for each team
+          addTeams();
 
-            /**
-             * user team number
-             * @type {number}
-             */
-            var user_team_nr;
+          // set content of own website area
+          self.ccm.helper.setContent( self.element, main_elem );
 
-            // allow value '-1' for unlimited number of team members
-            if ( max_members === -1 ) max_members = null;
+          // should events be logged? => log render event
+          if ( my.logger ) my.logger.log( 'render', { key: team.key, name: team.name } );
 
-            // user is logged in?
-            if ( my.user && my.user.isLoggedIn() ) {
+          // perform callback (all content is rendered)
+          if ( callback ) callback();
 
-              // remember username
-              user = my.user.data();
+          /** adds the teams to the main HTML structure */
+          function addTeams() {
 
-              // remember user team number
-              user_team_nr = getUserTeamNr();
+            // add existing teams
+            dataset.teams.map( addTeam );
 
-              // user is team member?
-              if ( isMember( team ) ) {
+            // limited number of teams? => add empty teams
+            if ( my.max_teams )
+              for ( var i = 0; i < my.max_teams - dataset.teams.length; i++ )
+                addEmptyTeam();
 
-                // team name is editable? => make team name editable
-                if ( isEditable( 'rename' ) ) makeEditable();
-
-                // is leavable team? => render leave button
-                if ( isEditable( 'leave' ) ) renderLeaveButton();
-
-              }
-
-              // is joinable team? => render join button
-              else if ( isJoinable() ) renderJoinButton();
-
-            }
-
-            // render team members
-            renderMembers();
-
-            // render team entry
-            ccm.helper.find( self, '.teams' ).append( team_div );
+            // unlimited number of teams, last team is not empty and teams are joinable? => add empty team
+            else if ( ( dataset.teams.length === 0 || !isEmptyTeam( dataset.teams[ dataset.teams.length - 1 ] ) ) && joinableTeams() ) addEmptyTeam();
 
             /**
-             * checks if user is a team member of a specific team
-             * @param {ccm.components.teambuild.team} team - team dataset
-             * @returns {boolean}
+             * adds a team to the main HTML structure
+             * @param {object} team - team data
+             * @param {number} [i] - team index (default is: number of existing teams - 1)
              */
-            function isMember( team ) {
+            function addTeam( team, i ) {
 
-              return !!team.members[ user.key ];
+              // no team index? => use default value (when rendering a empty team)
+              if ( i === undefined ) i = dataset.teams.length - 1;
 
-            }
-
-            /**
-             * checks if a specific action for editing is allowed
-             * @param {string} action - 'join', 'leave', or 'rename'
-             * @returns {boolean}
-             */
-            function isEditable( action ) {
-
-              if ( team.editable === undefined )
-                return !( dataset.editable === false || ( typeof dataset.editable === 'object' && dataset.editable[ action ] === false ) );
-              else
-                return !( team.editable === false || ( typeof team.editable === 'object' && team.editable[ action ] === false ) );
-
-            }
-
-            /**
-             * make team name editable
-             */
-            function makeEditable() {
-
-              // make team name editable and set input event
-              team_div.find( '> .header > .name' ).prop( 'contenteditable', true ).on( 'input', function () {
-
-                // show loading icon
-                loading( true );
-
-                /**
-                 * renamed team name
-                 * @type {string}
-                 */
-                var value = jQuery( this ).val().trim();
-
-                // change team name in team dataset
-                dataset.teams[ nr - 1 ].name = ccm.helper.val( value );
-
-                // update team building dataset
-                my.data.store.set( dataset, function () {
-
-                  // hide loading icon
-                  loading( false );
-
-                  // log event
-                  if ( my.bigdata ) my.bigdata.log( 'rename', { key: team.key, name: team.name } );
-
-                } );
-
+              // prepare HTML structure of the team
+              var team_elem = self.ccm.helper.html( my.html.team, {
+                icon: my.icon.team,
+                name: team.name ? team.name : my.text.team + ' ' + ( i + 1 )
               } );
 
-            }
-
-            /**
-             * render leave button
-             */
-            function renderLeaveButton() {
-
-              // render button html structure
-              ccm.helper.find( self, team_div, '.button' ).html( ccm.helper.html( my.html.button, {
-
-                caption: ccm.helper.val( my.text.leave ),
-                click:   leave
-
-              } ) );
+              /**
+               * maximum number of team members
+               * @type {number}
+               */
+              var max_members = team.max_members || my.max_members;
 
               /**
-               * leave team
+               * user data
+               * @type {object}
                */
-              function leave() {
-
-                // show loading icon
-                loading( true );
-
-                // remove user from member list
-                delete team.members[ user.key ];
-
-                // unlimited number of teams and leaved team is now empty? => remove leaved team
-                if ( !dataset.max_teams && isEmptyTeam( team ) ) dataset.teams.splice( nr - 1, 1 );
-
-                // update team building dataset
-                my.data.store.set( dataset, function () {
-
-                  // (re)render own content
-                  self.render();
-
-                  // log event
-                  if ( my.bigdata ) my.bigdata.log( 'leave', { key: team.key } );
-
-                } );
-
-              }
-
-            }
-
-            /**
-             * checks if team is joinable
-             * @returns {boolean}
-             */
-            function isJoinable() {
-
-              // team is not joinable? => negative result
-              if ( !isEditable( 'join' ) ) return false;
-
-              // user team is not leavable? => negative result
-              if ( user_team_nr && dataset.teams[ user_team_nr - 1 ].editable === false ) return false;
-
-              // unlimited number of teams and this team is the last (always empty) team and not the only one?
-              if ( !dataset.max_teams && nr === dataset.teams.length && nr > 1 ) {
-
-                // the user is the only member in the last not empty team? => team is not joinable
-                if ( isOnlyMember( dataset.teams[ nr - 2 ] ) ) return false;
-
-              }
-
-              // team is joinable if number of team members is unlimited or maximum number of team members is currently not reached
-              return !max_members || Object.keys( team.members ).length < max_members;
+              var user;
 
               /**
-               * checks if the user is the only member in a specific team
-               * @param {ccm.components.teambuild.team} team - team dataset
-               * @returns {boolean}
+               * number of the team to which the user currently belongs
+               * @type {number}
                */
-              function isOnlyMember( team ) {
+              var user_team;
 
-                return team.members[ user.key ] && Object.keys( team.members ).length === 1;
+              // is there a logged on user?
+              if ( self.user && self.user.isLoggedIn() ) {
 
-              }
+                // remember username
+                user = self.user.data();
 
-            }
+                // remember user team index
+                user_team = getUserTeam();
 
-            /**
-             * render join button
-             */
-            function renderJoinButton() {
+                // user is member of this team?
+                if ( isMember( team ) ) {
 
-              // render button html structure
-              ccm.helper.find( self, team_div, '.button' ).html( ccm.helper.html( my.html.button, {
+                  // should the team name be editable? => make team name editable
+                  if ( isEditable( i, 'rename' ) ) makeEditable();
 
-                caption: ccm.helper.val( my.text.join ),
-                click:   join
-
-              } ) );
-
-              /**
-               * join team
-               */
-              function join() {
-
-                // show loading icon
-                loading( true );
-
-                // user is a team member?
-                if ( user_team_nr ) {
-
-                  /**
-                   * leaving team
-                   * @type {ccm.components.teambuild.team}
-                   */
-                  var leaving_team = dataset.teams[ user_team_nr - 1 ];
-
-                  // leave team
-                  delete leaving_team.members[ user.key ];
-
-                  // unlimited number of teams and leaved team is now empty? => remove leaved team
-                  if ( !dataset.max_teams && isEmptyTeam( leaving_team ) ) dataset.teams.splice( user_team_nr - 1, 1 );
+                  // should the user have the possibility to leave the team? => add leave button
+                  if ( isEditable( i, 'leave' ) ) addLeaveButton();
 
                 }
 
-                // join new team
-                team.members[ user.key ] = { key: user.key, name: user.name };
+                // user is no member and team is joinable? => add join button
+                else if ( isJoinable() ) addJoinButton();
 
-                // update team building dataset
-                my.data.store.set( dataset, function () {
+                /**
+                 * returns the number of the team to which the user currently belongs
+                 * @returns {number}
+                 */
+                function getUserTeam() {
 
-                  // (re)render own content
-                  self.render();
+                  // is user a team member? => return team number
+                  for ( var i = 0; i < dataset.teams.length; i++ )
+                    if ( dataset.teams[ i ].members[ user.id ] ) return i + 1;
 
-                  // log event
-                  if ( my.bigdata ) my.bigdata.log( 'join', { key: team.key } );
+                  // user is no team member => return undefined
+                }
 
-                } );
+                /**
+                 * checks whether the user is a member of a particular team
+                 * @param {object} team - team data
+                 * @returns {boolean}
+                 */
+                function isMember( team ) {
+
+                  return !!team.members[ user.id ];
+
+                }
+
+                /**
+                 * checks whether a particular action is allowed for a particular team
+                 * @param {number} team - team index
+                 * @param {string} action - 'join', 'leave' or 'rename'
+                 * @returns {boolean}
+                 */
+                function isEditable( team, action ) {
+
+                  if ( team.editable === undefined )
+                    return !( my.editable === false || my.editable[ action ] === false );
+                  else
+                    return !( team.editable === false || team.editable[ action ] === false );
+
+                }
+
+                /** makes the team name editable */
+                function makeEditable() {
+
+                  // select team name element
+                  var name_elem = team_elem.querySelector( '.name' );
+
+                  name_elem.contenteditable = true;
+                  name_elem.addEventListener( 'input', function () {
+
+                    // show loading icon
+                    loading( true );
+
+                    /**
+                     * renamed team name
+                     * @type {string}
+                     */
+                    var value = name_elem.textContent.trim();
+
+                    // update team name in team data
+                    team.name = self.ccm.helper.protect( value );
+
+                    // update team building dataset in datastore
+                    my.data.store.set( dataset, function () {
+
+                      // hide loading icon
+                      loading( false );
+
+                      // should events be logged? => log change of the team name
+                      if ( my.logger ) my.logger.log( 'rename', { key: team.key, name: team.name } );
+
+                    } );
+
+                  } );
+
+                }
+
+                /** adds the button that allows the user to leave the team */
+                function addLeaveButton() {
+
+                  // use template for team button
+                  team_elem.querySelector( '.button' ).html( self.ccm.helper.html( my.html.button, {
+
+                    icon: my.icon.leave,
+                    caption: my.text.leave,
+                    click: function () {
+
+                      // show loading icon
+                      loading( true );
+
+                      // remove user from member list
+                      delete team.members[ user.id ];
+
+                      // unlimited number of teams and leaved team is now empty? => remove leaved team
+                      if ( !my.max_teams && isEmptyTeam( team ) ) dataset.teams.splice( i , 1 );
+
+                      // update team building dataset
+                      my.data.store.set( dataset, function () {
+
+                        // should events be logged? => log the leaving of the team
+                        if ( my.logger ) my.logger.log( 'leave', { key: team.key } );
+
+                        // (re)render own content
+                        self.start();
+
+                      } );
+
+                    }
+
+                  } ) );
+
+                }
+
+                /**
+                 * checks if the user can join this team
+                 * @returns {boolean}
+                 */
+                function isJoinable() {
+
+                  // join action for this team is not allowed? => negative result
+                  if ( !isEditable( i, 'join' ) ) return false;
+
+                  // is the user a member of a team that can not be left? => negative result
+                  if ( user_team && !isEditable( user_team - 1, 'leave' ) ) return false;
+
+                  // unlimited number of teams and this team is the last (always empty) team and not the only one?
+                  if ( !my.max_teams && i === dataset.teams.length - 1 && i > 0 ) {
+
+                    // the user is the only member in the last not empty team? => team is not joinable
+                    if ( isOnlyMember( dataset.teams[ i - 1 ] ) ) return false;
+
+                    /**
+                     * checks if the user is the only member in a particular team
+                     * @param {object} team - team data
+                     * @returns {boolean}
+                     */
+                    function isOnlyMember( team ) {
+
+                      return team.members[ user.id ] && Object.keys( team.members ).length === 1;
+
+                    }
+
+                  }
+
+                  // the team can be joined if the allowed number of team members is unlimited or is not exceeded by joining
+                  return !max_members || Object.keys( team.members ).length < max_members;
+
+                }
+
+                /** adds the button that allows the user to join the team */
+                function addJoinButton() {
+
+                  // use template for team button
+                  team_elem.querySelector( '.button' ).html( self.ccm.helper.html( my.html.button, {
+
+                    icon: my.icon.join,
+                    caption: my.text.join,
+                    click: function () {
+
+                      // show loading icon
+                      loading( true );
+
+                      // is the user already a member of another team? => the user must leave that team
+                      if ( user_team ) {
+
+                        /**
+                         * data of the team that the user must leave
+                         * @type {object}
+                         */
+                        var leaving_team = dataset.teams[ user_team - 1 ];
+
+                        // remove the user from the member list
+                        delete leaving_team.members[ user.id ];
+
+                        // unlimited number of teams and leaved team is now empty? => remove leaved team
+                        if ( !my.max_teams && isEmptyTeam( leaving_team ) ) dataset.teams.splice( user_team - 1, 1 );
+
+                      }
+
+                      // add the user to the member list
+                      team.members[ user.id ] = { id: user.id, name: user.name };
+
+                      // update team building dataset
+                      my.data.store.set( dataset, function () {
+
+                        // should events be logged? => log the joining of the team
+                        if ( my.logger ) my.logger.log( 'join', { key: team.key } );
+
+                        // (re)render own content
+                        self.start();
+
+                      } );
+
+                    }
+
+                  } ) );
+
+                }
 
               }
 
-            }
+              // add HTML structure for each member
+              addMembers();
 
-            /**
-             * get user team number
-             * @returns {number}
-             */
-            function getUserTeamNr() {
-
-              // is user a team member? => return team number
-              for ( var i = 0; i < dataset.teams.length; i++ )
-                if ( dataset.teams[ i ].members[ user.key ] ) return i + 1;
-
-              // user is no team member
-              return 0;
-
-            }
-
-            /**
-             * show or hide loading icon
-             * @param {boolean} show_or_hide - true: show, false: hide
-             */
-            function loading( show_or_hide ) {
-
-              var status_div = ccm.helper.find( self, team_div, '.status' );
-              if ( show_or_hide )
-                ccm.helper.loading( status_div );
-              else
-                status_div.html( '' );
-
-            }
-
-            /**
-             * render members of team entry
-             */
-            function renderMembers() {
-
-              // render team member entries
-              for ( var i in team.members )
-                renderMember( team.members[ i ] );
-
-              // add missing free team member entries
-              while ( max_members > ccm.helper.find( self, team_div, '.member' ).length )
-                renderMember();
+              // add team to main HTML structure
+              main_elem.appendChild( team_elem );
 
               /**
-               * render team member entry
-               * @param {ccm.components.teambuild.member} [member] - team member dataset
+               * show or hide the loading icon in the status element of the team
+               * @param {boolean} show_or_hide - true: show, false: hide
                */
-              function renderMember( member ) {
+              function loading( show_or_hide ) {
 
-                // render member html structure
-                ccm.helper.find( self, team_div, '.members' ).append( ccm.helper.html( my.html.member, {
+                self.ccm.helper.setContent( team_elem.querySelector( '.status' ), show_or_hide ? self.ccm.helper.loading( self ) : '' );
 
-                  icon: ccm.helper.val( my.icon.member ),
-                  name: ccm.helper.val( member ? ( member.name && my.user ? member.name : member.key ) : my.text.free ),
-                  user: member && user && user.key === member.key ? 'user' : '',
-                  free : member ? '' : 'free'
+              }
 
-                } ) );
+              /** adds the members to the HTML structure of the team */
+              function addMembers() {
+
+                // add team members
+                for ( var member in team.members ) addMember( team.members[ member ] );
+
+                // is there a maximum number of team members? => add free member slots
+                while ( max_members > team.members.length ) addMember();
+
+                /**
+                 * adds a member to the HTML structure of the team
+                 * @param {object} [member] - member data (default: free member slot)
+                 */
+                function addMember( member ) {
+
+                  // prepare HTML structure of the member
+                  var member_elem = self.ccm.helper.html( my.html.member, {
+                    icon: my.icon.member,
+                    name: member ? member.name : my.text.free
+                  } );
+
+                  // select the element for the username of the member
+                  var member_name_elem = member_elem.querySelector( '.name' );
+
+                  // the member is the user? => mark it
+                  if ( user.id === member.id ) member_name_elem.classList.add( 'user' );
+
+                  // this is a free member slot? => mark it
+                  if ( !member ) member_name_elem.classList.add( 'free' );
+
+                  // add member to HTML structure of the team
+                  team_elem.querySelector( '.members' ).appendChild( member_elem );
+
+                }
 
               }
 
             }
 
-          }
+            /**
+             * checks if a particular team has no members
+             * @param {object} team - team data
+             * @returns {boolean}
+             */
+            function isEmptyTeam( team ) {
 
-          /**
-           * add empty team
-           */
-          function addEmptyTeam() {
+              return Object.keys( team.members ).length === 0;
+
+            }
+
+            /** adds a empty team slot */
+            function addEmptyTeam() {
+
+              /**
+               * initial team data (empty team without members)
+               * @type {object}
+               */
+              var team = { key: self.ccm.helper.generateKey(), members: {} };
+
+              // add empty team data to existing teams
+              dataset.teams.push( team );
+
+              // add empty team to main HTML structure
+              addTeam( team );
+
+            }
 
             /**
-             * empty team dataset
-             * @type {ccm.components.teambuild.team}
+             * checks if the teams are joinable
+             * @returns {boolean}
              */
-            var team = { key: ccm.helper.generateKey(), members: {} };
+            function joinableTeams() {
 
-            // add empty team dataset to other teams
-            dataset.teams.push( team );
+              return !( my.editable === false || my.editable && my.editable.join === false );
 
-            // render empty team entry
-            renderTeam( team );
+            }
 
           }
 
-          /**
-           * checks if a team dataset is empty
-           * @param {ccm.components.teambuild.team} team - team dataset
-           * @returns {boolean} is unneeded team?
-           */
-          function isEmptyTeam( team ) {
+        } );
 
-            return Object.keys( team.members ).length === 0;
-
-          }
-
-          /**
-           * checks if teams are joinable
-           * @returns {boolean}
-           */
-          function joinableTeams() {
-
-            return !( dataset.editable === false || ( typeof dataset.editable === 'object' && dataset.editable.join === false ) );
-
-          }
-
-        }
-
-      } );
-
-    };
-
-    /*------------------------------------------- private instance methods -------------------------------------------*/
-
-    /**
-     * @summary update own content
-     * @private
-     */
-    function update() {
-
-      // website area for own content no more exists in DOM? => abort
-      if ( !ccm.helper.isInDOM( self ) ) return;
-
-      // (re)render own content
-      self.render();
+      };
 
     }
 
-  }
+  };
 
-  /*------------------------------------------------ type definitions ------------------------------------------------*/
-
-  /**
-   * @namespace ccm.components.teambuild
-   */
-
-  /**
-   * @summary <i>ccm</i> instance configuration
-   * @typedef {ccm.config} ccm.components.teambuild.config
-   * @property {ccm.instance} bigdata - <i>ccm</i> instance for big data
-   * @property {string} classes - css classes for own website area
-   * @property {ccm.element} element - own website area
-   * @property {Object.<ccm.key, ccm.html>} html - <i>ccm</i> html data templates for own content
-   * @property {ccm.key} key - key of [team building dataset]{@link ccm.components.teambuild.dataset} for rendering
-   * @property {ccm.instance} lang - <i>ccm</i> instance for multilingualism
-   * @property {ccm.store} store - <i>ccm</i> datastore that contains the [team building dataset]{@link ccm.components.teambuild.dataset} for rendering
-   * @property {ccm.style} style - css for own content
-   * @property {ccm.instance} user - <i>ccm</i> instance for user authentication
-   * TODO: text and icon(s)
-   */
-
-  /**
-   * @summary team building dataset for rendering
-   * @typedef {ccm.dataset} ccm.components.teambuild.dataset
-   * @property {boolean|{join: boolean, leave: boolean, rename: boolean}} editable - teams are editable (user can join/leave a team and edit team name, default is true)
-   * @property {ccm.key} key - dataset key
-   * @property {number} max_teams - maximum number of teams (default: unlimited)
-   * @property {number} max_members - maximum number of team members (default: unlimited)
-   * @property {ccm.components.teambuild.team[]} teams - [team dataset]{@link ccm.components.teambuild.team}s
-   */
-
-  /**
-   * @summary team dataset
-   * @typedef {ccm.dataset} ccm.components.teambuild.team
-   * @property {boolean|{join: boolean, leave: boolean, rename: boolean}} editable - team is editable (user can join/leave a team and edit team name, default is true)
-   * @property {string} name - team name
-   * @property {number} max_members - maximum number of team members (default or -1: unlimited)
-   * @property {ccm.components.teambuild.member[]} members - [team member dataset]{@link ccm.components.teambuild.member}s
-   */
-
-  /**
-   * @summary team member dataset
-   * @typedef {ccm.dataset} ccm.components.teambuild.member
-   * @property {ccm.key} key - team member dataset key
-   * @property {string} name - team member name
-   */
-
-  /**
-   * @external ccm.types
-   * @see {@link http://akless.github.io/ccm-developer/api/ccm/ccm.types.html}
-   */
-
-} );
+  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
+}() );
