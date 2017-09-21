@@ -29,10 +29,10 @@ ccm.files[ 'tests.js' ] = {
   login: {
     tests: {
       defaultGuestKey: function ( suite ) {
-        suite.assertSame( 'guest', suite.component.instance().login().data().user );
+        suite.assertSame( 'guest', suite.component.instance().login().data().name );
       },
       individualGuestKey: function ( suite ) {
-        suite.assertSame( 'JohnDoe', suite.component.instance( { 'guest': 'JohnDoe' } ).login().data().user );
+        suite.assertSame( 'JohnDoe', suite.component.instance( { 'guest': 'JohnDoe' } ).login().data().name );
       }/*,
       demo: function ( suite ) {
         suite.component.instance( { sign_on: 'demo' } ).login( function () {
