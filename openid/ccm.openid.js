@@ -48,14 +48,14 @@
       var self = this;
       var currentUser = null;
 
-      self.start = function ( callback ) {
+      this.start = function ( callback ) {
 
         self.ccm.helper.setContent( self.element, self.ccm.helper.html( self.html.main ) );
-
         var main_div = self.element.querySelector( '#openid_main' );
+
         currentUser = self.getCurrentUser();
 
-        if( !currentUser )
+        if ( !currentUser )
           displayLoginButton( main_div );
         else
           displayLoggedIn( main_div );
@@ -63,14 +63,15 @@
         if ( callback ) callback();
       };
 
-      self.getCurrentUser = function () {
+      this.getCurrentUser = function () {
+
         try {
           OIDC.restoreInfo();
           var id_token = OIDC.getValidIdToken();
           var id_token_payload = OIDC.getIdTokenPayload( id_token );
           return id_token_payload.email;
         }
-        catch (e) {
+        catch ( e ) {
           if ( e.name === 'OidcException' )
             return null;
           throw e;
@@ -78,60 +79,67 @@
       };
 
       //Build OpenID URL
-      self.getOpenIdURL = function () {
+      this.getOpenIdURL = function () {
+
         var clientInfo = {
           client_id: self.clientId,
           redirect_uri: self.redirectUri
         };
         OIDC.setClientInfo( clientInfo );
+
         var providerInfo = OIDC.discover( self.discoveryUri );
         OIDC.setProviderInfo( providerInfo );
-        OIDC.storeInfo(providerInfo, clientInfo);
+        OIDC.storeInfo( providerInfo, clientInfo );
+
         var requestData =	{
-          scope : 'openid+email',
-          response_type : 'id_token'
+          scope: 'openid+email',
+          response_type: 'id_token'
         };
-        var result = OIDC.login(requestData);
-        return result;
+
+        return OIDC.login( requestData );
+
       };
 
-      //util function to check whether the user is logged in
-      self.isLoggedIn = function () {
-        if ( !self.getCurrentUser() ) return false;
-        return true;
+      this.isLoggedIn = function () {
+        return !!self.getCurrentUser();
       };
 
       //This gets rendered when the user is logged in
       function displayLoggedIn( parentElement ) {
+
         if ( !parentElement ) return;
         displayGreeting( parentElement );
         displayLogoutButton( parentElement );
+
+        function displayGreeting( parentElement ) {
+          if( !parentElement ) return;
+          parentElement.innerHTML = 'Welcome ' + currentUser + '!<br>';
+        }
+
+        function displayLogoutButton( parentElement ) {
+
+          if ( !parentElement ) return;
+
+          parentElement.appendChild( self.ccm.helper.html( self.html.logout, {
+            text: 'Logout',
+            onclick: function () {
+              currentUser = null;
+              window.location.href = self.redirectUri;
+              self.start();
+            }
+          } ) );
+
+        }
+
       }
 
-      //Greeting
-      function displayGreeting( parentElement ) {
-        if( !parentElement ) return;
-        parentElement.innerHTML = 'Welcome ' + currentUser + '!<br/>';
-      }
-
-      //Logout-Button
-      function displayLogoutButton( parentElement ) {
-        if ( !parentElement ) return;
-        parentElement.appendChild( self.ccm.helper.html( self.html.logout, {
-          text: 'Logout',
-          onclick: function () {
-            currentUser = null;
-            window.location.href = self.redirectUri;
-            self.start();
-          }
-        } ) );
-      }
-
-      //Login-Button
       function displayLoginButton( parentElement ) {
+
         if ( !parentElement ) return;
+
         var url = self.getOpenIdURL();
-        parentElement.innerHTML = '<a href='+url+'>click</a>';
+        parentElement.innerHTML = '<a href=' + url + '>click</a>';
+
       }
 
     }
