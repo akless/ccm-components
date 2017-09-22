@@ -51,15 +51,15 @@
   padding: 0.2em;
 }
 
-.team .member.user {
+.team .member .name {
+  padding-left: 0.5em;
+  white-space: nowrap;
+}
+
+.team .member .name.user {
   font-weight: bold;
 }
 
-.team .member.free {
+.team .member .name.free {
   font-style: italic;
-}
-
-.team > .member > .name {
-  padding-left: 0.5em;
-  white-space: nowrap;
 }

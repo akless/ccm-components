@@ -189,7 +189,7 @@
               if ( self.user && self.user.isLoggedIn() ) {
 
                 // remember username
-                user = self.user.data();
+                user = self.ccm.helper.filterProperties( self.user.data(), 'id', 'name' );
 
                 // remember user team index
                 user_team = getUserTeam();
@@ -249,9 +249,9 @@
               function isEditable( team, action ) {
 
                 if ( team.editable === undefined )
-                  return !( my.editable === false || my.editable[ action ] === false );
+                  return !( my.editable === false || my.editable && my.editable[ action ] === false );
                 else
-                  return !( team.editable === false || team.editable[ action ] === false );
+                  return !( team.editable === false || team.editable && team.editable[ action ] === false );
 
               }
 
@@ -295,7 +295,7 @@
               function addLeaveButton() {
 
                 // use template for team button
-                team_elem.querySelector( '.button' ).html( self.ccm.helper.html( my.html.button, {
+                self.ccm.helper.setContent( team_elem.querySelector( '.button' ), self.ccm.helper.html( my.html.button, {
 
                   icon: my.icon.leave,
                   caption: my.text.leave,
@@ -367,7 +367,7 @@
               function addJoinButton() {
 
                 // use template for team button
-                team_elem.querySelector( '.button' ).html( self.ccm.helper.html( my.html.button, {
+                self.ccm.helper.setContent( team_elem.querySelector( '.button' ), self.ccm.helper.html( my.html.button, {
 
                   icon: my.icon.join,
                   caption: my.text.join,
@@ -430,7 +430,7 @@
                 for ( var member in team.members ) addMember( team.members[ member ] );
 
                 // is there a maximum number of team members? => add free member slots
-                while ( max_members > team.members.length ) addMember();
+                for ( var i = 0; i < max_members - Object.keys( team.members ).length; i++ ) addMember();
 
                 /**
                  * adds a member to the HTML structure of the team
@@ -448,7 +448,7 @@
                   var member_name_elem = member_elem.querySelector( '.name' );
 
                   // the member is the user? => mark it
-                  if ( user.id === member.id ) member_name_elem.classList.add( 'user' );
+                  if ( user && member && user.id === member.id ) member_name_elem.classList.add( 'user' );
 
                   // this is a free member slot? => mark it
                   if ( !member ) member_name_elem.classList.add( 'free' );
