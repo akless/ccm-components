@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for rendering a fill-in-the-blank text
+ * @overview ccm component to render a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  * @version 1.0.0
@@ -19,66 +19,48 @@
     version: [ 1, 0, 0 ],
 
     config: {
-
-      text: 'Hello, [[(W)o(rl)d]]!',
-      html_templates: {
-        start: {
-          id: 'start',
-          inner: {
-            tag: 'button',
-            inner: '%caption%',
-            onclick: '%click%'
+      "text": "Hello, [[(W)o(rl)d]]!",
+      "html_templates": {
+        "start": {
+          "id": "start",
+          "inner": {
+            "tag": "button",
+            "inner": "%caption%",
+            "onclick": "%click%"
           }
         },
-        main: {
-          id: 'main',
-          inner: [
-            { id: 'keywords' },
-            { id: 'text' },
+        "main": {
+          "id": "main",
+          "inner": [
+            { "id": "keywords" },
+            { "id": "text" },
             {
-              id: 'buttons',
-              inner: [
-                { id: 'cancel' },
-                { id: 'submit' },
-                { id: 'finish' },
-                { id: 'timer' }
+              "id": "buttons",
+              "inner": [
+                { "id": "cancel" },
+                { "id": "submit" },
+                { "id": "finish" },
+                { "id": "timer" }
               ]
             }
           ]
         },
-        keyword: {
-          class: 'keyword',
-          inner: '%%'
+        "keyword": {
+          "class": "keyword",
+          "inner": "%%"
         },
-        timer: {
-          tag: 'span',
-          inner: '%%'
+        "timer": {
+          "tag": "span",
+          "inner": "%%"
         }
       },
-      css_layout: [ 'ccm.load', 'https://akless.github.io/ccm-components/resources/default.css' ],
-      placeholder : {
-        start: 'Start',
-        cancel: 'Cancel',
-        submit: 'Submit',
-        finish: 'Finish'
+      "css": [ "ccm.load", "https://akless.github.io/ccm-components/resources/default.css" ],
+      "placeholder" : {
+        "start": "Start",
+        "cancel": "Cancel",
+        "submit": "Submit",
+        "finish": "Finish"
       }
-
-  //  start_button: true,
-  //  cancel_button: true,
-  //  feedback: true,
-  //  keywords: [ 'keyword1', 'keyword2', ... ],
-  //  blank: true,
-  //  time: 60,
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
-  //  user:   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ],
-  //  onstart: function ( instance ) { console.log( 'Fill-in-the-blank text started' ); },
-  //  oncancel: function ( instance ) { console.log( 'Fill-in-the-blank text canceled' ); },
-  //  onvalidation: function ( instance, data ) { console.log( data ); return true; },
-  //  onfeedback: function ( instance, data ) { console.log( data ); },
-  //  onchange: function ( instance, data ) { console.log( data ); },
-  //  oninput:  function ( instance, data ) { console.log( data ); },
-  //  onfinish: function ( instance, results ) { console.log( results ); }
-
     },
 
     Instance: function () {

@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for rendering a fill-in-the-blank text
+ * @overview ccm component to render a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  * @version latest (2.0.0)
@@ -87,7 +87,7 @@
   //  keywords: [ 'keyword1', 'keyword2', ... ],
   //  blank: true,
   //  time: 60,
-  //  user:   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js' ],
+  //  user:   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.2.0.min.js' ],
   //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
   //  onstart: function ( instance ) { console.log( 'Fill-in-the-blank text started' ); },
   //  oncancel: function ( instance ) { console.log( 'Fill-in-the-blank text canceled' ); },
@@ -437,7 +437,7 @@
               self.ccm.helper.removeElement(  timer_elem );
 
               // finalize result data
-              if ( self.user ) results.user = self.user.data().user;
+              if ( self.user ) results.user = self.user.data().name;
 
               // has logger instance? => log 'finish' event
               if ( self.logger ) self.logger.log( 'finish', results );
