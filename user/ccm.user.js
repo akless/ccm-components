@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.2.0)
  * @changes
- * version 1.2.0 (21.09.2017):
+ * version 1.2.0 (22.09.2017):
  * - changed structure of user dataset: id, token, name, email
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
@@ -31,8 +31,7 @@
           "inner": [
             {
               "id": "user",
-              "inner": "%user%",
-              "title": "%name%"
+              "inner": "%name%"
             },
             {
               "id": "button",
@@ -127,7 +126,6 @@
 
         // prepare main HTML structure
         var main_elem = self.isLoggedIn() ? self.ccm.helper.html( my.html.logged_in, {
-          user: self.data().user,
           name: self.data().name,
           click: function () { self.logout( self.start ); }
         } ) : self.ccm.helper.html( my.html.logged_out, {
@@ -187,8 +185,8 @@
           dataset = self.ccm.helper.filterProperties( response, 'id', 'token', 'name', 'email' );
 
           // missing userername or user identifier? => use default
-          if ( !dataset.name ) dataset.name = dataset.id;
           if ( !dataset.id   ) dataset.id = dataset.name;
+          if ( !dataset.name ) dataset.name = dataset.id;
 
           // request is finished
           loading = false;
