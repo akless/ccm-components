@@ -88,7 +88,7 @@
   //  blank: true,
   //  time: 60,
   //  user:   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.2.0.min.js' ],
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
+  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/configs.min.js', 'greedy' ] ],
   //  onstart: function ( instance ) { console.log( 'Fill-in-the-blank text started' ); },
   //  oncancel: function ( instance ) { console.log( 'Fill-in-the-blank text canceled' ); },
   //  onvalidation: function ( instance, data ) { console.log( data ); return true; },
