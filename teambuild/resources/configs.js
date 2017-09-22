@@ -11,6 +11,6 @@ ccm.files[ 'configs.js' ] = {
   },
   "local": {
     "user": [ "ccm.instance", "../user/ccm.user.js" ],
-    "logger": [ "ccm.instance", "../log/ccm.log.js", [ "ccm.get", "../log/resources/log_configs.js", "greedy" ] ]
+    "logger": [ "ccm.instance", "../log/ccm.log.js", [ "ccm.get", "../log/resources/configs.js", "greedy" ] ]
   }
 };
