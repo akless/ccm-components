@@ -1,5 +1,5 @@
 /**
- * @overview configurations of ccm component for user inputs
+ * @overview configurations of ccm component for user input
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */

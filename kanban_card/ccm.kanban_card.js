@@ -213,7 +213,7 @@
               if ( self.logger ) self.logger.log( 'change', { prop: prop, value: value } );
               status();
               my.dataset[ prop ] = value.trim();
-              if ( self.user && !my.dataset._ ) my.dataset._ = self.ccm.helper.integrate( { creator: self.user.data().user, group: self.ccm.helper.transformStringArray( my.members ) }, my.data.permission_settings );
+              if ( self.user && !my.dataset._ ) my.dataset._ = self.ccm.helper.integrate( { creator: self.user.data().name, group: self.ccm.helper.transformStringArray( my.members ) }, my.data.permission_settings );
               my.data.store.set( my.dataset, status );
 
               function status( finished ) {

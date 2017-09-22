@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for interpreting a given JavaScript expression
+ * @overview ccm component for evaluating a given JavaScript expression
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version 1.0.0
@@ -19,7 +19,6 @@
     },
 
     config: {
-
       "html": {
         "main": {
           "id": "main",
@@ -38,14 +37,6 @@
       },
       "css": [ "ccm.load", "https://akless.github.io/ccm-components/eval/resources/default.css" ],
       "expression": '"Hello, World!"'
-
-  //  json_parse: true,
-  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js' ],
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
-  //  oninput: function ( instance, expression ) { console.log( expression ); },
-  //  onchange: function ( instance, expression ) { console.log( expression ); },
-  //  onfinish: function ( instance, results ) { console.log( results ); }
-
     },
 
     Instance: function () {

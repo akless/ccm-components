@@ -800,7 +800,7 @@
               evaluate();
 
               // finalize result data
-              if ( self.user ) results.user = self.user.data().user;
+              if ( self.user ) results.user = self.user.data().name;
 
               // has logger instance? => log 'finish' event
               if ( self.logger ) self.logger.log( 'finish', results );

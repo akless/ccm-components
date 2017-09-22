@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for user inputs
+ * @overview ccm component for user input
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
  * @version 1.0.0
@@ -19,7 +19,6 @@
     },
 
     config: {
-
       "html": {
         "main": {
           "id": "main",
@@ -89,16 +88,6 @@
       },
       "css": [ "ccm.load", "https://akless.github.io/ccm-components/input/resources/default.css" ],
       "inputs": []
-
-  //  form: true,
-  //  button: true,
-  //  initial_data: {},
-  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-1.0.0.min.js' ],
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
-  //  oninput: function ( instance, data ) { console.log( data ); },
-  //  onchange: function ( instance, results, name ) { console.log( name, results ); },
-  //  onfinish: function ( instance, results ) { console.log( results ); }
-
     },
 
     Instance: function () {

@@ -60,10 +60,6 @@
       "logged_in": false,
       "sign_on": "guest",
       "guest": "guest"
-
-  //  css: [ 'ccm.load', 'https://akless.github.io/ccm-components/user/resources/default.css' ],
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ]
-
     },
 
     /** @class */

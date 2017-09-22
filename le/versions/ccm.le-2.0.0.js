@@ -31,7 +31,6 @@
     },
 
     config: {
-
       "html": {
         "wrapper": {
           "id": "wrapper",
@@ -74,13 +73,6 @@
       },
       "target": "_blank",
       "content": [ "ccm.component", "https://akless.github.io/ccm-components/content/versions/ccm.content-2.0.0.min.js" ]
-
-  //  logo: 'https://akless.github.io/akless/we/logo.png',
-  //  topic_prefix: 'Learning Unit:',
-  //  topic: 'Title of Learning Unit'
-  //  video_poster: 'https://akless.github.io/akless/we/poster.jpg',
-  //  link_prefix: 'Link:'
-
     },
 
     Instance: function () {

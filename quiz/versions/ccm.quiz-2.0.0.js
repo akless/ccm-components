@@ -27,7 +27,6 @@
     },
 
     config: {
-
       "html": {
         "start": {
           "id": "start",
@@ -121,34 +120,6 @@
         "correct": "Correct solution: ",
         "finish": "Finish"
       }
-
-  //  start_button: true,
-  //  cancel_button: true,
-  //  feedback: true,
-  //  navigation: true,
-  //  skippable: true,
-  //  anytime_finish: true,
-  //  time: 60,
-  //  shuffle: true,
-  //  random: true,
-  //  answers: [],
-  //  correct: [],
-  //  input: 'radio',
-  //  attributes: {},
-  //  encode: true,
-  //  swap: true,
-  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/ccm.user.min.js' ],
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/ccm.log.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
-  //  onstart: function ( instance ) { console.log( 'Quiz started' ); },
-  //  oncancel: function ( instance ) { console.log( 'Quiz canceled' ); },
-  //  onprev: function ( instance, data ) { console.log( data ); },
-  //  onnext: function ( instance, data ) { console.log( data ); },
-  //  oninput: function ( instance, data ) { console.log( data ); },
-  //  onchange: function ( instance, data ) { console.log( data ); },
-  //  onvalidation: function ( instance, data ) { console.log( data ); return true; },
-  //  onfeedback: function ( instance, data ) { console.log( data ); },
-  //  onfinish: function ( instance, results ) { console.log( results ); }
-
     },
 
     Instance: function () {

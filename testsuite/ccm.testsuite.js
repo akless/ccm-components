@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for running unit tests
+ * @overview ccm component for unit testing
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)

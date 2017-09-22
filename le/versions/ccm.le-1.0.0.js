@@ -19,11 +19,11 @@
     version: [ 1, 0, 0 ],
 
     config: {
-      css_file: 'https://akless.github.io/ccm-components/le/resources/weblysleek.css',
-      font: 'https://akless.github.io/ccm-components/libs/weblysleekui/font.css',
-      content: [ 'ccm.component', 'https://akless.github.io/ccm-components/content/versions/ccm.content-1.0.0.min.js' ],
-      topic_prefix: 'Learning Unit:',
-      link_prefix: 'Link: '
+      "css_file": "https://akless.github.io/ccm-components/le/resources/weblysleek.css",
+      "font": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css",
+      "content": [ "ccm.component", "https://akless.github.io/ccm-components/content/versions/ccm.content-1.0.0.min.js" ],
+      "topic_prefix": "Learning Unit:",
+      "link_prefix": "Link: "
     },
 
     Instance: function () {

@@ -1,5 +1,5 @@
 /**
- * @overview example ccm component for the reuse of an unknown amount of ccm instances
+ * @overview example component for reusing an undefined number of ccm instances of the same component
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */

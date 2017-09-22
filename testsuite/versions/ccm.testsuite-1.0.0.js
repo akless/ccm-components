@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for running unit tests
+ * @overview ccm component for unit testing
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version 1.0.0
@@ -19,7 +19,6 @@
     },
 
     config: {
-
       "html": {
         "main": {
           "id": "main",
@@ -68,10 +67,6 @@
       },
       "css": [ "ccm.load", "https://akless.github.io/ccm-components/testsuite/resources/default.css" ],
       "onfinish": { "log": true }
-
-  //  tests
-  //  package
-
     },
 
     Instance: function () {
