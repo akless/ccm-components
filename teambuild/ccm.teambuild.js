@@ -18,7 +18,10 @@
     config: {
 
       "html": {
-        "main": { "tag": "main" },
+        "main": {
+          "tag": "main",
+          "class": "teams"
+        },
         "team": {
           "tag": "article",
           "class": "team",
