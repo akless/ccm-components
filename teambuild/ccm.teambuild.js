@@ -44,9 +44,14 @@
             }
           ]
         },
-        "button": {
-          "class": "button fa fa-%icon% fa-lg",
-          "title": "%caption%",
+        "join": {
+          "tag": "button",
+          "inner": "%caption%",
+          "onclick": "%click%"
+        },
+        "leave": {
+          "tag": "button",
+          "inner": "%caption%",
           "onclick": "%click%"
         },
         "member": {
@@ -62,8 +67,17 @@
       },
       "css": [ "ccm.load",
         "../teambuild/resources/default.css",
-        "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
-        { "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", "context": "head" }
+        {
+          "context": "head",
+          "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
+          "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
+          "crossorigin": "anonymous"
+        },
+        {
+          "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
+          "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
+          "crossorigin": "anonymous"
+        }
       ],
       "data": {
         "store": [ "ccm.store" ],
@@ -261,7 +275,7 @@
                 // select team name element
                 var name_elem = team_elem.querySelector( '.name' );
 
-                name_elem.contenteditable = true;
+                name_elem.setAttribute( 'contenteditable', true );
                 name_elem.addEventListener( 'input', function () {
 
                   // show loading icon
@@ -295,7 +309,7 @@
               function addLeaveButton() {
 
                 // use template for team button
-                self.ccm.helper.setContent( team_elem.querySelector( '.button' ), self.ccm.helper.html( my.html.button, {
+                self.ccm.helper.setContent( team_elem.querySelector( '.button' ), self.ccm.helper.html( my.html.leave, {
 
                   icon: my.icon.leave,
                   caption: my.text.leave,
@@ -367,7 +381,7 @@
               function addJoinButton() {
 
                 // use template for team button
-                self.ccm.helper.setContent( team_elem.querySelector( '.button' ), self.ccm.helper.html( my.html.button, {
+                self.ccm.helper.setContent( team_elem.querySelector( '.button' ), self.ccm.helper.html( my.html.join, {
 
                   icon: my.icon.join,
                   caption: my.text.join,

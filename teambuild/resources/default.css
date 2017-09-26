@@ -30,9 +30,18 @@
   padding: 0.5em;
 }
 
+.team header button {
+  cursor: pointer;
+}
+
 .team header .name {
   padding: 0.04em 0.5em;
   white-space: nowrap;
+  cursor: default;
+}
+
+.team header .name[contenteditable] {
+  cursor: text;
 }
 
 .team header .status {
