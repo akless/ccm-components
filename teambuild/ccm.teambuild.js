@@ -65,8 +65,8 @@
           ]
         }
       },
-      "css": [ "ccm.load",
-        "../teambuild/resources/default.css",
+      "css": [ "ccm.load", "../teambuild/resources/default.css" ],
+      "icons": [ "ccm.load",
         {
           "context": "head",
           "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
@@ -91,8 +91,6 @@
       },
       "icon": {
         "team": "group",
-        "leave": "sign-out",
-        "join": "sign-in",
         "member": "user"
       }
 
@@ -112,7 +110,7 @@
       this.init = function ( callback ) {
 
         // listen to the change event of the ccm realtime datastore => (re)render own content
-        if ( self.data.store ) self.data.store.onChange = function () { self.start(); };
+        if ( self.data.store ) self.data.store.onchange = function () { self.start(); };
 
         callback();
       };

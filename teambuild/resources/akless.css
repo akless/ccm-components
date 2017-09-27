@@ -1,11 +1,11 @@
 /**
- * @overview default layout of ccm component for realtime team building
- * @author André Kless <andre.kless@web.de.de> 2016-2017
+ * @overview personal layout of ccm component for realtime team building
+ * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
 
 #element {
-  font-family: "Arial", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .teams {
@@ -16,7 +16,7 @@
 
 .team {
   margin: 0.5em;
-  border: 0.1em solid black;
+  border: 0.1em solid #008eca;
   border-radius: 0.5em;
 }
 
@@ -24,15 +24,20 @@
   display: flex;
   align-items: center;
   overflow-x: auto;
-  border-bottom: 0.1em solid black;
   border-radius: 0.4em 0.4em 0 0;
-  background-color: silver;
+  border-bottom: 0.1em solid #008eca;
+  background-color: #cfeaf6;
   padding: 0.5em;
+}
+
+.team header .icon {
+  display: none;
 }
 
 .team header .name {
   padding: 0.04em 0.5em;
   white-space: nowrap;
+  font-weight: bold;
   cursor: default;
 }
 
