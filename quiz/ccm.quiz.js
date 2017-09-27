@@ -109,7 +109,7 @@
           "inner": "%%"
         }
       },
-      "css": [ "ccm.load", "resources/default.css" ],
+      "css": [ "ccm.load", "../quiz/resources/default.css" ],
       "questions": {},
       "placeholder": {
         "cancel": "Cancel",
