@@ -101,7 +101,7 @@
           ]
         }
       },
-      "css": [ "ccm.load", "resources/default.css" ],
+      "css": [ "ccm.load", "../kanban_card/resources/default.css" ],
       "icons": [
         "ccm.load",
         {
@@ -117,7 +117,7 @@
         }
       ],
       "data": {
-        "store": [ "ccm.store", "resources/datasets.js" ],
+        "store": [ "ccm.store", "../kanban_card/resources/datasets.js" ],
         "key": "homework",
         "permission_settings": { "access": "group" }
       },

@@ -100,7 +100,7 @@
 
       this.start = function ( callback ) {
 
-        // render content that is given via own ccm Custom Element
+        // render content that is given via Light DOM
         self.ccm.helper.setContent( self.element, my.inner );
 
         // embed dependent components

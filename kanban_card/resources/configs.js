@@ -8,7 +8,7 @@ ccm.files[ 'configs.js' ] = {
   "homework": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/default.css" ],
     "data": {
-      "store": [ "ccm.store", "resources/datasets.min.js" ],
+      "store": [ "ccm.store", "../kanban_card/resources/datasets.min.js" ],
       "key": "homework"
     }
   },

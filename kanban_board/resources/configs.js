@@ -13,9 +13,9 @@ ccm.files[ 'configs.js' ] = {
     }
   },
   "local": {
-    "css": [ "ccm.load", "resources/default.css" ],
+    "css": [ "ccm.load", "../kanban_board/resources/default.css" ],
     "data": {
-      "store": [ "ccm.store", "resources/datasets.js" ],
+      "store": [ "ccm.store", "../kanban_board/resources/datasets.js" ],
       "key": "local"
     }
   }

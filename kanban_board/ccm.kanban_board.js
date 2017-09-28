@@ -38,10 +38,10 @@
           ]
         }
       },
-      "css": [ "ccm.load", "resources/default.css" ],
+      "css": [ "ccm.load", "../kanban_board/resources/default.css" ],
       "kanban_card": [ "ccm.component", "../kanban_card/ccm.kanban_card.js" ],
       "data": {
-        "store": [ "ccm.store", "resources/datasets.js" ],
+        "store": [ "ccm.store", "../kanban_board/resources/datasets.js" ],
         "key": "local"
       },
       "lanes": [ "ToDo", "Doing", "Done" ]
@@ -86,7 +86,6 @@
             function renderCard( card_cfg ) {
 
               counter++;
-              console.log('++',counter);
               var card_elem = document.createElement( 'div' );
               cards_elem.appendChild( card_elem );
               my.kanban_card.start( self.ccm.helper.clone( card_cfg ), function ( card_inst ) {
@@ -102,7 +101,6 @@
           function check() {
 
             counter--;
-            console.log('--',counter,element);
             if ( counter !== 0 ) return;
 
             self.ccm.helper.setContent( self.element, element );
