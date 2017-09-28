@@ -2,9 +2,9 @@
  * @overview <i>ccm</i> component for user authentication
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
- * @version 1.2.0
+ * @version 2.0.0
  * @changes
- * version 1.2.0 (22.09.2017):
+ * version 2.0.0 (22.09.2017):
  * - changed structure of user dataset: id, token, name, email
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
@@ -16,7 +16,7 @@
   var component = {
 
     name: 'user',
-    version: [ 1, 2, 0 ],
+    version: [ 2, 0, 0 ],
 
     ccm: {
       url: 'https://akless.github.io/ccm/version/ccm-10.0.0.min.js',

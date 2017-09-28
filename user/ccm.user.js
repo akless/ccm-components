@@ -2,9 +2,9 @@
  * @overview <i>ccm</i> component for user authentication
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
- * @version latest (1.2.0)
+ * @version latest (2.0.0)
  * @changes
- * version 1.2.0 (22.09.2017):
+ * version 2.0.0 (22.09.2017):
  * - changed structure of user dataset: id, token, name, email
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
