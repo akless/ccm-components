@@ -4,12 +4,13 @@
  * @license The MIT License (MIT)
  * @version 2.0.0
  * @changes
- * version 2.0.0 (22.08.2017):
+ * version 2.0.0 (29.09.2017):
  * - uses ccm v10.0.0 instead of v8.1.0
  * - shortened component backbone
  * - use fragment instead of empty container as default Light DOM
  * - Light DOM can be given as HTML string via 'inner' config property
  * - removed no more needed ccm.helper.protect calls
+ * - <source> tag for URL of inner used ccm elements
  * version 1.0.0 (28.07.2017)
  */
 
@@ -57,7 +58,7 @@
             if ( child.tagName.indexOf( 'CCM-' ) !== 0 ) return collectDependencies( child );  // recursive call
 
             // generate ccm dependency out of founded ccm Custom Element
-            var component = getComponent();
+            var component = getComponent(); if ( !component ) return;
             var config = self.ccm.helper.generateConfig( child );
             config.parent = self;
             config.root = document.createElement( 'div' );
@@ -79,10 +80,12 @@
               if ( ccm.components[ index ] ) return index;
 
               // search inner HTML of own Custom Element for a script tag that contains the ccm component URL
-              var scripts = self.inner.querySelectorAll( 'script' );
-              for ( var i = 0; i < scripts.length; i++ )
-                if ( self.ccm.helper.getIndex( scripts[ i ].getAttribute( 'src' ) ) === index )
-                  return scripts[ i ].getAttribute( 'src' );
+              var sources = self.inner.querySelectorAll( 'source' );
+              for ( var i = 0; i < sources.length; i++ )
+                if ( self.ccm.helper.getIndex( sources[ i ].getAttribute( 'src' ) ) === index ) {
+                  self.ccm.helper.removeElement( sources[ i ] );
+                  return sources[ i ].getAttribute( 'src' );
+                }
 
             }
 
@@ -102,7 +105,7 @@
 
       this.start = function ( callback ) {
 
-        // render content that is given via own ccm Custom Element
+        // render content that is given via Light DOM
         self.ccm.helper.setContent( self.element, my.inner );
 
         // embed dependent components
