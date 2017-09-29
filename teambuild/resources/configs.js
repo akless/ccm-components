@@ -17,7 +17,7 @@ ccm.files[ 'configs.js' ] = {
   "local": {
     "css": [ "ccm.load", "../teambuild/resources/akless.css" ],
     "data": {
-      "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de", "db": "redis" } ],
+      "store": [ "ccm.store" ],
       "key": "demo"
     },
     "user": [ "ccm.instance", "../user/ccm.user.js", { "logged_in": true, "sign_on": "demo" } ],

@@ -7,15 +7,17 @@
   add( 'blank', 'blank template for a <i>ccm</i> component' );
   add( 'blank_blank', 'example <i>ccm</i> component for the reuse of two <i>ccm</i> instances' );
   add( 'cloze', '<i>ccm</i> component for rendering a fill-in-the-blank text' );
-  add( 'content', '<i>ccm</i> component for composed content', true );
-  add( 'eval', '<i>ccm</i> component for interpreting JavaScript expressions' );
-  add( 'input', '<i>ccm</i> component for user inputs' );
+  add( 'content', '<i>ccm</i> component for rendering a predefined content', true );
+  add( 'eval', '<i>ccm</i> component for evaluating a given JavaScript expression' );
+  add( 'input', '<i>ccm</i> component for user input' );
+  add( 'kanban_board', '<i>ccm</i> component for rendering a kanban board' );
   add( 'kanban_card', '<i>ccm</i> component for rendering a kanban card' );
   add( 'le', '<i>ccm</i> component for rendering a learning unit' );
   add( 'log', '<i>ccm</i> component for data logging', true );
-  add( 'multi_blank', 'example <i>ccm</i> component for the reuse of an unknown amount of <i>ccm</i> instances' );
+  add( 'multi_blank', 'example component for reusing an undefined number of <i>ccm</i> instances of the same component' );
   add( 'quiz', '<i>ccm</i> component for rendering a quiz' );
-  add( 'testsuite', '<i>ccm</i> component for running unit tests' );
+  add( 'teambuild', '<i>ccm</i> component for realtime team building' );
+  add( 'testsuite', '<i>ccm</i> component for unit testing' );
   add( 'user', '<i>ccm</i> component for user authentication' );
   function add( name, description, no_demo ) {
     document.body.querySelector( 'table' ).innerHTML += '<tr><td>ccm.' + name + '.js</td><td>' + description + '</td><td>' + ( no_demo ? '-' : '<a href="' + name + '">Link</a>' ) + '</td></tr>';
