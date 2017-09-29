@@ -10,6 +10,7 @@
  * - use fragment instead of empty container as default Light DOM
  * - Light DOM can be given as HTML string via 'inner' config property
  * - removed no more needed ccm.helper.protect calls
+ * - <source> tag for URL of inner used ccm elements
  * version 1.0.0 (28.07.2017)
  * TODO: docu comments -> API
  * TODO: more unit tests
@@ -79,10 +80,8 @@
               // search inner HTML of own Custom Element for a script tag that contains the ccm component URL
               var sources = self.inner.querySelectorAll( 'source' );
               for ( var i = 0; i < sources.length; i++ )
-                if ( self.ccm.helper.getIndex( sources[ i ].getAttribute( 'src' ) ) === index ) {
-                  self.ccm.helper.removeElement( sources[ i ] );
+                if ( self.ccm.helper.getIndex( sources[ i ].getAttribute( 'src' ) ) === index )
                   return sources[ i ].getAttribute( 'src' );
-                }
 
             }
 

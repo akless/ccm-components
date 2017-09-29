@@ -82,10 +82,8 @@
               // search inner HTML of own Custom Element for a script tag that contains the ccm component URL
               var sources = self.inner.querySelectorAll( 'source' );
               for ( var i = 0; i < sources.length; i++ )
-                if ( self.ccm.helper.getIndex( sources[ i ].getAttribute( 'src' ) ) === index ) {
-                  self.ccm.helper.removeElement( sources[ i ] );
+                if ( self.ccm.helper.getIndex( sources[ i ].getAttribute( 'src' ) ) === index )
                   return sources[ i ].getAttribute( 'src' );
-                }
 
             }
 
