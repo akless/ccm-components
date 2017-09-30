@@ -25,9 +25,7 @@ ccm.files[ 'configs.js' ] = {
       },
       "start": {
         "data": true,
-        "browser": true,
-        "user": true,
-        "website": true
+        "user": true
       },
       "join": {
         "data": true,
