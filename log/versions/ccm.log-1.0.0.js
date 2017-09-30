@@ -113,8 +113,8 @@
             var obj = { sign_on: user.getSignOn() };
             if ( user.isLoggedIn() ) {
               var userdata = user.data();
-              obj.id = self.hash && window.md5 ? md5( md5( userdata.id ) ) : userdata.id;
-              if ( obj.id !== userdata.name && !self.hash )
+              obj.id = window.md5 ? md5( md5( userdata.id ) ) : userdata.id;
+              if ( obj.id !== userdata.name && !md5 )
                 obj.name = userdata.name;
             }
             results.user = obj;
