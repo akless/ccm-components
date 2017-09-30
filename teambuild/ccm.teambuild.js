@@ -123,6 +123,13 @@
         // is user authentication used? => listen to the login and logout event => (re)render own content
         if ( self.user ) self.user.addObserver( self.index, function () { self.start(); } );
 
+        // should events be logged? => log render event
+        if ( self.logger ) self.logger.log( 'ready', function () {
+          var data = self.ccm.helper.clone( my );
+          if ( data.data && data.data.store ) data.data.store = data.data.store.source();
+          return data;
+        }() );
+
         callback();
       };
 
@@ -144,7 +151,7 @@
           self.ccm.helper.setContent( self.element, main_elem );
 
           // should events be logged? => log render event
-          if ( my.logger ) my.logger.log( 'render', { key: team.key, name: team.name } );
+          if ( self.logger ) self.logger.log( 'start', dataset );
 
           // perform callback (all content is rendered)
           if ( callback ) callback();
@@ -295,7 +302,7 @@
                     loading( false );
 
                     // should events be logged? => log change of the team name
-                    if ( my.logger ) my.logger.log( 'rename', { key: team.key, name: team.name } );
+                    if ( self.logger ) self.logger.log( 'rename', { key: team.key, name: team.name } );
 
                   } );
 
@@ -326,7 +333,7 @@
                     my.data.store.set( dataset, function () {
 
                       // should events be logged? => log the leaving of the team
-                      if ( my.logger ) my.logger.log( 'leave', { key: team.key } );
+                      if ( self.logger ) self.logger.log( 'leave', { key: team.key } );
 
                       // (re)render own content
                       self.start();
@@ -412,7 +419,11 @@
                     my.data.store.set( dataset, function () {
 
                       // should events be logged? => log the joining of the team
-                      if ( my.logger ) my.logger.log( 'join', { key: team.key } );
+                      if ( self.logger ) self.logger.log( 'join', function () {
+                        var data = { key: team.key };
+                        if ( user_team ) data.leaved = leaving_team.key;
+                        return data;
+                      }() );
 
                       // (re)render own content
                       self.start();
