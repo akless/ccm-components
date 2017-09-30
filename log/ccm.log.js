@@ -119,7 +119,7 @@
         if ( self.ccm.helper.isObject( my.logging.user ) ? my.logging.user[ event ] : my.logging.user ) {
           var user = self.ccm.context.find( self, 'user' );
           if ( user ) results.user = {
-            key:     user.isLoggedIn() ? ( window.md5 ? md5( md5( user.data().key ) ) : user.data().key ) : null,
+            key:     user.isLoggedIn() ? ( window.md5 ? md5( md5( user.data().id ) ) : user.data().id ) : null,
             sign_on: user.getSignOn()
           };
         }
