@@ -16,14 +16,12 @@ ccm.files[ 'configs.js' ] = {
     },
     "onfinish": { "log": true }
   },
-  "se_ws17_teambuild": {
+  "se_ws17_teambuild": {  // created for ccm.log-1.0.0.js, ccm.teambuild-1.0.0.js, ccm.user-2.0.0.js
     "logging": {
-      "data": true,
-      "browser": true,
-      "parent": false,
-      "root": false,
+      "data": [ "start", "join", "leave", "rename" ],
+      "browser": [ "ready" ],
       "user": true,
-      "website": true
+      "website": [ "ready" ]
     },
     "hash": [ "ccm.load", "https://akless.github.io/ccm-components/libs/md5/md5.min.js" ],
     "onfinish": {
@@ -39,8 +37,7 @@ ccm.files[ 'configs.js' ] = {
           "set": "creator",
           "del": "creator"
         }
-      },
-      "log": true
+      }
     }
   }
 };
