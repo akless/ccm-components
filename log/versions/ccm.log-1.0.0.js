@@ -117,6 +117,7 @@
               if ( obj.id !== userdata.name && !self.hash )
                 obj.name = userdata.name;
             }
+            results.user = obj;
           }
         }
 
