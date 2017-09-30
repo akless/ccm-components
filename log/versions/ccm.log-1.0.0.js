@@ -18,35 +18,11 @@
       crossorigin: 'anonymous'
     },
 
-    config: {
-      "logging": {}
-    },
-
     Instance: function () {
 
       var self = this;
       var my;           // contains privatized instance members
       var id;           // global unique id of this instance
-
-      this.init = function ( callback ) {
-
-        arrToObj( self, 'events' );
-        for ( var key in self.logging )
-          arrToObj( self.logging[ key ] );
-
-        callback();
-
-        function arrToObj( obj, key ) {
-
-          if ( !Array.isArray( obj[ key ] ) ) return;
-
-          var result = {};
-          obj[ key ].map( function ( value ) { result[ value ] = true; } );
-          obj[ key ] = result;
-
-        }
-
-      };
 
       this.ready = function ( callback ) {
 
@@ -56,7 +32,30 @@
         // generate global unique instance id
         id = self.ccm.helper.generateKey();
 
+        // support different forms of data structure
+        uniformData();
+
         callback();
+
+        /** brings given data to uniform data structure */
+        function uniformData() {
+
+          // accept arrays for event settings
+          if ( my.events ) {
+            self.ccm.helper.arrToObj( my, 'events' );
+            for ( var key in my.events )
+              self.ccm.helper.arrToObj( my.events, key );
+          }
+
+          // accept arrays for logging settings
+          if ( my.logging ) {
+            self.ccm.helper.arrToObj( my, 'logging' );
+            for ( var key in my.logging )
+              self.ccm.helper.arrToObj( my.logging, key );
+          }
+
+        }
+
       };
 
       /**
@@ -75,28 +74,31 @@
          */
         var results = { session: id, event: event };
 
-        // add event specific informations
-        if ( data !== undefined && ( self.ccm.helper.isObject( my.logging.data ) ? my.logging.data[ event ] : my.logging.data ) ) results.data = self.ccm.helper.clone( data );
+        // log event specific informations
+        if ( data !== undefined && check( 'data' ) )
+          results.data = self.ccm.helper.clone( data );
 
         // add browser informations
-        if ( self.ccm.helper.isObject( my.logging.browser ) ? my.logging.browser[ event ] : my.logging.browser ) results.browser = {
-          appCodeName: navigator.appCodeName,
-          appName: navigator.appName,
-          appVersion: navigator.appVersion,
-          language: navigator.language,
-          oscpu: navigator.oscpu,
-          platform: navigator.platform,
-          userAgent: navigator.userAgent
-        };
+        if ( check( 'browser' ) )
+          results.browser = {
+            appCodeName: navigator.appCodeName,
+            appName: navigator.appName,
+            appVersion: navigator.appVersion,
+            language: navigator.language,
+            oscpu: navigator.oscpu,
+            platform: navigator.platform,
+            userAgent: navigator.userAgent
+          };
 
-        // add ccm context parent informations
-        if ( self.parent && ( self.ccm.helper.isObject( my.logging.parent ) ? my.logging.parent[ event ] : my.logging.parent ) ) results.parent = {
-          name:    self.parent.component.name,
-          version: self.parent.component.version
-        };
+        // log ccm context parent informations
+        if ( self.parent && check( 'parent' ) )
+          results.parent = {
+            name:    self.parent.component.name,
+            version: self.parent.component.version
+          };
 
-        // add ccm context root informations
-        if ( self.parent && ( self.ccm.helper.isObject( my.logging.root ) ? my.logging.root[ event ] : my.logging.root ) ) {
+        // log ccm context root informations
+        if ( self.parent && check( 'root' ) ) {
           var root = self.ccm.context.root( self );
           results.root = {
             name:    root.component.name,
@@ -104,20 +106,35 @@
           };
         }
 
-        // add user informations
-        if ( self.ccm.helper.isObject( my.logging.user ) ? my.logging.user[ event ] : my.logging.user ) {
+        // log user informations
+        if ( check( 'user' ) ) {
           var user = self.ccm.context.find( self, 'user' );
-          if ( user ) results.user = {
-            key:     user.isLoggedIn() ? ( window.md5 ? md5( md5( user.data().id ) ) : user.data().id ) : null,
-            sign_on: user.getSignOn()
-          };
+          if ( user ) {
+            var obj = { sign_on: user.getSignOn() };
+            if ( user.isLoggedIn() ) {
+              var userdata = user.data();
+              obj.id = self.hash && window.md5 ? md5( md5( userdata.id ) ) : userdata.id;
+              if ( obj.id !== userdata.name && !self.hash )
+                obj.name = userdata.name;
+            }
+          }
         }
 
-        // add website informations
-        if ( self.ccm.helper.isObject( my.logging.website ) ? my.logging.website[ event ] : my.logging.website ) results.website = window.location.href;
+        // log website informations
+        if ( check( 'website' ) )
+          results.website = window.location.href;
 
         // provide result data
         self.ccm.helper.onFinish( self, results );
+
+        function check( kind ) {
+          if ( my.events && self.ccm.helper.isObject( my.events[ event ] ) && !my.events[ event ][ kind ] ) return false;
+          if ( my.logging ) {
+            if ( !my.logging[ kind ] ) return false;
+            if ( self.ccm.helper.isObject( my.logging[ kind ] ) && !my.logging[ kind ][ event ] ) return false;
+          }
+          return true;
+        }
 
       };
 

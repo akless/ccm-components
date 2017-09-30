@@ -17,11 +17,30 @@ ccm.files[ 'configs.js' ] = {
     "onfinish": { "log": true }
   },
   "se_ws17_teambuild": {  // created for ccm.log-1.0.0.js, ccm.teambuild-1.0.0.js, ccm.user-2.0.0.js
-    "logging": {
-      "data": [ "start", "join", "leave", "rename" ],
-      "browser": [ "ready" ],
-      "user": true,
-      "website": [ "ready" ]
+    "events": {
+      "ready": {
+        "browser": true,
+        "user": true,
+        "website": true
+      },
+      "start": {
+        "data": true,
+        "browser": true,
+        "user": true,
+        "website": true
+      },
+      "join": {
+        "data": true,
+        "user": true
+      },
+      "leave": {
+        "data": true,
+        "user": true
+      },
+      "rename": {
+        "data": true,
+        "user": true
+      }
     },
     "hash": [ "ccm.load", "https://akless.github.io/ccm-components/libs/md5/md5.min.js" ],
     "onfinish": {
