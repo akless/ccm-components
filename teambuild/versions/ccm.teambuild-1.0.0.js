@@ -297,7 +297,7 @@
                     loading( false );
 
                     // should events be logged? => log change of the team name
-                    if ( self.logger ) self.logger.log( 'rename', { key: team.key, name: team.name } );
+                    if ( self.logger ) self.logger.log( 'rename', { team: team.key, name: team.name } );
 
                   } );
 
@@ -328,7 +328,7 @@
                     my.data.store.set( dataset, function () {
 
                       // should events be logged? => log the leaving of the team
-                      if ( self.logger ) self.logger.log( 'leave', { key: team.key } );
+                      if ( self.logger ) self.logger.log( 'leave', { team: team.key } );
 
                       // (re)render own content
                       self.start();
@@ -415,7 +415,7 @@
 
                       // should events be logged? => log the joining of the team
                       if ( self.logger ) self.logger.log( 'join', function () {
-                        var data = { key: team.key };
+                        var data = { team: team.key };
                         if ( user_team ) data.leaved = leaving_team.key;
                         return data;
                       }() );
