@@ -94,6 +94,7 @@
         "member": "user"
       }
 
+  //  names: [ "Team Red", "Team Blue" ],
   //  max_teams: 10,
   //  max_members: 3,
   //  editable: { join: true, leave: true, rename: true },
@@ -163,9 +164,11 @@
             dataset.teams.map( addTeam );
 
             // limited number of teams? => add empty teams
-            if ( my.max_teams )
-              for ( var i = 0; i < my.max_teams - dataset.teams.length; i++ )
+            if ( my.max_teams ) {
+              var needed = my.max_teams - dataset.teams.length;
+              for ( var i = 0; i < needed; i++ )
                 addEmptyTeam();
+            }
 
             // unlimited number of teams, last team is not empty and teams are joinable? => add empty team
             else if ( ( dataset.teams.length === 0 || !isEmptyTeam( dataset.teams[ dataset.teams.length - 1 ] ) ) && joinableTeams() ) addEmptyTeam();
@@ -183,7 +186,7 @@
               // prepare HTML structure of the team
               var team_elem = self.ccm.helper.html( my.html.team, {
                 icon: my.icon.team,
-                name: team.name ? team.name : my.text.team + ' ' + ( i + 1 )
+                name: team.name ? team.name : ( my.names ? my.names[ i ] : my.text.team + ' ' + ( i + 1 ) )
               } );
 
               /**
