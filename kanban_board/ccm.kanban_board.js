@@ -1,10 +1,8 @@
 /**
- * @overview ccm component for rendering a realtime kanban board
+ * @overview ccm component for rendering a kanban board
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
- * TODO: moving cards
- * TODO: restoring card positions
  * TODO: add and delete of a kanban card
  * TODO: declarative
  * TODO: user
@@ -113,16 +111,11 @@
               } );
 
               function getPosition( card_elem ) {
-                var lane_elem = findParentByClass( card_elem, 'lane' );
+
+                var lane_elem = self.ccm.helper.findParentElementByClass( card_elem, 'lane' );
                 var x = self.ccm.helper.makeIterable( lane_elem.parentNode.children ).indexOf( lane_elem );
                 var y = self.ccm.helper.makeIterable( card_elem.parentNode.children ).indexOf( card_elem );
                 return [ x, y ];
-
-                function findParentByClass( elem, value ) {
-                  while ( elem && elem.classList && !elem.classList.contains( value ) )
-                    elem = elem.parentNode;
-                  return elem.classList.contains( value ) ? elem : null;
-                }
 
               }
 
