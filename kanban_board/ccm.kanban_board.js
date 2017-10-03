@@ -128,6 +128,8 @@
 
               function moveCard( from, to ) {
 
+                if ( from[ 0 ] === to[ 0 ] && ( from[ 1 ] === to[ 1 ] || from[ 1 ] === to[ 1 ] - 1 ) ) return;
+
                 var card = dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ];
                 dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] = null;
                 dataset.lanes[ to[ 0 ] ].cards.splice( to[ 1 ], 0, card );
