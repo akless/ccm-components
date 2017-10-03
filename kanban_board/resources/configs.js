@@ -1,5 +1,5 @@
 /**
- * @overview configurations of ccm component for rendering a kanban board
+ * @overview configurations of ccm component for rendering a realtime kanban board
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
  */
@@ -15,7 +15,7 @@ ccm.files[ 'configs.js' ] = {
   "local": {
     "css": [ "ccm.load", "../kanban_board/resources/default.css" ],
     "data": {
-      "store": [ "ccm.store", "../kanban_board/resources/datasets.js" ],
+      "store": [ "ccm.store", { "store": "kanban_board", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "local"
     }
   }

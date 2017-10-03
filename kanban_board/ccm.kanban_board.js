@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for rendering a kanban board
+ * @overview ccm component for rendering a realtime kanban board
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
@@ -50,7 +50,7 @@
       },
       "css": [ "ccm.load", "../kanban_board/resources/default.css" ],
       "data": {
-        "store": [ "ccm.store", "../kanban_board/resources/datasets.js" ],
+        "store": [ "ccm.store" ],
         "key": "local"
       },
       "lanes": [ "ToDo", "Doing", "Done" ],
@@ -95,7 +95,7 @@
             lane.cards.map( renderCard );
             lanes_elem.appendChild( lane_elem );
 
-            function renderCard( card_cfg, j ) {
+            function renderCard( card_cfg ) {
 
               counter++;
               var card_elem = document.createElement( 'div' );
@@ -103,20 +103,22 @@
               my.kanban_card.start( self.ccm.helper.clone( card_cfg ), function ( card_inst ) {
                 card_inst.root.classList.add( 'card' );
                 card_inst.root.setAttribute( 'draggable', 'true' );
-                card_inst.root.addEventListener( 'dragstart', function ( event ) { event.dataTransfer.setData( 'text', getPosition( event.target ) ); } );
+                card_inst.root.addEventListener( 'dragstart', function ( event ) { event.dataTransfer.setData( 'text', getPosition( event.target ).join( ',' ) ); } );
                 card_inst.root.addEventListener( 'dragover', function ( event ) { event.preventDefault(); } );
-                card_inst.root.addEventListener( 'drop', function ( event ) { moveCard( event.dataTransfer.getData( 'text' ), getPosition( event.target ) ); } );
+                card_inst.root.addEventListener( 'drop', function ( event ) {
+                  moveCard( event.dataTransfer.getData( 'text' ).split( ',' ).map( function( value ) { return parseInt( value ); } ), getPosition( event.target ) );
+                } );
                 cards_elem.replaceChild( card_inst.root, card_elem );
                 check();
               } );
 
               function getPosition( card_elem ) {
-                var lane_elem = findParent( card_elem, 'lane' );
+                var lane_elem = findParentByClass( card_elem, 'lane' );
                 var x = self.ccm.helper.makeIterable( lane_elem.parentNode.children ).indexOf( lane_elem );
                 var y = self.ccm.helper.makeIterable( card_elem.parentNode.children ).indexOf( card_elem );
-                return x + ',' + y;
+                return [ x, y ];
 
-                function findParent( elem, value ) {
+                function findParentByClass( elem, value ) {
                   while ( elem && elem.classList && !elem.classList.contains( value ) )
                     elem = elem.parentNode;
                   return elem.classList.contains( value ) ? elem : null;
@@ -125,7 +127,15 @@
               }
 
               function moveCard( from, to ) {
-                console.log( from, to );
+
+                var card = dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ];
+                dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] = null;
+                dataset.lanes[ to[ 0 ] ].cards.splice( to[ 1 ], 0, card );
+                if ( dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] !== null ) from[ 1 ]++;
+                dataset.lanes[ from[ 0 ] ].cards.splice( from[ 1 ], 1 );
+
+                if ( my.data.store ) my.data.store.set( dataset, function () { self.start(); } );
+
               }
 
             }
