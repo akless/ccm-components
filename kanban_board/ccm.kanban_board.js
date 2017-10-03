@@ -27,24 +27,34 @@
     config: {
 
       "html": {
+        "main": {
+          "tag": "main",
+          "inner": {
+            "id": "lanes"
+          }
+        },
         "lane": {
           "tag": "section",
+          "class": "lane",
           "inner": [
             {
               "tag": "header",
               "inner": "%%"
             },
-            { "tag": "article" }
+            {
+              "tag": "article",
+              "class": "cards"
+            }
           ]
         }
       },
       "css": [ "ccm.load", "../kanban_board/resources/default.css" ],
-      "kanban_card": [ "ccm.component", "../kanban_card/ccm.kanban_card.js" ],
       "data": {
         "store": [ "ccm.store", "../kanban_board/resources/datasets.js" ],
         "key": "local"
       },
-      "lanes": [ "ToDo", "Doing", "Done" ]
+      "lanes": [ "ToDo", "Doing", "Done" ],
+      "kanban_card": [ "ccm.component", "../kanban_card/ccm.kanban_card.js" ]
 
     },
 
@@ -70,7 +80,9 @@
             if ( !dataset.lanes[ i ] ) dataset.lanes[ i ] = { cards: [] };
           } );
 
-          var element = document.createDocumentFragment();
+          var main_elem = self.ccm.helper.html( my.html.main );
+          var lanes_elem = main_elem.querySelector( '#lanes' );
+
           var counter = 1;
           dataset.lanes.map( renderLane );
           check();
@@ -78,21 +90,43 @@
           function renderLane( lane, i ) {
 
             var lane_elem = self.ccm.helper.html( my.html.lane, my.lanes[ i ] );
-            var cards_elem = lane_elem.querySelector( 'article' );
+            var cards_elem = lane_elem.querySelector( '.cards' );
 
             lane.cards.map( renderCard );
-            element.appendChild( lane_elem );
+            lanes_elem.appendChild( lane_elem );
 
-            function renderCard( card_cfg ) {
+            function renderCard( card_cfg, j ) {
 
               counter++;
               var card_elem = document.createElement( 'div' );
               cards_elem.appendChild( card_elem );
               my.kanban_card.start( self.ccm.helper.clone( card_cfg ), function ( card_inst ) {
                 card_inst.root.classList.add( 'card' );
+                card_inst.root.setAttribute( 'draggable', 'true' );
+                card_inst.root.addEventListener( 'dragstart', function ( event ) { event.dataTransfer.setData( 'text', getPosition( event.target ) ); } );
+                card_inst.root.addEventListener( 'dragover', function ( event ) { event.preventDefault(); } );
+                card_inst.root.addEventListener( 'drop', function ( event ) { moveCard( event.dataTransfer.getData( 'text' ), getPosition( event.target ) ); } );
                 cards_elem.replaceChild( card_inst.root, card_elem );
                 check();
               } );
+
+              function getPosition( card_elem ) {
+                var lane_elem = findParent( card_elem, 'lane' );
+                var x = self.ccm.helper.makeIterable( lane_elem.parentNode.children ).indexOf( lane_elem );
+                var y = self.ccm.helper.makeIterable( card_elem.parentNode.children ).indexOf( card_elem );
+                return x + ',' + y;
+
+                function findParent( elem, value ) {
+                  while ( elem && elem.classList && !elem.classList.contains( value ) )
+                    elem = elem.parentNode;
+                  return elem.classList.contains( value ) ? elem : null;
+                }
+
+              }
+
+              function moveCard( from, to ) {
+                console.log( from, to );
+              }
 
             }
 
@@ -103,10 +137,9 @@
             counter--;
             if ( counter !== 0 ) return;
 
-            self.ccm.helper.setContent( self.element, element );
+            self.ccm.helper.setContent( self.element, main_elem );
 
             if ( callback ) callback();
-
           }
 
         } );

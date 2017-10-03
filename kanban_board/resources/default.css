@@ -4,27 +4,34 @@
  * @license The MIT License (MIT)
  */
 
-#element {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+main {
   overflow-x: auto;
   font-family: Arial, sans-serif;
 }
 
-section {
+#lanes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.lane {
   padding: 0.2em;
   width: 20em;
 }
 
-section header {
+.lane header {
   font-weight: bold;
   text-align: center;
   padding: 0.5em;
   overflow-x: auto;
 }
 
-article {
+.cards {
   border-top: 0.1em solid black;
   padding: 0.5em;
+}
+
+[draggable=true] {
+  cursor: move;
 }
