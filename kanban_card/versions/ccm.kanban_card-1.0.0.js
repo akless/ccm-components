@@ -102,20 +102,19 @@
       "icons": [
         "ccm.load",
         {
+          "context": "head",
           "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
           "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
           "crossorigin": "anonymous"
         },
         {
-          "context": "head",
           "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
           "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
           "crossorigin": "anonymous"
         }
       ],
       "data": {
-        "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/datasets.min.js" ],
-        "key": "homework",
+        "store": [ "ccm.store" ],
         "permission_settings": { "access": "group" }
       },
       "editable": true,
@@ -206,7 +205,7 @@
               if ( self.logger ) self.logger.log( 'change', { prop: prop, value: value } );
               status();
               my.dataset[ prop ] = value.trim();
-              if ( self.user && !my.dataset._ ) my.dataset._ = self.ccm.helper.integrate( { creator: self.user.data().user, group: self.ccm.helper.transformStringArray( my.members ) }, my.data.permission_settings );
+              if ( self.user && !my.dataset._ ) my.dataset._ = self.ccm.helper.integrate( { creator: self.user.data().id, group: self.ccm.helper.transformStringArray( my.members ) }, my.data.permission_settings );
               my.data.store.set( my.dataset, status );
 
               function status( finished ) {
