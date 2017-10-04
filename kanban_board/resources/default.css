@@ -32,9 +32,22 @@ main {
   padding: 0.5em;
 }
 
-.placeholder {
-  width: 18em;
-  height: 6em;
+.lane footer {
+  margin: 0 1em;
+  padding: 0.5em;
+  background-color: lightgray;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.lane footer:hover {
+  background-color: gray;
+}
+
+.lane footer:before {
+  content: '+';
 }
 
 [draggable=true] {

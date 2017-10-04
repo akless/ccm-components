@@ -44,6 +44,10 @@
               "class": "cards"
             }
           ]
+        },
+        "add": {
+          "tag": "footer",
+          "onclick": "%%"
         }
       },
       "css": [ "ccm.load", "../kanban_board/resources/default.css" ],
@@ -91,6 +95,7 @@
             var cards_elem = lane_elem.querySelector( '.cards' );
 
             lane.cards.map( renderCard );
+            if ( i === 0 ) addNewCardButton();
             lanes_elem.appendChild( lane_elem );
 
             function renderCard( card_cfg ) {
@@ -171,6 +176,13 @@
 
               } );
 
+            }
+
+            function addNewCardButton() {
+              lane_elem.appendChild( self.ccm.helper.html( my.html.add, function () {
+                dataset.lanes[ i ].cards.push( {} );
+                if ( my.data.store ) my.data.store.set( dataset, function () { self.start(); } );
+              } ) );
             }
 
           }
