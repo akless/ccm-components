@@ -32,6 +32,11 @@ main {
   padding: 0.5em;
 }
 
+.placeholder {
+  width: 18em;
+  height: 6em;
+}
+
 [draggable=true] {
   cursor: move;
 }

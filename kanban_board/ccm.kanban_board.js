@@ -100,38 +100,76 @@
               cards_elem.appendChild( card_elem );
               my.kanban_card.start( self.ccm.helper.clone( card_cfg ), function ( card_inst ) {
                 card_inst.root.classList.add( 'card' );
-                card_inst.root.setAttribute( 'draggable', 'true' );
-                card_inst.root.addEventListener( 'dragstart', function ( event ) { event.dataTransfer.setData( 'text', getPosition( event.target ).join( ',' ) ); } );
-                card_inst.root.addEventListener( 'dragover', function ( event ) { event.preventDefault(); } );
-                card_inst.root.addEventListener( 'drop', function ( event ) {
-                  moveCard( event.dataTransfer.getData( 'text' ).split( ',' ).map( function( value ) { return parseInt( value ); } ), getPosition( event.target ) );
-                } );
+
+                makeDraggable( card_inst.root );
+                makeDroppable( card_inst.root );
+
                 cards_elem.replaceChild( card_inst.root, card_elem );
                 check();
+
+                function makeDraggable( elem ) {
+
+                  elem.setAttribute( 'draggable', 'true' );
+                  elem.addEventListener( 'dragstart', function ( event ) {
+                    event.dataTransfer.setData( 'text', getPosition( event.target ).join( ',' ) );
+                    addPlaceholder( event.target );
+                  } );
+                  elem.addEventListener( 'dragend', removePlaceholder );
+
+                  function addPlaceholder( card_elem ) {
+
+                    self.ccm.helper.makeIterable( lanes_elem.querySelectorAll( '.cards' ) ).map( function ( cards_elem ) {
+                      var placeholder = self.ccm.helper.html( { class: 'placeholder' } );
+                      placeholder.style.width  = card_elem.offsetWidth  + 'px';
+                      placeholder.style.height = card_elem.offsetHeight + 'px';
+                      makeDroppable( placeholder );
+                      cards_elem.appendChild( placeholder );
+                    } );
+
+                  }
+
+                  function removePlaceholder() {
+                    self.ccm.helper.makeIterable( lanes_elem.querySelectorAll( '.placeholder' ) ).map( function ( placeholder ) {
+                      self.ccm.helper.removeElement( placeholder );
+                    } );
+                  }
+
+                }
+
+                function makeDroppable( elem ) {
+
+                  elem.addEventListener( 'dragover', function ( event ) { event.preventDefault(); } );
+                  elem.addEventListener( 'drop', function ( event ) {
+                    moveCard( event.dataTransfer.getData( 'text' ).split( ',' ).map( function( value ) { return parseInt( value ); } ), getPosition( event.target ) );
+
+                    function moveCard( from, to ) {
+
+                      if ( from[ 0 ] === to[ 0 ] && ( from[ 1 ] === to[ 1 ] || from[ 1 ] === to[ 1 ] - 1 ) ) return;
+
+                      var card = dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ];
+                      dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] = null;
+                      dataset.lanes[ to[ 0 ] ].cards.splice( to[ 1 ], 0, card );
+                      if ( dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] !== null ) from[ 1 ]++;
+                      dataset.lanes[ from[ 0 ] ].cards.splice( from[ 1 ], 1 );
+
+                      if ( my.data.store ) my.data.store.set( dataset, function () { self.start(); } );
+
+                    }
+
+                  } );
+
+                }
+
+                function getPosition( card_elem ) {
+
+                  var lane_elem = self.ccm.helper.findParentElementByClass( card_elem, 'lane' );
+                  var x = self.ccm.helper.makeIterable( lane_elem.parentNode.children ).indexOf( lane_elem );
+                  var y = self.ccm.helper.makeIterable( card_elem.parentNode.children ).indexOf( card_elem );
+                  return [ x, y ];
+
+                }
+
               } );
-
-              function getPosition( card_elem ) {
-
-                var lane_elem = self.ccm.helper.findParentElementByClass( card_elem, 'lane' );
-                var x = self.ccm.helper.makeIterable( lane_elem.parentNode.children ).indexOf( lane_elem );
-                var y = self.ccm.helper.makeIterable( card_elem.parentNode.children ).indexOf( card_elem );
-                return [ x, y ];
-
-              }
-
-              function moveCard( from, to ) {
-
-                if ( from[ 0 ] === to[ 0 ] && ( from[ 1 ] === to[ 1 ] || from[ 1 ] === to[ 1 ] - 1 ) ) return;
-
-                var card = dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ];
-                dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] = null;
-                dataset.lanes[ to[ 0 ] ].cards.splice( to[ 1 ], 0, card );
-                if ( dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] !== null ) from[ 1 ]++;
-                dataset.lanes[ from[ 0 ] ].cards.splice( from[ 1 ], 1 );
-
-                if ( my.data.store ) my.data.store.set( dataset, function () { self.start(); } );
-
-              }
 
             }
 
