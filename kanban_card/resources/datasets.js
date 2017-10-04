@@ -41,7 +41,7 @@ ccm.files[ 'datasets.js' ] = {
     "deadline": "2017-10-05"
   },
   "more": {
-    "title": "Einbettung in weitere Plattformen",
+    "title": "Weitere Plattformen",
     "owner": "Andre",
     "summary": "Einbettung in weitere LMS zur Verdeutlichung der plattformübergreifenden Kollbaration.",
     "priority": "C",

@@ -32,5 +32,15 @@ ccm.files[ 'configs.js' ] = {
       "css": [ "ccm.load", "../kanban_card/resources/weblysleek.css" ],
       "logger": [ "ccm.instance", "../log/ccm.log.js", [ "ccm.get", "../log/resources/configs.js", "greedy" ] ]
     } ]
+  },
+  "showcase": {
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_board/resources/default.css" ],
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_board/resources/datasets.js" ],
+      "key": "showcase"
+    },
+    "kanban_card": [ "ccm.component", "https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.js", {
+      "members": [ "Almut", "Andre", "Manfred", "Ralph", "Regina", "Tea", "Thorsten" ]
+    } ]
   }
 };
