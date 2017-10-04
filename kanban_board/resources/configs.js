@@ -36,10 +36,10 @@ ccm.files[ 'configs.js' ] = {
   "showcase": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_board/resources/default.css" ],
     "data": {
-      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_board/resources/datasets.js" ],
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_board/resources/datasets.min.js" ],
       "key": "showcase"
     },
-    "kanban_card": [ "ccm.component", "https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.js", {
+    "kanban_card": [ "ccm.component", "https://akless.github.io/ccm-components/kanban_card/versions/ccm.kanban_card-1.0.0.min.js", {
       "members": [ "Almut", "Andre", "Manfred", "Ralph", "Regina", "Tea", "Thorsten" ]
     } ]
   }

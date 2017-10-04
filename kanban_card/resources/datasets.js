@@ -30,7 +30,7 @@ ccm.files[ 'datasets.js' ] = {
     "title": "Aufbau der W2C",
     "owner": "Tea",
     "summary": "Weitere Eingabemasken für die Erstellung von LearningApps bereitstellen.",
-    "priority": "B",
+    "priority": "A",
     "deadline": "2017-31-01"
   },
   "lea": {

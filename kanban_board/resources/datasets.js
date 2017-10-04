@@ -21,19 +21,19 @@ ccm.files[ 'datasets.js' ] = {
     "lanes": [
       {
         "cards": [
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.js", "test" ],
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.js", "realtime" ]
+          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "test" ],
+          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "realtime" ]
         ]
       },
       {
         "cards": [
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.js", "w2c" ]
+          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "w2c" ]
         ]
       },
       {
         "cards": [
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.js", "lea" ],
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.js", "more" ]
+          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "lea" ],
+          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "more" ]
         ]
       }
     ]
