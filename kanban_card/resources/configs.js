@@ -28,5 +28,37 @@ ccm.files[ 'configs.js' ] = {
       "permission_settings": { "access": "group" }
     },
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
+  },
+  "test": {
+    "font": [ "ccm.load", { "context": "head", "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css" } ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/weblysleek.css" ],
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/datasets.min.js" ],
+      "key": "test"
+    }
+  },
+  "w2c": {
+    "font": [ "ccm.load", { "context": "head", "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css" } ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/weblysleek.css" ],
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/datasets.min.js" ],
+      "key": "w2c"
+    }
+  },
+  "lea": {
+    "font": [ "ccm.load", { "context": "head", "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css" } ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/weblysleek.css" ],
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/datasets.min.js" ],
+      "key": "lea"
+    }
+  },
+  "more": {
+    "font": [ "ccm.load", { "context": "head", "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css" } ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/weblysleek.css" ],
+    "data": {
+      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/datasets.min.js" ],
+      "key": "more"
+    }
   }
 };
