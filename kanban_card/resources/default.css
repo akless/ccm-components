@@ -26,12 +26,14 @@ header {
   border-bottom: 0;
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
+  padding-bottom: 0.15em;
 }
 
 footer {
   border-top: 0;
   border-bottom-left-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
+  padding-top: 0.15em;
 }
 
 main {

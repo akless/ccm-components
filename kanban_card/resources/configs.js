@@ -6,16 +6,16 @@
 
 ccm.files[ 'configs.js' ] = {
   "homework": {
-    "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/default.css" ],
+    "css": [ "ccm.load", "../kanban_card/resources/default.css" ],
     "data": {
       "store": [ "ccm.store", "../kanban_card/resources/datasets.min.js" ],
       "key": "homework"
     }
   },
   "presentation": {
-    "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/demo.css" ],
+    "css": [ "ccm.load", "../kanban_card/resources/demo.css" ],
     "data": {
-      "store": [ "ccm.store", "https://akless.github.io/ccm-components/kanban_card/resources/datasets.min.js" ],
+      "store": [ "ccm.store", "../kanban_card/resources/datasets.min.js" ],
       "key": "presentation"
     }
   },
