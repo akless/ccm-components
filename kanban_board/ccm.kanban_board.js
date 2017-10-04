@@ -95,7 +95,7 @@
             var cards_elem = lane_elem.querySelector( '.cards' );
 
             lane.cards.map( renderCard );
-            if ( i === 0 ) addNewCardButton();
+            //if ( i === 0 ) addNewCardButton();
             lanes_elem.appendChild( lane_elem );
 
             function renderCard( card_cfg ) {
