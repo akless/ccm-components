@@ -4,13 +4,14 @@
  * @license The MIT License (MIT)
  * @version 2.0.0
  * @changes
- * version 2.0.0 (29.09.2017):
+ * version 2.0.0 (04.10.2017):
  * - uses ccm v10.0.0 instead of v8.1.0
  * - shortened component backbone
  * - use fragment instead of empty container as default Light DOM
  * - Light DOM can be given as HTML string via 'inner' config property
  * - removed no more needed ccm.helper.protect calls
  * - <source> tag for URL of inner used ccm elements
+ * - accept ccm HTML data for config property "inner"
  * version 1.0.0 (28.07.2017)
  */
 
@@ -39,6 +40,10 @@
 
         // Light DOM is given as HTML string? => use fragment with HTML string as innerHTML
         if ( typeof self.inner === 'string' ) self.inner = document.createRange().createContextualFragment( self.inner );
+
+        // Light DOM is given as ccm HTML data? => convert to HTML DOM Elements
+        if ( self.ccm.helper.isObject( self.inner ) && !self.ccm.helper.isElementNode( self.inner ) )
+          self.inner = self.ccm.helper.html( self.inner );
 
         // collect all ccm dependencies inside the Light DOM
         self.dependencies = []; collectDependencies( self.inner );
