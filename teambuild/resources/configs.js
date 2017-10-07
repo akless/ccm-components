@@ -39,7 +39,7 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
-      "key": "se_ws17"
+      "key": "se_ws17_gr1"
     },
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
@@ -49,7 +49,7 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
-      "key": "se_ws17"
+      "key": "se_ws17_gr2"
     },
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
@@ -59,7 +59,7 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
-      "key": "se_ws17"
+      "key": "se_ws17_gr3"
     },
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
@@ -69,7 +69,7 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
-      "key": "se_ws17"
+      "key": "se_ws17_gr4"
     },
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
@@ -79,7 +79,7 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
-      "key": "se_ws17"
+      "key": "se_ws17_gr5"
     },
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
@@ -89,7 +89,7 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
-      "key": "se_ws17"
+      "key": "se_ws17_gr6"
     },
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
