@@ -13,8 +13,8 @@
     version: [ 1, 0, 0 ],
 
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-10.1.1.min.js',
-      integrity: 'sha384-bLKKGkL3ljIPZtwWfwHj4bBToIgljjVqFFQXGC9xA1thikxdqByuQMNOn4BBitGi',
+      url: 'https://akless.github.io/ccm/version/ccm-10.2.0.min.js',
+      integrity: 'sha384-c4JExvSiTu8tS1LXUqYkV7F/QGezHWYES5DK/9wka6cq4Y0ZX0Q68GEcLSOb4van',
       crossorigin: 'anonymous'
     },
 
@@ -205,7 +205,7 @@
               if ( self.user && self.user.isLoggedIn() ) {
 
                 // remember username
-                user = self.ccm.helper.filterProperties( self.user.data(), 'id', 'name' );
+                user = self.ccm.helper.filterProperties( self.user.data(), 'id', 'name', 'email' );
 
                 // remember user team index
                 user_team = getUserTeam();
@@ -410,7 +410,7 @@
                     }
 
                     // add the user to the member list
-                    team.members[ user.id ] = { id: user.id, name: user.name };
+                    team.members[ user.id ] = self.ccm.helper.cleanObject( { id: user.id, name: user.name, email: user.email } );
 
                     // update team building dataset
                     my.data.store.set( dataset, function () {
@@ -461,7 +461,7 @@
                   // prepare HTML structure of the member
                   var member_elem = self.ccm.helper.html( my.html.member, {
                     icon: my.icon.member,
-                    name: member ? member.name : my.text.free
+                    name: member ? ( member.email && user.id !== member.id ? '<a href="mailto:' + member.email + '">' + member.name + '</a>' : member.name ) : my.text.free
                   } );
 
                   // select the element for the username of the member
