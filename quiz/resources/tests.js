@@ -22,9 +22,6 @@ ccm.files[ 'tests.js' ] = {
       componentName: function ( suite ) {
         suite.assertSame( 'quiz', suite.instance.component.name );
       },
-      frameworkVersion: function ( suite ) {
-        suite.assertEquals( '10.0.0', suite.instance.ccm.version() );
-      },
       publicProperties: function ( suite ) {
         suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( suite.instance ) );
       },
