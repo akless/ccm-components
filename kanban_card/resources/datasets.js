@@ -5,6 +5,7 @@
  */
 
 ccm.files[ 'datasets.js' ] = {
+
   "homework": {
     "title": "Homework",
     "owner": "John",
@@ -12,6 +13,7 @@ ccm.files[ 'datasets.js' ] = {
     "priority": "A",
     "deadline": "2017-03-15"
   },
+
   "presentation": {
     "title": "Presentation",
     "owner": "Jane",
@@ -19,6 +21,7 @@ ccm.files[ 'datasets.js' ] = {
     "priority": "B",
     "deadline": "2017-04-07"
   },
+
   "test": {
     "title": "Testphase mit Lehrenden",
     "owner": "Tea",
@@ -26,6 +29,7 @@ ccm.files[ 'datasets.js' ] = {
     "priority": "B",
     "deadline": "2018-10-01"
   },
+
   "w2c": {
     "title": "Aufbau der W2C",
     "owner": "Tea",
@@ -33,6 +37,7 @@ ccm.files[ 'datasets.js' ] = {
     "priority": "A",
     "deadline": "2017-31-01"
   },
+
   "lea": {
     "title": "Einbettung in LEA",
     "owner": "Andre",
@@ -40,6 +45,7 @@ ccm.files[ 'datasets.js' ] = {
     "priority": "A",
     "deadline": "2017-10-05"
   },
+
   "more": {
     "title": "Weitere Plattformen",
     "owner": "Andre",
@@ -47,4 +53,5 @@ ccm.files[ 'datasets.js' ] = {
     "priority": "C",
     "deadline": "2017-10-05"
   }
+
 };

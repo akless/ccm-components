@@ -5,6 +5,7 @@
  */
 
 ccm.files[ 'configs.js' ] = {
+
   "homework": {
     "css": [ "ccm.load", "../kanban_card/resources/default.css" ],
     "data": {
@@ -12,6 +13,7 @@ ccm.files[ 'configs.js' ] = {
       "key": "homework"
     }
   },
+
   "presentation": {
     "css": [ "ccm.load", "../kanban_card/resources/demo.css" ],
     "data": {
@@ -19,6 +21,7 @@ ccm.files[ 'configs.js' ] = {
       "key": "presentation"
     }
   },
+
   "realtime": {
     "font": [ "ccm.load", { "context": "head", "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css" } ],
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/weblysleek.css" ],
@@ -29,6 +32,7 @@ ccm.files[ 'configs.js' ] = {
     },
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
   },
+
   "test": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/demo.css" ],
     "data": {
@@ -36,6 +40,7 @@ ccm.files[ 'configs.js' ] = {
       "key": "test"
     }
   },
+
   "w2c": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/demo.css" ],
     "data": {
@@ -43,6 +48,7 @@ ccm.files[ 'configs.js' ] = {
       "key": "w2c"
     }
   },
+
   "lea": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/demo.css" ],
     "data": {
@@ -50,6 +56,7 @@ ccm.files[ 'configs.js' ] = {
       "key": "lea"
     }
   },
+
   "more": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_card/resources/demo.css" ],
     "data": {
@@ -57,4 +64,5 @@ ccm.files[ 'configs.js' ] = {
       "key": "more"
     }
   }
+
 };
