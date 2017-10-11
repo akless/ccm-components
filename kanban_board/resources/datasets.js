@@ -5,37 +5,40 @@
  */
 
 ccm.files[ 'datasets.js' ] = {
+
   "local": {
     "key": "local",
     "lanes": [
       {
         "cards": [
-          [ "ccm.get", "../kanban_card/resources/configs.js", "homework" ],
-          [ "ccm.get", "../kanban_card/resources/configs.js", "presentation" ]
+          [ "ccm.instance", "../kanban_card/ccm.kanban_card.js", [ "ccm.get", "../kanban_card/resources/configs.js", "homework" ] ],
+          [ "ccm.instance", "../kanban_card/ccm.kanban_card.js", [ "ccm.get", "../kanban_card/resources/configs.js", "presentation" ] ]
         ]
       }
     ]
   },
+
   "showcase": {
     "key": "showcase",
     "lanes": [
       {
         "cards": [
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "test" ],
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "realtime" ]
+          [ "ccm.instance", "https://akless.github.io/ccm-components/kanban_card/versions/kanban_card-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "test" ] ],
+          [ "ccm.instance", "https://akless.github.io/ccm-components/kanban_card/versions/kanban_card-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "realtime" ] ]
         ]
       },
       {
         "cards": [
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "w2c" ]
+          [ "ccm.instance", "https://akless.github.io/ccm-components/kanban_card/versions/kanban_card-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "w2c" ] ]
         ]
       },
       {
         "cards": [
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "lea" ],
-          [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "more" ]
+          [ "ccm.instance", "https://akless.github.io/ccm-components/kanban_card/versions/kanban_card-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "lea" ] ],
+          [ "ccm.instance", "https://akless.github.io/ccm-components/kanban_card/versions/kanban_card-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "more" ] ]
         ]
       }
     ]
   }
+
 };
