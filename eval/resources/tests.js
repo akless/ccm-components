@@ -23,7 +23,7 @@ ccm.files[ 'tests.js' ] = {
         suite.assertSame( 'eval', suite.instance.component.name );
       },
       publicInstanceProperties: function ( suite ) {
-        suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( suite.instance ) );
+        suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element', 'dependency' ], Object.keys( suite.instance ) );
       },
       startCallback: function ( suite ) {
         suite.instance.start( suite.passed );

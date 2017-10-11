@@ -23,7 +23,7 @@ ccm.files[ 'tests.js' ] = {
         suite.assertSame( 'quiz', suite.instance.component.name );
       },
       publicProperties: function ( suite ) {
-        suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element' ], Object.keys( suite.instance ) );
+        suite.assertEquals( [ 'start', 'ccm', 'id', 'index', 'component', 'root', 'element', 'dependency' ], Object.keys( suite.instance ) );
       },
       startCallback: function ( suite ) {
         suite.instance.start( suite.passed );
