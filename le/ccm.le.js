@@ -176,7 +176,7 @@
         if ( my.author ) {
           var footer = wrapper_elem.querySelector( 'footer' );
           if ( my.english_licence )
-            footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>To the extent possible under law, <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> has waived all copyright and related or neighboring rights to this work.</p>';
+            footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>To the extent possible under law, <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> has waived all copyright and related or neighboring rights to this work.</p>';
           else
             footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>Soweit unter den gesetzlichen Voraussetzungen möglich hat <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> sämtliche Urheber- und Verwertungsrechte für dieses Werk abgetreten.</p>';
         }
