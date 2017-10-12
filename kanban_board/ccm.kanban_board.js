@@ -20,7 +20,7 @@
 
     name: 'kanban_board',
 
-    ccm: '../../ccm/ccm.js',
+    ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
 
