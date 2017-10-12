@@ -39,6 +39,29 @@ ccm.files[ 'datasets.js' ] = {
         ]
       }
     ]
+  },
+
+  "experimental": {
+    "key": "experimental",
+    "lanes": [
+      {
+        "cards": [
+          [ "ccm.instance", "https://akless.github.io/ccm-components/kanban_card/versions/ccm.kanban_card-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/kanban_card/resources/configs.min.js", "realtime" ] ],
+          [ "ccm.instance", "https://akless.github.io/ccm-components/quiz/versions/ccm.quiz-2.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/quiz/resources/configs.min.js", "demo" ] ]
+        ]
+      },
+      {
+        "cards": [
+          [ "ccm.instance", "https://akless.github.io/ccm-components/blank_blank/ccm.blank_blank.min.js" ]
+        ]
+      },
+      {
+        "cards": [
+          [ "ccm.instance", "https://akless.github.io/ccm-components/blank/ccm.blank.min.js" ],
+          [ "ccm.instance", "https://akless.github.io/ccm-components/eval/versions/ccm.eval-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/eval/resources/configs.min.js", "demo" ] ]
+        ]
+      }
+    ]
   }
 
 };

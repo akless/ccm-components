@@ -68,6 +68,14 @@ ccm.files[ 'configs.js' ] = {
     "kanban_card": [ "ccm.component", "https://akless.github.io/ccm-components/kanban_card/versions/ccm.kanban_card-1.0.0.min.js", {
       "members": [ "Almut", "Andre", "Manfred", "Ralph", "Regina", "Tea", "Thorsten" ]
     } ]
+  },
+
+  "experimental": {
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_board/resources/default.css" ],
+    "data": {
+      "store": [ "ccm.store", "resources/datasets.min.js" ],
+      "key": "experimental"
+    }
   }
 
 };
