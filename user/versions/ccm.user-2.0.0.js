@@ -66,6 +66,7 @@
 
       var self = this;
       var my;           // contains privatized instance members
+      var owner;        // index of parent instance
 
       /**
        * data of the current logged in user
@@ -110,6 +111,9 @@
         // privatize all possible instance members
         my = self.ccm.helper.privatize( self );
 
+        // remember index of parent instance
+        owner = self.parent && self.parent.index;
+
         // immediate login? => login user
         if ( my.logged_in ) self.login( callback ); else callback();
 
@@ -143,7 +147,7 @@
       this.login = function ( callback, propagated ) {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.login( callback, propagated || self.parent && self.parent.index );
+        if ( my.context ) return my.context.login( callback, propagated || owner );
 
         // user already logged in? => perform callback directly
         if ( self.isLoggedIn() ) { if ( callback ) callback(); return self; }
@@ -190,9 +194,9 @@
           // perform waiting functions
           while ( waitlist.length > 0 ) self.ccm.helper.action( waitlist.shift() );
 
-          if ( self.element ) self.start();  // (re)render own content
-          if ( callback ) callback();        // perform callback
-          notify( true, propagated );        // notify observers about login event
+          if ( self.element ) self.start();     // (re)render own content
+          if ( callback ) callback();           // perform callback
+          notify( true, propagated || owner );  // notify observers about login event
 
         }
 
@@ -207,7 +211,7 @@
       this.logout = function ( callback, propagated ) {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.logout( callback, propagated || self.parent && self.parent.index );
+        if ( my.context ) return my.context.logout( callback, propagated || owner );
 
         // user already logged out? => perform callback directly
         if ( !self.isLoggedIn() ) { if ( callback ) callback(); return self; }
@@ -241,9 +245,9 @@
           // perform waiting functions
           while ( waitlist.length > 0 ) self.ccm.helper.action( waitlist.shift() );
 
-          if ( self.element ) self.start();  // (re)render own content
-          if ( callback ) callback();        // perform callback
-          notify( false, propagated );       // notify observers about logout event
+          if ( self.element ) self.start();      // (re)render own content
+          if ( callback ) callback();            // perform callback
+          notify( false, propagated || owner );  // notify observers about logout event
 
         }
 
@@ -307,13 +311,13 @@
       /**
        * notifies observers
        * @param {boolean} event - true: login, false: logout
-       * @param {string} propagated - propagated call (intern parameter)
+       * @param {string} caller - index of the index that calls login/logout (intern parameter)
        * @private
        */
-      function notify( event, propagated ) {
+      function notify( event, caller ) {
 
         for ( var index in observers ) {
-          if ( index === propagated ) continue;  // skip if observer is parent of publisher
+          if ( index === caller ) continue;  // skip if observer is caller
           observers[ index ]( event );
         }
 
