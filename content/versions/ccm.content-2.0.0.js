@@ -5,7 +5,7 @@
  * @version 2.0.0
  * @changes
  * version 2.0.0 (04.10.2017):
- * - uses ccm v10.0.0 instead of v8.1.0
+ * - uses ccm v11.2.1 instead of v8.1.0
  * - shortened component backbone
  * - use fragment instead of empty container as default Light DOM
  * - Light DOM can be given as HTML string via 'inner' config property
@@ -23,8 +23,8 @@
     version: [ 2, 0, 0 ],
 
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-11.2.0.min.js',
-      integrity: 'sha384-n004sESBwAUBAj4ah6woG+IiPN5XpgZVNKOsOuCtSHrdSYihyalxCCW3ZmVF7sk+',
+      url: 'https://akless.github.io/ccm/version/ccm-11.2.1.min.js',
+      integrity: 'sha384-e17PVI8do6D8IZCEU92WniVYvt/1aYwH4CTebYKCxSQMfszJ5WDZa3qvXmo4DRcb',
       crossorigin: 'anonymous'
     },
 

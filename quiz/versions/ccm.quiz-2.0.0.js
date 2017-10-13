@@ -5,7 +5,7 @@
  * @version 2.0.0
  * @changes
  * version 2.0.0 (23.08.2017):
- * - uses ccm v10.0.0 instead of v8.1.0
+ * - uses ccm v11.2.1 instead of v8.1.0
  * - renaming of some instance properties
  * - reductions in HTML template for start button
  * - remove no more needed ccm.helper.protect calls
@@ -21,8 +21,8 @@
     version: [ 2, 0, 0 ],
 
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-11.2.0.min.js',
-      integrity: 'sha384-n004sESBwAUBAj4ah6woG+IiPN5XpgZVNKOsOuCtSHrdSYihyalxCCW3ZmVF7sk+',
+      url: 'https://akless.github.io/ccm/version/ccm-11.2.1.min.js',
+      integrity: 'sha384-e17PVI8do6D8IZCEU92WniVYvt/1aYwH4CTebYKCxSQMfszJ5WDZa3qvXmo4DRcb',
       crossorigin: 'anonymous'
     },
 
