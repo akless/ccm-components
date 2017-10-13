@@ -137,13 +137,13 @@
       /**
        * login user
        * @param {function} [callback] - will be called after login (or directly if user is already logged in)
-       * @param {boolean} propagated - propagated call (intern parameter)
+       * @param {string} propagated - propagated call (intern parameter)
        * @returns {self}
        */
       this.login = function ( callback, propagated ) {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.login( callback, true );
+        if ( my.context ) return my.context.login( callback, propagated || self.parent && self.parent.index );
 
         // user already logged in? => perform callback directly
         if ( self.isLoggedIn() ) { if ( callback ) callback(); return self; }
@@ -201,13 +201,13 @@
       /**
        * logout user
        * @param {function} [callback] will be called after logout (or directly if user is already logged out)
-       * @param {boolean} propagated - propagated call (intern parameter)
+       * @param {string} propagated - propagated call (intern parameter)
        * @returns {self}
        */
       this.logout = function ( callback, propagated ) {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.logout( callback, true );
+        if ( my.context ) return my.context.logout( callback, propagated || self.parent && self.parent.index );
 
         // user already logged out? => perform callback directly
         if ( !self.isLoggedIn() ) { if ( callback ) callback(); return self; }
@@ -307,13 +307,13 @@
       /**
        * notifies observers
        * @param {boolean} event - true: login, false: logout
-       * @param {boolean} propagated - propagated call (intern parameter)
+       * @param {string} propagated - propagated call (intern parameter)
        * @private
        */
       function notify( event, propagated ) {
 
         for ( var index in observers ) {
-          if ( !propagated && self.parent && self.parent.index === index ) continue;  // skip if observer is parent of publisher
+          if ( index === propagated ) continue;  // skip if observer is parent of publisher
           observers[ index ]( event );
         }
 
