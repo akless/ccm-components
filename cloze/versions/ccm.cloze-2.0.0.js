@@ -5,7 +5,7 @@
  * @version 2.0.0
  * @changes
  * version 2.0.0 (18.09.2017):
- * - uses ccm v11.2.1 instead of v8.1.0
+ * - uses ccm v11.2.3 instead of v8.1.0
  * - shortened component backbone
  * - renaming of some instance properties
  * - add HTML template for a button
