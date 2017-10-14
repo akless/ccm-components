@@ -130,7 +130,7 @@
       this.init = function ( callback ) {
 
         // listen to datastore change event => update own content
-        self.data.store.onchange = function ( dataset ) {
+        if ( self.data.store ) self.data.store.onchange = function ( dataset ) {
 
           if ( !my || !my.dataset || dataset.key !== my.data.key ) return;
 
@@ -206,7 +206,7 @@
               status();
               my.dataset[ prop ] = value.trim();
               if ( self.user && !my.dataset._ ) my.dataset._ = self.ccm.helper.integrate( { creator: self.user.data().id, group: self.ccm.helper.transformStringArray( my.members ) }, my.data.permission_settings );
-              my.data.store.set( my.dataset, status );
+              if ( my.data.store ) my.data.store.set( my.dataset, status ); else status( true );
 
               function status( finished ) {
 
