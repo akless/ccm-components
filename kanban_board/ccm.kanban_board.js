@@ -4,6 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * TODO: add and delete of a kanban card
+ * TODO: realtime
  * TODO: declarative
  * TODO: user
  * TODO: logging
@@ -14,14 +15,25 @@
  * TODO: multilingualism
  */
 
-( function () {
+{
+  const component = {
 
-  var component = {
-
+    /**
+     * unique component name
+     * @type {string}
+     */
     name: 'kanban_board',
 
+    /**
+     * recommended used framework version
+     * @type {string}
+     */
     ccm: 'https://akless.github.io/ccm/ccm.js',
 
+    /**
+     * default instance configuration
+     * @type {object}
+     */
     config: {
 
       "html": {
@@ -55,154 +67,254 @@
         "store": [ "ccm.store" ],
         "key": "local"
       },
-      "lanes": [ "ToDo", "Doing", "Done" ],
-      "card": { "component": "../kanban_card/ccm.kanban_card.js", "config": {} }
+      "lanes": [ "ToDo", "Doing", "Done" ]
+
+  //  "card": { "component": "https://akless.github.io/ccm-components/kanban_card/ccm.kanban_card.js", "config": { "data": {} } }
 
     },
 
+    /**
+     * for creating instances out of this component
+     * @constructor
+     */
     Instance: function () {
 
-      var self = this;
-      var my;           // contains privatized instance members
+      /**
+       * privatized instance members
+       * @type {object}
+       */
+      let my;
 
-      this.ready = function ( callback ) {
+      /**
+       * shortcut to help functions
+       * @type {Object.<string,function>}
+       */
+      let $;
+
+      /**
+       * is called once after the initialization and is then deleted
+       * @param {function} callback - called after all synchronous and asynchronous operations are complete
+       */
+      this.ready = callback => {
+
+        // set shortcut to help functions
+        $ = this.ccm.helper;
 
         // privatize all possible instance members
-        my = self.ccm.helper.privatize( self );
+        my = $.privatize( this );
 
         callback();
       };
 
-      this.start = function ( callback ) {
+      /**
+       * starts the instance
+       * @param {function} [callback] - called after all synchronous and asynchronous operations are complete
+       */
+      this.start = callback => {
 
-        self.ccm.helper.dataset( my.data, function ( dataset ) {
+        // load needed dataset for rendering
+        $.dataset( my.data, dataset => {
 
+          // new dataset? => set initial state
           if ( !dataset.lanes ) dataset.lanes = [];
-          my.lanes.map( function ( lane, i ) {
+
+          // iterate over lanes data => set initial state for new lanes
+          my.lanes.map( ( lane, i ) => {
             if ( !dataset.lanes[ i ] ) dataset.lanes[ i ] = { cards: [] };
           } );
 
-          var main_elem = self.ccm.helper.html( my.html.main );
-          var lanes_elem = main_elem.querySelector( '#lanes' );
+          /**
+           * main HTML structure
+           * @type {Element}
+           */
+          const main_elem = $.html( my.html.main );
 
-          var counter = 1;
-          dataset.lanes.map( renderLane );
-          check();
+          /**
+           * element that contains the lanes
+           * @type {Element}
+           */
+          const lanes_elem = main_elem.querySelector( '#lanes' );
 
-          function renderLane( lane, i ) {
+          /**
+           * number of unfinished asynchron operations
+           * @type {number}
+           */
+          let counter = 1;
 
-            var lane_elem = self.ccm.helper.html( my.html.lane, my.lanes[ i ] );
-            var cards_elem = lane_elem.querySelector( '.cards' );
+          /**
+           * called after each finished asynchron operation
+           * @type {function}
+           */
+          const check = () => {
 
-            lane.cards.map( renderCard );
-            if ( i === 0 ) addNewCardButton();
-            lanes_elem.appendChild( lane_elem );
+            // decrease the counter and check if all asynchron operations are finished
+            if ( --counter > 0 ) return;
 
-            function renderCard( card ) {
+            // put prepared main HTML structure into own website area
+            $.setContent( this.element, main_elem );
 
-              counter++;
-              var card_elem = document.createElement( 'div' );
+            // rendering completed => perform callback
+            if ( callback ) callback();
+
+          };
+
+          // iterate over lanes data => create and append the HTML structure for each lane
+          dataset.lanes.map( ( lane_data, i ) => {
+
+            /**
+             * lane HTML structure
+             * @type {Element}
+             */
+            const lane_elem = $.html( my.html.lane, my.lanes[ i ] );
+
+            /**
+             * element that contains the cards
+             * @type {Element}
+             */
+            const cards_elem = lane_elem.querySelector( '.cards' );
+
+            // iterate over cards data => create and append the HTML structure for each card
+            lane_data.cards.map( card_dependency => {
+
+              // adjust instance configuration of card dependency
+              if ( card_dependency[ 2 ] ) { card_dependency = $.clone( card_dependency ); card_dependency[ 2 ].parent = this; }
+
+              /**
+               * placeholder for current card
+               * @type {Element}
+               */
+              let card_elem = document.createElement( 'div' );
+
+              // append placeholder to lane HTML structure
               cards_elem.appendChild( card_elem );
-              self.ccm.helper.solveDependency( card, function ( card ) {
 
-                card.start( function () {
+              // increase asynchron operation counter
+              counter++;
 
-                  card.root.classList.add( 'card' );
+              // solve dependency for card instance (causes asynchronous operations)
+              $.solveDependency( card_dependency, card_inst => {
 
-                  makeDraggable( card.root );
-                  makeDroppable( card.root );
+                // start created card instance
+                card_inst.start( () => {
 
-                  cards_elem.replaceChild( card.root, card_elem );
-                  check();
+                  // add HTML class to the root element of the card instance
+                  card_inst.root.classList.add( 'card' );
 
-                  function makeDraggable( elem ) {
+                  // set drag'n'drop functionality for the root element
+                  const makeDraggable = card_elem => {
+                    card_elem.setAttribute( 'draggable', 'true' );
+                    card_elem.addEventListener( 'dragstart', event => {
 
-                    elem.setAttribute( 'draggable', 'true' );
-                    elem.addEventListener( 'dragstart', function ( event ) {
+                      // remember original position of the card
                       event.dataTransfer.setData( 'text', getPosition( event.target ).join( ',' ) );
-                      addPlaceholder( event.target );
-                    } );
-                    elem.addEventListener( 'dragend', removePlaceholder );
 
-                    function addPlaceholder( card_elem ) {
-
-                      self.ccm.helper.makeIterable( lanes_elem.querySelectorAll( '.cards' ) ).map( function ( cards_elem ) {
-                        var placeholder = self.ccm.helper.html( { class: 'placeholder' } );
-                        placeholder.style.width  = card_elem.offsetWidth  + 'px';
-                        placeholder.style.height = card_elem.offsetHeight + 'px';
+                      // add a placeholder under the last card of each lane as additional droppable area
+                      [ ...lanes_elem.querySelectorAll( '.cards' ) ].map( cards_elem => {
+                        const placeholder = $.html( { class: 'placeholder' } );
+                        placeholder.style.width  = event.target.offsetWidth  + 'px';
+                        placeholder.style.height = event.target.offsetHeight + 'px';
                         makeDroppable( placeholder );
                         cards_elem.appendChild( placeholder );
                       } );
 
-                    }
+                    } );
+                    card_elem.addEventListener( 'dragend', () => {
 
-                    function removePlaceholder() {
-                      self.ccm.helper.makeIterable( lanes_elem.querySelectorAll( '.placeholder' ) ).map( function ( placeholder ) {
-                        self.ccm.helper.removeElement( placeholder );
-                      } );
-                    }
-
-                  }
-
-                  function makeDroppable( elem ) {
-
-                    elem.addEventListener( 'dragover', function ( event ) { event.preventDefault(); } );
-                    elem.addEventListener( 'drop', function ( event ) {
-                      moveCard( event.dataTransfer.getData( 'text' ).split( ',' ).map( function( value ) { return parseInt( value ); } ), getPosition( event.target ) );
-
-                      function moveCard( from, to ) {
-
-                        if ( from[ 0 ] === to[ 0 ] && ( from[ 1 ] === to[ 1 ] || from[ 1 ] === to[ 1 ] - 1 ) ) return;
-
-                        var card = dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ];
-                        dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] = null;
-                        dataset.lanes[ to[ 0 ] ].cards.splice( to[ 1 ], 0, card );
-                        if ( dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] !== null ) from[ 1 ]++;
-                        dataset.lanes[ from[ 0 ] ].cards.splice( from[ 1 ], 1 );
-
-                        if ( my.data.store ) my.data.store.set( dataset, function () { self.start(); } );
-
-                      }
+                      // remove all 'placeholders for additional droppable areas'
+                      [ ...lanes_elem.querySelectorAll( '.placeholder' ) ].map( placeholder => { $.removeElement( placeholder ); } );
 
                     } );
+                  };
+                  const makeDroppable = card_elem => {
+                    card_elem.addEventListener( 'dragover', event => event.preventDefault() );
+                    card_elem.addEventListener( 'drop', event => {
 
-                  }
+                      /**
+                       * original card position
+                       * @type {Array}
+                       */
+                      const from = event.dataTransfer.getData( 'text' ).split( ',' ).map( value => parseInt( value ) );
 
-                  function getPosition( card_elem ) {
+                      /**
+                       * target card position
+                       * @type {Array}
+                       */
+                      const to = getPosition( event.target );
 
-                    var lane_elem = self.ccm.helper.findParentElementByClass( card_elem, 'lane' );
-                    var x = self.ccm.helper.makeIterable( lane_elem.parentNode.children ).indexOf( lane_elem );
-                    var y = self.ccm.helper.makeIterable( card_elem.parentNode.children ).indexOf( card_elem );
+                      // is the original position identical to the target position? => abort
+                      if ( from[ 0 ] === to[ 0 ] && ( from[ 1 ] === to[ 1 ] || from[ 1 ] === to[ 1 ] - 1 ) ) return;
+
+                      /**
+                       * card data of the moved card
+                       * @type {object}
+                       */
+                      const card_data = dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ];
+
+                      // mark original position from 'dataset for rendering' as removed
+                      dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] = null;
+
+                      // add card in the dataset at the new position
+                      dataset.lanes[ to[ 0 ] ].cards.splice( to[ 1 ], 0, card_data );
+
+                      // has the original position changed through the shift? => correct the original position
+                      if ( dataset.lanes[ from[ 0 ] ].cards[ from[ 1 ] ] !== null ) from[ 1 ]++;
+
+                      // delete the original position completely from the 'dataset for rendering'
+                      dataset.lanes[ from[ 0 ] ].cards.splice( from[ 1 ], 1 );
+
+                      // update 'dataset for rendering' in the datastore and restart afterwards
+                      if ( my.data.store ) my.data.store.set( dataset, () => this.start() );
+
+                    } );
+                  };
+                  const getPosition = card_elem => {
+                    const lane_elem = $.findParentElementByClass( card_elem, 'lane' );
+                    const x = $.makeIterable( lane_elem.parentNode.children ).indexOf( lane_elem );
+                    const y = $.makeIterable( card_elem.parentNode.children ).indexOf( card_elem );
                     return [ x, y ];
+                  };
+                  makeDraggable( card_inst.root );
+                  makeDroppable( card_inst.root );
 
-                  }
+                  // replace the placeholder with the root element (this adds the card HTML structure to the lane HTML structure)
+                  cards_elem.replaceChild( card_inst.root, card_elem );
+
+                  // check whether all asynchronous operations are finished
+                  check();
 
                 } );
 
               } );
 
-            }
+            } );
 
-            function addNewCardButton() {
-              lane_elem.appendChild( self.ccm.helper.html( my.html.add, function () {
-                var config = self.ccm.helper.clone( my.card.config );
-                if ( config.data.store ) config.data.key = self.ccm.helper.generateKey();
-                dataset.lanes[ i ].cards.push( [ 'ccm.instance', my.card.component, self.ccm.helper.toJSON( config ) ] );
-                if ( my.data.store ) my.data.store.set( dataset, function () { self.start(); } );
-              } ) );
-            }
+            // is the current lane the first lane? => append button for creating a new card to current lane
+            if ( my.card && i === 0 ) lane_elem.appendChild( $.html( my.html.add, () => {
 
-          }
+              /**
+               * instance configuration for the new card
+               * @type {object}
+               */
+              const config = $.clone( my.card.config );
 
-          function check() {
+              // generate dataset key for the new card
+              if ( config.data.store ) config.data.key = $.generateKey();
 
-            counter--;
-            if ( counter !== 0 ) return;
+              // create and add the instance dependency for the new card to the dataset for rendering
+              dataset.lanes[ i ].cards.push( [ 'ccm.instance', my.card.component, $.toJSON( config ) ] );
 
-            self.ccm.helper.setContent( self.element, main_elem );
+              // update 'dataset for rendering' in datastore and restart afterwards
+              if ( my.data.store ) my.data.store.set( dataset, () => this.start() );
 
-            if ( callback ) callback();
-          }
+            } ) );
+
+            // append prepared lane HTML structure to main HTML structure
+            lanes_elem.appendChild( lane_elem );
+
+          } );
+
+          // check whether no asynchronous operations were started
+          check();
 
         } );
 
@@ -212,5 +324,5 @@
 
   };
 
-  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
-}() );
+  function p(){window.ccm[v].component(component)}const f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{const n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{const e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
+}
