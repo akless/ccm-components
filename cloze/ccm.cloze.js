@@ -80,7 +80,7 @@
       "captions": {
         "cancel": "Cancel",
         "submit": "Submit",
-        "finish": "Close"
+        "finish": "Finish"
       }
 
   //  start_button: true,

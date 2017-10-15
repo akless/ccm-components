@@ -79,7 +79,7 @@
       "captions": {
         "cancel": "Cancel",
         "submit": "Submit",
-        "finish": "Close"
+        "finish": "Finish"
       }
     },
 
