@@ -5,7 +5,7 @@
  * @version latest (2.0.0)
  * @changes
  * version 2.0.0 (04.10.2017):
- * - uses ccm v10.0.0 instead of v8.1.0
+ * - uses ccm v11.3.0 instead of v8.1.0
  * - shortened component backbone
  * - use fragment instead of empty container as default Light DOM
  * - Light DOM can be given as HTML string via 'inner' config property
