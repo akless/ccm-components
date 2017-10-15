@@ -21,9 +21,13 @@
       this.start = callback => {
 
         this.element.innerHTML = '';
-        let counter = 1; const check = () => { if ( --counter === 0 && callback ) callback(); };
+
+        let counter = 1;
+        const check = () => { if ( --counter === 0 && callback ) callback(); };
+
         for ( let i = 1; i <= this.times; i++ )
           this.component_obj.start( instance => { this.element.appendChild( instance.root ); check(); } );
+
         check();
 
       }
