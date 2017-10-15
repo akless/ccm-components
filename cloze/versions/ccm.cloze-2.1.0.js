@@ -2,7 +2,7 @@
  * @overview ccm component for rendering a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
- * @version latest (2.1.0)
+ * @version 2.1.0
  * @changes
  * version 2.1.0 (15.10.2017):
  * - optional finish button
@@ -18,11 +18,6 @@
  * - remove no more needed ccm.helper.protect call
  * - feedback instead of finish when timer has expired
  * version 1.0.0 (12.07.2017)
- * TODO: deactivated finish button activates after submit
- * TODO: docu comments -> API
- * TODO: unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 ( function () {
@@ -30,11 +25,15 @@
   var component = {
 
     name: 'cloze',
+    version: [ 2, 1, 0 ],
 
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-11.2.3.min.js',
+      integrity: 'sha384-bOysegzv09XQjpNaHCXodH6lyrHhlnVGU0q9J6odJfidoxjxu5wieZvcUJ8gF+Nl',
+      crossorigin: 'anonymous'
+    },
 
     config: {
-
       "html": {
         "start": {
           "id": "start",
@@ -75,31 +74,13 @@
           "inner": "%%"
         }
       },
-      "css": [ "ccm.load", "../cloze/resources/default.css" ],
+      "css": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/default.css" ],
       "text": "Hello, [[(W)o(rl)d]]!",
       "captions": {
         "cancel": "Cancel",
         "submit": "Submit",
         "finish": "Close"
       }
-
-  //  start_button: true,
-  //  keywords: [ 'keyword1', 'keyword2', ... ],
-  //  blank: true,
-  //  time: 60,
-  //  feedback: true,
-  //  solutions: true,
-  //  cancel_button: true,
-  //  user:   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js' ],
-  //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/configs.min.js', 'greedy' ] ],
-  //  onstart: function ( instance ) { console.log( 'Fill-in-the-blank text started' ); },
-  //  oncancel: function ( instance ) { console.log( 'Fill-in-the-blank text canceled' ); },
-  //  onvalidation: function ( instance, data ) { console.log( data ); return true; },
-  //  onfeedback: function ( instance, data ) { console.log( data ); },
-  //  onchange: function ( instance, data ) { console.log( data ); },
-  //  oninput:  function ( instance, data ) { console.log( data ); },
-  //  onfinish: { "clear": true, "log": true },
-
     },
 
     Instance: function () {
