@@ -12,8 +12,8 @@
     ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
-      "instance_a": [ "ccm.instance", "../blank/ccm.blank.js" ],
-      "instance_b": [ "ccm.instance", "../blank/ccm.blank.js" ]
+      "instance_a": [ "ccm.start", "../blank/ccm.blank.js" ],
+      "instance_b": [ "ccm.start", "../blank/ccm.blank.js" ]
     },
 
     Instance: function () {
@@ -21,10 +21,10 @@
       this.start = callback => {
 
         this.element.innerHTML = '';
-        let counter = 0; const check = () => { if ( --counter === 0 && callback ) callback(); };
-        counter++; this.instance_a.start( () => { this.element.appendChild( this.instance_a.root ); check(); } );
-        counter++; this.instance_b.start( () => { this.element.appendChild( this.instance_b.root ); check(); } );
+        this.element.appendChild( this.instance_a.root );
+        this.element.appendChild( this.instance_b.root );
 
+        if ( callback ) callback();
       };
 
     }
