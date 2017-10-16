@@ -29,19 +29,23 @@ ccm.files[ 'tests.js' ] = {
   login: {
     tests: {
       defaultGuestKey: function ( suite ) {
-        suite.assertSame( 'guest', suite.component.instance().login().data().name );
-      },
-      individualGuestKey: function ( suite ) {
-        suite.assertSame( 'JohnDoe', suite.component.instance( { 'guest': 'JohnDoe' } ).login().data().name );
-      }/*,
-      demo: function ( suite ) {
-        suite.component.instance( { sign_on: 'demo' } ).login( function () {
-          suite.passed();
+        suite.component.instance( function ( instance ) {
+          suite.assertSame( 'guest', instance.login().data().name );
         } );
       },
+      individualGuestKey: function ( suite ) {
+        suite.component.instance( { 'guest': 'JohnDoe' }, function ( instance ) {
+          suite.assertSame( 'JohnDoe', instance.login().data().name );
+        } );
+      },
+      demo: function ( suite ) {
+        suite.component.instance( { sign_on: 'demo' }, function ( instance ) {
+          instance.login( function () { suite.passed(); } );
+        } );
+      }/*,
       hbrsinfkaul: function ( suite ) {
-        suite.component.instance( { sign_on: 'hbrsinfkaul' } ).login( function () {
-          suite.passed();
+        suite.component.instance( { sign_on: 'hbrsinfkaul' }, function ( instance ) {
+          instance.login( function () { suite.passed(); } );
         } );
       },
       vcrp: function ( suite ) {
