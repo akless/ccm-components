@@ -16,7 +16,7 @@
  */
 
 {
-  const component = {
+  var component = {
 
     /**
      * unique component name
@@ -140,6 +140,7 @@
            * @type {number}
            */
           let counter = 1;
+          console.log( '++', counter, 'initial' );
 
           /**
            * called after each finished asynchron operation
@@ -190,9 +191,12 @@
 
               // increase asynchron operation counter
               counter++;
+              console.log( '++', counter, card_dependency );
 
               // solve dependency for card instance (causes asynchronous operations)
               $.solveDependency( card_dependency, card_inst => {
+                console.log( 'SOLVED', card_inst.index );
+
 
                 // start created card instance
                 card_inst.start( () => {
@@ -281,6 +285,7 @@
 
                   // check whether all asynchronous operations are finished
                   check();
+                  console.log( '--', counter, card_dependency );
 
                 } );
 
@@ -315,6 +320,7 @@
 
           // check whether no asynchronous operations were started
           check();
+          console.log( '--', counter, 'initial' );
 
         } );
 
