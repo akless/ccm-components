@@ -14,6 +14,7 @@ ccm.files[ 'configs.js' ] = {
     "blank": true,
     "solutions": true,
     "captions.finish": "Restart",
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ],
     "onfinish": { "log": true, "restart": true }
   },
   "local": {
@@ -25,6 +26,7 @@ ccm.files[ 'configs.js' ] = {
     "blank": true,
     "solutions": true,
     "captions.finish": "Restart",
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ],
     "onfinish": { "log": true, "restart": true }
   }
 };
