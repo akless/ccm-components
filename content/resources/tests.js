@@ -36,8 +36,8 @@ ccm.files[ 'tests.js' ] = {
       customElement: function ( suite ) {
         var source = '<source src="../blank/ccm.blank.js">';
         var tag    = '<ccm-blank></ccm-blank>';
-        var div1   = '<div><div id="element">Hello, World!</div></div>';
-        var div2   = '<div></div>';
+        var div1   = '<div><div><div id="element">Hello, World!</div></div></div>';
+        var div2   = '<div><div></div></div>';
         suite.component.start( { inner: source + tag + tag }, function ( instance ) {
           if ( suite.ccm.helper.isFirefox() )
             suite.assertSame( source + div1 + div1, instance.element.innerHTML );
