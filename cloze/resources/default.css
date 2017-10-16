@@ -29,6 +29,7 @@
 .gap input {
   font-family: monospace;
   font-size: 111%;
+  text-align: center;
   padding-left: 0.1em;
   letter-spacing: 0.2em;
 }
