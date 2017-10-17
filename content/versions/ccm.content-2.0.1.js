@@ -21,7 +21,7 @@
   var component = {
 
     name: 'content',
-    version: [2,0,1],
+    version: [ 2, 0, 1 ],
 
     ccm: 'https://akless.github.io/ccm/ccm.js',
 
