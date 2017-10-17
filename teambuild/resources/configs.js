@@ -52,6 +52,7 @@ ccm.files[ 'configs.js' ] = {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr2"
     },
+    "editable": false,
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
@@ -62,6 +63,7 @@ ccm.files[ 'configs.js' ] = {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr3"
     },
+    "editable": false,
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
@@ -72,6 +74,7 @@ ccm.files[ 'configs.js' ] = {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr4"
     },
+    "editable": false,
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
@@ -82,6 +85,7 @@ ccm.files[ 'configs.js' ] = {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr5"
     },
+    "editable": false,
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
@@ -92,6 +96,7 @@ ccm.files[ 'configs.js' ] = {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr6"
     },
+    "editable": false,
     "max_members": 3,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
@@ -105,7 +110,7 @@ ccm.files[ 'configs.js' ] = {
     "names": [ "Gruppe Prof. Dr. Manfred Kaul", "Gruppe Prof. Dr. Rudolf Berrendorf", "Gruppe Prof. Dr. Sascha Alda", "Gruppe Prof. Dr. Simone Bürsner" ],
     "max_teams": 4,
     "max_members": 12,
-    "editable": { "join": true, "leave": true, "rename": false },
+    "editable": false,
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "hbrsinfkaul" } ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "sks_ws17_teambuild" ] ]
   }
