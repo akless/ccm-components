@@ -4,8 +4,8 @@
  * @license The MIT License (MIT)
  * @version latest (2.0.0)
  * @changes
- * version 2.0.0 (04.10.2017):
- * - uses ccm v11.4.3 instead of v8.1.0
+ * version 2.0.0 (18.10.2017):
+ * - uses ccm v11.5.0 instead of v8.1.0
  * - shortened component backbone
  * - use fragment instead of empty container as default Light DOM
  * - Light DOM can be given as HTML string via 'inner' config property
@@ -80,7 +80,7 @@
               var index = child.tagName.substr( 4 ).toLowerCase();
 
               // ccm component is already registered? => index is enough for embedding (otherwise URL is needed)
-              if ( ccm.components[ index ] ) return index;
+              if ( self.ccm.component( index ) ) return index;
 
               // search inner HTML of own Custom Element for a script tag that contains the ccm component URL
               var sources = self.inner.querySelectorAll( 'source' );
