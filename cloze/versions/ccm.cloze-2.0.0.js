@@ -5,7 +5,7 @@
  * @version 2.0.0
  * @changes
  * version 2.0.0 (18.09.2017):
- * - uses ccm v11.3.0 instead of v8.1.0
+ * - uses ccm v11.4.3 instead of v8.1.0
  * - shortened component backbone
  * - renaming of some instance properties
  * - add HTML template for a button
@@ -25,8 +25,8 @@
     version: [ 2, 0, 0 ],
 
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-11.3.0.min.js',
-      integrity: 'sha384-q+TLdWDHrZRfYaIRWjF/LD+unApU6U+3lJ+eNlYCFb4lunrwlwOPv7uwy2nJO4Aj',
+      url: 'https://akless.github.io/ccm/version/ccm-11.4.3.min.js',
+      integrity: 'sha384-W/6vTofmJSDxRIZcTtPgKE8M2h0gQzNFZLUZPcmdVwnrE4IcJm6tixrlk3P6j5hx',
       crossorigin: 'anonymous'
     },
 
