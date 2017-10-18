@@ -80,6 +80,12 @@
     Instance: function () {
 
       /**
+       * own reference for inner functions
+       * @type {Instance}
+       */
+      var self = this;
+
+      /**
        * privatized instance members
        * @type {object}
        */
@@ -98,10 +104,10 @@
       this.ready = callback => {
 
         // set shortcut to help functions
-        $ = this.ccm.helper;
+        $ = self.ccm.helper;
 
         // privatize all possible instance members
-        my = $.privatize( this );
+        my = $.privatize( self );
 
         callback();
       };
@@ -141,23 +147,6 @@
            */
           let counter = 1;
 
-          /**
-           * called after each finished asynchron operation
-           * @type {function}
-           */
-          const check = () => {
-
-            // decrease the counter and check if all asynchron operations are finished
-            if ( --counter > 0 ) return;
-
-            // put prepared main HTML structure into own website area
-            $.setContent( this.element, main_elem );
-
-            // rendering completed => perform callback
-            if ( callback ) callback();
-
-          };
-
           // iterate over lanes data => create and append the HTML structure for each lane
           dataset.lanes.map( ( lane_data, i ) => {
 
@@ -177,7 +166,7 @@
             lane_data.cards.map( card_dependency => {
 
               // adjust instance configuration of card dependency
-              if ( card_dependency[ 2 ] ) { card_dependency = $.clone( card_dependency ); card_dependency[ 2 ].parent = this; }
+              if ( card_dependency[ 2 ] ) { card_dependency = $.clone( card_dependency ); card_dependency[ 2 ].parent = self; }
 
               /**
                * placeholder for current card
@@ -201,8 +190,25 @@
                   card_inst.root.classList.add( 'card' );
 
                   // set drag'n'drop functionality for the root element
-                  const makeDraggable = card_elem => {
+                  makeDraggable( card_inst.root );
+                  makeDroppable( card_inst.root );
+
+                  // replace the placeholder with the root element (this adds the card HTML structure to the lane HTML structure)
+                  cards_elem.replaceChild( card_inst.root, card_elem );
+
+                  // check whether all asynchronous operations are finished
+                  check();
+
+                  /**
+                   * makes a card draggable
+                   * @param {Element} card_elem - element of the card
+                   */
+                  function makeDraggable( card_elem ) {
+
+                    // activate draggable functionality
                     card_elem.setAttribute( 'draggable', 'true' );
+
+                    // set draggable start event
                     card_elem.addEventListener( 'dragstart', event => {
 
                       // remember original position of the card
@@ -218,15 +224,26 @@
                       } );
 
                     } );
+
+                    // set draggable end event
                     card_elem.addEventListener( 'dragend', () => {
 
                       // remove all 'placeholders for additional droppable areas'
                       [ ...lanes_elem.querySelectorAll( '.placeholder' ) ].map( placeholder => { $.removeElement( placeholder ); } );
 
                     } );
-                  };
-                  const makeDroppable = card_elem => {
+                  }
+
+                  /**
+                   * makes a card to a droppable area
+                   * @param {Element} card_elem - element of the card
+                   */
+                  function makeDroppable( card_elem ) {
+
+                    // allow droppable functionality
                     card_elem.addEventListener( 'dragover', event => event.preventDefault() );
+
+                    // set droppable event
                     card_elem.addEventListener( 'drop', event => {
 
                       /**
@@ -263,24 +280,32 @@
                       dataset.lanes[ from[ 0 ] ].cards.splice( from[ 1 ], 1 );
 
                       // update 'dataset for rendering' in the datastore and restart afterwards
-                      if ( my.data.store ) my.data.store.set( dataset, () => this.start() );
+                      if ( my.data.store ) my.data.store.set( dataset, () => self.start() );
 
                     } );
-                  };
-                  const getPosition = card_elem => {
+
+                  }
+
+                  /**
+                   * gets the position of a card
+                   * @param {Element} card_elem - element of the card
+                   * @returns {string[]}
+                   * @example [ '1', '3' ]
+                   */
+                  function getPosition( card_elem ) {
+
+                    /**
+                     * lane that contains the card
+                     * @param {Element}
+                     */
                     const lane_elem = $.findParentElementByClass( card_elem, 'lane' );
+
+                    // get and return lane coordinate x and card coordinate y
                     const x = $.makeIterable( lane_elem.parentNode.children ).indexOf( lane_elem );
                     const y = $.makeIterable( card_elem.parentNode.children ).indexOf( card_elem );
                     return [ x, y ];
-                  };
-                  makeDraggable( card_inst.root );
-                  makeDroppable( card_inst.root );
 
-                  // replace the placeholder with the root element (this adds the card HTML structure to the lane HTML structure)
-                  cards_elem.replaceChild( card_inst.root, card_elem );
-
-                  // check whether all asynchronous operations are finished
-                  check();
+                  }
 
                 } );
 
@@ -304,7 +329,7 @@
               dataset.lanes[ i ].cards.push( [ 'ccm.instance', my.card.component, $.toJSON( config ) ] );
 
               // update 'dataset for rendering' in datastore and restart afterwards
-              if ( my.data.store ) my.data.store.set( dataset, () => this.start() );
+              if ( my.data.store ) my.data.store.set( dataset, () => self.start() );
 
             } ) );
 
@@ -315,6 +340,22 @@
 
           // check whether no asynchronous operations were started
           check();
+
+          /**
+           * called after each finished asynchron operation
+           */
+          function check() {
+
+            // decrease the counter and check if all asynchron operations are finished
+            if ( --counter > 0 ) return;
+
+            // put prepared main HTML structure into own website area
+            $.setContent( self.element, main_elem );
+
+            // rendering completed => perform callback
+            if ( callback ) callback();
+
+          }
 
         } );
 
