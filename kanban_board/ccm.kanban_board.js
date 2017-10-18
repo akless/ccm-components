@@ -3,7 +3,7 @@
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
- * TODO: add and delete of a kanban card
+ * TODO: deletion of a kanban card
  * TODO: realtime
  * TODO: declarative
  * TODO: user
@@ -192,6 +192,9 @@
                   // set drag'n'drop functionality for the root element
                   makeDraggable( card_inst.root );
                   makeDroppable( card_inst.root );
+
+                  // set functionality for removing a card
+
 
                   // replace the placeholder with the root element (this adds the card HTML structure to the lane HTML structure)
                   cards_elem.replaceChild( card_inst.root, card_elem );

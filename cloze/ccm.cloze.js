@@ -10,7 +10,7 @@
  * - optional finish button
  * - it is possible to show correctness without solutions in feedback
  * version 2.0.0 (18.09.2017):
- * - uses ccm v11.4.3 instead of v8.1.0
+ * - uses ccm v11.5.0 instead of v8.1.0
  * - shortened component backbone
  * - renaming of some instance properties
  * - add HTML template for a button
