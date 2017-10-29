@@ -3,7 +3,6 @@
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
- * TODO: realtime
  * TODO: declarative
  * TODO: user
  * TODO: logging
@@ -97,6 +96,26 @@
       let $;
 
       /**
+       * is called once after all dependencies are solved and is then deleted
+       * @param {function} callback - called after all synchronous and asynchronous operations are complete
+       */
+      this.init = function ( callback ) {
+
+        // listen to datastore change event => update own content
+        if ( self.data.store ) self.data.store.onchange = dataset => {
+
+          // used dataset for rendering has not changed? => abort
+          if ( !my || !my.dataset || dataset.key !== my.data.key ) return;
+
+          // update used dataset and restart
+          my.dataset = dataset; self.start();
+
+        };
+
+        callback();
+      };
+
+      /**
        * is called once after the initialization and is then deleted
        * @param {function} callback - called after all synchronous and asynchronous operations are complete
        */
@@ -119,6 +138,9 @@
 
         // load needed dataset for rendering
         $.dataset( my.data, dataset => {
+
+          // remember loaded dataset
+          my.dataset = dataset;
 
           // new dataset? => set initial state
           if ( !dataset.lanes ) dataset.lanes = [];
