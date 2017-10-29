@@ -3,7 +3,6 @@
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
- * TODO: deletion of a kanban card
  * TODO: realtime
  * TODO: declarative
  * TODO: user
@@ -163,7 +162,7 @@
             const cards_elem = lane_elem.querySelector( '.cards' );
 
             // iterate over cards data => create and append the HTML structure for each card
-            lane_data.cards.map( card_dependency => {
+            lane_data.cards.map( ( card_dependency, j ) => {
 
               // adjust instance configuration of card dependency
               if ( card_dependency[ 2 ] ) { card_dependency = $.clone( card_dependency ); card_dependency[ 2 ].parent = self; }
@@ -193,8 +192,16 @@
                   makeDraggable( card_inst.root );
                   makeDroppable( card_inst.root );
 
-                  // set functionality for removing a card
+                  // set functionality for removing a card per double click
+                  card_inst.root.addEventListener( 'dblclick', () => {
 
+                    // remove the instance dependency of the card from the dataset for rendering
+                    dataset.lanes[ i ].cards.splice( j, 1 );
+
+                    // update 'dataset for rendering' in datastore and restart afterwards
+                    if ( my.data.store ) my.data.store.set( dataset, () => self.start() );
+
+                  } );
 
                   // replace the placeholder with the root element (this adds the card HTML structure to the lane HTML structure)
                   cards_elem.replaceChild( card_inst.root, card_elem );
