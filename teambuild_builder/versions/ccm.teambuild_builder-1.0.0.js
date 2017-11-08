@@ -514,13 +514,13 @@
        * privatized instance members
        * @type {object}
        */
-      let my;
+      var my;
 
       /**
        * shortcut to help functions
        * @type {Object.<string,function>}
        */
-      let $;
+      var $;
 
       /**
        * is called once after the initialization and is then deleted
