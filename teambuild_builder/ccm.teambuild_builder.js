@@ -656,7 +656,7 @@
         // convert comma-separated initial team names to array
         if ( result.names ) {
           result.names = result.names.split( ',' );
-          result.names.map( value => value.trim() );
+          result.names.map( ( value, i, arr ) => arr[ i ] = value.trim() );
         }
 
         // convert dot notation properties to deeper objects
