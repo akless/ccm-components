@@ -2,7 +2,12 @@
  * @overview ccm component for realtime team building
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version latest (1.0.1)
+ * @changes
+ * version 1.0.1 (08.11.2017):
+ * - changes in default instance configuration
+ * - bugfix for default and initial team names
+ * version 1.0.0 (19.10.2017)
  * TODO: lock and unlock for team joining
  * TODO: callback (onjoin, onleave, ...)
  */
@@ -79,10 +84,7 @@
           "crossorigin": "anonymous"
         }
       ],
-      "data": {
-        "store": [ "ccm.store" ],
-        "key": "demo"
-      },
+      "data": { "store": [ "ccm.store" ] },
       "text": {
         "team": "Team",
         "leave": "leave",
@@ -92,12 +94,12 @@
       "icon": {
         "team": "group",
         "member": "user"
-      }
+      },
+      "editable": { "join": true, "leave": true, "rename": true }
 
   //  names: [ "Team Red", "Team Blue" ],
   //  max_teams: 10,
   //  max_members: 3,
-  //  editable: { join: true, leave: true, rename: true },
   //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js' ],
   //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
 
@@ -186,7 +188,7 @@
               // prepare HTML structure of the team
               var team_elem = self.ccm.helper.html( my.html.team, {
                 icon: my.icon.team,
-                name: team.name ? team.name : ( my.names ? my.names[ i ] : my.text.team + ' ' + ( i + 1 ) )
+                name: team.name ? team.name : ( my.names && my.names[ i ] ? my.names[ i ] : my.text.team + ' ' + ( i + 1 ) )
               } );
 
               /**
