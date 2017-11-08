@@ -9,6 +9,7 @@
  * - uses ccm v12.3.0 instead of ccm v12.2.0
  * - only one placeholder for onchange events
  * - guarantee boolean for checkbox value results
+ * - add default onfinish
  * version 1.0.0 (08.11.2017)
  */
 
@@ -445,40 +446,10 @@
       },
       "css": [ "ccm.load", "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css", { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" } ],
       "submit_button": true,
-      "preview": [ "ccm.component", "../teambuild/ccm.teambuild.js" ],
-
-  /*
-      "initial": {
-        "css": "['ccm.load','https://akless.github.io/ccm-components/teambuild/resources/akless.css']",
-        "user": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo','logged_in':true}]",
-        "editable": {
-          "join": true,
-          "leave": true,
-          "rename": true
-        },
-        "max_teams": 4,
-        "max_members": 3,
-        "text": {
-          "team": "Team",
-          "join": "join",
-          "leave": "leave",
-          "free": "free"
-        },
-        "icon": {
-          "team": "group",
-          "member": "user"
-        },
-        "names": [ "Blue Team", "Red Team" ],
-        "data": {
-          "store": "['ccm.store',{'store':'w2c_teambuild_data','url':'wss://ccm.inf.h-brs.de'}]",
-          "key": "demo"
-        }
-      },
-  */
+      "onfinish": { log: true }
 
   //  initial
   //  onchange
-  //  onfinish
 
     },
 

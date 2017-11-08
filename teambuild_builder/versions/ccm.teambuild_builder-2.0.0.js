@@ -9,6 +9,7 @@
  * - uses ccm v12.3.0 instead of ccm v12.2.0
  * - only one placeholder for onchange events
  * - guarantee boolean for checkbox value results
+ * - add default onfinish
  * version 1.0.0 (08.11.2017)
  */
 
@@ -454,7 +455,7 @@
       },
       "css": [ "ccm.load", "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css", { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" } ],
       "submit_button": true,
-      "preview": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild/versions/ccm.teambuild-1.0.1.min.js" ],
+      "onfinish": { log: true }
     },
 
     /**
