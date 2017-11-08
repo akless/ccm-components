@@ -446,7 +446,8 @@
       },
       "css": [ "ccm.load", "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css", { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" } ],
       "submit_button": true,
-      "onfinish": { log: true }
+      "teambuild": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild/versions/ccm.teambuild-1.0.1.min.js" ],
+      "onfinish": { "log": true }
 
   //  initial
   //  onchange
@@ -492,8 +493,8 @@
         // prepare initial input values
         my.initial = my.initial ? $.toDotNotation( my.initial ) : {};
 
-        // consideration of the default configuration of the preview component for initial input values
-        let config = $.clone( my.preview.config );
+        // consideration of the default configuration of the teambuild component for initial input values
+        let config = $.clone( my.teambuild.config );
         delete config.ccm; delete config.html; delete config.icons; delete config.parent;
         config.css = $.encode( config.css ); config.data.store = $.encode( config.data.store );
         config = $.toDotNotation( config );
