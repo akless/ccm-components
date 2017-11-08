@@ -508,7 +508,7 @@
        * own reference for inner functions
        * @type {Instance}
        */
-      const self = this;
+      var self = this;
 
       /**
        * privatized instance members
