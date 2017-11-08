@@ -10,6 +10,7 @@
  * - only one placeholder for onchange events
  * - guarantee boolean for checkbox value results
  * - add default onfinish
+ * - rename config property 'initial' to 'start_values'
  * version 1.0.0 (08.11.2017)
  */
 
@@ -449,7 +450,7 @@
       "teambuild": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild/versions/ccm.teambuild-1.0.1.min.js" ],
       "onfinish": { "log": true }
 
-  //  initial
+  //  start_values
   //  onchange
 
     },
@@ -490,23 +491,23 @@
         // privatize all possible instance members
         my = $.privatize( self );
 
-        // prepare initial input values
-        my.initial = my.initial ? $.toDotNotation( my.initial ) : {};
+        // prepare start values
+        my.start_values = my.start_values ? $.toDotNotation( my.start_values ) : {};
 
-        // consideration of the default configuration of the teambuild component for initial input values
+        // consideration of the default configuration of the teambuild component for start values
         let config = $.clone( my.teambuild.config );
         delete config.ccm; delete config.html; delete config.icons; delete config.parent;
         config.css = $.encode( config.css ); config.data.store = $.encode( config.data.store );
         config = $.toDotNotation( config );
         for ( const key in config )
-          if ( my.initial[ key ] === undefined )
-            my.initial[ key ] = config[ key ];
+          if ( my.start_values[ key ] === undefined )
+            my.start_values[ key ] = config[ key ];
 
         // no dataset identifier? => generate new identifier
-        if ( !my.initial[ 'data.key' ] ) my.initial[ 'data.key' ] = $.generateKey();
+        if ( !my.start_values[ 'data.key' ] ) my.start_values[ 'data.key' ] = $.generateKey();
 
         // guest login mode as default
-        if ( !my.initial.user ) my.initial.user = "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'guest','logged_in':true}]";
+        if ( !my.start_values.user ) my.start_values.user = "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'guest','logged_in':true}]";
 
         callback();
       };
@@ -523,8 +524,8 @@
           change: () => self.onchange && self.onchange( self, getResultData() )
         } ) );
 
-        // fill input elements with initial values
-        for ( const key in my.initial ) {
+        // fill input elements with start values
+        for ( const key in my.start_values ) {
           let element = self.element.querySelector( '[name="' + key + '"]' );
           switch ( key ) {
             // text, number
@@ -537,23 +538,23 @@
             case 'icon.member':
             case 'max_teams':
             case 'max_members':
-              if ( element ) element.value = my.initial[ key ];
+              if ( element ) element.value = my.start_values[ key ];
               break;
             // text (comma-separated list)
             case 'names':
-              if ( element ) element.value = my.initial[ key ].join( ', ' );
+              if ( element ) element.value = my.start_values[ key ].join( ', ' );
               break;
             // checkbox
             case 'editable.join':
             case 'editable.leave':
             case 'editable.rename':
-              if ( my.initial[ key ] === true && element ) element.checked = true;
+              if ( my.start_values[ key ] === true && element ) element.checked = true;
               break;
             // select
             case 'css':
             case 'data.store':
             case 'user':
-              element = self.element.querySelector( 'select[name="' + key + '"] option[value="' + my.initial[ key ] + '"]' );
+              element = self.element.querySelector( 'select[name="' + key + '"] option[value="' + my.start_values[ key ] + '"]' );
               if ( element ) element.selected = true;
               break;
           }
