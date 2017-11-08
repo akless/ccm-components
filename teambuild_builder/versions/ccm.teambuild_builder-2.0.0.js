@@ -2,7 +2,7 @@
  * @overview ccm component for building a realtime team building
  * @author André Kless <andre.kless@web.de>, 2017
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version 2.0.0
  * @changes
  * version 2.0.0 (08.11.2017):
  * - remove preview functionality
@@ -22,17 +22,26 @@
     name: 'teambuild_builder',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 2, 0, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-12.3.0.min.js',
+      integrity: 'sha384-QDTsj+8+DFAUnDU9pBA3NPuJAolurZFVCt3MAZF2a8upsHCKxA9uEKMvIQh6j7Xe',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
      * @type {object}
      */
     config: {
-
       "html": {
         "id": "main",
         "inner": [
@@ -59,7 +68,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "number",
-                      "onchange": "%change%",
+                      "onchange": "%change_max_teams%",
                       "class": "form-control",
                       "name": "max_teams",
                       "min": 0
@@ -80,7 +89,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "number",
-                      "onchange": "%change%",
+                      "onchange": "%change_max_members%",
                       "class": "form-control",
                       "name": "max_members",
                       "min": 0
@@ -100,7 +109,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "class": "checkbox",
-                      "onchange": "%change%",
+                      "onchange": "%change_editable_join%",
                       "inner": {
                         "tag": "label",
                         "inner": {
@@ -125,7 +134,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "class": "checkbox",
-                      "onchange": "%change%",
+                      "onchange": "%change_editable_leave%",
                       "inner": {
                         "tag": "label",
                         "inner": {
@@ -150,7 +159,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "class": "checkbox",
-                      "onchange": "%change%",
+                      "onchange": "%change_editable_rename%",
                       "inner": {
                         "tag": "label",
                         "inner": {
@@ -176,7 +185,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change%",
+                      "onchange": "%change_text_team%",
                       "class": "form-control",
                       "name": "text.team"
                     }
@@ -196,7 +205,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change%",
+                      "onchange": "%change_text_join%",
                       "class": "form-control",
                       "name": "text.join"
                     }
@@ -216,7 +225,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change%",
+                      "onchange": "%change_text_leave%",
                       "class": "form-control",
                       "name": "text.leave"
                     }
@@ -236,7 +245,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change%",
+                      "onchange": "%change_text_free%",
                       "class": "form-control",
                       "name": "text.free"
                     }
@@ -256,7 +265,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change%",
+                      "onchange": "%change_icon_team%",
                       "class": "form-control",
                       "name": "icon.team"
                     }
@@ -276,7 +285,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change%",
+                      "onchange": "%change_icon_member%",
                       "class": "form-control",
                       "name": "icon.member"
                     }
@@ -295,7 +304,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "tag": "select",
-                      "onchange": "%change%",
+                      "onchange": "%change_user%",
                       "class": "form-control",
                       "name": "user",
                       "inner": [
@@ -336,7 +345,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "tag": "select",
-                      "onchange": "%change%",
+                      "onchange": "%change_css%",
                       "class": "form-control",
                       "name": "css",
                       "inner": [
@@ -368,7 +377,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change%",
+                      "onchange": "%change_names%",
                       "class": "form-control",
                       "name": "names"
                     }
@@ -387,7 +396,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "tag": "select",
-                      "onchange": "%change%",
+                      "onchange": "%change_data_store%",
                       "class": "form-control",
                       "name": "data.store",
                       "inner": [
@@ -419,11 +428,21 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change%",
+                      "onchange": "%change_data_key%",
                       "class": "form-control",
                       "name": "data.key"
                     }
                   }
+                ]
+              },
+              {
+                "inner": [
+                  {
+                    "tag": "legend",
+                    "class": "legend text-primary",
+                    "inner": "Preview"
+                  },
+                  { "id": "preview" }
                 ]
               },
               {
@@ -445,41 +464,7 @@
       },
       "css": [ "ccm.load", "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css", { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" } ],
       "submit_button": true,
-      "preview": [ "ccm.component", "../teambuild/ccm.teambuild.js" ],
-
-  /*
-      "initial": {
-        "css": "['ccm.load','https://akless.github.io/ccm-components/teambuild/resources/akless.css']",
-        "user": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo','logged_in':true}]",
-        "editable": {
-          "join": true,
-          "leave": true,
-          "rename": true
-        },
-        "max_teams": 4,
-        "max_members": 3,
-        "text": {
-          "team": "Team",
-          "join": "join",
-          "leave": "leave",
-          "free": "free"
-        },
-        "icon": {
-          "team": "group",
-          "member": "user"
-        },
-        "names": [ "Blue Team", "Red Team" ],
-        "data": {
-          "store": "['ccm.store',{'store':'w2c_teambuild_data','url':'wss://ccm.inf.h-brs.de'}]",
-          "key": "demo"
-        }
-      },
-  */
-
-  //  initial
-  //  onchange
-  //  onfinish
-
+      "preview": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild/versions/ccm.teambuild-1.0.1.min.js" ],
     },
 
     /**
