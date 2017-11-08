@@ -68,7 +68,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "number",
-                      "onchange": "%change_max_teams%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "max_teams",
                       "min": 0
@@ -89,7 +89,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "number",
-                      "onchange": "%change_max_members%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "max_members",
                       "min": 0
@@ -109,7 +109,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "class": "checkbox",
-                      "onchange": "%change_editable_join%",
+                      "onchange": "%change%",
                       "inner": {
                         "tag": "label",
                         "inner": {
@@ -134,7 +134,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "class": "checkbox",
-                      "onchange": "%change_editable_leave%",
+                      "onchange": "%change%",
                       "inner": {
                         "tag": "label",
                         "inner": {
@@ -159,7 +159,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "class": "checkbox",
-                      "onchange": "%change_editable_rename%",
+                      "onchange": "%change%",
                       "inner": {
                         "tag": "label",
                         "inner": {
@@ -185,7 +185,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change_text_team%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "text.team"
                     }
@@ -205,7 +205,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change_text_join%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "text.join"
                     }
@@ -225,7 +225,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change_text_leave%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "text.leave"
                     }
@@ -245,7 +245,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change_text_free%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "text.free"
                     }
@@ -265,7 +265,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change_icon_team%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "icon.team"
                     }
@@ -285,7 +285,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change_icon_member%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "icon.member"
                     }
@@ -304,7 +304,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "tag": "select",
-                      "onchange": "%change_user%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "user",
                       "inner": [
@@ -345,7 +345,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "tag": "select",
-                      "onchange": "%change_css%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "css",
                       "inner": [
@@ -377,7 +377,7 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change_names%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "names"
                     }
@@ -396,7 +396,7 @@
                     "class": "col-md-10",
                     "inner": {
                       "tag": "select",
-                      "onchange": "%change_data_store%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "data.store",
                       "inner": [
@@ -428,21 +428,11 @@
                     "inner": {
                       "tag": "input",
                       "type": "text",
-                      "onchange": "%change_data_key%",
+                      "onchange": "%change%",
                       "class": "form-control",
                       "name": "data.key"
                     }
                   }
-                ]
-              },
-              {
-                "inner": [
-                  {
-                    "tag": "legend",
-                    "class": "legend text-primary",
-                    "inner": "Preview"
-                  },
-                  { "id": "preview" }
                 ]
               },
               {
