@@ -2,7 +2,7 @@
  * @overview ccm component for building a realtime team building
  * @author André Kless <andre.kless@web.de>, 2017
  * @license The MIT License (MIT)
- * @version latest (2.2.0)
+ * @version 2.2.0
  * @changes
  * version 2.2.0 (09.11.2017): add 'getValue():obj' interface
  * version 2.1.0 (09.11.2017): linking labels and input fields
@@ -26,10 +26,20 @@
     name: 'teambuild_builder',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 2, 2, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-12.3.0.min.js',
+      integrity: 'sha384-QDTsj+8+DFAUnDU9pBA3NPuJAolurZFVCt3MAZF2a8upsHCKxA9uEKMvIQh6j7Xe',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -481,7 +491,7 @@
       },
       "css": [ "ccm.load", "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css", { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" } ],
       "submit_button": true,
-      "teambuild": [ "ccm.component", "../teambuild/ccm.teambuild.js" ],
+      "teambuild": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild/versions/ccm.teambuild-1.0.1.min.js" ],
       "onfinish": { "log": true }
 
   //  start_values
