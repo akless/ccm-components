@@ -2,8 +2,9 @@
  * @overview ccm component for building a realtime team building
  * @author André Kless <andre.kless@web.de>, 2017
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version latest (2.1.0)
  * @changes
+ * version 2.1.0 (09.11.2017): linking labels and input fields
  * version 2.0.0 (08.11.2017):
  * - remove preview functionality
  * - uses ccm v12.3.0 instead of ccm v12.2.0
@@ -53,6 +54,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "max_teams",
                     "class": "control-label col-md-2",
                     "inner": "Maximum Teams:"
                   },
@@ -63,6 +65,7 @@
                       "type": "number",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "max_teams",
                       "name": "max_teams",
                       "min": 0
                     }
@@ -74,6 +77,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "max_members",
                     "class": "control-label col-md-2",
                     "inner": "Maximum Team Members:"
                   },
@@ -84,6 +88,7 @@
                       "type": "number",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "max_members",
                       "name": "max_members",
                       "min": 0
                     }
@@ -95,6 +100,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "editable_join",
                     "class": "control-label col-md-2",
                     "inner": "Joinable Teams:"
                   },
@@ -108,6 +114,7 @@
                         "inner": {
                           "tag": "input",
                           "type": "checkbox",
+                          "id": "editable_join",
                           "name": "editable.join"
                         }
                       }
@@ -120,6 +127,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "editable_leave",
                     "class": "control-label col-md-2",
                     "inner": "Leaveable Teams:"
                   },
@@ -133,6 +141,7 @@
                         "inner": {
                           "tag": "input",
                           "type": "checkbox",
+                          "id": "editable_leave",
                           "name": "editable.leave"
                         }
                       }
@@ -145,6 +154,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "editable_rename",
                     "class": "control-label col-md-2",
                     "inner": "Renameable Teams:"
                   },
@@ -158,6 +168,7 @@
                         "inner": {
                           "tag": "input",
                           "type": "checkbox",
+                          "id": "editable_rename",
                           "name": "editable.rename"
                         }
                       }
@@ -170,6 +181,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "text_team",
                     "class": "control-label col-md-2",
                     "inner": "Default Team Name:"
                   },
@@ -180,6 +192,7 @@
                       "type": "text",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "text_team",
                       "name": "text.team"
                     }
                   }
@@ -190,6 +203,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "text_join",
                     "class": "control-label col-md-2",
                     "inner": "Join Button Caption:"
                   },
@@ -200,6 +214,7 @@
                       "type": "text",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "text_join",
                       "name": "text.join"
                     }
                   }
@@ -210,6 +225,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "text_leave",
                     "class": "control-label col-md-2",
                     "inner": "Leave Button Caption:"
                   },
@@ -220,6 +236,7 @@
                       "type": "text",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "text_leave",
                       "name": "text.leave"
                     }
                   }
@@ -230,6 +247,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "text_free",
                     "class": "control-label col-md-2",
                     "inner": "Free Team Member Slot Label:"
                   },
@@ -240,6 +258,7 @@
                       "type": "text",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "text_free",
                       "name": "text.free"
                     }
                   }
@@ -250,6 +269,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "icon_team",
                     "class": "control-label col-md-2",
                     "inner": "Team Icon:"
                   },
@@ -260,6 +280,7 @@
                       "type": "text",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "icon_team",
                       "name": "icon.team"
                     }
                   }
@@ -270,6 +291,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "icon_member",
                     "class": "control-label col-md-2",
                     "inner": "Member Icon:"
                   },
@@ -280,6 +302,7 @@
                       "type": "text",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "icon_member",
                       "name": "icon.member"
                     }
                   }
@@ -290,6 +313,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "user",
                     "class": "control-label col-md-2",
                     "inner": "Sign-on:"
                   },
@@ -299,6 +323,7 @@
                       "tag": "select",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "user",
                       "name": "user",
                       "inner": [
                         {
@@ -331,6 +356,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "css",
                     "class": "control-label col-md-2",
                     "inner": "Layout:"
                   },
@@ -340,6 +366,7 @@
                       "tag": "select",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "css",
                       "name": "css",
                       "inner": [
                         {
@@ -362,6 +389,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "names",
                     "class": "control-label col-md-2",
                     "inner": "Initial Team Names:"
                   },
@@ -372,6 +400,7 @@
                       "type": "text",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "names",
                       "name": "names"
                     }
                   }
@@ -382,6 +411,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "data_store",
                     "class": "control-label col-md-2",
                     "inner": "Where to store app-specific data:"
                   },
@@ -391,6 +421,7 @@
                       "tag": "select",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "data_store",
                       "name": "data.store",
                       "inner": [
                         {
@@ -413,6 +444,7 @@
                 "inner": [
                   {
                     "tag": "label",
+                    "for": "data_key",
                     "class": "control-label col-md-2",
                     "inner": "Identifier for app-specific data:"
                   },
@@ -423,6 +455,7 @@
                       "type": "text",
                       "onchange": "%change%",
                       "class": "form-control",
+                      "id": "data_key",
                       "name": "data.key"
                     }
                   }
