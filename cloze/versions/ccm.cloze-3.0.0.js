@@ -26,7 +26,7 @@
  */
 
 {
-  const component = {
+  var component = {
 
     /**
      * unique component name
