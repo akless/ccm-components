@@ -2,19 +2,11 @@
  * @overview ccm component for rendering a kanban board
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
- * @version latest (1.1.0)
+ * @version 1.1.0
  * @changes
  * version 1.1.0 (10.11.2017):
  * - confirm dialog when deleting a card
  * version 1.0.0 (29.10.2017)
- * TODO: declarative
- * TODO: user
- * TODO: logging
- * TODO: docu comments
- * TODO: unit tests
- * TODO: version file/folder
- * TODO: factory
- * TODO: multilingualism
  */
 
 {
@@ -27,17 +19,26 @@
     name: 'kanban_board',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 1, 1, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-12.1.2.min.js',
+      integrity: 'sha384-tO7/Xhqzf+3HDzAFXMmelhKVvUhJaeCP6QZMFlSwfKT5DlTZmJY808PwKHqucTzx',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
      * @type {object}
      */
     config: {
-
       "html": {
         "main": {
           "tag": "main",
@@ -64,7 +65,7 @@
           "onclick": "%%"
         }
       },
-      "css": [ "ccm.load", "../kanban_board/resources/default.css" ],
+      "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_board/resources/default.css" ],
       "data": {
         "store": [ "ccm.store" ],
         "key": "local"
