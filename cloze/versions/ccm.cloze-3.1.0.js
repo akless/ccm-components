@@ -355,7 +355,7 @@
               if ( !my.blank ) {
                 input.placeholder = '';
                 for ( let j = 0; j < keyword.length; j++ )
-                  input.placeholder += Math.pow( 2, j ) & keywords[ i ].givens ? keyword.charAt( j ) : '_';
+                  input.placeholder += Math.pow( 2, j ) & keywords[ i ][ 0 ].givens ? keyword.charAt( j ) : '_';
               }
 
               // render input field in the current gap
