@@ -507,7 +507,7 @@
           [ { "align": [] } ]
         ], "settings.placeholder": "Type here..." }
       ],
-      "target": [ "ccm.component", "../cloze/ccm.cloze.js" ],
+      "target": [ "ccm.component", "https://akless.github.io/ccm-components/cloze/versions/ccm.cloze-3.2.0.min.js" ],
       "submit_button": true,
       "preview": true,
       "onfinish": { "log": true }
