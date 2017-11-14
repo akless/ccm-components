@@ -452,7 +452,7 @@
                         {
                           "tag": "option",
                           "inner": "PBWorks-like",
-                          "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/pbworks.css']"
+                          "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/pbworks.css','https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css']"
                         }
                       ]
                     }
