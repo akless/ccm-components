@@ -30,7 +30,6 @@
  * TODO: deactivated finish button activates after submit
  * TODO: docu comments -> API
  * TODO: unit tests
- * TODO: factory
  * TODO: multilingualism
  */
 
