@@ -3,7 +3,10 @@
  * @description This code is based on the ccm component 'ccm.fill_in_the_blank_blank_text_builder-2.0.0.js' by Tea Kless.
  * @author André Kless <andre.kless@web.de>, 2017
  * @license The MIT License (MIT)
- * @version 1.0.0
+ * @version 1.1.0
+ * @changes
+ * version 1.1.0 (15.11.2017): help texts for input elements
+ * version 1.0.0 (13.11.2017)
  */
 
 {
@@ -19,7 +22,7 @@
      * component version
      * @type {number[]}
      */
-    version: [ 1, 0, 0 ],
+    version: [ 1, 1, 0 ],
 
     /**
      * reference to used framework version
@@ -61,7 +64,20 @@
                   },
                   {
                     "class": "col-md-10",
-                    "id": "text"
+                    "inner": [
+                      {
+                        "id": "text"
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help",
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can specify the content of your fill-in-the-blank text. Text gaps are marked with double square brackets. Example: \"Hello, [[World]]!\". If you want to specify certain letters of a solution word, you can mark them with parentheses. In the following example, three letters are given: \"Hello, [[W(or)l(d)]]!\". If you want to allow several alternative solution words for a text gap, enter them with \"|\" separated from each other. Example: \"My name is [[John|Jane]]\"."
+                      }
+                    ]
                   }
                 ]
               },
@@ -76,21 +92,31 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "class": "checkbox",
-                      "onchange": "%change%",
-                      "inner": {
-                        "tag": "label",
+                    "inner": [
+                      {
+                        "class": "checkbox",
+                        "onchange": "%change%",
                         "inner": {
-                          "tag": "input",
-                          "type": "checkbox",
-                          "id": "blank",
-                          "name": "blank"
+                          "tag": "label",
+                          "inner": {
+                            "tag": "input",
+                            "type": "checkbox",
+                            "id": "blank",
+                            "name": "blank"
+                          }
                         }
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can choose whether the text gaps are completely empty, or the length of the searched word and possibly already given letters are visible."
                       }
-                    }
+                    ]
                   }
-
                 ]
               },
               {
@@ -141,6 +167,15 @@
                           "name": "manually",
                           "placeholder": "Comma-separated list of provided answers"
                         }
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can set whether the solution words for the gaps in the text are already given, so that they only need to be placed in the correct gap. You can either generate the list of solution words automatically or set the solution words yourself by hand."
                       }
                     ]
                   }
@@ -157,19 +192,30 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "class": "checkbox",
-                      "onchange": "%change%",
-                      "inner": {
-                        "tag": "label",
+                    "inner": [
+                      {
+                        "class": "checkbox",
+                        "onchange": "%change%",
                         "inner": {
-                          "tag": "input",
-                          "type": "checkbox",
-                          "id": "start_button",
-                          "name": "start_button"
+                          "tag": "label",
+                          "inner": {
+                            "tag": "input",
+                            "type": "checkbox",
+                            "id": "start_button",
+                            "name": "start_button"
+                          }
                         }
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "If you select this option, the fill-in-the-blank text will be displayed after clicking on a start button, which will be displayed instead of the fill-in-the-blank text."
                       }
-                    }
+                    ]
                   }
                 ]
               },
@@ -184,14 +230,25 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "captions_start",
-                      "name": "captions.start"
-                    }
+                    "inner": [
+                      {
+                        "tag": "input",
+                        "type": "text",
+                        "onchange": "%change%",
+                        "class": "form-control",
+                        "id": "captions_start",
+                        "name": "captions.start"
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can specify the caption of the start button, which starts the fill-in-the-blank text."
+                      }
+                    ]
                   }
                 ]
               },
@@ -206,30 +263,41 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "tag": "select",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "feedback",
-                      "name": "feedback",
-                      "inner": [
-                        {
-                          "tag": "option",
-                          "inner": "None",
-                          "value": "none"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "Show only correctness",
-                          "value": "correctness"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "Show correctness and solutions",
-                          "value": "solutions"
-                        }
-                      ]
-                    }
+                    "inner": [
+                      {
+                        "tag": "select",
+                        "onchange": "%change%",
+                        "class": "form-control",
+                        "id": "feedback",
+                        "name": "feedback",
+                        "inner": [
+                          {
+                            "tag": "option",
+                            "inner": "None",
+                            "value": "none"
+                          },
+                          {
+                            "tag": "option",
+                            "inner": "Show only correctness",
+                            "value": "correctness"
+                          },
+                          {
+                            "tag": "option",
+                            "inner": "Show correctness and solutions",
+                            "value": "solutions"
+                          }
+                        ]
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Choose here whether a direct feedback should be displayed for the entered solution. The solution can then be submitted via a submit button. You can choose if the feedback should only reveal the correctness or also the correct solution words."
+                      }
+                    ]
                   }
                 ]
               },
@@ -244,68 +312,28 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "captions_submit",
-                      "name": "captions.submit"
-                    }
-                  }
-                ]
-              },
-              /*
-              {
-                "class": "cancel_button form-group",
-                "inner": [
-                  {
-                    "tag": "label",
-                    "for": "cancel_button",
-                    "class": "control-label col-md-2",
-                    "inner": "Cancel Button:"
-                  },
-                  {
-                    "class": "col-md-10",
-                    "inner": {
-                      "class": "checkbox",
-                      "onchange": "%change%",
-                      "inner": {
-                        "tag": "label",
-                        "inner": {
-                          "tag": "input",
-                          "type": "checkbox",
-                          "id": "cancel_button",
-                          "name": "cancel_button"
-                        }
+                    "inner": [
+                      {
+                        "tag": "input",
+                        "type": "text",
+                        "onchange": "%change%",
+                        "class": "form-control",
+                        "id": "captions_submit",
+                        "name": "captions.submit"
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can specify the caption of the submit button, which submits the fill-in-the-blank text and shows the feedback."
                       }
-                    }
+                    ]
                   }
                 ]
               },
-              {
-                "class": "captions_cancel form-group",
-                "inner": [
-                  {
-                    "tag": "label",
-                    "for": "captions_cancel",
-                    "class": "control-label col-md-2",
-                    "inner": "Cancel Button Caption:"
-                  },
-                  {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "captions_cancel",
-                      "name": "captions.cancel"
-                    }
-                  }
-                ]
-              },
-              */
               {
                 "class": "onfinish_restart form-group",
                 "inner": [
@@ -317,19 +345,30 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "class": "checkbox",
-                      "onchange": "%change%",
-                      "inner": {
-                        "tag": "label",
+                    "inner": [
+                      {
+                        "class": "checkbox",
+                        "onchange": "%change%",
                         "inner": {
-                          "tag": "input",
-                          "type": "checkbox",
-                          "id": "onfinish_restart",
-                          "name": "onfinish.restart"
+                          "tag": "label",
+                          "inner": {
+                            "tag": "input",
+                            "type": "checkbox",
+                            "id": "onfinish_restart",
+                            "name": "onfinish.restart"
+                          }
                         }
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Select this option to add a finish button to the fill-in-the-blank text that will allow you to restart it."
                       }
-                    }
+                    ]
                   }
                 ]
               },
@@ -344,14 +383,25 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "captions_finish",
-                      "name": "captions.finish"
-                    }
+                    "inner": [
+                      {
+                        "tag": "input",
+                        "type": "text",
+                        "onchange": "%change%",
+                        "class": "form-control",
+                        "id": "captions_finish",
+                        "name": "captions.finish"
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can specify the caption of the finish button, which finishes the use of the fill-in-the-blank text."
+                      }
+                    ]
                   }
                 ]
               },
@@ -366,35 +416,72 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "tag": "select",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "user",
-                      "name": "user",
-                      "inner": [
-                        {
-                          "tag":"option",
-                          "inner": "None",
-                          "value": ""
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "Guest Mode",
-                          "value": "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'guest'}]"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "Demo Mode",
-                          "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "H-BRS FB02",
-                          "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul'}]"
-                        }
-                      ]
-                    }
+                    "inner": [
+                      {
+                        "tag": "select",
+                        "onchange": "%change%",
+                        "class": "form-control",
+                        "id": "user",
+                        "name": "user",
+                        "inner": [
+                          {
+                            "tag": "option",
+                            "inner": "None",
+                            "value": ""
+                          },
+                          {
+                            "tag": "option",
+                            "inner": "Guest Mode",
+                            "value": "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'guest'}]"
+                          },
+                          {
+                            "tag": "option",
+                            "inner": "Demo Mode",
+                            "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]"
+                          },
+                          {
+                            "tag": "option",
+                            "inner": "H-BRS FB02",
+                            "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul'}]"
+                          }
+                        ]
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": [
+                          "If you select a sign-on mode here, authentication will be requested after the completion of the fill-in-the-blank text and the results will only be submitted if the authentication was successful. The various sign-on modes are described below.",
+                          {
+                            "tag": "h5",
+                            "inner": "Guest Mode"
+                          },
+                          {
+                            "tag": "p",
+                            "inner": "Every user will automatically logged in as the user \"guest\". This mode is mostly used for test scenarios."
+                          },
+                          {
+                            "tag": "h5",
+                            "inner": "Demo Mode"
+                          },
+                          {
+                            "tag": "p",
+                            "inner": "The user can authenticate with any user name and without password. This mode is mostly used for demo scenarios."
+                          },
+                          {
+                            "tag": "h5",
+                            "inner": "H-BRS FB02"
+                          },
+                          {
+                            "tag": "p",
+                            "inner": "In this mode the user has to authenticate with a valid account of the Department of Computer Science of the Hochschule Bonn-Rhein-Sieg."
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
@@ -409,15 +496,30 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "number",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "time",
-                      "name": "time",
-                      "placeholder": "Time in seconds"
-                    }
+                    "inner": [
+                      {
+                        "inner": [
+                          {
+                            "tag": "input",
+                            "type": "number",
+                            "onchange": "%change%",
+                            "class": "form-control",
+                            "id": "time",
+                            "name": "time",
+                            "placeholder": "Time in seconds"
+                          },
+                          {
+                            "tag": "a",
+                            "onclick": "%help%",
+                            "inner": "Help"
+                          },
+                          {
+                            "class": "alert alert-info",
+                            "inner": "Here you can specify the number of seconds available to solve the fill-in-the-blank text. The remaining number of seconds is then displayed visually. After expiration of the time, the fill-in-the-blank text is submitted automatically. If you do not specify anything here, there is no time limit for handling the fill-in-the-blank text."
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
@@ -432,30 +534,41 @@
                   },
                   {
                     "class": "col-md-10",
-                    "inner": {
-                      "tag": "select",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "css",
-                      "name": "css",
-                      "inner": [
-                        {
-                          "tag": "option",
-                          "inner": "Default",
-                          "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/default.css']"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "LEA-like",
-                          "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/lea.css']"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "PBWorks-like",
-                          "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/pbworks.css','https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css']"
-                        }
-                      ]
-                    }
+                    "inner": [
+                      {
+                        "tag": "select",
+                        "onchange": "%change%",
+                        "class": "form-control",
+                        "id": "css",
+                        "name": "css",
+                        "inner": [
+                          {
+                            "tag": "option",
+                            "inner": "Default",
+                            "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/default.css']"
+                          },
+                          {
+                            "tag": "option",
+                            "inner": "LEA-like",
+                            "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/lea.css']"
+                          },
+                          {
+                            "tag": "option",
+                            "inner": "PBWorks-like",
+                            "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/pbworks.css','https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css']"
+                          }
+                        ]
+                      },
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": "Help"
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can choose between different layouts, in which the fill-in-the-blank text is then displayed."
+                      }
+                    ]
                   }
                 ]
               },
@@ -491,7 +604,11 @@
           }
         ]
       },
-      "css": [ "ccm.load", "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css", { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" } ],
+      "css": [ "ccm.load",
+        "https://akless.github.io/ccm-components/cloze_builder/resources/default.css",
+        "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css",
+        { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" }
+      ],
       "editor": [ "ccm.component", "https://tkless.github.io/ccm-components/editor/versions/ccm.editor-1.0.0.min.js",
         { "settings.modules.toolbar": [
           [ { "size": [ "small", false, "large", "huge" ] } ],  // custom dropdown
@@ -518,7 +635,6 @@
         "text": "<p>In order to [[s(e)rv(e)|solv(e)]] you well, Karma needs to know about your project in order to test it and this is done via a configuration file. The easiest way to generate an initial configuration file is by using the karma init command. This page lists all of the available configuration options.</p>",
         "captions": {
           "start": "Start",
-          "cancel": "Cancel",
           "submit": "Submit",
           "finish": "Finish"
         },
@@ -528,9 +644,7 @@
         "time": 123,
         "feedback": true,
         "solutions": true,
-        "cancel_button": true,
         "user": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]",
-        "logger": "['ccm.instance','https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js',['ccm.get','https://akless.github.io/ccm-components/log/resources/configs.min.js','greedy']]",
         "onfinish": { "restart": true }
       }
   */
@@ -622,7 +736,18 @@
       this.start = callback => {
 
         // render input elements
-        $.setContent( self.element, $.html( my.html, { submit: self.submit, change: onChange } ) );
+        $.setContent( self.element, $.html( my.html, {
+          submit: self.submit,
+          change: onChange,
+          help: function () {
+
+            // hide and show help texts
+            const this_a = this;
+            $.makeIterable( self.element.querySelectorAll( 'a' ) ).map( other_a => other_a !== this_a && other_a.classList.remove( 'active' ) );
+            this.classList.toggle( 'active' );
+
+          }
+        } ) );
 
         // render text editor
         my.editor.start( function ( instance ) {
@@ -636,7 +761,6 @@
             switch ( key ) {
               // text, number
               case 'captions.start':
-              case 'captions.cancel':
               case 'captions.submit':
               case 'captions.finish':
               case 'manually':
@@ -646,7 +770,6 @@
               // checkbox
               case 'start_button':
               case 'blank':
-              case 'cancel_button':
               case 'onfinish.restart':
                 if ( my.start_values[ key ] === true && element ) element.checked = true;
                 break;
@@ -690,7 +813,6 @@
 
           self.element.querySelector( '.captions_start'  ).style.display = getInputElementByName( 'start_button'     ).checked      ? 'block' : 'none';
           self.element.querySelector( '.captions_submit' ).style.display = getInputElementByName( 'feedback' ).value !== 'none'     ? 'block' : 'none';
-      //  self.element.querySelector( '.captions_cancel' ).style.display = getInputElementByName( 'cancel_button'    ).checked      ? 'block' : 'none';
           self.element.querySelector( '.captions_finish' ).style.display = getInputElementByName( 'onfinish.restart' ).checked      ? 'block' : 'none';
           getInputElementByName(              'manually' ).style.display = getInputElementByName( 'keywords' ).value === 'manually' ? 'block' : 'none';
           function getInputElementByName( name ) { return self.element.querySelector( '[name="' + name + '"]' ); }

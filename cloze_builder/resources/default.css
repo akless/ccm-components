@@ -1,0 +1,17 @@
+/**
+ * @overview default layout of ccm component for building a fill-in-the-blank text
+ * @author André Kless <andre.kless@web.de.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+a, input[type="checkbox"], select {
+  cursor: pointer;
+}
+
+a.active + div {
+  display: block;
+}
+
+a + div {
+  display: none;
+}
