@@ -3,13 +3,11 @@
  * @description This code is based on the ccm component 'ccm.fill_in_the_blank_blank_text_builder-2.0.0.js' by Tea Kless.
  * @author André Kless <andre.kless@web.de>, 2017
  * @license The MIT License (MIT)
- * @version latest (1.2.0)
+ * @version 1.2.0
  * @changes
  * version 1.2.0 (18.11.2017): uses ccm 12.4.0, uses ccm.cloze.js v3.3.0 and updated help text
  * version 1.1.0 (15.11.2017): help texts for input elements
  * version 1.0.0 (13.11.2017)
- * TODO: my.data instead of start_values
- * TODO: helper.fillForm(my.data)
  */
 
 {
@@ -22,10 +20,20 @@
     name: 'cloze_builder',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 1, 2, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-12.4.0.min.js',
+      integrity: 'sha384-NTSj4YWxeQlG5MFrp2Mi8YUS+yG89M7c4kyruKUdwuYEi2L2KXedjAKLrAuUvG/0',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -598,7 +606,7 @@
         ]
       },
       "css": [ "ccm.load",
-        "../cloze_builder/resources/default.css",
+        "https://akless.github.io/ccm-components/cloze_builder/resources/default.css",
         "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css",
         { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" }
       ],
@@ -617,7 +625,7 @@
           [ { "align": [] } ]
         ], "settings.placeholder": "Type here..." }
       ],
-      "target": [ "ccm.component", "../cloze/ccm.cloze.js" ],
+      "target": [ "ccm.component", "https://akless.github.io/ccm-components/cloze/versions/ccm.cloze-3.3.0.min.js" ],
       "submit_button": true,
       "preview": true,
       "onfinish": { "log": true }
