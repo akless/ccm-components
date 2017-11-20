@@ -37,12 +37,12 @@ ccm.files[ 'tests.js' ] = {
         suite.component.instance( { 'guest': 'JohnDoe' }, function ( instance ) {
           suite.assertSame( 'JohnDoe', instance.login().data().name );
         } );
-      },
+      }/*,
       demo: function ( suite ) {
         suite.component.instance( { sign_on: 'demo' }, function ( instance ) {
           instance.login( function () { suite.passed(); } );
         } );
-      }/*,
+      },
       hbrsinfkaul: function ( suite ) {
         suite.component.instance( { sign_on: 'hbrsinfkaul' }, function ( instance ) {
           instance.login( function () { suite.passed(); } );
