@@ -1,6 +1,7 @@
 /**
  * @overview default layout of ccm component for building a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de.de> 2017
+ * @author Tea Kless <tea.kless@web.de.de> 2017
  * @license The MIT License (MIT)
  */
 
@@ -14,4 +15,30 @@ a.active + div {
 
 a + div {
   display: none;
+}
+
+a.active + div + div {
+  display: block;
+}
+
+a + div + div {
+  display: none;
+}
+
+.alert {
+  margin-bottom: 0px !important;
+}
+
+div.check-boxes {
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+}
+
+label {
+  font-size: 15px;
+}
+
+.checkbox{
+  margin-left: 16px;
+  vertical-align: bottom !important;
 }
