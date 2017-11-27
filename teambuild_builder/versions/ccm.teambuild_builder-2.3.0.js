@@ -8,6 +8,7 @@
  * - more compact inputs mask (pull request by Tea Kless)
  * - add help icons with help texts (pull request by Tea Kless)
  * - uses ccm v12.6.0
+ * - bugfix for 'editable' properties
  * version 2.2.0 (09.11.2017): add 'getValue():obj' interface
  * version 2.1.0 (09.11.2017): linking labels and input fields
  * version 2.0.0 (08.11.2017):
@@ -880,9 +881,9 @@
         }
 
         // guarantee boolean for checkbox values
-        result[ 'editable.join'   ] = !!result[ 'editable.join'   ];
-        result[ 'editable.leave'  ] = !!result[ 'editable.leave'  ];
-        result[ 'editable.rename' ] = !!result[ 'editable.rename' ];
+        result.editable.join   = !!result.editable.join;
+        result.editable.leave  = !!result.editable.leave;
+        result.editable.rename = !!result.editable.rename;
 
         // convert dot notation properties to deeper objects
         result = $.solveDotNotation( result );
