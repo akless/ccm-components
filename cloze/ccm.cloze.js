@@ -5,7 +5,7 @@
  * @version latest (3.4.0)
  * @changes
  * version 3.4.0 (27.11.2017):
- * - resizable input fields by typing
+ * - resizable input fields by typing (pull request by Tea Kless)
  * version 3.3.0 (18.11.2017):
  * - reference text gaps like [[#1]]
  * - reference text gaps with more than one solution word are only correct if each user input is different
