@@ -5,7 +5,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.4.0)
  * @changes
- * version 1.4.0 (27.11.2017): more compact inputs mask (pull request by Tea Kless)
+ * version 1.4.0 (27.11.2017): more compact inputs mask (pull request by Tea Kless) and bugfix for restart button
  * version 1.3.0 (22.11.2017): revised distribution of the input mask (pull request by Tea Kless), uses ccm 12.6.0
  * version 1.2.0 (18.11.2017): uses ccm 12.4.0, uses ccm.cloze.js v3.3.0 and updated help text
  * version 1.1.0 (15.11.2017): help texts for input elements
@@ -899,8 +899,7 @@
         result.feedback = result.feedback !== 'none';
 
         // finalize 'onfinish' property
-        if ( !result[ 'onfinish.restart' ] ) delete result[ 'onfinish.restart' ];
-        else result[ 'onfinish.log' ] = true;
+        if ( result.onfinish && !result.onfinish.restart ) delete result.onfinish;
 
         // convert dot notation properties to deeper objects
         result = $.solveDotNotation( result );
