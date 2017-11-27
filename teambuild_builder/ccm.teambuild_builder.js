@@ -313,17 +313,17 @@
                       {
                         "tag": "option",
                         "inner": "Guest Mode",
-                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'guest'}]"
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'guest','logged_in':true}]"
                       },
                       {
                         "tag": "option",
                         "inner": "Demo Mode",
-                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]"
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo','logged_in':true}]"
                       },
                       {
                         "tag": "option",
                         "inner": "H-BRS FB02",
-                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul'}]"
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul','logged_in':true}]"
                       }
                     ]
                   }
@@ -711,10 +711,10 @@
       ],
       "submit_button": true,
       "teambuild": [ "ccm.component", "../teambuild/ccm.teambuild.js" ],
-      "onfinish": { "log": true }
+      "onfinish": { "log": true },
 
   //  start_values
-  //  onchange
+      onchange: function ( result ) { result.getValue(); }
 
     },
 
@@ -827,6 +827,7 @@
             case 'css':
             case 'data.store':
             case 'user':
+              console.log( self.element.querySelector( 'select[name="' + key + '"]' ), my.start_values[ key ] );
               element = self.element.querySelector( 'select[name="' + key + '"] option[value="' + my.start_values[ key ] + '"]' );
               if ( element ) element.selected = true;
               break;

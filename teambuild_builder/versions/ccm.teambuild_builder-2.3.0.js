@@ -323,17 +323,17 @@
                       {
                         "tag": "option",
                         "inner": "Guest Mode",
-                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'guest'}]"
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'guest','logged_in':true}]"
                       },
                       {
                         "tag": "option",
                         "inner": "Demo Mode",
-                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]"
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo','logged_in':true}]"
                       },
                       {
                         "tag": "option",
                         "inner": "H-BRS FB02",
-                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul'}]"
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul','logged_in':true}]"
                       }
                     ]
                   }
