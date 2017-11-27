@@ -42,12 +42,12 @@
         "inner": [
           {
             "tag": "legend",
-            "class": "text-primary",
+            "class": "text-primary container-fluid",
             "inner": "Build your Realtime Team Building"
           },
           {
             "tag": "form",
-            "class": "form-horizontal",
+            "class": "form",
             "onsubmit": "%submit%",
             "inner": [
               {
@@ -56,20 +56,30 @@
                   {
                     "tag": "label",
                     "for": "max_teams",
-                    "class": "control-label col-md-2",
-                    "inner": "Maximum Teams:"
+                    "class": "control-label",
+                    "inner": [
+                      "Maximum Teams ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can specify the maximum number of teams. Leave this field empty if the number of teams is to be unlimited."
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "number",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "max_teams",
-                      "name": "max_teams",
-                      "min": 0
-                    }
+                    "tag": "input",
+                    "type": "number",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "max_teams",
+                    "name": "max_teams",
+                    "min": 0
                   }
                 ]
               },
@@ -79,101 +89,30 @@
                   {
                     "tag": "label",
                     "for": "max_members",
-                    "class": "control-label col-md-2",
-                    "inner": "Maximum Team Members:"
-                  },
-                  {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "number",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "max_members",
-                      "name": "max_members",
-                      "min": 0
-                    }
-                  }
-                ]
-              },
-              {
-                "class": "editable_join form-group",
-                "inner": [
-                  {
-                    "tag": "label",
-                    "for": "editable_join",
-                    "class": "control-label col-md-2",
-                    "inner": "Joinable Teams:"
-                  },
-                  {
-                    "class": "col-md-10",
-                    "inner": {
-                      "class": "checkbox",
-                      "onchange": "%change%",
-                      "inner": {
-                        "tag": "label",
+                    "class": "control-label",
+                    "inner": [
+                      "Maximum Team Members ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
                         "inner": {
-                          "tag": "input",
-                          "type": "checkbox",
-                          "id": "editable_join",
-                          "name": "editable.join"
+                          "class": "glyphicon glyphicon-info-sign"
                         }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can specify the maximum number of team members. If a team has reached the maximum number of team members, no other user can join the team. Leave this field empty if the number of team members is to be unlimited."
                       }
-                    }
-                  }
-                ]
-              },
-              {
-                "class": "editable_leave form-group",
-                "inner": [
-                  {
-                    "tag": "label",
-                    "for": "editable_leave",
-                    "class": "control-label col-md-2",
-                    "inner": "Leaveable Teams:"
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "class": "checkbox",
-                      "onchange": "%change%",
-                      "inner": {
-                        "tag": "label",
-                        "inner": {
-                          "tag": "input",
-                          "type": "checkbox",
-                          "id": "editable_leave",
-                          "name": "editable.leave"
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "class": "editable_rename form-group",
-                "inner": [
-                  {
-                    "tag": "label",
-                    "for": "editable_rename",
-                    "class": "control-label col-md-2",
-                    "inner": "Renameable Teams:"
-                  },
-                  {
-                    "class": "col-md-10",
-                    "inner": {
-                      "class": "checkbox",
-                      "onchange": "%change%",
-                      "inner": {
-                        "tag": "label",
-                        "inner": {
-                          "tag": "input",
-                          "type": "checkbox",
-                          "id": "editable_rename",
-                          "name": "editable.rename"
-                        }
-                      }
-                    }
+                    "tag": "input",
+                    "type": "number",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "max_members",
+                    "name": "max_members",
+                    "min": 0
                   }
                 ]
               },
@@ -183,63 +122,30 @@
                   {
                     "tag": "label",
                     "for": "text_team",
-                    "class": "control-label col-md-2",
-                    "inner": "Default Team Name:"
+                    "class": "control-label",
+                    "inner": [
+                      "Team Name ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can specify the default name of a team. As long as a team does not have an individual name, the name given here will be displayed for the team and automatically extended by a unique team number."
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "text_team",
-                      "name": "text.team"
-                    }
-                  }
-                ]
-              },
-              {
-                "class": "text_join form-group",
-                "inner": [
-                  {
-                    "tag": "label",
-                    "for": "text_join",
-                    "class": "control-label col-md-2",
-                    "inner": "Join Button Caption:"
-                  },
-                  {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "text_join",
-                      "name": "text.join"
-                    }
-                  }
-                ]
-              },
-              {
-                "class": "text_leave form-group",
-                "inner": [
-                  {
-                    "tag": "label",
-                    "for": "text_leave",
-                    "class": "control-label col-md-2",
-                    "inner": "Leave Button Caption:"
-                  },
-                  {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "text_leave",
-                      "name": "text.leave"
-                    }
+                    "tag": "input",
+                    "type": "text",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "text_team",
+                    "name": "text.team",
+                    "placeholder": "Enter Team Name..."
                   }
                 ]
               },
@@ -249,12 +155,23 @@
                   {
                     "tag": "label",
                     "for": "text_free",
-                    "class": "control-label col-md-2",
-                    "inner": "Free Team Member Slot Label:"
+                    "class": "control-label",
+                    "inner": [
+                      "Free Team Member Slot Label ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can specify which label to use for a free member slot in a team with a limited number of members."
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
                       "tag": "input",
                       "type": "text",
                       "onchange": "%change%",
@@ -262,7 +179,6 @@
                       "id": "text_free",
                       "name": "text.free"
                     }
-                  }
                 ]
               },
               {
@@ -271,19 +187,29 @@
                   {
                     "tag": "label",
                     "for": "icon_team",
-                    "class": "control-label col-md-2",
-                    "inner": "Team Icon:"
+                    "class": "control-label",
+                    "inner": [
+                      "Team Icon ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can set the team icon. The same team icon is displayed for all teams. Click <a href='http://fontawesome.io/icons/' target='_blank'>here</a> if you want to know which icons can also be used and what their identifiers are. Leave this field blank if no team icon is to be displayed."
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "icon_team",
-                      "name": "icon.team"
-                    }
+                    "tag": "input",
+                    "type": "text",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "icon_team",
+                    "name": "icon.team"
                   }
                 ]
               },
@@ -293,19 +219,29 @@
                   {
                     "tag": "label",
                     "for": "icon_member",
-                    "class": "control-label col-md-2",
-                    "inner": "Member Icon:"
+                    "class": "control-label",
+                    "inner": [
+                      "Member Icon ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can set the team member icon. The same team member icon is displayed for all team members. Click <a href='http://fontawesome.io/icons/' target='_blank'>here</a> if you want to know which icons can also be used and what their identifiers are. Leave this field blank if no team member icon is to be displayed."
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "icon_member",
-                      "name": "icon.member"
-                    }
+                    "tag": "input",
+                    "type": "text",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "icon_member",
+                    "name": "icon.member"
                   }
                 ]
               },
@@ -315,40 +251,76 @@
                   {
                     "tag": "label",
                     "for": "user",
-                    "class": "control-label col-md-2",
-                    "inner": "Sign-on:"
+                    "class": "control-label",
+                    "inner": [
+                      "Sign-on ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": [
+                          "Specify the sign-on mode that users must authenticate to. Authentication is the basic requirement for joining a team, leaving a team and renaming a team. Do not choose an sign-on mode if only the current state of team building is to be displayed. The various sign-on modes are described below.",
+                          {
+                            "tag": "h5",
+                            "inner": "Guest Mode"
+                          },
+                          {
+                            "tag": "p",
+                            "inner": "Every user will automatically logged in as the user \"guest\". This mode is mostly used for test scenarios."
+                          },
+                          {
+                            "tag": "h5",
+                            "inner": "Demo Mode"
+                          },
+                          {
+                            "tag": "p",
+                            "inner": "The user can authenticate with any user name and without password. This mode is mostly used for demo scenarios."
+                          },
+                          {
+                            "tag": "h5",
+                            "inner": "H-BRS FB02"
+                          },
+                          {
+                            "tag": "p",
+                            "inner": "In this mode the user has to authenticate with a valid account of the Department of Computer Science of the Hochschule Bonn-Rhein-Sieg."
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "select",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "user",
-                      "name": "user",
-                      "inner": [
-                        {
-                          "tag": "option",
-                          "inner": "None",
-                          "value": ""
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "Guest Mode",
-                          "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'guest','logged_in':true}]"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "Demo Mode",
-                          "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo','logged_in':true}]"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "H-BRS FB02",
-                          "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul','logged_in':true}]"
-                        }
-                      ]
-                    }
+                    "tag": "select",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "user",
+                    "name": "user",
+                    "inner": [
+                      {
+                        "tag": "option",
+                        "inner": "None",
+                        "value": ""
+                      },
+                      {
+                        "tag": "option",
+                        "inner": "Guest Mode",
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'guest'}]"
+                      },
+                      {
+                        "tag": "option",
+                        "inner": "Demo Mode",
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]"
+                      },
+                      {
+                        "tag": "option",
+                        "inner": "H-BRS FB02",
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul'}]"
+                      }
+                    ]
                   }
                 ]
               },
@@ -358,30 +330,40 @@
                   {
                     "tag": "label",
                     "for": "css",
-                    "class": "control-label col-md-2",
-                    "inner": "Layout:"
+                    "class": "control-label",
+                    "inner": [
+                      "Layout ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can choose between different layouts, in which the team building is then displayed."
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "select",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "css",
-                      "name": "css",
-                      "inner": [
-                        {
-                          "tag": "option",
-                          "inner": "default",
-                          "value": "['ccm.load','https://akless.github.io/ccm-components/teambuild/resources/default.css']"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "akless",
-                          "value": "['ccm.load','https://akless.github.io/ccm-components/teambuild/resources/akless.css']"
-                        }
-                      ]
-                    }
+                    "tag": "select",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "css",
+                    "name": "css",
+                    "inner": [
+                      {
+                        "tag": "option",
+                        "inner": "default",
+                        "value": "['ccm.load','https://akless.github.io/ccm-components/teambuild/resources/default.css']"
+                      },
+                      {
+                        "tag": "option",
+                        "inner": "akless",
+                        "value": "['ccm.load','https://akless.github.io/ccm-components/teambuild/resources/akless.css']"
+                      }
+                    ]
                   }
                 ]
               },
@@ -391,19 +373,29 @@
                   {
                     "tag": "label",
                     "for": "names",
-                    "class": "control-label col-md-2",
-                    "inner": "Initial Team Names:"
+                    "class": "control-label",
+                    "inner": [
+                      "Initial Team Names ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can set initial individual team names separated by commas."
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "names",
-                      "name": "names"
-                    }
+                    "tag": "input",
+                    "type": "text",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "names",
+                    "name": "names"
                   }
                 ]
               },
@@ -413,31 +405,41 @@
                   {
                     "tag": "label",
                     "for": "data_store",
-                    "class": "control-label col-md-2",
-                    "inner": "Where to store app-specific data:"
+                    "class": "control-label",
+                    "inner": [
+                      "App-Data Storage ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Here you can specify where the app-specific data should be stored. The app-specific data includes the current state of team building, which teams exist, which name they have, and which users belong to a team. Do not select a data store if you do not want to save this data. Team building then starts again each time with its initial state."
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "select",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "data_store",
-                      "name": "data.store",
-                      "inner": [
-                        {
-                          "tag": "option",
-                          "inner": "None",
-                          "value": "['ccm.store']"
-                        },
-                        {
-                          "tag": "option",
-                          "inner": "Web Component Cloud (W2C)",
-                          "value": "['ccm.store',{'store':'w2c_teambuild_data','url':'wss://ccm.inf.h-brs.de'}]"
-                        }
-                      ]
-                    }
-                  }
+                    "tag": "select",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "data_store",
+                    "name": "data.store",
+                    "inner": [
+                      {
+                        "tag": "option",
+                        "inner": "None",
+                        "value": "['ccm.store']"
+                      },
+                      {
+                        "tag": "option",
+                        "inner": "Web Component Cloud (W2C)",
+                        "value": "['ccm.store',{'store':'w2c_teambuild_data','url':'wss://ccm.inf.h-brs.de'}]"
+                      }
+                    ]
+                 }
                 ]
               },
               {
@@ -446,21 +448,239 @@
                   {
                     "tag": "label",
                     "for": "data_key",
-                    "class": "control-label col-md-2",
-                    "inner": "Identifier for app-specific data:"
+                    "class": "control-label",
+                    "inner": [
+                      "App Identifier ",
+                      {
+                        "tag": "a",
+                        "onclick": "%help%",
+                        "inner": {
+                          "class": "glyphicon glyphicon-info-sign"
+                        }
+                      },
+                      {
+                        "class": "alert alert-info",
+                        "inner": "Each team building has a unique identifier for their app-specific data. Set this Identifier here."
+                      }
+                    ]
                   },
                   {
-                    "class": "col-md-10",
-                    "inner": {
-                      "tag": "input",
-                      "type": "text",
-                      "onchange": "%change%",
-                      "class": "form-control",
-                      "id": "data_key",
-                      "name": "data.key"
-                    }
+                    "tag": "input",
+                    "type": "text",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "data_key",
+                    "name": "data.key"
                   }
                 ]
+              },
+              {
+                "class": "check-boxes form-group",
+                "inner": [
+                  {
+                    "tag": "label",
+                    "class": "control-label",
+                    "inner": "Teams Can Be.."
+                  },
+                  {
+                    "tag": "table",
+                    "class": "table table-striped",
+                    "inner": [
+                      {
+                        "tag": "tbody",
+                        "inner": [
+                          {
+                            "tag": "tr",
+                            "inner": [
+                              {
+                                "tag": "td",
+                                "class": "col-md-3",
+                                "inner": {
+                                  "class": "editable_join form-inline",
+                                  "inner": [
+                                    {
+                                      "tag": "label",
+                                      "for": "editable_join",
+                                      "class": "control-label",
+                                      "inner": [
+                                        "Joined ",
+                                        {
+                                          "tag": "a",
+                                          "onclick": "%help%",
+                                          "inner": {
+                                            "class": "glyphicon glyphicon-info-sign"
+                                          }
+                                        },
+                                        {
+                                          "class": "checkbox",
+                                          "onchange": "%change%",
+                                          "inner": {
+                                            "tag": "label",
+                                            "inner": {
+                                              "tag": "input",
+                                              "type": "checkbox",
+                                              "id": "editable_join",
+                                              "name": "editable.join"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "class": "alert alert-info",
+                                          "inner": "Here you can choose whether authenticated users can join a team."
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "tag": "td",
+                                "class": "col-md-3",
+                                "inner": {
+                                  "class": "editable_leave form-inline",
+                                  "inner": [
+                                    {
+                                      "tag": "label",
+                                      "for": "editable_leave",
+                                      "class": "control-label",
+                                      "inner": [
+                                        "Leaved ",
+                                        {
+                                          "tag": "a",
+                                          "onclick": "%help%",
+                                          "inner": {
+                                            "class": "glyphicon glyphicon-info-sign"
+                                          }
+                                        },
+                                        {
+                                          "class": "checkbox",
+                                          "onchange": "%change%",
+                                          "inner": {
+                                            "tag": "label",
+                                            "inner": {
+                                              "tag": "input",
+                                              "type": "checkbox",
+                                              "id": "editable_leave",
+                                              "name": "editable.leave"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "class": "alert alert-info",
+                                          "inner": "Here you can choose whether authenticated users can leave a team."
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "tag": "td",
+                                "class": "col-md-3",
+                                "inner": {
+                                  "class": "editable_rename form-inline",
+                                  "inner": [
+                                    {
+                                      "tag": "label",
+                                      "for": "editable_rename",
+                                      "class": "control-label",
+                                      "inner": [
+                                        "Renamed ",
+                                        {
+                                          "tag": "a",
+                                          "onclick": "%help%",
+                                          "inner": {
+                                            "class": "glyphicon glyphicon-info-sign"
+                                          }
+                                        },
+                                        {
+                                          "class": "checkbox",
+                                          "onchange": "%change%",
+                                          "inner": {
+                                            "tag": "label",
+                                            "inner": {
+                                              "tag": "input",
+                                              "type": "checkbox",
+                                              "id": "editable_rename",
+                                              "name": "editable.rename"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "class": "alert alert-info",
+                                          "inner": "Here you can choose whether authenticated users can rename a team they belong to by clicking on the team name."
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "class": "button-labels form-group",
+                "inner": [
+                  {
+                    "tag": "label",
+                    "class": "control-label",
+                    "inner": "Button Labels.."
+                  },
+                  {
+                    "tag": "table",
+                    "class": "col-md-8 table table-striped",
+                    "inner": [
+                      {
+                        "tag": "tbody",
+                        "inner": [
+                          {
+                            "tag": "tr",
+                            "inner": [
+                              {
+                                "tag": "td",
+                                "class": "col-md-4",
+                                "inner": {
+                                  "class": "text_join form-group",
+                                  "inner": {
+                                    "tag": "input",
+                                    "type": "text",
+                                    "onchange": "%change%",
+                                    "class": "form-control",
+                                    "id": "text_join",
+                                    "name": "text.join",
+                                    "placeholder": "Enter Button Label..."
+                                  }
+                                }
+                              },
+                              {
+                                "tag": "td",
+                                "class": "col-md-4",
+                                "inner":  {
+                                  "class": "text_leave form-group",
+                                  "inner": {
+                                    "tag": "input",
+                                    "type": "text",
+                                    "onchange": "%change%",
+                                    "class": "form-control",
+                                    "id": "text_leave",
+                                    "name": "text.leave",
+                                    "placeholder": "Enter Button Label..."
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+
               },
               {
                 "id": "submit",
@@ -479,7 +699,11 @@
           }
         ]
       },
-      "css": [ "ccm.load", "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css", { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" } ],
+      "css": [ "ccm.load",
+        "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css",
+        { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" },
+        "resources/default.css"
+      ],
       "submit_button": true,
       "teambuild": [ "ccm.component", "../teambuild/ccm.teambuild.js" ],
       "onfinish": { "log": true }
@@ -555,7 +779,14 @@
         // render input elements
         $.setContent( self.element, $.html( my.html, {
           submit: self.submit,
-          change: () => self.onchange && self.onchange( self )
+          change: () => self.onchange && self.onchange( self ),
+          help: function () {
+            // hide and show help texts
+            const this_a = this;
+            $.makeIterable( self.element.querySelectorAll( 'a' ) ).map( other_a => other_a !== this_a && other_a.classList.remove( 'active' ) );
+            this.classList.toggle( 'active' );
+
+          }
         } ) );
 
         // fill input elements with start values

@@ -32,10 +32,24 @@
 
 .gap input {
   font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
-  font-size: 111%;
-  text-align: center;
-  padding-left: 0.2em;
-  letter-spacing: 0.1em;
+  font-size: 16px;
+  margin: 2px;
+  padding: 0.2em 0.24em;
+  background: #FFF;
+  border: 1px solid #FFF;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
+  white-space: nowrap;
+}
+
+.gap input:focus {
+  background: #DFE9EC;
+  color: #414848;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+  outline: 0;
+}
+.gap input:hover {
+  background: #DFE9EC;
 }
 
 .gap.correct input {

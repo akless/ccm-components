@@ -1,0 +1,43 @@
+/**
+ * @overview default layout of ccm component for teambuild builder
+ * @author Tea Kless <tea.kless@web.de.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+a, input[type="checkbox"], select {
+    cursor: pointer;
+}
+
+a.active + div {
+    display: block;
+}
+
+a + div {
+    display: none;
+}
+
+a.active + div + div {
+    display: block;
+}
+
+a + div + div {
+    display: none;
+}
+
+.alert {
+    margin-bottom: 0px !important;
+}
+
+div.check-boxes {
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+}
+
+label {
+    font-size: 15px;
+}
+
+.checkbox{
+    margin-left: 16px;
+    vertical-align: bottom !important;
+}
