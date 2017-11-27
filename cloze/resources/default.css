@@ -10,12 +10,13 @@
 }
 
 #keywords {
-  font-family: monospace;
+  font-family: sans-serif;
   margin-bottom: 1em;
   border: 0.1em solid black;
   padding: 0.5em;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .keyword:not(:last-child):after {
@@ -28,11 +29,18 @@
 }
 
 .gap input {
-  font-family: monospace;
-  font-size: 111%;
-  text-align: center;
-  padding-left: 0.1em;
-  letter-spacing: 0.2em;
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 0.25em;
+  border: 1px solid #a0a0a0;
+  white-space: nowrap;
+}
+.gap input:focus {
+  outline: none;
+  box-shadow: 0 0 0.5em 0 #7fb8ff;
+  border-color: #7fb8ff;
 }
 
 .gap.correct input {

@@ -48,15 +48,16 @@
             "class": "form",
             "onsubmit": "%submit%",
             "inner": [
+
               {
-                "class": "user form-group",
+                "class": "text form-group",
                 "inner": [
                   {
                     "tag": "label",
-                    "for": "user",
+                    "for": "text",
                     "class": "control-label",
                     "inner": [
-                      "Sign-on ",
+                      "Your Text ",
                       {
                         "tag": "a",
                         "onclick": "%help%",
@@ -66,64 +67,12 @@
                       },
                       {
                         "class": "alert alert-info",
-                        "inner": [
-                          "If you select a sign-on mode here, authentication will be requested after the completion of the fill-in-the-blank text and the results will only be submitted if the authentication was successful. The various sign-on modes are described below.",
-                          {
-                            "tag": "h5",
-                            "inner": "Guest Mode"
-                          },
-                          {
-                            "tag": "p",
-                            "inner": "Every user will automatically logged in as the user \"guest\". This mode is mostly used for test scenarios."
-                          },
-                          {
-                            "tag": "h5",
-                            "inner": "Demo Mode"
-                          },
-                          {
-                            "tag": "p",
-                            "inner": "The user can authenticate with any user name and without password. This mode is mostly used for demo scenarios."
-                          },
-                          {
-                            "tag": "h5",
-                            "inner": "H-BRS FB02"
-                          },
-                          {
-                            "tag": "p",
-                            "inner": "In this mode the user has to authenticate with a valid account of the Department of Computer Science of the Hochschule Bonn-Rhein-Sieg."
-                          }
-                        ]
+                        "inner": "Here you can specify the content of your fill-in-the-blank text. Text gaps are marked with double square brackets. Example: \"Hello, [[World]]!\". If you want to specify certain letters of a solution word, you can mark them with parentheses. In the following example, three letters are given: \"Hello, [[W(or)l(d)]]!\". If you want to allow several alternative solution words for a text gap, enter them with \"|\" separated from each other. Example: \"My name is [[John|Jane]]\". With \"[[#...]]\" you can refer to a previous text gap, where \"...\" indicates the number of the text gap. The text gap then has the same properties as the referenced text gap. Example: \"[[A]] [[B]] [[C]] - [[#1]] [[#2]] [[#3]]\". Referencing text gaps links them together. If there are several solution words for such linked text gaps, then the solution words entered by the user into these text gaps must all be different from one another so that the text gap is answered correctly."
                       }
                     ]
                   },
                   {
-                    "tag": "select",
-                    "onchange": "%change%",
-                    "class": "form-control",
-                    "id": "user",
-                    "name": "user",
-                    "inner": [
-                      {
-                        "tag": "option",
-                        "inner": "None",
-                        "value": ""
-                      },
-                      {
-                        "tag": "option",
-                        "inner": "Guest Mode",
-                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'guest'}]"
-                      },
-                      {
-                        "tag": "option",
-                        "inner": "Demo Mode",
-                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]"
-                      },
-                      {
-                        "tag": "option",
-                        "inner": "H-BRS FB02",
-                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul'}]"
-                      }
-                    ]
+                    "id": "text"
                   }
                 ]
               },
@@ -555,14 +504,14 @@
                 }
               },
               {
-                "class": "text form-group",
+                "class": "user form-group",
                 "inner": [
                   {
                     "tag": "label",
-                    "for": "text",
+                    "for": "user",
                     "class": "control-label",
                     "inner": [
-                      "Your Text ",
+                      "Sign-on ",
                       {
                         "tag": "a",
                         "onclick": "%help%",
@@ -572,12 +521,64 @@
                       },
                       {
                         "class": "alert alert-info",
-                        "inner": "Here you can specify the content of your fill-in-the-blank text. Text gaps are marked with double square brackets. Example: \"Hello, [[World]]!\". If you want to specify certain letters of a solution word, you can mark them with parentheses. In the following example, three letters are given: \"Hello, [[W(or)l(d)]]!\". If you want to allow several alternative solution words for a text gap, enter them with \"|\" separated from each other. Example: \"My name is [[John|Jane]]\". With \"[[#...]]\" you can refer to a previous text gap, where \"...\" indicates the number of the text gap. The text gap then has the same properties as the referenced text gap. Example: \"[[A]] [[B]] [[C]] - [[#1]] [[#2]] [[#3]]\". Referencing text gaps links them together. If there are several solution words for such linked text gaps, then the solution words entered by the user into these text gaps must all be different from one another so that the text gap is answered correctly."
+                        "inner": [
+                          "If you select a sign-on mode here, authentication will be requested after the completion of the fill-in-the-blank text and the results will only be submitted if the authentication was successful. The various sign-on modes are described below.",
+                          {
+                            "tag": "h5",
+                            "inner": "Guest Mode"
+                          },
+                          {
+                            "tag": "p",
+                            "inner": "Every user will automatically logged in as the user \"guest\". This mode is mostly used for test scenarios."
+                          },
+                          {
+                            "tag": "h5",
+                            "inner": "Demo Mode"
+                          },
+                          {
+                            "tag": "p",
+                            "inner": "The user can authenticate with any user name and without password. This mode is mostly used for demo scenarios."
+                          },
+                          {
+                            "tag": "h5",
+                            "inner": "H-BRS FB02"
+                          },
+                          {
+                            "tag": "p",
+                            "inner": "In this mode the user has to authenticate with a valid account of the Department of Computer Science of the Hochschule Bonn-Rhein-Sieg."
+                          }
+                        ]
                       }
                     ]
                   },
                   {
-                    "id": "text"
+                    "tag": "select",
+                    "onchange": "%change%",
+                    "class": "form-control",
+                    "id": "user",
+                    "name": "user",
+                    "inner": [
+                      {
+                        "tag": "option",
+                        "inner": "None",
+                        "value": ""
+                      },
+                      {
+                        "tag": "option",
+                        "inner": "Guest Mode",
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/ccm.user.js',{'sign_on':'guest'}]"
+                      },
+                      {
+                        "tag": "option",
+                        "inner": "Demo Mode",
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]"
+                      },
+                      {
+                        "tag": "option",
+                        "inner": "H-BRS FB02",
+                        "value": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'hbrsinfkaul'}]"
+                      }
+                    ]
                   }
                 ]
               },
@@ -594,6 +595,7 @@
                   }
                 ]
               },
+
               {
                 "class": "submit submit-button form-group",
                 "inner": [

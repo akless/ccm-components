@@ -346,23 +346,17 @@
             // iterate over all gap => render input field into each gap
             [ ...main_elem.querySelectorAll( '.gap' ) ].map( ( gap_elem, i ) => {
 
-              // blank input fields and shown keywords? => input fields should give no hint for the length of the searched word
-              size = my.blank && my.keywords ? size : ( () => {
-                let max = 0;
-                keywords[ i ].map( keyword => {
-                  if ( keyword.word.length > max ) max = keyword.word.length;
-                } );
-                return max;
-              } )();
-
               // prepare ccm HTML data for the input field
               const input = {
                 tag: 'input',
                 type: 'text',
                 oninput: onInput,
                 onchange: onChange,
-                maxlength: size,
-                size: size * 1.5  // works tolerably for words with a length up to 30
+                size: 10
+              };
+
+              input.onkeypress = input.onkeydown = function() {
+                this.size = ( this.value.length > 10 ) ? this.value.length : 10;
               };
 
               // no blank input fields? => set placeholder attribute (gives informations about the characters of the searched word)
@@ -512,6 +506,7 @@
                 for ( let j = 0; j < keywords[ i ].length; j++ )
                   if ( !keywords[ i ][ j ].used ) { placeholder = keywords[ i ][ j ].word; break; }
                 gap.setAttribute( 'placeholder', placeholder );
+                placeholder.length <= 0 ? gap.size = gap.value.length : gap.size = placeholder.length;
               }
               gap.parentNode.classList.add( event_data.correct ? 'correct' : ( event_data.nearly ? 'nearly' : 'wrong' ) );
 
