@@ -126,7 +126,7 @@
         // is user authentication used? => listen to the login and logout event => (re)render own content
         if ( self.user ) self.user.addObserver( self.index, function () { self.start(); } );
 
-        // should events be logged? => log render event
+        // should events be logged? => log ready event
         if ( self.logger ) self.logger.log( 'ready', function () {
           var data = self.ccm.helper.clone( my );
           if ( data.data && data.data.store ) data.data.store = data.data.store.source();
@@ -153,7 +153,7 @@
           // set content of own website area
           self.ccm.helper.setContent( self.element, main_elem );
 
-          // should events be logged? => log render event
+          // should events be logged? => log start event
           if ( self.logger ) self.logger.log( 'start', dataset );
 
           // perform callback (all content is rendered)
