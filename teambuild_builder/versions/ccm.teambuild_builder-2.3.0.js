@@ -2,11 +2,12 @@
  * @overview ccm component for building a realtime team building
  * @author André Kless <andre.kless@web.de>, 2017
  * @license The MIT License (MIT)
- * @version latest (2.3.0)
+ * @version 2.3.0
  * @changes
  * version 2.3.0 (27.11.2017):
  * - more compact inputs mask (pull request by Tea Kless)
- * - add help icons with help texts
+ * - add help icons with help texts (pull request by Tea Kless)
+ * - uses ccm v12.6.0
  * version 2.2.0 (09.11.2017): add 'getValue():obj' interface
  * version 2.1.0 (09.11.2017): linking labels and input fields
  * version 2.0.0 (08.11.2017):
@@ -29,10 +30,20 @@
     name: 'teambuild_builder',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 2, 3, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-12.6.0.min.js',
+      integrity: 'sha384-PxEvOgcu/b5+kSoER7EvwESyJzoDskLmOIbrqSvFpM1eI135Mj3QKY+hEDvJyyl2',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -705,10 +716,10 @@
       "css": [ "ccm.load",
         "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css",
         { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" },
-        "../teambuild_builder/resources/default.css"
+        "https://akless.github.io/ccm-components/teambuild_builder/resources/default.css"
       ],
       "submit_button": true,
-      "teambuild": [ "ccm.component", "../teambuild/ccm.teambuild.js" ],
+      "teambuild": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild/ccm.teambuild.js" ],
       "onfinish": { "log": true }
 
   //  start_values
