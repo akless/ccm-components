@@ -2,7 +2,7 @@
  * @overview <i>ccm</i> component for user authentication
  * @author André Kless <andre.kless@web.de> 2015-2017
  * @license The MIT License (MIT)
- * @version latest (2.0.1)
+ * @version 2.0.1
  * @changes
  * version 2.0.1 (04.12.2017):
  * - use JSONP instead of CORS for authentication
@@ -11,10 +11,6 @@
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
  * version 1.0.0 (09.09.2017)
- * TODO: logging
- * TODO: more unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 ( function () {
@@ -22,8 +18,13 @@
   var component = {
 
     name: 'user',
+    version: [ 2, 0, 1 ],
 
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-11.5.0.min.js',
+      integrity: 'sha384-7lrORUPPd2raLsrPJYo0Arz8csPcGzgyNbKOr9Rx3k0ECU0T8BP+B1ejo8+wmUzh',
+      crossorigin: 'anonymous'
+    },
 
     config: {
 
