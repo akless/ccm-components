@@ -665,6 +665,10 @@
 
     },
 
+    /**
+     * for creating instances out of this component
+     * @constructor
+     */
     Instance: function () {
 
       /**
