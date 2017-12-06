@@ -9,6 +9,7 @@
  * - uses ECMAScript 6
  * - uses module instead of lib for md5
  * - for pseudonymization, md5 is applied only once
+ * - uses ccm v12.8.0
  * version 1.0.0 (19.10.2017)
  */
 
