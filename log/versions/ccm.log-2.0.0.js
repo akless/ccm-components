@@ -2,7 +2,7 @@
  * @overview ccm component for data logging
  * @author André Kless <andre.kless@web.de> 2016-2017
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version 2.0.0
  * @changes
  * version 2.0.0 (06.12.2017)
  * - supports logging of specific subsets
@@ -10,10 +10,6 @@
  * - uses module instead of lib for md5
  * - for pseudonymization, md5 is applied only once
  * version 1.0.0 (19.10.2017)
- * TODO: docu comments -> API
- * TODO: unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 {
@@ -26,10 +22,20 @@
     name: 'log',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 2, 0, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-12.8.0.min.js',
+      integrity: 'sha384-Z9a6XNKaNetgzAttxGs10YlOi0jNjGACggebpAKRvOgV56M1swC2HNJowR89c3gE',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
