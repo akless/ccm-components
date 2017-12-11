@@ -2,8 +2,13 @@
  * @overview ccm component for rendering a learning unit
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version latest (3.0.0)
  * @changes
+ * version 3.0.0 (11.12.2017):
+ * - uses ECMAScript 6
+ * - uses ccm v12.8.0
+ * - shorter names for component specific inner HTML elements
+ * - config properties 'target' and 'content' are optional
  * version 2.0.0 (26.08.2017):
  * - uses ccm v11.5.0 instead of v8.1.0
  * - changes instance configuration
@@ -17,73 +22,107 @@
  * version 1.0.0 (10.08.2017)
  */
 
-( function () {
-
+{
   var component = {
 
+    /**
+     * unique component name
+     * @type {string}
+     */
     name: 'le',
 
+    /**
+     * recommended used framework version
+     * @type {string}
+     */
     ccm: 'https://akless.github.io/ccm/ccm.js',
 
+    /**
+     * default instance configuration
+     * @type {object}
+     */
     config: {
 
       "html": {
-        "wrapper": {
-          "id": "wrapper",
-          "inner": [
-            {
-              "tag": "header",
-              "inner": [
-                {
-                  "id": "logo",
-                  "inner": {
-                    "tag": "img",
-                    "src": "%logo%"
-                  }
-                },
-                {
-                  "id": "trailer",
-                  "inner": {
-                    "tag": "h1",
-                    "inner": [
-                      {
-                        "tag": "span",
-                        "id": "prefix",
-                        "inner": "%prefix%"
-                      },
-                      { "tag": "br" },
-                      {
-                        "tag": "span",
-                        "id": "topic",
-                        "inner": "%topic%"
-                      }
-                    ]
-                  }
+        "id": "wrapper",
+        "inner": [
+          {
+            "tag": "header",
+            "inner": [
+              {
+                "id": "logo",
+                "inner": {
+                  "tag": "img",
+                  "src": "%logo%"
                 }
-              ]
-            },
-            { "tag": "main" },
-            { "tag": "footer" }
-          ]
-        }
-      },
-      "target": "_blank",
-      "content": [ "ccm.component", "../content/ccm.content.js" ]
+              },
+              {
+                "id": "trailer",
+                "inner": {
+                  "tag": "h1",
+                  "inner": [
+                    {
+                      "tag": "span",
+                      "id": "prefix",
+                      "inner": "%prefix%"
+                    },
+                    { "tag": "br" },
+                    {
+                      "tag": "span",
+                      "id": "topic",
+                      "inner": "%topic%"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          { "tag": "main" },
+          { "tag": "footer" }
+        ]
+      }
 
-  //  logo: 'https://akless.github.io/akless/we/logo.png',
-  //  topic_prefix: 'Learning Unit:',
-  //  topic: 'Title of Learning Unit'
-  //  video_poster: 'https://akless.github.io/akless/we/poster.jpg',
-  //  link_prefix: 'Link:'
+  //  "css": [ "ccm.load", "../le/resources/weblysleek.css", { "context": "head", "url": "../libs/weblysleekui/font.css" } ],
+  //  "content": [ "ccm.component", "../content/ccm.content.js" ],
+  //  "logo": "https://akless.github.io/akless/we/logo.png",
+  //  "topic_prefix": "Learning Unit:",
+  //  "topic": "Title of Learning Unit",
+  //  "video_poster": "https://akless.github.io/akless/we/poster.jpg",
+  //  "link_prefix": "Link:",
+  //  "target": "_blank",
+  //  "author": "John Doe"
 
     },
 
+    /**
+     * for creating instances out of this component
+     * @constructor
+     */
     Instance: function () {
 
-      var self = this;
-      var my;           // contains privatized instance members
+      /**
+       * own reference for inner functions
+       * @type {Instance}
+       */
+      const self = this;
 
-      this.init = function ( callback ) {
+      /**
+       * privatized instance members
+       * @type {object}
+       */
+      let my;
+
+      /**
+       * shortcut to help functions
+       * @type {Object.<string,function>}
+       */
+      let $;
+
+      /**
+       * is called once after all dependencies are solved and is then deleted
+       * @param {function} callback - called after all synchronous and asynchronous operations are complete
+       */
+      this.init = callback => {
 
         // no Light DOM? => use empty fragment
         if ( !self.inner ) self.inner = document.createDocumentFragment();
@@ -91,58 +130,94 @@
         // Light DOM is given as HTML string? => use fragment with HTML string as innerHTML
         if ( typeof self.inner === 'string' ) self.inner = document.createRange().createContextualFragment( self.inner );
 
-        // do some replacements in inner HTML of own Custom Element (recursive)
-        replacements( self.inner );
+        callback();
+      };
+
+      /**
+       * is called once after the initialization and is then deleted
+       * @param {function} callback - called after all synchronous and asynchronous operations are complete
+       */
+      this.ready = callback => {
+
+        // set shortcut to help functions
+        $ = self.ccm.helper;
+
+        // privatize all possible instance members
+        my = $.privatize( self );
+
+        // prepare Light DOM
+        replacements( my.inner );
 
         callback();
 
+        /**
+         * does some replacements in Light DOM (recursive)
+         * @param {Element} node
+         */
         function replacements( node ) {
 
-          self.ccm.helper.makeIterable( node.children ).map( function ( child ) {
+          // iterate over all child HTML elements
+          [ ...node.children ].map( child => {
 
-            var figure;
+            /**
+             * <figure>
+             * @types {Element}
+             */
+            let figure;
 
+            // check name of the HTML element
             switch ( child.tagName ) {
 
-              case 'CCM-LE-TOPIC':
-                var topic = document.createElement( 'span' );
+              // support <topic> for insertion of learning unit topic
+              case 'TOPIC':
+                const topic = document.createElement( 'span' );
                 topic.classList.add( 'topic' );
-                topic.innerHTML = self.topic;
-                node.replaceChild( topic, child );
+                topic.innerHTML = my.topic;
+                $.replaceChild( topic, child );
                 break;
 
-              case 'CCM-LE-AUDIO':
+              // support <audio src=''> as shortcut for an audio element
+              case 'AUDIO':
+                if ( !child.getAttribute( 'src' ) ) break;
                 figure = document.createElement( 'figure' );
                 figure.innerHTML = '<audio controls><source src="' + child.getAttribute( 'src' ) + '">';
-                node.replaceChild( figure, child );
+                $.replaceChild( figure, child );
                 break;
 
-              case 'CCM-LE-VIDEO':
+              // support <video src=''> as shortcut for a video element
+              case 'VIDEO':
+                if ( !child.getAttribute( 'src' ) ) break;
                 figure = document.createElement( 'figure' );
-                figure.innerHTML = '<video controls poster="' + self.video_poster + '"><source src="' + child.getAttribute( 'src' ) + '" type="video/mp4">';
-                node.replaceChild( figure, child );
+                figure.innerHTML = '<video controls' + ( my.video_poster ? ' poster="' + my.video_poster : '' ) + '"><source src="' + child.getAttribute( 'src' ) + '" type="video/mp4">';
+                $.replaceChild( figure, child );
                 break;
 
-              case 'CCM-LE-IMG':
+              // wrap images with <figure>
+              case 'IMG':
                 figure = document.createElement( 'figure' );
                 figure.innerHTML = '<img src="' + child.getAttribute( 'src' ) + '">';
-                node.replaceChild( figure, child );
+                $.replaceChild( figure, child );
                 break;
 
+              // enrich hyperlinks
               case 'A':
-                child.setAttribute( 'target', self.target );
+                // set value for 'target' attribute of hyperlinks
+                if ( my.target && !child.getAttribute( 'target' ) ) child.setAttribute( 'target', my.target );
+                // hyperlink has no text? => use URL as text
                 if ( !child.innerHTML ) child.innerHTML = child.getAttribute( 'href' );
                 break;
 
-              case 'CCM-LE-LINK':
-                var p = document.createElement( 'p' );
-                var href = child.getAttribute( 'href' );
-                p.innerHTML = self.link_prefix + ' <a target="' + self.target + '" href="' + href + '">' + ( child.innerHTML ? child.innerHTML : href ) + '</a>';
-                node.replaceChild( p, child );
+              // shortcut for a text line with a hyperlink
+              case 'LINK':
+                const p = document.createElement( 'p' );
+                const href = child.getAttribute( 'href' );
+                p.innerHTML = my.link_prefix + ' <a target="' + my.target + '" href="' + href + '">' + ( child.innerHTML ? child.innerHTML : href ) + '</a>';
+                $.replaceChild( p, child );
                 break;
 
+              // do replacements also for deeper HTML elements
               default:
-                replacements( child );
+                replacements( child );  // recursive call
 
             }
 
@@ -152,41 +227,52 @@
 
       };
 
-      this.ready = function ( callback ) {
+      /**
+       * starts the instance
+       * @param {function} [callback] - called after all synchronous and asynchronous operations are complete
+       */
+      this.start = callback => {
 
-        // privatize all possible instance members
-        my = self.ccm.helper.privatize( self );
+        /**
+         * main HTML structure
+         * @type {Element}
+         */
+        let wrapper_elem = $.html( my.html, { logo: my.logo, prefix: my.topic_prefix, topic: my.topic } );
 
-        callback();
-      };
-
-      this.start = function ( callback ) {
-
-        var wrapper_elem = self.ccm.helper.html( my.html.wrapper, {
-          logo: my.logo,
-          prefix: my.topic_prefix,
-          topic: my.topic
-        } );
-
+        // topic of the learning unit has no prefix? => remove HTML elements for topic prefix
         if ( !my.topic_prefix ) {
-          self.ccm.helper.removeElement( wrapper_elem.querySelector( '#prefix' ) );
-          self.ccm.helper.removeElement( wrapper_elem.querySelector( 'br' ) );
+          $.removeElement( wrapper_elem.querySelector( '#prefix' ) );
+          $.removeElement( wrapper_elem.querySelector( 'br' ) );
         }
 
+        // has name of an author? => add licence statement
         if ( my.author ) {
-          var footer = wrapper_elem.querySelector( 'footer' );
+          my.author = $.protect( my.author );
+          const footer = wrapper_elem.querySelector( 'footer' );
           if ( my.english_licence )
             footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>To the extent possible under law, <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> has waived all copyright and related or neighboring rights to this work.</p>';
           else
             footer.innerHTML = '<hr><p xmlns:dct="https://purl.org/dc/terms/"><a target="_blank" rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/"><img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a><br>Soweit unter den gesetzlichen Voraussetzungen möglich hat <span resource="[_:publisher]" rel="dct:publisher"><span property="dct:title">' + my.author + '</span></span> sämtliche Urheber- und Verwertungsrechte für dieses Werk abgetreten.</p>';
         }
 
-        my.content.start( { inner: my.inner }, function ( instance ) {
-          instance.element.id = 'content';
-          self.ccm.helper.setContent( wrapper_elem.querySelector( 'main' ), instance.element );
-          self.ccm.helper.setContent( self.element, wrapper_elem );
-          if ( callback ) callback();
-        } );
+        // has content instance? => use it to render the main content
+        if ( my.content )
+          my.content.start( { inner: my.inner }, proceed );
+        else
+          proceed();
+
+        function proceed( instance ) {
+
+          // prepare main content
+          $.setContent( wrapper_elem.querySelector( 'main' ), instance ? instance.element : my.inner );
+
+          // set content of own website area
+          $.setContent( self.element, wrapper_elem );
+
+          // rendering completed => perform callback
+          callback && callback();
+
+        }
 
       };
 
@@ -194,5 +280,5 @@
 
   };
 
-  function p(){window.ccm[v].component(component)}var f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{var n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{var e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
-}() );
+  function p(){window.ccm[v].component(component)}const f="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[f])window.ccm.files[f]=component;else{const n=window.ccm&&window.ccm.components[component.name];n&&n.ccm&&(component.ccm=n.ccm),"string"==typeof component.ccm&&(component.ccm={url:component.ccm});var v=component.ccm.url.split("/").pop().split("-");if(v.length>1?(v=v[1].split("."),v.pop(),"min"===v[v.length-1]&&v.pop(),v=v.join(".")):v="latest",window.ccm&&window.ccm[v])p();else{const e=document.createElement("script");document.head.appendChild(e),component.ccm.integrity&&e.setAttribute("integrity",component.ccm.integrity),component.ccm.crossorigin&&e.setAttribute("crossorigin",component.ccm.crossorigin),e.onload=function(){p(),document.head.removeChild(e)},e.src=component.ccm.url}}
+}
