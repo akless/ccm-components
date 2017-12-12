@@ -9,9 +9,28 @@
   font-size: 16px;
 }
 
+button {
+  background-color: #e7e7e7;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#box {
+  position: absolute;
+  z-index: -1;
+}
+
 #keywords {
+  position: fixed;
   font-family: sans-serif;
   margin-bottom: 1em;
+  background: white;
   border: 0.1em solid black;
   padding: 0.5em;
   display: flex;
@@ -21,7 +40,8 @@
 
 .keyword:not(:last-child):after {
   padding-right: 0.5em;
-  content: ',';
+  content: ' -';
+  color: rgba(128, 128, 128, 0.44);
 }
 
 #text {
@@ -29,7 +49,7 @@
 }
 
 .gap input {
-  font-family: sans-serif;
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 16px;
   margin: 2px;
   padding: 5px 10px;
