@@ -298,10 +298,7 @@
           // set content of own website area
           $.setContent( self.element, main_elem );
 
-          console.log( main_elem.querySelector( '#keywords' ).offsetHeight, main_elem.querySelector( '#keywords' ) );
           box_height = main_elem.querySelector( '#keywords' ).offsetHeight;
-          console.log( box_height, main_elem.querySelector( '#box' ) );
-
           main_elem.querySelector( '#box' ).style.marginTop = box_height + 'px';
 
           // has individual 'start' callback? => perform it
