@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200');
+
 /**
  * @overview LEA-like layout of ccm component for rendering a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de.de> 2017
@@ -7,13 +9,20 @@
 #element {
   font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
   font-size: 16px;
-  padding: 0.5em 0;
+}
+
+#box {
+  position: absolute;
+  z-index: -1;
 }
 
 #keywords {
-  font-style: italic;
+  font-family: 'Montserrat', sans-serif;
+  position: fixed;
   margin-bottom: 1em;
-  border: 0.1em solid black;
+  background: #ffffff;
+  box-shadow: -1px 0px 5px 0px rgba(0,0,0,0.75);
+  /*border: 0.1em solid #0000003d;*/
   padding: 0.5em;
   display: flex;
   flex-wrap: wrap;
@@ -22,12 +31,18 @@
 
 .keyword:not(:last-child):after {
   padding-right: 0.5em;
-  content: ',';
+  content: ' - ';
+  color: rgba(128, 128, 128, 0.44);
 }
 
 #text {
+  margin-top: 0.2em;
   border: 0.1em solid #e5e9ed;
   background-color: #eef2f8;
+}
+
+#text li {
+  padding: 0.5em 0.5em;
 }
 
 .gap input {
