@@ -2,7 +2,7 @@
  * @overview ccm component for rendering a learning unit
  * @author André Kless <andre.kless@web.de> 2017
  * @license The MIT License (MIT)
- * @version latest (3.0.0)
+ * @version 3.0.0
  * @changes
  * version 3.0.0 (12.12.2017):
  * - uses ECMAScript 6
@@ -33,10 +33,20 @@
     name: 'le',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 3, 0, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-12.9.0.min.js',
+      integrity: 'sha384-ww+RYBFW74Fi2/MBrci+QDLBidQSDdHeKYFA3QqEBnFEOXG/oMsJdYgDYP6fVejr',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -82,8 +92,8 @@
         ]
       }
 
-  //  "css": [ "ccm.load", "../le/resources/weblysleek.css", { "context": "head", "url": "../libs/weblysleekui/font.css" } ],
-  //  "wrapper": [ "ccm.component", "../content/ccm.content.js" ],
+  //  "css": [ "ccm.load", "https://akless.github.io/ccm-components/le/resources/weblysleek.css", { "context": "head", "url": "https://akless.github.io/ccm-components/libs/weblysleekui/font.css" } ],
+  //  "wrapper": [ "ccm.component", "https://akless.github.io/ccm-components/content/ccm.content.js" ],
   //  "content": "Hello, World!",
   //  "logo": "https://akless.github.io/akless/we/logo.png",
   //  "topic": "Title of Learning Unit",
