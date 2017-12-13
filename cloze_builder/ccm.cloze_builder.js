@@ -50,7 +50,6 @@
             "class": "form",
             "onsubmit": "%submit%",
             "inner": [
-
               {
                 "class": "text form-group",
                 "inner": [
