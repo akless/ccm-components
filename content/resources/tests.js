@@ -36,13 +36,15 @@ ccm.files[ 'tests.js' ] = {
       customElement: function ( suite ) {
         var source = '<source src="../blank/ccm.blank.js">';
         var tag    = '<ccm-blank></ccm-blank>';
-        var div1   = '<div><div><div id="element">Hello, World!</div></div></div>';
-        var div2   = '<div><div></div></div>';
+        var div1f  = '<div><div id="ccm-blank-1"><div id="element">Hello, World!</div></div></div>';
+        var div2f  = '<div><div id="ccm-blank-2"><div id="element">Hello, World!</div></div></div>';
+        var div1   = '<div><div id="ccm-blank-1"></div></div>';
+        var div2   = '<div><div id="ccm-blank-2"></div></div>';
         suite.component.start( { inner: source + tag + tag }, function ( instance ) {
           if ( suite.ccm.helper.isFirefox() )
-            suite.assertSame( source + div1 + div1, instance.element.innerHTML );
+            suite.assertSame( source + div1f + div2f, instance.element.innerHTML );
           else
-            suite.assertSame( source + div2 + div2, instance.element.innerHTML );
+            suite.assertSame( source + div1  + div2 , instance.element.innerHTML );
         } );
       }
     }
