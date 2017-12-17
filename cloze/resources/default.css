@@ -22,14 +22,13 @@ button {
 }
 
 #box {
-  position: absolute;
   z-index: -1;
 }
 
 #keywords {
-  position: fixed;
+  position: sticky;
+  top: 0;
   font-family: sans-serif;
-  margin-bottom: 1em;
   background: white;
   border: 0.1em solid black;
   padding: 0.5em;
