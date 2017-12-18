@@ -288,7 +288,6 @@
           !my.cancel_button && $.removeElement( cancel_elem );
           !my.feedback      && $.removeElement( submit_elem );
 
-          let box_height;
           // add content for inner containers
           renderKeywords();
           renderText();
@@ -297,9 +296,6 @@
 
           // set content of own website area
           $.setContent( self.element, main_elem );
-
-          box_height = main_elem.querySelector( '#keywords' ).offsetHeight;
-          main_elem.querySelector( '#box' ).style.marginTop = box_height + 'px';
 
           // has individual 'start' callback? => perform it
           self.onstart && self.onstart( self );

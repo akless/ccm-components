@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:200');
-
 /**
  * @overview LEA-like layout of ccm component for rendering a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de.de> 2017
@@ -12,17 +10,15 @@
 }
 
 #box {
-  position: absolute;
   z-index: -1;
 }
 
 #keywords {
   font-family: 'Montserrat', sans-serif;
-  position: fixed;
-  margin-bottom: 1em;
+  position: sticky;
+  top: 0;
   background: #ffffff;
   box-shadow: -1px 0px 5px 0px rgba(0,0,0,0.75);
-  /*border: 0.1em solid #0000003d;*/
   padding: 0.5em;
   display: flex;
   flex-wrap: wrap;

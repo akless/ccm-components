@@ -22,14 +22,13 @@ button {
 }
 
 #box {
-  position: absolute;
   z-index: -1;
 }
 
 #keywords {
-  position: fixed;
+  position: sticky;
+  top: 0;
   font-family: sans-serif;
-  margin-bottom: 1em;
   background: white;
   border: 0.1em solid black;
   padding: 0.5em;
@@ -46,6 +45,10 @@ button {
 
 #text {
   line-height: 1.6em;
+}
+
+#text li {
+  padding: 0.5em 0.5em;
 }
 
 .gap input {
