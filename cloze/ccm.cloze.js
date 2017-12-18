@@ -116,7 +116,6 @@
         }
       },
       "css": [ "ccm.load", "../cloze/resources/default.css" ],
-      "normalize": [ "ccm.load", "https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" ],
       "text": "Hello, [[(W)o(rl)d]]!",
       "captions": {
         "start": "Start",

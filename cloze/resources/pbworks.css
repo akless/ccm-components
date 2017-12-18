@@ -10,8 +10,10 @@
 }
 
 #keywords {
-  margin-bottom: 1em;
-  border: 0.1em solid black;
+  font-family: 'Montserrat', sans-serif;
+  position: sticky;
+  top: 0;
+  border: 0.1em solid rgba(0, 0, 0, 0.53);
   background-color: #E0F1BA;
   color: #3C4E10;
   padding: 0.5em;
@@ -26,7 +28,12 @@
 }
 
 #text {
+  background: #fff;
   line-height: 1.6em;
+}
+
+#text li {
+  padding: 0.5em 0.5em;
 }
 
 .gap input {
