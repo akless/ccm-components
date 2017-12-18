@@ -3,11 +3,12 @@
  * @description This code is based on the ccm component 'ccm.fill_in_the_blank_blank_text_builder-2.0.0.js' by Tea Kless.
  * @author André Kless <andre.kless@web.de>, 2017
  * @license The MIT License (MIT)
- * @version 1.5.0
+ * @version 1.5.1
  * @changes
+ * version 1.5.1 (18.12.2017): updated selectable layouts; uses ccm v12.12.0; uses ccm.cloze.js v3.5.0
  * version 1.5.0 (06.12.2017): images could be used inside the text editor and updated help texts
  * version 1.4.0 (27.11.2017): more compact inputs mask (pull request by Tea Kless) and bugfix for restart button
- * version 1.3.0 (22.11.2017): revised distribution of the input mask (pull request by Tea Kless), uses ccm 12.6.0
+ * version 1.3.0 (22.11.2017): revised distribution of the input mask (pull request by Tea Kless); uses ccm 12.6.0
  * version 1.2.0 (18.11.2017): uses ccm 12.4.0, uses ccm.cloze.js v3.3.0 and updated help text
  * version 1.1.0 (15.11.2017): help texts for input elements
  * version 1.0.0 (13.11.2017)
@@ -26,15 +27,15 @@
      * component version
      * @type {number[]}
      */
-    version: [ 1, 5, 0 ],
+    version: [ 1, 5, 1 ],
 
     /**
      * reference to used framework version
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-12.8.0.min.js',
-      integrity: 'sha384-Z9a6XNKaNetgzAttxGs10YlOi0jNjGACggebpAKRvOgV56M1swC2HNJowR89c3gE',
+      url: 'https://akless.github.io/ccm/version/ccm-12.12.0.min.js',
+      integrity: 'sha384-1pDRNaBU2okRlEuyNp8icKgmsidtnoBsvFtbReMBrQv1bgQqCun0aw5DuTKu61Ts',
       crossorigin: 'anonymous'
     },
 
@@ -139,12 +140,12 @@
                       {
                         "tag": "option",
                         "inner": "LEA-like",
-                        "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/lea.css']"
+                        "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/lea.css','https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css',{'context': 'head','url':'https://fonts.googleapis.com/css?family=Montserrat:200'}]"
                       },
                       {
                         "tag": "option",
                         "inner": "PBWorks-like",
-                        "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/pbworks.css','https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css']"
+                        "value": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/pbworks.css','https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css',{'context': 'head','url':'https://fonts.googleapis.com/css?family=Montserrat:200'}]"
                       }
                     ]
                   }
@@ -647,44 +648,44 @@
       ],
       "editor": [ "ccm.component", "https://tkless.github.io/ccm-components/editor/versions/ccm.editor-1.0.0.min.js",
         { "settings.modules.toolbar": [
-            [ { "size": [ "small", false, "large", "huge" ] } ],  // custom dropdown
-            [ "bold", "italic", "underline" ],                    // toggled buttons
-            [ { "align": [] } ],
-            [ "blockquote", "code-block" ],
-            [ { "header": 1 }, { "header": 2 } ],                 // custom button values
-            [ { "list": "ordered" }, { "list": "bullet" } ],
-            [ { "script": "sub" }, { "script": "super" } ],       // superscript/subscript
-            [ { "indent": "-1" }, { "indent": "+1" } ],           // outdent/indent
-            [ { "color": [] }, { "background": [] } ],            // dropdown with defaults from theme
-            [ "image" ]
-          ], "settings.placeholder": "Type here..." }
+          [ { "size": [ "small", false, "large", "huge" ] } ],  // custom dropdown
+          [ "bold", "italic", "underline" ],                    // toggled buttons
+          [ { "align": [] } ],
+          [ "blockquote", "code-block" ],
+          [ { "header": 1 }, { "header": 2 } ],                 // custom button values
+          [ { "list": "ordered" }, { "list": "bullet" } ],
+          [ { "script": "sub" }, { "script": "super" } ],       // superscript/subscript
+          [ { "indent": "-1" }, { "indent": "+1" } ],           // outdent/indent
+          [ { "color": [] }, { "background": [] } ],            // dropdown with defaults from theme
+          [ "image" ]
+        ], "settings.placeholder": "Type here..." }
       ],
-      "target": [ "ccm.component", "https://akless.github.io/ccm-components/cloze/versions/ccm.cloze-3.4.0.min.js" ],
+      "target": [ "ccm.component", "https://akless.github.io/ccm-components/cloze/versions/ccm.cloze-3.5.0.min.js" ],
       "submit_button": true,
       "preview": true,
       "onfinish": { "log": true }
 
-      /*
-          "start_values": {
-            "css": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/lea.css']",
-            "text": "<p>In order to [[s(e)rv(e)|solv(e)]] you well, Karma needs to know about your project in order to test it and this is done via a configuration file. The easiest way to generate an initial configuration file is by using the karma init command. This page lists all of the available configuration options.</p>",
-            "captions": {
-              "start": "Start",
-              "submit": "Submit",
-              "finish": "Finish"
-            },
-            "start_button": true,
-            "keywords": true,
-            "blank": true,
-            "time": 123,
-            "feedback": true,
-            "solutions": true,
-            "user": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]",
-            "onfinish": { "restart": true }
-          }
-      */
-      //  onchange
-      //  onfinish
+  /*
+      "start_values": {
+        "css": "['ccm.load','https://akless.github.io/ccm-components/cloze/resources/lea.css']",
+        "text": "<p>In order to [[s(e)rv(e)|solv(e)]] you well, Karma needs to know about your project in order to test it and this is done via a configuration file. The easiest way to generate an initial configuration file is by using the karma init command. This page lists all of the available configuration options.</p>",
+        "captions": {
+          "start": "Start",
+          "submit": "Submit",
+          "finish": "Finish"
+        },
+        "start_button": true,
+        "keywords": true,
+        "blank": true,
+        "time": 123,
+        "feedback": true,
+        "solutions": true,
+        "user": "['ccm.instance','https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js',{'sign_on':'demo'}]",
+        "onfinish": { "restart": true }
+      }
+  */
+  //  onchange
+  //  onfinish
 
     },
 
