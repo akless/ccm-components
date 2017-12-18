@@ -73,6 +73,6 @@ button {
   cursor: pointer;
 }
 
-#keywords, button, #timer {
+button, #timer {
   font-family: 'Lucida Grande', Tahoma, Arial, sans-serif !important;
 }
