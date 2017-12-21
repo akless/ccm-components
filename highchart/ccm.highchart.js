@@ -112,6 +112,12 @@
         // get dataset for rendering
         $.dataset( my.data, data => {
           my.data = data;
+          if ( $.isObject( my.data ) ) {
+            const data = [];
+            for ( const key in my.data )
+              data.push( [ key, my.data[ key ] ] );
+            my.data = data;
+          }
 
           // logging of 'start' event
           self.logger && self.logger.log( 'start', { chart: my.chart, data: data } );
