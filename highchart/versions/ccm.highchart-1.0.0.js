@@ -52,10 +52,11 @@
         ]
       },
       "libs": [ "ccm.load", "https://code.highcharts.com/highcharts.js" ],
-      "chart": "line"  // line|area|bar|column|pie|pie-semi-circle
+      "data": {}
 
   //  "css": [ "ccm.load": "https://akless.github.io/ccm-components/highchart/resources/default.css" ],
-  //  "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
+  //  "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ],
+  //  "chart": "line",  // line|area|bar|column|pie|pie-semi-circle
   //  "switcher": true,
   //  "settings": {},
   //  "title": "My Chart",
@@ -66,8 +67,7 @@
   //  "point_start": 0,
   //  "data_label": "<b>{point.name}</b>: {point.percentage:.1f} %",
   //  "tooltip_label": "Brands",
-  //  "no_style": true,
-  //  "data": [ "Passed", 4 ], [ "Failed", 6 ] ]
+  //  "style": false
 
     },
 
@@ -384,7 +384,10 @@
             if ( my.title && !settings.title ) settings.title = { text: my.title };
             if ( my.subtitle && !settings.subtitle ) settings.subtitle = { text: my.subtitle };
             if ( my.tooltip && !settings.tooltip ) settings.tooltip = { pointFormat: my.tooltip };
-            if ( style && !my.no_style ) chart_elem.style = style;
+            if ( my.style )
+              chart_elem.style = my.style;
+            else if ( style && my.style !== false )
+              chart_elem.style = style;
             if ( my.settings ) $.integrate( $.toDotNotation( $.solveDotNotation( $.clone( my.settings ) ) ), settings );
             return settings;
 
