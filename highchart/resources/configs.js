@@ -193,9 +193,6 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load", "../highchart/resources/default.css" ],
     "libs": [ "ccm.load", [ "https://code.jquery.com/jquery-3.1.1.min.js", "https://code.highcharts.com/highcharts.js", "https://code.highcharts.com/highcharts-more.js", "https://code.highcharts.com/modules/exporting.js" ] ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ],
-    "title": "Browser<br>shares<br>2015",
-    "tooltip": "{series.name}: <b>{point.percentage:.1f}%</b>",
-    "tooltip_label": "Browser share",
     "settings": {
       "chart": {
         "polar": true,
