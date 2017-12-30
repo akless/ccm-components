@@ -1,5 +1,5 @@
 /**
- * @overview default layout of ccm component for rendering a fill-in-the-blank text
+ * @overview PBworks-like layout of ccm component for rendering a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de.de> 2017
  * @license The MIT License (MIT)
  */
@@ -37,9 +37,19 @@
 }
 
 .gap input {
-  font-family: monospace;
-  text-align: center;
-  letter-spacing: 0.1em;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 0.25em;
+  border: 1px solid #a0a0a0;
+  white-space: nowrap;
+}
+
+.gap input:focus {
+  outline: none;
+  box-shadow: 0 0 0.5em 0 #7fb8ff;
+  border-color: #7fb8ff;
 }
 
 .gap.correct input {
