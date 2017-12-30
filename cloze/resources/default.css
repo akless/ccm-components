@@ -27,6 +27,7 @@ button {
 
 #keywords {
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   font-family: sans-serif;
   background: white;

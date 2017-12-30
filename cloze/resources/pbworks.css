@@ -12,6 +12,7 @@
 #keywords {
   font-family: 'Montserrat', sans-serif;
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   border: 0.1em solid rgba(0, 0, 0, 0.53);
   background-color: #E0F1BA;
