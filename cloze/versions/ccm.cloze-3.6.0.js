@@ -69,7 +69,7 @@
      */
     ccm: {
       url: 'https://akless.github.io/ccm/version/ccm-14.0.1.min.js',
-      integrity: 'sha384-Td42tc1O6Qgd2D98bO6bBMAyqsiBd5HsYjyVEFTVDa8ZX0Gwuqyv/wYIqAYY3cyh',
+      integrity: 'sha384-q3uJPTQkSqtsC3N9S/7pQ9V7WMTmt8qDgLYw0qcko2Swy8tlsJMn3frm10co1AZJ',
       crossorigin: 'anonymous'
     },
 
