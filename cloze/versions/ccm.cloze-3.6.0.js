@@ -2,7 +2,7 @@
  * @overview ccm component for rendering a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de> 2017-2018
  * @license The MIT License (MIT)
- * @version latest (3.6.0)
+ * @version 3.6.0
  * @changes
  * version 3.6.0 (08.01.2018):
  * - uses ccm v14.0.1
@@ -46,10 +46,6 @@
  * - remove no more needed ccm.helper.protect call
  * - feedback instead of finish when timer has expired
  * version 1.0.0 (12.07.2017)
- * TODO: deactivated finish button activates after submit
- * TODO: docu comments -> API
- * TODO: unit tests
- * TODO: multilingualism
  */
 
 {
@@ -62,10 +58,20 @@
     name: 'cloze',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 3, 6, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-14.0.1.min.js',
+      integrity: 'sha384-Td42tc1O6Qgd2D98bO6bBMAyqsiBd5HsYjyVEFTVDa8ZX0Gwuqyv/wYIqAYY3cyh',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -122,7 +128,7 @@
           "inner": "%%"
         }
       },
-      "css": [ "ccm.load", "../cloze/resources/default.css" ],
+      "css": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/default.css" ],
       "text": "Hello, [[(W)o(rl)d]]!",
       "captions": {
         "start": "Start",

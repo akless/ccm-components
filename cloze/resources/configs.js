@@ -6,7 +6,7 @@
 
 ccm.files[ 'configs.js' ] = {
   "demo": {
-    "css": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/lea.css", { "context": "head", "url": "https://fonts.googleapis.com/css?family=Montserrat:200" } ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/lea.css", { "context": "head", "url": "https://fonts.googleapis.com/css?family=Montserrat:200", "type": "css" } ],
     "feedback": true,
     "time": 300,
     "keywords": [ "convenience", "conducting", "objectives", "durable", "competitive", "breakdown", "reasons", "evaluate", "adding", "breakthroughs", "withdraw", "patterns", "non-durable", "deleting", "feasible", "making", "sources", "niche" ],
@@ -18,7 +18,7 @@ ccm.files[ 'configs.js' ] = {
     "onfinish": { "log": true, "restart": true }
   },
   "local": {
-    "css": [ "ccm.load", "resources/lea.css", { "context": "head", "url": "https://fonts.googleapis.com/css?family=Montserrat:200" } ],
+    "css": [ "ccm.load", "resources/pbworks.css", { "context": "head", "url": "https://fonts.googleapis.com/css?family=Montserrat:200", "type": "css" } ],
     "feedback": true,
     "time": 300,
     "keywords": [ "convenience", "conducting", "objectives", "durable", "competitive", "breakdown", "reasons", "evaluate", "adding", "breakthroughs", "withdraw", "patterns", "non-durable", "deleting", "feasible", "making", "sources", "niche" ],
