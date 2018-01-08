@@ -5,7 +5,7 @@
  * @version 3.6.0
  * @changes
  * version 3.6.0 (08.01.2018):
- * - uses ccm v14.0.1
+ * - uses ccm v14.0.2
  * - use .trim() from the beginning for solution words
  * - disable auto correction and auto capitalization for input fields
  * version 3.5.0 (18.12.2017):
@@ -68,8 +68,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-14.0.1.min.js',
-      integrity: 'sha384-q3uJPTQkSqtsC3N9S/7pQ9V7WMTmt8qDgLYw0qcko2Swy8tlsJMn3frm10co1AZJ',
+      url: 'https://akless.github.io/ccm/version/ccm-14.0.2.min.js',
+      integrity: 'sha384-hUnkDvy6ua6uvsc7KtY44fFtJVa3LxbZp1n5jiQPqzdPOS4NGjDRmf2dM5Em7U9+',
       crossorigin: 'anonymous'
     },
 
