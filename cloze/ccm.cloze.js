@@ -6,6 +6,8 @@
  * @changes
  * version 3.7.0 (09.01.2018):
  * - support of retry after submit
+ * - length of an input field also adapts when pasting
+ * - adding of getValue()
  * version 3.6.0 (08.01.2018):
  * - uses ccm v14.0.2
  * - use .trim() from the beginning for solution words
