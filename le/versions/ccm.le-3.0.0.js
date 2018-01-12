@@ -6,7 +6,7 @@
  * @changes
  * version 3.0.0 (12.12.2017):
  * - uses ECMAScript 6
- * - uses ccm v12.9.0
+ * - uses ccm v12.12.0
  * - shorter names for component specific inner HTML elements
  * - more config properties are optional
  * - renaming of config properties
@@ -43,8 +43,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-12.9.0.min.js',
-      integrity: 'sha384-ww+RYBFW74Fi2/MBrci+QDLBidQSDdHeKYFA3QqEBnFEOXG/oMsJdYgDYP6fVejr',
+      url: 'https://akless.github.io/ccm/version/ccm-12.12.0.min.js',
+      integrity: 'sha384-1pDRNaBU2okRlEuyNp8icKgmsidtnoBsvFtbReMBrQv1bgQqCun0aw5DuTKu61Ts',
       crossorigin: 'anonymous'
     },
 
