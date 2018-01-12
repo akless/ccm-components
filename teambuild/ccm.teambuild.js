@@ -7,6 +7,7 @@
  * version 1.0.1 (08.11.2017):
  * - changes in default instance configuration
  * - bugfix for default and initial team names
+ * - uses ccm v12.12.0
  * version 1.0.0 (19.10.2017)
  * TODO: lock and unlock for team joining
  * TODO: callback (onjoin, onleave, ...)
