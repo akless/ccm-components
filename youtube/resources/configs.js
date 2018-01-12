@@ -18,7 +18,7 @@ ccm.files[ 'configs.js' ] = {
     "onfinish": { "restart": true }
   },
   "se_ws17": {
-    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "sw_ws17_youtube" ] ],
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_youtube" ] ],
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.1.min.js", { "sign_on": "hbrsinfkaul", "logged_in": true } ],
     "onfinish": { "restart": true }
   }
