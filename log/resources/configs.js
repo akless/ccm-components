@@ -16,6 +16,29 @@ ccm.files[ 'configs.js' ] = {
     },
     "onfinish": { "log": true }
   },
+  "se_ws17_youtube": {
+    "only": {
+      "data": [ "video" ]
+    },
+    "hash": [ "ccm.load", "https://akless.github.io/ccm-components/libs/md5/md5.min.js" ],
+    "onfinish": {
+      "store": {
+        "settings": { "store": "se_ws17_youtube_log", "url": "https://ccm.inf.h-brs.de" },
+        "permissions": {
+          "creator": "mkaul2m",
+          "group": {
+            "mkaul2m": true,
+            "akless2m": true
+          },
+          "access": {
+            "get": "group",
+            "set": "creator",
+            "del": "creator"
+          }
+        }
+      }
+    }
+  },
   "se_ws17_teambuild": {  // created for ccm.log-1.0.0.js, ccm.teambuild-1.0.0.js, ccm.user-2.0.0.js
     "events": {
       "ready": {
