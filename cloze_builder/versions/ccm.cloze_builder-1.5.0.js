@@ -7,8 +7,8 @@
  * @changes
  * version 1.5.0 (06.12.2017): images could be used inside the text editor and updated help texts
  * version 1.4.0 (27.11.2017): more compact inputs mask (pull request by Tea Kless) and bugfix for restart button
- * version 1.3.0 (22.11.2017): revised distribution of the input mask (pull request by Tea Kless), uses ccm 12.6.0
- * version 1.2.0 (18.11.2017): uses ccm 12.4.0, uses ccm.cloze.js v3.3.0 and updated help text
+ * version 1.3.0 (22.11.2017): revised distribution of the input mask (pull request by Tea Kless)
+ * version 1.2.0 (18.11.2017): uses ccm.cloze.js v3.3.0 and updated help text
  * version 1.1.0 (15.11.2017): help texts for input elements
  * version 1.0.0 (13.11.2017)
  */
@@ -33,8 +33,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-12.8.0.min.js',
-      integrity: 'sha384-Z9a6XNKaNetgzAttxGs10YlOi0jNjGACggebpAKRvOgV56M1swC2HNJowR89c3gE',
+      url: 'https://akless.github.io/ccm/version/ccm-12.12.0.min.js',
+      integrity: 'sha384-1pDRNaBU2okRlEuyNp8icKgmsidtnoBsvFtbReMBrQv1bgQqCun0aw5DuTKu61Ts',
       crossorigin: 'anonymous'
     },
 

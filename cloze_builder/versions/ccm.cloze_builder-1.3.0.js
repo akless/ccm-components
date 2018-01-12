@@ -5,8 +5,8 @@
  * @license The MIT License (MIT)
  * @version 1.3.0
  * @changes
- * version 1.3.0 (22.11.2017): revised distribution of the input mask (pull request by Tea Kless), uses ccm 12.6.0
- * version 1.2.0 (18.11.2017): uses ccm 12.4.0, uses ccm.cloze.js v3.3.0 and updated help text
+ * version 1.3.0 (22.11.2017): revised distribution of the input mask (pull request by Tea Kless)
+ * version 1.2.0 (18.11.2017): uses ccm.cloze.js v3.3.0 and updated help text
  * version 1.1.0 (15.11.2017): help texts for input elements
  * version 1.0.0 (13.11.2017)
  */
@@ -31,8 +31,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-12.6.0.min.js',
-      integrity: 'sha384-PxEvOgcu/b5+kSoER7EvwESyJzoDskLmOIbrqSvFpM1eI135Mj3QKY+hEDvJyyl2',
+      url: 'https://akless.github.io/ccm/version/ccm-12.12.0.min.js',
+      integrity: 'sha384-1pDRNaBU2okRlEuyNp8icKgmsidtnoBsvFtbReMBrQv1bgQqCun0aw5DuTKu61Ts',
       crossorigin: 'anonymous'
     },
 
