@@ -9,7 +9,7 @@
  * - uses ECMAScript 6
  * - uses module instead of lib for md5
  * - for pseudonymization, md5 is applied only once
- * - uses ccm v12.8.0
+ * - uses ccm v12.12.0
  * version 1.0.0 (19.10.2017)
  * TODO: docu comments -> API
  * TODO: unit tests

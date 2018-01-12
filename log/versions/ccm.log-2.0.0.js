@@ -9,7 +9,7 @@
  * - uses ECMAScript 6
  * - uses module instead of lib for md5
  * - for pseudonymization, md5 is applied only once
- * - uses ccm v12.8.0
+ * - uses ccm v12.12.0
  * version 1.0.0 (19.10.2017)
  */
 
@@ -33,8 +33,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-12.8.0.min.js',
-      integrity: 'sha384-Z9a6XNKaNetgzAttxGs10YlOi0jNjGACggebpAKRvOgV56M1swC2HNJowR89c3gE',
+      url: 'https://akless.github.io/ccm/version/ccm-12.12.0.min.js',
+      integrity: 'sha384-1pDRNaBU2okRlEuyNp8icKgmsidtnoBsvFtbReMBrQv1bgQqCun0aw5DuTKu61Ts',
       crossorigin: 'anonymous'
     },
 
