@@ -25,8 +25,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/beta/ccm-14.0.3.min.js',
-      integrity: 'sha384-bD0rTHnOlTmobIwFmxM+TORtE3XcgjRt7h9P7HGoxesXCtJC0dXq67IXZ0pY+uB3',
+      url: 'https://akless.github.io/ccm/version/beta/ccm-14.1.0.min.js',
+      integrity: 'sha384-H6IElgVNf869eHhElC5hHBh3CUOuGaaS1g6EKIxEhQ2unN6dT/UXLKGP5HkeJg1B',
       crossorigin: 'anonymous'
     },
 
@@ -41,11 +41,11 @@
         "inner": { "id": "iframe" }
       },
       "css": [ "ccm.load", "https://akless.github.io/ccm-components/youtube/resources/default.css" ],
-      "videoId": "bHQqvYy5KYo"
+      "video": "bHQqvYy5KYo"
 
   //  "height",                     {number} height - player height (default: 390)
   //  "width",                      {number} width - player width (default: 640)
-  //  "playerVars",                 {object} params - [player parameter]{@link https://developers.google.com/youtube/player_parameters#Parameters}
+  //  "vars",                       {object} params - [player parameter]{@link https://developers.google.com/youtube/player_parameters#Parameters}
   //  "onReady",                    {function} onReady - [onReady]{@link https://developers.google.com/youtube/iframe_api_reference#onReady} callback
   //  "onStateChange",              {function} onStateChange - [onStateChange]{@link https://developers.google.com/youtube/iframe_api_reference#onStateChange} callback
   //  "onPlaybackQualityChange",    {function} onPlaybackQualityChange - [onPlaybackQualityChange]{@link https://developers.google.com/youtube/iframe_api_reference#onPlaybackQualityChange} callback
@@ -144,7 +144,9 @@
         self.logger && self.logger.log( 'ready', my );
 
         // prepare the YouTube Player settings
-        my.settings = $.privatize( my, 'videoId', 'height', 'width', 'playerVars' );
+        my.settings = $.privatize( my, 'video', 'height', 'width', 'vars' );
+        $.renameProperty( my.settings, 'video', 'videoId' );
+        $.renameProperty( my.settings, 'var', 'playerVars' );
 
         // prepare the YouTube Player event listeners
         my.settings.events = {};

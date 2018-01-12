@@ -31,11 +31,11 @@
         "inner": { "id": "iframe" }
       },
       "css": [ "ccm.load", "../youtube/resources/default.css" ],
-      "videoId": "bHQqvYy5KYo"
+      "video": "bHQqvYy5KYo"
 
   //  "height",                     {number} height - player height (default: 390)
   //  "width",                      {number} width - player width (default: 640)
-  //  "playerVars",                 {object} params - [player parameter]{@link https://developers.google.com/youtube/player_parameters#Parameters}
+  //  "vars",                       {object} params - [player parameter]{@link https://developers.google.com/youtube/player_parameters#Parameters}
   //  "onReady",                    {function} onReady - [onReady]{@link https://developers.google.com/youtube/iframe_api_reference#onReady} callback
   //  "onStateChange",              {function} onStateChange - [onStateChange]{@link https://developers.google.com/youtube/iframe_api_reference#onStateChange} callback
   //  "onPlaybackQualityChange",    {function} onPlaybackQualityChange - [onPlaybackQualityChange]{@link https://developers.google.com/youtube/iframe_api_reference#onPlaybackQualityChange} callback
@@ -134,7 +134,9 @@
         self.logger && self.logger.log( 'ready', my );
 
         // prepare the YouTube Player settings
-        my.settings = $.privatize( my, 'videoId', 'height', 'width', 'playerVars' );
+        my.settings = $.privatize( my, 'video', 'height', 'width', 'vars' );
+        $.renameProperty( my.settings, 'video', 'videoId' );
+        $.renameProperty( my.settings, 'var', 'playerVars' );
 
         // prepare the YouTube Player event listeners
         my.settings.events = {};
