@@ -7,13 +7,11 @@
  * version 2.3.0 (27.11.2017):
  * - more compact inputs mask (pull request by Tea Kless)
  * - add help icons with help texts (pull request by Tea Kless)
- * - uses ccm v12.6.0
  * - bugfix for 'editable' properties
  * version 2.2.0 (09.11.2017): add 'getValue():obj' interface
  * version 2.1.0 (09.11.2017): linking labels and input fields
  * version 2.0.0 (08.11.2017):
  * - remove preview functionality
- * - uses ccm v12.3.0 instead of ccm v12.2.0
  * - only one placeholder for onchange events
  * - guarantee boolean for checkbox value results
  * - add default onfinish
@@ -41,8 +39,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-12.6.0.min.js',
-      integrity: 'sha384-PxEvOgcu/b5+kSoER7EvwESyJzoDskLmOIbrqSvFpM1eI135Mj3QKY+hEDvJyyl2',
+      url: 'https://akless.github.io/ccm/version/ccm-12.12.0.min.js',
+      integrity: 'sha384-1pDRNaBU2okRlEuyNp8icKgmsidtnoBsvFtbReMBrQv1bgQqCun0aw5DuTKu61Ts',
       crossorigin: 'anonymous'
     },
 
