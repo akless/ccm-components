@@ -8,7 +8,7 @@
  * - more than one solution word for a gap
  * version 3.0.0 (10.11.2017):
  * - uses ECMAScript 6 syntax
- * - uses ccm v12.3.1
+ * - uses ccm v12.12.0
  * version 2.2.0 (16.10.2017):
  * - gap length equal to longest word if all gaps have same length
  * version 2.1.0 (15.10.2017):
@@ -47,8 +47,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-12.3.1.min.js',
-      integrity: 'sha384-03rri06FlZvhVXruBwKS71MJaum8dzkWmxFylh50foazDLK7P3lN/T6mq7jX0wvd',
+      url: 'https://akless.github.io/ccm/version/ccm-12.12.0.min.js',
+      integrity: 'sha384-1pDRNaBU2okRlEuyNp8icKgmsidtnoBsvFtbReMBrQv1bgQqCun0aw5DuTKu61Ts',
       crossorigin: 'anonymous'
     },
 
