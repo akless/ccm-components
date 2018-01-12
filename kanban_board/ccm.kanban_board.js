@@ -6,7 +6,6 @@
  * @changes
  * version 1.2.0 (11.11.2017):
  * - add logging support
- * - uses ccm v12.3.1
  * version 1.1.0 (10.11.2017):
  * - confirm dialog when deleting a card
  * version 1.0.0 (29.10.2017)

@@ -13,7 +13,6 @@
  * - use .trim() from the beginning for solution words
  * - disable auto correction and auto capitalization for input fields
  * version 3.5.0 (18.12.2017):
- * - uses ccm v12.12.0
  * - updates in default HTML templates
  * version 3.4.0 (27.11.2017):
  * - resizable input fields by typing (pull request by Tea Kless)
@@ -23,7 +22,6 @@
  * - bugfix for 'validation' callback
  * - event data contains more informations
  * - outgoing event data is always cloned (except for 'validation' callback)
- * - uses ccm v12.4.0
  * version 3.2.1 (17.11.2017):
  * - bugfix for length of text gaps
  * - no cleared text gap on correctness only feedback
@@ -33,7 +31,7 @@
  * - more than one solution word for a gap
  * version 3.0.0 (10.11.2017):
  * - uses ECMAScript 6 syntax
- * - uses ccm v12.3.1
+ * - uses ccm v12.12.0
  * version 2.2.0 (16.10.2017):
  * - gap length equal to longest word if all gaps have same length
  * version 2.1.0 (15.10.2017):
