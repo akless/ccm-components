@@ -2,7 +2,7 @@
  * @overview ccm component for data logging
  * @author André Kless <andre.kless@web.de> 2016-2018
  * @license The MIT License (MIT)
- * @version latest (2.0.1)
+ * @version 2.0.1
  * @changes
  * version 2.0.1 (12.01.2018)
  * - accepts lib and module for pseudonymization
@@ -14,10 +14,6 @@
  * - for pseudonymization, md5 is applied only once
  * - uses ccm v12.12.0
  * version 1.0.0 (19.10.2017)
- * TODO: docu comments -> API
- * TODO: unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 {
@@ -30,10 +26,20 @@
     name: 'log',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 2, 0, 1 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-12.12.0.min.js',
+      integrity: 'sha384-1pDRNaBU2okRlEuyNp8icKgmsidtnoBsvFtbReMBrQv1bgQqCun0aw5DuTKu61Ts',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
