@@ -128,7 +128,7 @@ ccm.files[ 'configs.js' ] = {
     "anytime_finish": true,
     "start_button": true,
     "onfinish": { "restart": true },
-    "placeholder.finish": "Quit",
+    "placeholder.finish": "Close",
     "placeholder.correct": "Korrekte Lösung: ",
     "questions": [
       {
