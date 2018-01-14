@@ -744,7 +744,10 @@
 
                   // answer has a comment? => render it
                   if ( answer.comment ) self.ccm.helper.setContent( answer.elem.querySelector( '.comment' ), self.ccm.helper.html( my.html.comment, {
-                    click: function () { this.classList.toggle( 'clicked' ); },
+                    click: function () {
+                      [ ...self.element.querySelectorAll( '.clicked' ) ].map( elem => elem !== this && elem.classList.remove( 'clicked' ) );
+                      this.classList.toggle( 'clicked' );
+                    },
                     comment: answer.encode ? self.ccm.helper.htmlEncode( answer.comment ) : answer.comment,
                   } ) );
 
