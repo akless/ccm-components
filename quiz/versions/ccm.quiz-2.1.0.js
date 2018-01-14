@@ -2,7 +2,7 @@
  * @overview ccm component for rendering a quiz
  * @author André Kless <andre.kless@web.de> 2016-2018
  * @license The MIT License (MIT)
- * @version latest (2.1.0)
+ * @version 2.1.0
  * @changes
  * version 2.1.0 (14.01.2018):
  * - tooltips work on mobile devices
@@ -13,9 +13,6 @@
  * - remove no more needed ccm.helper.protect calls
  * - remove no more needed ccm.helper.clone call
  * version 1.0.0 (04.08.2017)
- * TODO: docu comments -> API
- * TODO: factory
- * TODO: multilingualism
  */
 
 ( function () {
@@ -23,11 +20,15 @@
   var component = {
 
     name: 'quiz',
+    version: [ 2, 1, 0 ],
 
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-11.5.0.min.js',
+      integrity: 'sha384-7lrORUPPd2raLsrPJYo0Arz8csPcGzgyNbKOr9Rx3k0ECU0T8BP+B1ejo8+wmUzh',
+      crossorigin: 'anonymous'
+    },
 
     config: {
-
       "html": {
         "start": {
           "id": "start",
@@ -112,7 +113,7 @@
           "inner": "%%"
         }
       },
-      "css": [ "ccm.load", "../quiz/resources/default.css" ],
+      "css": [ "ccm.load", "https://akless.github.io/ccm-components/quiz/resources/default.css" ],
       "questions": {},
       "placeholder": {
         "cancel": "Cancel",
