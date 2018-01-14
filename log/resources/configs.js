@@ -16,6 +16,29 @@ ccm.files[ 'configs.js' ] = {
     },
     "onfinish": { "log": true }
   },
+  "se_ws17_pdf_viewer": {
+    "only": {
+      "data": [ "path_to_pdf" ]
+    },
+    "hash": [ "ccm.load", "https://akless.github.io/ccm-components/libs/md5/md5.min.js" ],
+    "onfinish": {
+      "store": {
+        "settings": { "store": "se_ws17_pdf_viewer_log", "url": "https://ccm.inf.h-brs.de" },
+        "permissions": {
+          "creator": "akless2m",
+          "group": {
+            "mkaul2m": true,
+            "akless2m": true
+          },
+          "access": {
+            "get": "group",
+            "set": "creator",
+            "del": "creator"
+          }
+        }
+      }
+    }
+  },
   "se_ws17_youtube": {
     "only": {
       "data": [ "video" ]
