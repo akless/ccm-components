@@ -44,6 +44,14 @@ button {
   color: rgba(128, 128, 128, 0.44);
 }
 
+.keyword {
+  cursor: pointer;
+}
+
+.keyword.marked {
+  text-decoration: line-through;
+}
+
 #text {
   line-height: 1.6em;
 }

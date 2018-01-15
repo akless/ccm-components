@@ -6,7 +6,7 @@
 
 ccm.files[ 'configs.js' ] = {
   "demo": {
-    "css": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/lea.css", { "context": "head", "url": "https://fonts.googleapis.com/css?family=Montserrat:200", "type": "css" } ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/pbworks.css", { "context": "head", "url": "https://fonts.googleapis.com/css?family=Montserrat:200", "type": "css" } ],
     "feedback": true,
     "time": 300,
     "keywords": [ "convenience", "conducting", "objectives", "durable", "competitive", "breakdown", "reasons", "evaluate", "adding", "breakthroughs", "withdraw", "patterns", "non-durable", "deleting", "feasible", "making", "sources", "niche" ],

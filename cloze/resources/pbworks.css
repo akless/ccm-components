@@ -28,6 +28,14 @@
   content: ',';
 }
 
+.keyword {
+  cursor: pointer;
+}
+
+.keyword.marked {
+  text-decoration: line-through;
+}
+
 #text {
   background: #fff;
   line-height: 1.6em;
