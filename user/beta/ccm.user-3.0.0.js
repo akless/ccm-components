@@ -2,7 +2,7 @@
  * @overview ccm component for user authentication
  * @author André Kless <andre.kless@web.de> 2017-2018
  * @license The MIT License (MIT)
- * @version latest (3.0.0)
+ * @version 3.0.0
  * @changes
  * version 3.0.0 (17.01.2018):
  * - uses ECMAScript 6 syntax
@@ -16,9 +16,6 @@
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
  * version 1.0.0 (09.09.2017)
- * TODO: more unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 {
@@ -31,10 +28,20 @@
     name: 'user',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 3, 0, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-14.3.0.min.js',
+      integrity: 'sha384-wEXrZ5GlWdiC5uvji5TQI6MEfbsN3tkLHddaFXM+S4hcsrQat/LjL3+b1eXNUaX/',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -223,7 +230,7 @@
             success( { id: my.guest } );
             break;
           case 'demo':
-            self.ccm.load( { url: 'http://localhost:8080', params: { realm: 'ccm' } }, success );
+            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', method: 'JSONP', params: { realm: 'ccm' } }, success );
             break;
           case 'hbrsinfkaul':
             self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: 'hbrsinfkaul' } }, success);
@@ -318,7 +325,7 @@
             success();
             break;
           case 'demo':
-            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', params: { realm: 'ccm', token: dataset.token } } );
+            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', method: 'JSONP', params: { realm: 'ccm', token: dataset.token } } );
             success();
             break;
           case 'hbrsinfkaul':

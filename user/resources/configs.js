@@ -1,16 +1,23 @@
 /**
  * @overview configurations of ccm component for user authentication
- * @author André Kless <andre.kless@web.de> 2017
+ * @author André Kless <andre.kless@web.de> 2017-2018
  * @license The MIT License (MIT)
  */
 
 ccm.files[ 'configs.js' ] = {
-  "demo": {
-    "sign_on": "demo",
-    "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ]
-  },
   "local": {
     "sign_on": "demo",
-    "css": [ "ccm.load", "resources/default.css" ]
+    "css": [ "ccm.load", "../user/resources/default.css" ],
+    "logger": [ "ccm.instance", "../log/versions/ccm.log-2.0.1.js", [ "ccm.get", "../log/resources/configs.js", "greedy" ] ]
+  },
+  "demo": {
+    "sign_on": "demo",
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ],
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
+  },
+  "lea": {
+    "sign_on": "LEA",
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ],
+    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
   }
 };
