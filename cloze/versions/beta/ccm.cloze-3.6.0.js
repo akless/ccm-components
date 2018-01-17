@@ -66,8 +66,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/beta/ccm-14.0.2.min.js',
-      integrity: 'sha384-hUnkDvy6ua6uvsc7KtY44fFtJVa3LxbZp1n5jiQPqzdPOS4NGjDRmf2dM5Em7U9+',
+      url: 'https://akless.github.io/ccm/version/ccm-14.3.0.min.js',
+      integrity: 'sha384-wEXrZ5GlWdiC5uvji5TQI6MEfbsN3tkLHddaFXM+S4hcsrQat/LjL3+b1eXNUaX/',
       crossorigin: 'anonymous'
     },
 
