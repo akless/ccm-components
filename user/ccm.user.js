@@ -223,7 +223,7 @@
             success( { id: my.guest } );
             break;
           case 'demo':
-            self.ccm.load( { url: 'http://localhost:8080', params: { realm: 'ccm' } }, success );
+            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', method: 'JSONP', params: { realm: 'ccm' } }, success );
             break;
           case 'hbrsinfkaul':
             self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: 'hbrsinfkaul' } }, success);
@@ -318,7 +318,7 @@
             success();
             break;
           case 'demo':
-            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', params: { realm: 'ccm', token: dataset.token } } );
+            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', method: 'JSONP', params: { realm: 'ccm', token: dataset.token } } );
             success();
             break;
           case 'hbrsinfkaul':
