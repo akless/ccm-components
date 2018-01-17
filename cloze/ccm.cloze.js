@@ -35,22 +35,7 @@
  * version 3.0.0 (10.11.2017):
  * - uses ECMAScript 6 syntax
  * - uses ccm v12.12.0
- * version 2.2.0 (16.10.2017):
- * - gap length equal to longest word if all gaps have same length
- * version 2.1.0 (15.10.2017):
- * - optional finish button
- * - it is possible to show correctness without solutions in feedback
- * version 2.0.0 (18.09.2017):
- * - uses ccm v11.5.0 instead of v8.1.0
- * - shortened component backbone
- * - renaming of some instance properties
- * - add HTML template for a button
- * - visual feedback as default,
- * - default value for finish event
- * - reductions in HTML template for start button
- * - remove no more needed ccm.helper.protect call
- * - feedback instead of finish when timer has expired
- * version 1.0.0 (12.07.2017)
+ * (for older version changes see ccm.cloze.js-2.2.0.js)
  * TODO: deactivated finish button activates after submit
  * TODO: docu comments -> API
  * TODO: unit tests
