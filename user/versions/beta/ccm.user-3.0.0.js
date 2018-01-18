@@ -6,7 +6,7 @@
  * @changes
  * version 3.0.0 (17.01.2018):
  * - uses ECMAScript 6 syntax
- * - uses ccm v14.3.0
+ * - uses ccm v15.0.0
  * - logging support
  * - add LEA authentication
  * version 2.0.1 (04.12.2017):
@@ -38,8 +38,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-14.3.0.min.js',
-      integrity: 'sha384-wEXrZ5GlWdiC5uvji5TQI6MEfbsN3tkLHddaFXM+S4hcsrQat/LjL3+b1eXNUaX/',
+      url: 'https://akless.github.io/ccm/version/beta/ccm-15.0.0.min.js',
+      integrity: 'sha384-lagyE7zPoJk4SJ16EW4luvtZgRy+3tleV7twPV7cvZTGFNmo3ENYXZg1Xk5JFQvx',
       crossorigin: 'anonymous'
     },
 
