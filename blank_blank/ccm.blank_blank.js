@@ -1,6 +1,6 @@
 /**
  * @overview example ccm component for the reuse of two ccm instances
- * @author André Kless <andre.kless@web.de> 2017
+ * @author André Kless <andre.kless@web.de> 2017-208
  * @license The MIT License (MIT)
  */
 
@@ -12,8 +12,8 @@
     ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config: {
-      "instance_a": [ "ccm.start", "../blank/ccm.blank.js" ],
-      "instance_b": [ "ccm.start", "../blank/ccm.blank.js" ]
+      "instance_a": [ "ccm.start", "https://akless.github.io/ccm-components/blank/ccm.blank.js" ],
+      "instance_b": [ "ccm.start", "https://akless.github.io/ccm-components/blank/ccm.blank.js" ]
     },
 
     Instance: function () {
