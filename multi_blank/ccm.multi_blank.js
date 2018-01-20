@@ -12,7 +12,7 @@
     ccm: 'https://akless.github.io/ccm/ccm.js',
 
     config:  {
-      component_obj: [ "ccm.component", "../blank/ccm.blank.js" ],
+      component_obj: [ "ccm.component", "https://akless.github.io/ccm-components/blank/ccm.blank.js" ],
       times: 5
     },
 
@@ -23,7 +23,7 @@
         this.element.innerHTML = '';
 
         let counter = 1;
-        const check = () => { if ( --counter === 0 && callback ) callback(); };
+        const check = () => --counter === 0 && callback && callback();
 
         for ( let i = 1; i <= this.times; i++ )
           this.component_obj.start( instance => { this.element.appendChild( instance.root ); check(); } );
