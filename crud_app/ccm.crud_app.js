@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (07.02.2018)
+ * version 1.0.0 (08.02.2018)
  */
 
 {
@@ -360,6 +360,9 @@
                     $.setContent( advance_elem, $.html( my.html.loaded ) );
                     fadeOut( advance_elem.querySelector( '#success' ) );
 
+                    // has onchange callback? => perform it
+                    self.onchange && self.onchange( self );
+
                   } );
 
                 } );
@@ -424,6 +427,9 @@
               buttons_elem.querySelector( '#btn_update' ).classList.add( 'disabled' );
               buttons_elem.querySelector( '#btn_delete' ).classList.add( 'disabled' );
 
+              // has onchange callback? => perform it
+              self.onchange && self.onchange( self );
+
             } );
 
           }
@@ -449,6 +455,9 @@
 
           // fade out the success message
           fadeOut( advance_elem.querySelector( '#success' ) );
+
+          // has onchange callback? => perform it
+          self.onchange && self.onchange( self );
 
           /** returns the embed code for the saved app */
           function getEmbedCode( index, store_settings, key ) {
