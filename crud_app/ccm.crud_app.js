@@ -77,6 +77,7 @@
           "inner": [
             {
               "tag": "p",
+              "id": "success",
               "class": "lead text-success",
               "inner": "Saved successfully"
             },
@@ -127,17 +128,26 @@
               ]
             }
           ]
+        },
+        "deleted": {
+          "id": "deleted",
+          "inner": {
+            "tag": "p",
+            "id": "success",
+            "class": "lead text-danger",
+            "inner": "App was deleted successfully."
+          }
         }
       },
       "css": [ "ccm.load",
-        //"../crud/resources/default.css",
         "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css",
         { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" }
       ],
-      "builder": [ "ccm.component", "../cloze_builder/ccm.cloze_builder.js", { "submit_button": false } ],
-      "store": [ "ccm.store", { "store": "w2c_cloze", "url": "https://ccm.inf.h-brs.de" } ],
-      "url": "https://akless.github.io/ccm-components/cloze/versions/ccm.cloze-2.2.0.min.js"
+      "warning": "Are you sure you want to delete this App?"
 
+  //  "builder": [ "ccm.component", "../cloze_builder/ccm.cloze_builder.js", { "submit_button": false } ],
+  //  "store": [ "ccm.store", { "store": "w2c_cloze", "url": "https://ccm.inf.h-brs.de" } ],
+  //  "url": "https://akless.github.io/ccm-components/cloze/versions/ccm.cloze-2.2.0.min.js",
   //  "onchange"
   //  "user"
   //  "logger"
@@ -169,6 +179,7 @@
       let $;
 
       let builder;
+      let key;
 
       /**
        * is called once after the initialization and is then deleted
@@ -194,8 +205,8 @@
         $.setContent( self.element, $.html( my.html.main, {
           onCreate: () => createApp(),
           onRead:   () => console.log( 'READ' ),
-          onUpdate: () => console.log( 'UPDATE' ),
-          onDelete: () => console.log( 'DELETE' )
+          onUpdate: () => updateApp(),
+          onDelete: () => deleteApp()
         } ) );
 
         const builder_elem = self.element.querySelector( '#builder' );
@@ -222,16 +233,64 @@
 
         }
 
+        function updateApp() {
+
+          if ( !key ) return;
+
+          if ( self.user ) self.user.login( proceed ); else proceed();
+
+          function proceed() {
+
+            const config = builder.getValue();
+            config.key = key;
+            my.store.set( config, handoverApp );
+
+          }
+
+        }
+
+        function deleteApp() {
+
+          if ( !key || !confirm( my.warning ) ) return;
+
+          if ( self.user ) self.user.login( proceed ); else proceed();
+
+          function proceed() {
+
+            my.store.del( key, () => {
+              key = undefined;
+              $.setContent( advance_elem, $.html( my.html.deleted ) );
+              fadeOut( advance_elem.querySelector( '#success' ) );
+              buttons_elem.querySelector( '#btn_update' ).classList.add( 'disabled' );
+              buttons_elem.querySelector( '#btn_delete' ).classList.add( 'disabled' );
+            } );
+
+          }
+
+        }
+
         function handoverApp( app ) {
+
+          key = app.key;
+          [ ...buttons_elem.querySelectorAll( '.disabled' ) ].map( button => button.classList.remove( 'disabled' ) );
 
           $.setContent( advance_elem, $.html( my.html.usage ) );
           advance_elem.querySelector( '#embed_code' ).innerHTML = getEmbedCode( $.getIndex( my.url ), my.store.source(), app.key );
           advance_elem.querySelector( '#id'         ).innerHTML = app.key;
 
+          fadeOut( advance_elem.querySelector( '#success' ) );
+
           function getEmbedCode( index, store_settings, key ) {
             return '&lt;script src="'+my.url+'"&gt;&lt;/script&gt;&lt;ccm-'+index+' key=\'["ccm.get",'+store_settings+',"'+key+'"]\'>&lt;/ccm-'+index+'&gt;';
           }
 
+        }
+
+        function fadeOut( elem ) {
+          elem.style.opacity = 1;
+          ( function fade() {
+            if ( ( elem.style.opacity -= .01 ) >= 0 ) requestAnimationFrame( fade );
+          } )();
         }
 
       };
