@@ -225,7 +225,16 @@
        */
       let $;
 
+      /**
+       * current app builder instance
+       * @type {object}
+       */
       let builder;
+
+      /**
+       * current App-ID
+       * @type {string}
+       */
       let key;
 
       /**
@@ -249,6 +258,7 @@
        */
       this.start = callback => {
 
+        // render main HTML structure
         $.setContent( self.element, $.html( my.html.main, {
           onCreate: () => createApp(),
           onRead:   () =>   readApp(),
@@ -256,106 +266,201 @@
           onDelete: () => deleteApp()
         } ) );
 
+        /**
+         * website area of the app builder
+         * @type {Element}
+         */
         const builder_elem = self.element.querySelector( '#builder' );
+
+        /**
+         * website area of the buttons
+         * @type {Element}
+         */
         const buttons_elem = self.element.querySelector( '#buttons' );
+
+        /**
+         * website area for advanced content
+         * @type {Element}
+         */
         const advance_elem = self.element.querySelector( '#advance' );
 
+        // render app builder
         my.builder.start( { root: builder_elem, target: [ 'ccm.component', my.url ] }, builder_inst => {
+
+          // remember the app builder instance
           builder = builder_inst;
+
+          // rendering completed => perform callback
           callback && callback();
+
         } );
 
+        /** when the "Create" button has been clicked */
         function createApp() {
 
+          // has user instance? => perform login
           if ( self.user ) self.user.login( proceed ); else proceed();
 
           function proceed() {
 
+            /**
+             * current app configuration from the app builder
+             * @type {object}
+             */
             const config = builder.getValue();
+
+            // add permission settings
             if ( self.user ) config._ = { creator: self.user.data().id, access: 'creator' };
+
+            // remove existing key (than new key will be generated)
             delete config.key;
+
+            // save the app configuration in the datastore and give the app to the user
             my.store.set( config, handoverApp );
 
           }
 
         }
 
+        /** when the "Read" button has been clicked */
         function readApp() {
 
+          // render an input field via which an App-ID can be entered
           $.setContent( advance_elem, $.html( my.html.load, {
+
             onLoadApp: () => {
+
+              // has user instance? => perform login
               if ( self.user ) self.user.login( proceed ); else proceed();
+
               function proceed() {
+
+                /**
+                 * entered App-ID
+                 * @type {string}
+                 */
                 const value = advance_elem.querySelector( '#key' ).value.trim();
+
+                // no App-ID? => abort
                 if ( !value ) return;
+
+                // use entered App-ID to load the corresponding app configuration from the datastore
                 my.store.get( value, app => {
+
+                  // no app configuration? => abort
                   if ( !app ) return;
+
+                  // render new app builder instance with the loaded app configuration as start values
                   my.builder.start( { root: builder_elem, target: [ 'ccm.component', my.url ], start_values: app }, builder_inst => {
-                    key = value;
-                    builder = builder_inst;
+
+                    // remember the App-ID and the app builder instance
+                    key = value; builder = builder_inst;
+
+                    // render success message (and slowly fade it out)
                     $.setContent( advance_elem, $.html( my.html.loaded ) );
                     fadeOut( advance_elem.querySelector( '#success' ) );
+
                   } );
+
                 } );
+
               }
+
             }
+
           } ) );
 
         }
 
+        /** when the "Update" button has been clicked */
         function updateApp() {
 
+          // has no existing App-ID? => abort
           if ( !key ) return;
 
+          // has user instance? => perform login
           if ( self.user ) self.user.login( proceed ); else proceed();
 
           function proceed() {
 
+            /**
+             * current app configuration from the app builder
+             * @type {object}
+             */
             const config = builder.getValue();
+
+            // add App-ID to the app configuration (to save the app under the same App-ID again)
             config.key = key;
+
+            // save the app configuration in the datastore and give the app to the user
             my.store.set( config, handoverApp );
 
           }
 
         }
 
+        /** when the "Delete" button has been clicked */
         function deleteApp() {
 
+          // has no existing App-ID or user is not sure about the deletion? => abort
           if ( !key || !confirm( my.warning ) ) return;
 
+          // has user instance? => perform login
           if ( self.user ) self.user.login( proceed ); else proceed();
 
           function proceed() {
 
+            // delete the app configuration in the datastore
             my.store.del( key, () => {
+
+              // forget the App-ID
               key = undefined;
+
+              // render success message (and slowly fade it out)
               $.setContent( advance_elem, $.html( my.html.deleted ) );
               fadeOut( advance_elem.querySelector( '#success' ) );
+
+              // disable "Update" and "Delete" button
               buttons_elem.querySelector( '#btn_update' ).classList.add( 'disabled' );
               buttons_elem.querySelector( '#btn_delete' ).classList.add( 'disabled' );
+
             } );
 
           }
 
         }
 
+        /**
+         * gives the app to the user
+         * @param {object} app - app configuration
+         */
         function handoverApp( app ) {
 
+          // remember the App-ID
           key = app.key;
+
+          // activate "Update" and "Delete" button
           [ ...buttons_elem.querySelectorAll( '.disabled' ) ].map( button => button.classList.remove( 'disabled' ) );
 
+          // render app usage informations
           $.setContent( advance_elem, $.html( my.html.usage ) );
           advance_elem.querySelector( '#embed_code' ).innerHTML = getEmbedCode( $.getIndex( my.url ), my.store.source(), app.key );
           advance_elem.querySelector( '#id'         ).innerHTML = app.key;
 
+          // fade out the success message
           fadeOut( advance_elem.querySelector( '#success' ) );
 
+          /** returns the embed code for the saved app */
           function getEmbedCode( index, store_settings, key ) {
             return '&lt;script src="'+my.url+'"&gt;&lt;/script&gt;&lt;ccm-'+index+' key=\'["ccm.get",'+store_settings+',"'+key+'"]\'>&lt;/ccm-'+index+'&gt;';
           }
 
         }
 
+        /**
+         * fades out an element
+         * @param {Element} elem
+         */
         function fadeOut( elem ) {
           elem.style.opacity = 1;
           ( function fade() {
