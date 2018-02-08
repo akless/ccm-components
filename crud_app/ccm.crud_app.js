@@ -192,9 +192,9 @@
       ],
       "warning": "Are you sure you want to delete this App?"
 
-  //  "builder": [ "ccm.component", "../cloze_builder/ccm.cloze_builder.js", { "submit_button": false } ],
-  //  "store": [ "ccm.store", { "store": "w2c_cloze", "url": "https://ccm.inf.h-brs.de" } ],
-  //  "url": "https://akless.github.io/ccm-components/cloze/versions/ccm.cloze-2.2.0.min.js",
+  //  "builder"
+  //  "store"
+  //  "url"
   //  "onchange"
   //  "user"
   //  "logger"
@@ -249,6 +249,14 @@
         // privatize all possible instance members
         my = $.privatize( self );
 
+        // should events be logged? => log event
+        if ( self.logger ) self.logger.log( 'ready', function () {
+          const data = self.ccm.helper.clone( my );
+          if ( data.builder ) data.builder = my.builder.index;
+          if ( data.store ) data.store = data.store.source();
+          return data;
+        }() );
+
         callback();
       };
 
@@ -290,6 +298,9 @@
           // remember the app builder instance
           builder = builder_inst;
 
+          // should events be logged? => log event
+          if ( self.logger ) self.logger.log( 'start' );
+
           // rendering completed => perform callback
           callback && callback();
 
@@ -315,6 +326,9 @@
             // remove existing key (than new key will be generated)
             delete config.key;
 
+            // should events be logged? => log event
+            if ( self.logger ) self.logger.log( 'create', config );
+
             // save the app configuration in the datastore and give the app to the user
             my.store.set( config, handoverApp );
 
@@ -324,6 +338,9 @@
 
         /** when the "Read" button has been clicked */
         function readApp() {
+
+          // should events be logged? => log event
+          if ( self.logger ) self.logger.log( 'read' );
 
           // render an input field via which an App-ID can be entered
           $.setContent( advance_elem, $.html( my.html.load, {
@@ -349,6 +366,9 @@
 
                   // no app configuration? => abort
                   if ( !app ) return;
+
+                  // should events be logged? => log event
+                  if ( self.logger ) self.logger.log( 'load', app );
 
                   // render new app builder instance with the loaded app configuration as start values
                   my.builder.start( { root: builder_elem, target: [ 'ccm.component', my.url ], start_values: app }, builder_inst => {
@@ -395,6 +415,9 @@
             // add App-ID to the app configuration (to save the app under the same App-ID again)
             config.key = key;
 
+            // should events be logged? => log event
+            if ( self.logger ) self.logger.log( 'update', config );
+
             // save the app configuration in the datastore and give the app to the user
             my.store.set( config, handoverApp );
 
@@ -412,6 +435,9 @@
           if ( self.user ) self.user.login( proceed ); else proceed();
 
           function proceed() {
+
+            // should events be logged? => log event
+            if ( self.logger ) self.logger.log( 'delete', key );
 
             // delete the app configuration in the datastore
             my.store.del( key, () => {
