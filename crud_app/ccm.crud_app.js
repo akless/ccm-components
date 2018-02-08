@@ -129,6 +129,44 @@
             }
           ]
         },
+        "load": {
+          "id": "load",
+          "inner": [
+            {
+              "tag": "legend",
+              "class": "text-primary",
+              "inner": "Loading an existing App"
+            },
+            {
+              "tag": "p",
+              "class": "text-info",
+              "inner": "Give here your App Identifier:",
+            },
+            {
+              "class": "input-group",
+              "inner": [
+                {
+                  "tag": "input",
+                  "id": "key",
+                  "class": "form-control",
+                  "type": "text",
+                  "placeholder": "ID..."
+                },
+                {
+                  "tag": "span",
+                  "class": "input-group-btn",
+                  "inner": {
+                    "tag": "button",
+                    "id": "btn_load",
+                    "class": "btn btn-info",
+                    "onclick": "%onLoadApp%",
+                    "inner": "Load App"
+                  }
+                }
+              ]
+            }
+          ]
+        },
         "deleted": {
           "id": "deleted",
           "inner": {
@@ -136,6 +174,15 @@
             "id": "success",
             "class": "lead text-danger",
             "inner": "App was deleted successfully."
+          }
+        },
+        "loaded": {
+          "id": "loaded",
+          "inner": {
+            "tag": "p",
+            "id": "success",
+            "class": "lead text-success",
+            "inner": "App was loaded successfully."
           }
         }
       },
@@ -204,7 +251,7 @@
 
         $.setContent( self.element, $.html( my.html.main, {
           onCreate: () => createApp(),
-          onRead:   () => console.log( 'READ' ),
+          onRead:   () =>   readApp(),
           onUpdate: () => updateApp(),
           onDelete: () => deleteApp()
         } ) );
@@ -230,6 +277,29 @@
             my.store.set( config, handoverApp );
 
           }
+
+        }
+
+        function readApp() {
+
+          $.setContent( advance_elem, $.html( my.html.load, {
+            onLoadApp: () => {
+              if ( self.user ) self.user.login( proceed ); else proceed();
+              function proceed() {
+                const value = advance_elem.querySelector( '#key' ).value.trim();
+                if ( !value ) return;
+                my.store.get( value, app => {
+                  if ( !app ) return;
+                  my.builder.start( { root: builder_elem, target: [ 'ccm.component', my.url ], start_values: app }, builder_inst => {
+                    key = value;
+                    builder = builder_inst;
+                    $.setContent( advance_elem, $.html( my.html.loaded ) );
+                    fadeOut( advance_elem.querySelector( '#success' ) );
+                  } );
+                } );
+              }
+            }
+          } ) );
 
         }
 
@@ -289,7 +359,7 @@
         function fadeOut( elem ) {
           elem.style.opacity = 1;
           ( function fade() {
-            if ( ( elem.style.opacity -= .01 ) >= 0 ) requestAnimationFrame( fade );
+            if ( ( elem.style.opacity -= .005 ) >= 0 ) requestAnimationFrame( fade );
           } )();
         }
 
