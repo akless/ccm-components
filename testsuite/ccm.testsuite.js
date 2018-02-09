@@ -234,7 +234,7 @@
                  * @param {boolean} condition
                  */
                 assertTrue: function ( condition ) {
-                  addResult( condition );
+                  addResult( !!condition );
                   finishTest();
                 },
 
