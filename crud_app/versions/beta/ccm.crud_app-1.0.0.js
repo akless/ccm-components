@@ -2,7 +2,7 @@
  * @overview ccm component for Create/Read/Update/Delete a Modular App
  * @author André Kless <andre.kless@web.de>, 2018
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version 1.0.0
  * @changes
  * version 1.0.0 (09.02.2018)
  */
