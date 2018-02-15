@@ -5,7 +5,7 @@
  * @version 3.6.0
  * @changes
  * version 3.6.0 (08.01.2018):
- * - uses ccm v14.0.2
+ * - uses ccm v14.3.2
  * - use .trim() from the beginning for solution words
  * - disable auto correction and auto capitalization for input fields
  * version 3.5.0 (18.12.2017):

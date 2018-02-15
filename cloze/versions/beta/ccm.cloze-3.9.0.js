@@ -4,17 +4,18 @@
  * @license The MIT License (MIT)
  * @version 3.9.0
  * @changes
- * version 3.9.0 (15.01.2018): strikethrough of solution words
+ * version 3.9.0 (15.01.2018):
+ * - strikethrough of solution words
+ * - uses ccm v15.0.2 (beta)
  * version 3.8.0 (15.01.2018): input fields for gaps are customizable
  * version 3.7.0 (09.01.2018):
  * - support of retry after submit
  * - length of an input field also adapts when pasting
  * - adding of getValue()
- * - uses ccm v14.2.0
  * version 3.6.0 (08.01.2018):
  * - use .trim() from the beginning for solution words
  * - disable auto correction and auto capitalization for input fields
- * - uses ccm v14.0.2
+ * - uses ccm v14.3.0
  * version 3.5.0 (18.12.2017):
  * - updates in default HTML templates
  * version 3.4.0 (27.11.2017):
@@ -58,8 +59,8 @@
      * @type {object}
      */
     ccm: {
-      url: 'https://akless.github.io/ccm/version/ccm-14.3.0.min.js',
-      integrity: 'sha384-4q30fhc2E3uY9omytSc6dKdoMNQ37dSozhTxgG/wH/9lv+N37TBhwd1jg/u03bRt',
+      url: 'https://akless.github.io/ccm/version/beta/ccm-15.0.2.min.js',
+      integrity: 'sha384-53Peq0VgpD1mglN0AfJov+xrQofgUepSeq1giq7auX2rEnuFJCV/0gKQznr35xwt',
       crossorigin: 'anonymous'
     },
 

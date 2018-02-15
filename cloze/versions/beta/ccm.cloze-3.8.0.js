@@ -9,11 +9,10 @@
  * - support of retry after submit
  * - length of an input field also adapts when pasting
  * - adding of getValue()
- * - uses ccm v14.2.0
  * version 3.6.0 (08.01.2018):
  * - use .trim() from the beginning for solution words
  * - disable auto correction and auto capitalization for input fields
- * - uses ccm v14.0.2
+ * - uses ccm v14.3.0
  * version 3.5.0 (18.12.2017):
  * - updates in default HTML templates
  * version 3.4.0 (27.11.2017):
