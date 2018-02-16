@@ -9,6 +9,7 @@
  * - bugfix for default and initial team names
  * - uses ccm v12.12.0
  * version 1.0.0 (19.10.2017)
+ * TODO: Teambuild für Member noch toLowerCase().trim() einbauen
  * TODO: lock and unlock for team joining
  * TODO: callback (onjoin, onleave, ...)
  */
