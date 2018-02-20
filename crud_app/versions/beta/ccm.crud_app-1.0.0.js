@@ -17,6 +17,12 @@
     name: 'crud_app',
 
     /**
+     * component version
+     * @type {number[]}
+     */
+    version: [ 1, 0, 0 ],
+
+    /**
      * recommended used framework version
      * @type {string}
      */
