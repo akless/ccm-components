@@ -10,5 +10,10 @@ ccm.files[ 'configs.js' ] = {
     "store": [ "ccm.store", { "store": "w2c_cloze", "url": "https://ccm.inf.h-brs.de" } ],
     "url": "https://akless.github.io/ccm-components/cloze/versions/ccm.cloze-2.2.0.min.js",
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
+  },
+  "cloze_lea": {
+    "builder": [ "ccm.component", "https://194.95.67.24/ccm-components/cloze_builder/versions/ccm.cloze_builder-1.6.0.min.js", { "submit_button": false } ],
+    "store": [ "ccm.store", { "store": "cloze", "url": "https://10.100.2.108" } ],
+    "url": "https://194.95.67.24/ccm-components/cloze/versions/ccm.cloze-2.2.0.min.js"
   }
 };
