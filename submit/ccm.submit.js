@@ -1,9 +1,11 @@
 /**
  * @overview ccm component for submitting data
- * @author André Kless <andre.kless@web.de> 2017
- * @author Manfred Kaul <manfred.kaul@h-brs.de> 2017
+ * @author André Kless <andre.kless@web.de> 2018
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version latest (1.0.1)
+ * @changes
+ * version 1.0.1 (23.02.2018): bugfix for accepting string as Light DOM
+ * version 1.0.0 (26.01.2018)
  * TODO: callbacks (onchange, ...)
  * TODO: docu comments -> API
  * TODO: unit tests
@@ -86,6 +88,13 @@
 
         // no given Light DOM? => abort
         if ( !my.inner ) return callback();
+
+        // Light DOM is given as string? => convert to DOM structure
+        if ( typeof my.inner === 'string' ) {
+          const div = document.createElement( 'div' );
+          div.innerHTML = my.inner;
+          my.inner = div;
+        }
 
         // iterate all input elements
         [ ...my.inner.querySelectorAll( 'input' ) ].map( input => {
