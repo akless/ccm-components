@@ -1,8 +1,10 @@
 /**
  * @overview ccm component for submitting data
- * @author André Kless <andre.kless@web.de> 2017
+ * @author André Kless <andre.kless@web.de> 2018
  * @license The MIT License (MIT)
  * @version 1.0.0
+ * @changes
+ * version 1.0.0 (26.01.2018)
  */
 
 {
