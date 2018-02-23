@@ -1,8 +1,11 @@
 /**
  * @overview ccm component for submitting data
- * @author André Kless <andre.kless@web.de> 2017
+ * @author André Kless <andre.kless@web.de> 2018
  * @license The MIT License (MIT)
- * @version 1.0.0
+ * @version 1.0.1
+ * @changes
+ * version 1.0.1 (23.02.2018): bugfix for accepting string as Light DOM
+ * version 1.0.0 (26.01.2018)
  */
 
 {
@@ -18,7 +21,7 @@
      * component version
      * @type {number[]}
      */
-    version: [ 1, 0, 0 ],
+    version: [ 1, 0, 1 ],
 
     /**
      * reference to used framework version
@@ -38,11 +41,11 @@
 
       "data": { "store": [ "ccm.store" ] }
 
-      //  "content": [ "ccm.component", "https://akless.github.io/ccm-components/content/ccm.content.js" ],
-      //  "inner": ...,
-      //  "user":   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js' ],
-      //  "logger": [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/configs.min.js', 'greedy' ] ],
-      //  "onfinish": { "log": true }
+  //  "content": [ "ccm.component", "https://akless.github.io/ccm-components/content/ccm.content.js" ],
+  //  "inner": ...,
+  //  "user":   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js' ],
+  //  "logger": [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/configs.min.js', 'greedy' ] ],
+  //  "onfinish": { "log": true }
 
     },
 
@@ -90,6 +93,13 @@
 
         // no given Light DOM? => abort
         if ( !my.inner ) return callback();
+
+        // Light DOM is given as string? => convert to DOM structure
+        if ( typeof my.inner === 'string' ) {
+          const div = document.createElement( 'div' );
+          div.innerHTML = my.inner;
+          my.inner = div;
+        }
 
         // iterate all input elements
         [ ...my.inner.querySelectorAll( 'input' ) ].map( input => {
