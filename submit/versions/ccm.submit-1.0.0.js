@@ -40,11 +40,11 @@
 
       "data": { "store": [ "ccm.store" ] }
 
-      //  "content": [ "ccm.component", "https://akless.github.io/ccm-components/content/ccm.content.js" ],
-      //  "inner": ...,
-      //  "user":   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js' ],
-      //  "logger": [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/configs.min.js', 'greedy' ] ],
-      //  "onfinish": { "log": true }
+  //  "content": [ "ccm.component", "https://akless.github.io/ccm-components/content/ccm.content.js" ],
+  //  "inner": ...,
+  //  "user":   [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js' ],
+  //  "logger": [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/configs.min.js', 'greedy' ] ],
+  //  "onfinish": { "log": true }
 
     },
 
