@@ -9,13 +9,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "../teambuild/resources/akless.css",
       {
-        "url": "../libs/font-awesome/font-awesome.min.css",
+        "url": "../libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "../libs/font-awesome/font-awesome.min.css",
+        "url": "../libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
@@ -31,13 +31,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
       {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
@@ -53,13 +53,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
       {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
@@ -78,13 +78,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
       {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
@@ -102,13 +102,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
       {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
@@ -126,13 +126,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
       {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
@@ -150,13 +150,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
       {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
@@ -174,13 +174,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
       {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
@@ -198,13 +198,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
       {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
@@ -222,13 +222,13 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
       {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       },
       {
         "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/font-awesome.min.css",
+        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
         "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
         "crossorigin": "anonymous"
       }
