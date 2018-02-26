@@ -23,14 +23,6 @@ ccm.files[ 'configs.js' ] = {
     "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "guest" } ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
   },
-  "lea": {
-    "css": [ "ccm.load", "https://194.95.67.24/ccm-components/teambuild/resources/akless.css" ],
-    "data": {
-      "store": [ "ccm.store", { "store": "teambuild", "url": "https://10.100.2.108", "db": "redis" } ],
-      "key": "demo"
-    },
-    "user": [ "ccm.instance", "https://194.95.67.24/ccm-components/user/versions/ccm.user-2.0.0.js", { "logged_in": true, "sign_on": "guest" } ]
-  },
   "clicker": {
     "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
