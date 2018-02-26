@@ -6,20 +6,7 @@
 
 ccm.files[ 'configs.js' ] = {
   "local": {
-    "css": [ "ccm.load",
-      "../teambuild/resources/akless.css",
-      {
-        "url": "../libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "../libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "../teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store" ],
       "key": "demo"
@@ -28,42 +15,16 @@ ccm.files[ 'configs.js' ] = {
     "logger": [ "ccm.instance", "../log/ccm.log.js", [ "ccm.get", "../log/resources/configs.js", "greedy" ] ]
   },
   "demo": {
-    "css": [ "ccm.load",
-      "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
-      {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de", "db": "redis" } ],
       "key": "demo"
     },
-    "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "demo" } ],
+    "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js", { "logged_in": true, "sign_on": "guest" } ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
   },
   "clicker": {
-    "css": [ "ccm.load",
-      "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
-      {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de", "db": "redis" } ],
       "key": "clicker"
@@ -75,20 +36,7 @@ ccm.files[ 'configs.js' ] = {
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
   },
   "se_ws17_gr1": {  // created for ccm.teambuild-1.0.0.js
-    "css": [ "ccm.load",
-      "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
-      {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr1"
@@ -99,20 +47,7 @@ ccm.files[ 'configs.js' ] = {
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
   },
   "se_ws17_gr2": {  // created for ccm.teambuild-1.0.0.js
-    "css": [ "ccm.load",
-      "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
-      {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr2"
@@ -123,20 +58,7 @@ ccm.files[ 'configs.js' ] = {
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
   },
   "se_ws17_gr3": {  // created for ccm.teambuild-1.0.0.js
-    "css": [ "ccm.load",
-      "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
-      {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr3"
@@ -147,20 +69,7 @@ ccm.files[ 'configs.js' ] = {
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
   },
   "se_ws17_gr4": {  // created for ccm.teambuild-1.0.0.js
-    "css": [ "ccm.load",
-      "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
-      {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr4"
@@ -171,20 +80,7 @@ ccm.files[ 'configs.js' ] = {
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
   },
   "se_ws17_gr5": {  // created for ccm.teambuild-1.0.0.js
-    "css": [ "ccm.load",
-      "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
-      {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr5"
@@ -195,20 +91,7 @@ ccm.files[ 'configs.js' ] = {
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
   },
   "se_ws17_gr6": {  // created for ccm.teambuild-1.0.0.js
-    "css": [ "ccm.load",
-      "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
-      {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "se_ws17_gr6"
@@ -219,20 +102,7 @@ ccm.files[ 'configs.js' ] = {
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "se_ws17_teambuild" ] ]
   },
   "sks_ws17": {  // created for ccm.teambuild-1.0.0.js
-    "css": [ "ccm.load",
-      "https://akless.github.io/ccm-components/teambuild/resources/akless.css",
-      {
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      },
-      {
-        "context": "head",
-        "url": "https://akless.github.io/ccm-components/libs/font-awesome/css/font-awesome.min.css",
-        "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-        "crossorigin": "anonymous"
-      }
-    ],
+    "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/akless.css" ],
     "data": {
       "store": [ "ccm.store", { "store": "teambuild", "url": "wss://ccm.inf.h-brs.de" } ],
       "key": "sks_ws17"
