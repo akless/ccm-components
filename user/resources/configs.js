@@ -17,7 +17,6 @@ ccm.files[ 'configs.js' ] = {
   },
   "lea": {
     "sign_on": "LEA",
-    "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ],
-    "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
+    "css": [ "ccm.load", "https://194.95.67.24/ccm-components/user/resources/default.css" ]
   }
 };
