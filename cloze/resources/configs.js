@@ -38,7 +38,29 @@ ccm.files[ 'configs.js' ] = {
     "blank": true,
     "retry": true,
     "captions.finish": "Restart",
+    "user": [ "ccm.instance", "https://akless.github.io/ccm-components/user/versions/beta/ccm.user-3.1.0.min.js", {
+      "key": [ "ccm.get", "https://akless.github.io/ccm-components/user/resources/configs.min.js", "lea" ]
+    } ],
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ],
-    "onfinish": { "log": true, "restart": true }
+    "onfinish": {
+      "log": true,
+      "restart": true,
+      "login": true,
+      "store": {
+        "settings": {
+          "store": "cloze_results",
+          "url": "https://ccm.inf.h-brs.de"
+        },
+        "user": true,
+        "permissions": {
+          "creator": "akless",
+          "access": {
+            "get": "all",
+            "set": "creator",
+            "del": "creator"
+          }
+        }
+      }
+    }
   }
 };
