@@ -1,0 +1,28 @@
+/**
+ * @overview layout from Tea Kless of ccm component for user authentication
+ * @author Tea Kless <tea.kless@web.de.de> 2018
+ * @license The MIT License (MIT)
+ */
+
+#element {
+  padding: 0.2em;
+}
+
+#logged_in {
+  display: flex;
+}
+
+#logged_in #button {
+  margin-left: 0.5em;
+}
+
+#login-form #loginbox {
+  margin-top:50px;
+}
+#login-form .panel-body {
+  padding-top:30px
+}
+
+#login-form .input-group {
+  margin-bottom: 25px;
+}
