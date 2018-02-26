@@ -72,20 +72,6 @@
           ]
         }
       },
-      "css": [ "ccm.load", "../teambuild/resources/default.css" ],
-      "icons": [ "ccm.load",
-        {
-          "context": "head",
-          "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
-          "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-          "crossorigin": "anonymous"
-        },
-        {
-          "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
-          "integrity": "sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+",
-          "crossorigin": "anonymous"
-        }
-      ],
       "data": { "store": [ "ccm.store" ] },
       "text": {
         "team": "Team",
@@ -99,10 +85,11 @@
       },
       "editable": { "join": true, "leave": true, "rename": true }
 
-  //  names: [ "Team Red", "Team Blue" ],
-  //  max_teams: 10,
-  //  max_members: 3,
-  //  user: [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js' ],
+  //  "css": [ "ccm.load", "https://akless.github.io/ccm-components/teambuild/resources/default.css" ],
+  //  "names": [ "Team Red", "Team Blue" ],
+  //  "max_teams": 10,
+  //  "max_members": 3,
+  //  "user": [ 'ccm.instance', 'https://akless.github.io/ccm-components/user/versions/ccm.user-2.0.0.min.js' ],
   //  logger: [ 'ccm.instance', 'https://akless.github.io/ccm-components/log/versions/ccm.log-1.0.0.min.js', [ 'ccm.get', 'https://akless.github.io/ccm-components/log/resources/log_configs.min.js', 'greedy' ] ],
 
     },
