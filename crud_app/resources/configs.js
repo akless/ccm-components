@@ -16,12 +16,12 @@ ccm.files[ 'configs.js' ] = {
     "store": [ "ccm.store", { "store": "cloze", "url": "https://10.100.2.108" } ],
     "url": "https://194.95.67.24/ccm-components/cloze/versions/ccm.cloze-2.2.0.js"
   },
-  "pdf_viewer_builder": {
+  "pdf_viewer": {
     "builder": [ "ccm.component", "https://tkless.github.io/ccm-components/pdf_viewer_builder/versions/ccm.pdf_viewer_builder-1.0.0.min.js", [ "ccm.get", "https://tkless.github.io/ccm-components/pdf_viewer_builder/resources/configs.min.js", "local" ] ],
     "store": [ "ccm.store", { "store": "w2c_pdf_viewer", "url": "https://ccm.inf.h-brs.de" } ],
     "url": "https://tkless.github.io/ccm-components/pdf_viewer/versions/ccm.pdf_viewer-1.0.0.min.js"
   },
-  "pdf_viewer_builder_lea": {
+  "pdf_viewer_lea": {
     "builder": [ "ccm.component", "https://194.95.67.24/ccm-components/pdf_viewer_builder/versions/ccm.pdf_viewer_builder-1.0.0.js", [ "ccm.get", "https://194.95.67.24/ccm-components/pdf_viewer_builder/resources/configs.js", "local" ] ],
     "store": [ "ccm.store", { "store": "w2c_pdf_viewer", "url": "https://10.100.2.108" } ],
     "url": "https://194.95.67.24/ccm-components/pdf_viewer/versions/ccm.pdf_viewer-1.0.0.js"
