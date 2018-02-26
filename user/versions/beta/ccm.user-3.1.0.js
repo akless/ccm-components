@@ -2,10 +2,11 @@
  * @overview ccm component for user authentication
  * @author André Kless <andre.kless@web.de> 2017-2018
  * @license The MIT License (MIT)
- * @version latest (3.1.0)
+ * @version 3.1.0
  * @changes
  * version 3.1.0 (26.02.2018):
  * - login form for LEA sign-on
+ * - uses ccm v15.0.2
  * version 3.0.0 (17.01.2018):
  * - uses ECMAScript 6 syntax
  * - uses ccm v15.0.0
@@ -18,9 +19,6 @@
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
  * version 1.0.0 (09.09.2017)
- * TODO: more unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 {
@@ -33,10 +31,20 @@
     name: 'user',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 3, 1, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/beta/ccm-15.0.2.min.js',
+      integrity: 'sha384-53Peq0VgpD1mglN0AfJov+xrQofgUepSeq1giq7auX2rEnuFJCV/0gKQznr35xwt',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -171,8 +179,8 @@
       "sign_on": "guest",
       "guest": "guest"
 
-  //  "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ],
-  //  "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.js", "greedy" ] ]
+    //  "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ],
+    //  "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.js", "greedy" ] ]
 
     },
 
