@@ -6,7 +6,7 @@
 
 ccm.files[ 'configs.js' ] = {
   "local": {
-    "sign_on": "demo",
+    "sign_on": "guest",
     "css": [ "ccm.load",
       "../user/resources/default.css",
       "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css",
