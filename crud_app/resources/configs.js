@@ -24,7 +24,7 @@ ccm.files[ 'configs.js' ] = {
   "pdf_viewer_lea": {
     "builder": [ "ccm.component", "https://194.95.67.24/ccm-components/pdf_viewer_builder/versions/ccm.pdf_viewer_builder-1.0.0.js", [ "ccm.get", "https://194.95.67.24/ccm-components/pdf_viewer_builder/resources/configs.js", "local" ] ],
     "store": [ "ccm.store", { "store": "w2c_pdf_viewer", "url": "https://10.100.2.108" } ],
-    "url": "https://194.95.67.24/ccm-components/pdf_viewer/versions/ccm.pdf_viewer-1.0.0.js"
+    "url": "https://194.95.67.24/ccm-components/pdf-viewer/versions/ccm.pdf_viewer-1.0.0.js"
   },
   "teambuild": {
     "builder": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild_builder/versions/ccm.teambuild_builder-2.3.0.min.js" ],
