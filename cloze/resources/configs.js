@@ -51,7 +51,7 @@ ccm.files[ 'configs.js' ] = {
         },
         "user": true,
         "permissions": {
-          "creator": "akless",
+          "creator": "akless2m",
           "access": {
             "get": "all",
             "set": "creator",
