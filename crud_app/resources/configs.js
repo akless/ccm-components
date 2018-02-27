@@ -12,9 +12,9 @@ ccm.files[ 'configs.js' ] = {
     "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.min.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.min.js", "greedy" ] ]
   },
   "pdf_viewer": {
-    "builder": [ "ccm.component", "https://tkless.github.io/ccm-components/pdf_viewer_builder/versions/ccm.pdf_viewer_builder-1.0.0.min.js", [ "ccm.get", "https://tkless.github.io/ccm-components/pdf_viewer_builder/resources/configs.min.js", "local" ] ],
+    "builder": [ "ccm.component", "https://tkless.github.io/ccm-components/pdf_viewer_builder/versions/ccm.pdf_viewer_builder-1.0.0.min.js" ],
     "store": [ "ccm.store", { "store": "w2c_pdf_viewer", "url": "https://ccm.inf.h-brs.de" } ],
-    "url": "https://tkless.github.io/ccm-components/pdf_viewer/versions/ccm.pdf_viewer-1.0.0.min.js"
+    "url": "https://tkless.github.io/ccm-components/pdf_viewer/versions/ccm.pdf_viewer-2.0.0.js"
   },
   "teambuild": {
     "builder": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild_builder/versions/ccm.teambuild_builder-2.3.0.min.js" ],
