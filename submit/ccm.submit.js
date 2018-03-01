@@ -7,6 +7,7 @@
  * version 1.0.1 (23.02.2018): bugfix for accepting string as Light DOM
  * version 1.0.0 (26.01.2018)
  * TODO: callbacks (onchange, ...)
+ * TODO: getValue()
  * TODO: docu comments -> API
  * TODO: unit tests
  * TODO: builder component (not needed -> HTML focused)
