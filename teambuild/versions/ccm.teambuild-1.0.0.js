@@ -82,7 +82,7 @@
         }
       ],
       "data": {
-        "store": [ "ccm.store" ],
+        "store": [ "ccm.store", {} ],
         "key": "demo"
       },
       "text": {

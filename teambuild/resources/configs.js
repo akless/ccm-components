@@ -8,7 +8,7 @@ ccm.files[ 'configs.js' ] = {
   "local": {
     "css": [ "ccm.load", "../teambuild/resources/akless.css" ],
     "data": {
-      "store": [ "ccm.store" ],
+      "store": [ "ccm.store", {} ],
       "key": "demo"
     },
     "user": [ "ccm.instance", "../user/ccm.user.js", { "logged_in": true, "sign_on": "demo" } ],

@@ -39,7 +39,7 @@
      */
     config: {
 
-      "data": { "store": [ "ccm.store" ] }
+      "data": { "store": [ "ccm.store", {} ] }
 
   //  "content": [ "ccm.component", "https://akless.github.io/ccm-components/content/ccm.content.js" ],
   //  "inner": ...,

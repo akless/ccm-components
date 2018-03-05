@@ -87,7 +87,7 @@
           "crossorigin": "anonymous"
         }
       ],
-      "data": { "store": [ "ccm.store" ] },
+      "data": { "store": [ "ccm.store", {} ] },
       "text": {
         "team": "Team",
         "leave": "leave",

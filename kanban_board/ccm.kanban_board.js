@@ -67,7 +67,7 @@
       },
       "css": [ "ccm.load", "../kanban_board/resources/default.css" ],
       "data": {
-        "store": [ "ccm.store" ],
+        "store": [ "ccm.store", {} ],
         "key": "local"
       },
       "lanes": [ "ToDo", "Doing", "Done" ],

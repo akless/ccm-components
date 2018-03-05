@@ -114,7 +114,7 @@
         }
       ],
       "data": {
-        "store": [ "ccm.store" ],
+        "store": [ "ccm.store", {} ],
         "permission_settings": { "access": "group" }
       },
       "editable": true,

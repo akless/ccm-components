@@ -69,7 +69,7 @@
       },
       "css": [ "ccm.load", "https://akless.github.io/ccm-components/kanban_board/resources/default.css" ],
       "data": {
-        "store": [ "ccm.store" ],
+        "store": [ "ccm.store", {} ],
         "key": "local"
       },
       "lanes": [ "ToDo", "Doing", "Done" ],
