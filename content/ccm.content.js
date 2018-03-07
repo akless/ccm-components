@@ -5,6 +5,7 @@
  * @version latest (3.0.0)
  * @changes
  * version 3.0.0 (07.03.2018):
+ * - uses ccm v15.0.2
  * - uses ES6 syntax
  * - dynamic replacement of placeholders
  * - dependencies are solved in parallel
