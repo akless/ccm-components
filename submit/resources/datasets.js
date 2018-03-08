@@ -27,6 +27,7 @@ ccm.files[ 'datasets.js' ] = {
     "select": "B",
     "multi-select": [ 'A', 'C' ],
     "textarea": "My Story",
+    "contenteditable": "This is editable text.",
     "complex-data": { "A": [ "B", "C" ] },
     "deep": { "property": "A" }
   }
