@@ -23,10 +23,14 @@
     version: [ 1, 0, 0 ],
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * reference to used framework version
+     * @type {object}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-15.0.2.min.js',
+      integrity: 'sha384-53Peq0VgpD1mglN0AfJov+xrQofgUepSeq1giq7auX2rEnuFJCV/0gKQznr35xwt',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
