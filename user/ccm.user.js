@@ -168,7 +168,7 @@
       },
       "context": true,
       "logged_in": false,
-      "sign_on": "guest",
+      "realm": "guest",
       "guest": "guest"
 
   //  "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ],
@@ -311,16 +311,16 @@
         // prevent more than one request on parallel login/logout calls
         if ( loading ) { waitlist.push( [ self.login, callback ] ); return self; }
 
-        // choose sign on and proceed login
-        switch ( my.sign_on ) {
+        // choose authentication mode and proceed login
+        switch ( my.realm ) {
           case 'guest':
             success( { id: my.guest } );
             break;
           case 'demo':
-            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', method: 'JSONP', params: { realm: 'ccm' } }, success );
+            self.ccm.load( 'https://ccm.inf.h-brs.de', success );
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: 'hbrsinfkaul' } }, success);
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: 'hbrsinfkaul' } }, success );
             break;
           case 'LEA':  // experimental
             lea();
@@ -402,11 +402,7 @@
         function success( response ) {
 
           // hold user data
-          dataset = $.filterProperties( response, 'id', 'token', 'name', 'email' );
-
-          // missing user name or user identifier? => use default
-          if ( !dataset.id   ) dataset.id = dataset.name;
-          if ( !dataset.name ) dataset.name = dataset.id;
+          dataset = $.filterProperties( response, 'user', 'token' );
 
           // request is finished
           loading = false;
@@ -442,13 +438,13 @@
         // prevent more than one request on parallel login/logout calls
         if ( loading ) { waitlist.push( [ self.logout, callback ] ); return self; }
 
-        // choose sign on and proceed logout
-        switch ( my.sign_on ) {
+        // choose authentication mode and proceed logout
+        switch ( my.realm ) {
           case 'guest':
             success();
             break;
           case 'demo':
-            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', method: 'JSONP', params: { realm: 'ccm', token: dataset.token } } );
+            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', params: { realm: 'ccm-demo', token: dataset.token } } );
             success();
             break;
           case 'hbrsinfkaul':
@@ -516,15 +512,15 @@
       };
 
       /**
-       * returns sign-on
+       * returns authentication mode
        * @returns {string}
        */
-      this.getSignOn = () => {
+      this.getRealm = () => {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.getSignOn();
+        if ( my.context ) return my.context.getRealm();
 
-        return my.sign_on;
+        return my.realm;
       };
 
       /**

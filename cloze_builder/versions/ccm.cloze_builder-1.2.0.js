@@ -607,8 +607,8 @@
       },
       "css": [ "ccm.load",
         "https://akless.github.io/ccm-components/cloze_builder/resources/default.css",
-        "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css",
-        { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" }
+        "https://tkless.github.io/ccm-components/libs/bootstrap/css/bootstrap.css",
+        { "context": "head", "url": "https://tkless.github.io/ccm-components/libs/bootstrap/css/font-face.css" }
       ],
       "editor": [ "ccm.component", "https://tkless.github.io/ccm-components/editor/versions/ccm.editor-1.0.0.min.js",
         { "settings.modules.toolbar": [

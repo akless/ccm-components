@@ -453,7 +453,7 @@
           }
         ]
       },
-      "css": [ "ccm.load", "https://tkless.github.io/ccm-components/lib/bootstrap/css/bootstrap.css", { "context": "head", "url": "https://tkless.github.io/ccm-components/lib/bootstrap/css/font-face.css" } ],
+      "css": [ "ccm.load", "https://tkless.github.io/ccm-components/libs/bootstrap/css/bootstrap.css", { "context": "head", "url": "https://tkless.github.io/ccm-components/libs/bootstrap/css/font-face.css" } ],
       "submit_button": true,
       "teambuild": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild/versions/ccm.teambuild-1.0.1.min.js" ],
       "onfinish": { "log": true }
