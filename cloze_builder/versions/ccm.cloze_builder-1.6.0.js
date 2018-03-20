@@ -691,6 +691,7 @@
       ],
       "editor": [ "ccm.component", "https://tkless.github.io/ccm-components/editor/versions/ccm.editor-1.0.0.min.js",
         { "settings.modules.toolbar": [
+          [ { 'header': [ 1, 2, 3, 4, 5, 6, false ] } ],
           [ "bold", "italic", "underline" ],                    // toggled buttons
           [ { "align": [] } ],
           [ "blockquote", "code-block" ],
