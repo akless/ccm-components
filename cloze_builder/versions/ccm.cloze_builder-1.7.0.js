@@ -3,7 +3,7 @@
  * @description This code is based on the ccm component 'ccm.fill_in_the_blank_blank_text_builder-2.0.0.js' by Tea Kless.
  * @author André Kless <andre.kless@web.de>, 2017-2018
  * @license The MIT License (MIT)
- * @version latest (1.7.0)
+ * @version 1.7.0
  * @changes
  * version 1.7.0 (21.03.2018): added 'Basic' and 'Advanced' section
  * version 1.6.0 (15.01.2018): uses ccm v14.2.0 and supports retry after submit
@@ -14,8 +14,6 @@
  * version 1.2.0 (18.11.2017): uses ccm.cloze.js v3.3.0 and updated help text
  * version 1.1.0 (15.11.2017): help texts for input elements
  * version 1.0.0 (13.11.2017)
- * TODO: my.data instead of start_values
- * TODO: helper.fillForm(my.data)
  */
 
 {
@@ -28,10 +26,20 @@
     name: 'cloze_builder',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 1, 7, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-15.0.2.min.js',
+      integrity: 'sha384-53Peq0VgpD1mglN0AfJov+xrQofgUepSeq1giq7auX2rEnuFJCV/0gKQznr35xwt',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -716,7 +724,7 @@
       "css": [ "ccm.load",
         "https://tkless.github.io/ccm-components/libs/bootstrap/css/bootstrap.css",
         { "context": "head", "url": "https://tkless.github.io/ccm-components/libs/bootstrap/css/font-face.css" },
-        "../cloze_builder/resources/default.css"
+        "https://akless.github.io/ccm-components/cloze_builder/resources/default.css"
       ],
       "editor": [ "ccm.component", "https://tkless.github.io/ccm-components/editor/versions/ccm.editor-2.0.0.min.js",
         { "settings.modules.toolbar": [
@@ -732,7 +740,7 @@
           [ "image" ]
         ], "settings.placeholder": "Type here..." }
       ],
-      "target": [ "ccm.component", "../cloze/ccm.cloze.js" ],
+      "target": [ "ccm.component", "https://akless.github.io/ccm-components/cloze/ccm.cloze.js" ],
       "submit_button": true,
       "preview": true,
       "onfinish": { "log": true }
