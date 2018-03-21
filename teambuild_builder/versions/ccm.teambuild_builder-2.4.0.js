@@ -2,7 +2,7 @@
  * @overview ccm component for building a realtime team building
  * @author André Kless <andre.kless@web.de>, 2017-2018
  * @license The MIT License (MIT)
- * @version latest (2.4.0)
+ * @version 2.4.0
  * @changes
  * version 2.4.0 (21.03.2018): added 'Basic' and 'Advanced' section
  * version 2.3.0 (27.11.2017):
@@ -30,10 +30,20 @@
     name: 'teambuild_builder',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 2, 4, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-15.0.2.min.js',
+      integrity: 'sha384-53Peq0VgpD1mglN0AfJov+xrQofgUepSeq1giq7auX2rEnuFJCV/0gKQznr35xwt',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -742,10 +752,10 @@
       "css": [ "ccm.load",
         "https://tkless.github.io/ccm-components/libs/bootstrap/css/bootstrap.css",
         { "context": "head", "url": "https://tkless.github.io/ccm-components/libs/bootstrap/css/font-face.css" },
-        "../teambuild_builder/resources/default.css"
+        "https://akless.github.io/ccm-components/teambuild_builder/resources/default.css"
       ],
       "submit_button": true,
-      "teambuild": [ "ccm.component", "../teambuild/ccm.teambuild.js" ],
+      "teambuild": [ "ccm.component", "https://akless.github.io/ccm-components/teambuild/ccm.teambuild.js" ],
       "onfinish": { "log": true },
 
   //  start_values

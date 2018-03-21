@@ -878,7 +878,7 @@
           },
           submit: self.submit,
           change: onChange,
-          help: () => {
+          help: function () {
 
             // hide and show help texts
             const this_a = this;
