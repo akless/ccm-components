@@ -843,6 +843,7 @@
             self.element.querySelector( '#advanced' ).classList.add( 'hide' );
             self.element.querySelector( '#basic' ).classList.add( 'show' );
 
+            self.onchange && self.onchange( self );
           },
           advanced: () => {
 
@@ -856,6 +857,7 @@
             self.element.querySelector( '#advanced' ).classList.add( 'show' );
             self.element.querySelector( '#basic' ).classList.add( 'hide' );
 
+            self.onchange && self.onchange( self );
           },
           submit: self.submit,
           change: () => self.onchange && self.onchange( self ),
