@@ -540,7 +540,7 @@
             success( { id: my.guest } );
             break;
           case 'demo':
-            self.ccm.load( 'https://ccm.inf.h-brs.de', success );
+            self.ccm.load( 'https://ccm2.inf.h-brs.de', success );
             break;
           case 'hbrsinfkaul':
             self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: 'hbrsinfkaul' } }, success );
