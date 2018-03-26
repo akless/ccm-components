@@ -6,7 +6,7 @@
  * @changes
  * version 3.0.0 (17.01.2018):
  * - uses ECMAScript 6 syntax
- * - uses ccm v15.0.0
+ * - uses ccm v15.0.2
  * - logging support
  * - add LEA authentication
  * version 2.0.1 (04.12.2017):
