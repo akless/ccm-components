@@ -2,7 +2,7 @@
  * @overview ccm component for user authentication
  * @author André Kless <andre.kless@web.de> 2017-2018
  * @license The MIT License (MIT)
- * @version latest (4.0.0)
+ * @version 4.0.0
  * @changes
  * version 4.0.0 (26.03.2018):
  * - uses ccm v16.0.0
@@ -23,9 +23,6 @@
  * version 1.1.0 (18.09.2017):
  * - no observer notification if observer is parent of publisher
  * version 1.0.0 (09.09.2017)
- * TODO: more unit tests
- * TODO: factory
- * TODO: multilingualism
  */
 
 {
@@ -38,10 +35,16 @@
     name: 'user',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 4, 0, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: 'https://akless.github.io/ccm/version/beta/ccm-16.0.0.min.js',
 
     /**
      * default instance configuration
