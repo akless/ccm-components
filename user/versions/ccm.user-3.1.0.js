@@ -2,15 +2,11 @@
  * @overview ccm component for user authentication
  * @author André Kless <andre.kless@web.de> 2017-2018
  * @license The MIT License (MIT)
- * @version 4.0.0
+ * @version 3.1.0
  * @changes
- * version 4.0.0 (26.03.2018):
- * - uses ccm v16.0.0
- * - uses ccm-cloud v3.0.0
- * - 'realm' instead of 'sign_on'
- * - updated LEA sign-on
  * version 3.1.0 (26.02.2018):
  * - login form for LEA sign-on
+ * - uses ccm v15.0.2
  * version 3.0.0 (17.01.2018):
  * - uses ECMAScript 6 syntax
  * - uses ccm v15.0.2
@@ -38,13 +34,17 @@
      * component version
      * @type {number[]}
      */
-    version: [ 4, 0, 0 ],
+    version: [ 3, 1, 0 ],
 
     /**
      * reference to used framework version
      * @type {object}
      */
-    ccm: 'https://akless.github.io/ccm/version/beta/ccm-16.0.0.min.js',
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-15.0.2.min.js',
+      integrity: 'sha384-4X0IFdACgz2SAKu0knklA+SRQ6OVU4GipKhm7p6l7e7k/CIM8cjCFprWmM4qkbQz',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
@@ -53,35 +53,6 @@
     config: {
 
       "html": {
-        "logged_in": {
-          "id": "logged_in",
-          "inner": [
-            {
-              "id": "user",
-              "inner": "%name%"
-            },
-            {
-              "id": "button",
-              "inner": {
-                "tag": "button",
-                "inner": "Logout",
-                "onclick": "%click%"
-              }
-            }
-          ]
-        },
-        "logged_out": {
-          "id": "logged_out",
-          "inner": {
-            "id": "button",
-            "inner": {
-              "tag": "button",
-              "inner": "Login",
-              "onclick": "%click%"
-            }
-          }
-        },
-        // HTML template 'login_form' by Tea Kless <tea.kless@web.de> 2018
         "login_form": {
           "id": "login-form",
           "class": "container",
@@ -125,7 +96,7 @@
                                 "type": "text",
                                 "class": "form-control",
                                 "name": "username",
-                                "placeholder": "username",
+                                "placeholder": "username or email",
                                 "required": true
                               }
                             ]
@@ -164,221 +135,52 @@
                                 "inner": "Login"
                               }
                             }
-                          }/*,
-                          {
-                            "class": "form-group",
-                            "inner": {
-                              "class": "col-md-12 control",
-                              "inner":  {
-                                "style": "border-top: 1px solid#888; padding-top:15px; font-size:85%",
-                                "inner": [
-                                  "Don't have an account!",
-                                  {
-                                    "tag": "a",
-                                    "onclick": "%signup%",
-                                    "inner": "&nbsp Sign Up Here"
-                                  }
-                                ]
-                              }
-                            }
-                          }*/
+                          }
                         ]
                       }
                     ]
                   }
                 ]
               }
+            }
+          ]
+        },
+        "logged_in": {
+          "id": "logged_in",
+          "inner": [
+            {
+              "id": "user",
+              "inner": "%name%"
             },
             {
-              "id": "signupbox",
-              "style": "display:none; margin-top:50px",
-              "class": "mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2",
+              "id": "button",
               "inner": {
-                "class": "panel panel-info",
-                "inner": [
-                  {
-                    "class": "panel-heading",
-                    "inner": [
-                      {
-                        "class": "panel-title",
-                        "inner": "Sign Up"
-                      },
-                      {
-                        "style": "float:right; font-size: 85%; position: relative; top:-10px",
-                        "inner": {
-                          "tag": "a",
-                          "id": "signinlink",
-                          "onclick": "%loginbox%",
-                          "inner": "Sign In"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "class": "panel-body",
-                    "inner": {
-                      "id": "signupform",
-                      "class": "form-horizontal",
-                      "role": "form",
-                      "inner": [
-                        {
-                          "id": "signupalert",
-                          "style": "display:none",
-                          "class": "alert alert-danger",
-                          "inner": [
-                            {
-                              "tag": "p",
-                              "inner": "Error:"
-                            },
-                            {
-
-                            }
-                          ]
-                        },
-                        {
-                          "class": "form-group",
-                          "inner": [
-                            {
-                              "tag": "label",
-                              "for": "email",
-                              "class": "col-md-3 control-label",
-                              "inner": "Email"
-                            },
-                            {
-                              "class":" col-md-9",
-                              "inner": {
-                                "tag": "input",
-                                "type": "text",
-                                "class": "form-control",
-                                "id": "email",
-                                "name": "email",
-                                "placeholder": "Email Address"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "class": "form-group",
-                          "inner": [
-                            {
-                              "tag": "label",
-                              "for": "firstname",
-                              "class": "col-md-3 control-label",
-                              "inner": "Frist Name"
-                            },
-                            {
-                              "class":" col-md-9",
-                              "inner": {
-                                "tag": "input",
-                                "type": "text",
-                                "class": "form-control",
-                                "id": "firstname",
-                                "name": "firstname",
-                                "placeholder": "First Name"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "class": "form-group",
-                          "inner": [
-                            {
-                              "tag": "label",
-                              "for": "lastname",
-                              "class": "col-md-3 control-label",
-                              "inner": "Last Name"
-                            },
-                            {
-                              "class":" col-md-9",
-                              "inner": {
-                                "tag": "input",
-                                "type": "text",
-                                "class": "form-control",
-                                "id": "lastname",
-                                "name": "lastname",
-                                "placeholder": "Last Name"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "class": "form-group",
-                          "inner": [
-                            {
-                              "tag": "label",
-                              "for": "password",
-                              "class": "col-md-3 control-label",
-                              "inner": "Password"
-                            },
-                            {
-                              "class":" col-md-9",
-                              "inner": {
-                                "tag": "input",
-                                "type": "text",
-                                "class": "form-control",
-                                "id": "password",
-                                "name": "password",
-                                "placeholder": "Password"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "class": "form-group",
-                          "inner": [
-                            {
-                              "tag": "label",
-                              "for": "icode",
-                              "class": "col-md-3 control-label",
-                              "inner": "Invitation Code"
-                            },
-                            {
-                              "class":" col-md-9",
-                              "inner": {
-                                "tag": "input",
-                                "type": "text",
-                                "class": "form-control",
-                                "id": "icode",
-                                "name": "icode"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "class": "form-group",
-                          "inner": {
-                            "class": "col-md-offset-3 col-md-9",
-                            "inner": {
-                              "tag": "button",
-                              "id": "btn-signup",
-                              "type": "button",
-                              "class": "btn btn-primary",
-                              "inner": [
-                                {
-                                  "tag": "i",
-                                  "class": "glyphicon glyphicon-hand-right",
-                                },
-                                "&nbsp; Sign Up"
-                              ]
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
+                "tag": "button",
+                "inner": "Logout",
+                "onclick": "%click%"
               }
             }
           ]
+        },
+        "logged_out": {
+          "id": "logged_out",
+          "inner": {
+            "id": "button",
+            "inner": {
+              "tag": "button",
+              "inner": "Login",
+              "onclick": "%click%"
+            }
+          }
         }
       },
       "context": true,
       "logged_in": false,
-      "realm": "guest",
+      "sign_on": "guest",
       "guest": "guest"
 
-  //  "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ],
-  //  "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.js", "greedy" ] ]
+    //  "css": [ "ccm.load", "https://akless.github.io/ccm-components/user/resources/default.css" ],
+    //  "logger": [ "ccm.instance", "https://akless.github.io/ccm-components/log/versions/ccm.log-2.0.1.js", [ "ccm.get", "https://akless.github.io/ccm-components/log/resources/configs.js", "greedy" ] ]
 
     },
 
@@ -443,12 +245,6 @@
       const waitlist = [];
 
       /**
-       * parent of own root element
-       * @type {Element}
-       */
-      let parent;
-
-      /**
        * is called once after all dependencies are solved and is then deleted
        * @param {function} callback - called after all synchronous and asynchronous operations are complete
        */
@@ -492,27 +288,16 @@
         // has logger instance? => log 'start' event
         self.logger && self.logger.log( 'start', self.isLoggedIn() );
 
-        // render logged in or logged out view
-        ( self.isLoggedIn() ? renderLoggedIn : renderLoggedOut )();
+        // prepare main HTML structure
+        const main_elem = self.isLoggedIn() ? $.html( my.html.logged_in, {
+          name: self.data().name,
+          click: () => self.logout( self.start )
+        } ) : $.html( my.html.logged_out, {
+          click: () => self.login( self.start )
+        } );
 
-        /** renders logged in view */
-        function renderLoggedIn() {
-
-          $.setContent( self.element, $.html( my.html.logged_in, {
-            name: self.data().name,
-            click: () => self.logout( self.start )
-          } ) );
-
-        }
-
-        /** renders logged out view */
-        function renderLoggedOut() {
-
-          $.setContent( self.element, $.html( my.html.logged_out, {
-            click: () => self.login( self.start )
-          } ) );
-
-        }
+        // set own content
+        $.setContent( self.element, $.protect( main_elem ) );
 
         callback && callback(); return self;
       };
@@ -534,16 +319,16 @@
         // prevent more than one request on parallel login/logout calls
         if ( loading ) { waitlist.push( [ self.login, callback ] ); return self; }
 
-        // choose authentication mode and proceed login
-        switch ( my.realm ) {
+        // choose sign on and proceed login
+        switch ( my.sign_on ) {
           case 'guest':
             success( { id: my.guest } );
             break;
           case 'demo':
-            self.ccm.load( 'https://ccm.inf.h-brs.de', success );
+            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', method: 'JSONP', params: { realm: 'ccm' } }, success );
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: 'hbrsinfkaul' } }, success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: 'hbrsinfkaul' } }, success);
             break;
           case 'LEA':  // experimental
             lea();
@@ -557,75 +342,63 @@
 
         return self;
 
-        /** performs LEA authentication mode */
         function lea() {
 
-          // render login form
-          renderLoginForm( () => {
+          // is a standalone instance? => abort
+          if ( !self.parent || !self.parent.element || !self.parent.element.parentNode ) return;
 
-            // get user credentials
-            const username = self.element.querySelector( 'input[name="username"]' ).value;
-            const password = self.element.querySelector( 'input[name="password"]' ).value;
+          // hide content of the parent instance
+          self.parent.element.style.display = "none";
 
-            // perform login
-            soap( {
-              domain: 'http://ilias-ccm.bib.h-brs.de',
-              url: 'http://ilias-ccm.bib.h-brs.de/webservice/soap/server.php',
-              method: 'login',
-              params: {
-                client: 'iliasccm',
-                username: username,
-                password: password
-              }
-            }, result => {
+          // remember parent element of own root element
+          const parent = self.root.parentNode;
 
-              /**
-               * security token
-               * @type {string}
-               */
-              const token = />([^>]+::.+)<\/sid>/.exec( result )[ 1 ];
-
-              // perform success callback
-              success( { name: username, token: token } );
-
-            }, () =>
-              confirm( 'Try again?' ) && lea() );  // render login form again if user credentials are invalid
-
-          } );
-
-        }
-
-        /**
-         * renders login form
-         * param {function} login - when username and password have been entered
-         */
-        function renderLoginForm( login ) {
-
-          // is not a standalone instance? => show login form in website area of parent instance
-          if ( self.parent && self.parent.element && self.parent.element.parentNode ) {
-
-            // remember parent of own root element
-            parent = self.root.parentNode;
-
-            // hide content of parent instance
-            self.parent.element.style.display = 'none';
-
-            // move own root element into Shadow DOM of parent instance
-            self.parent.element.parentNode.appendChild( self.root );
-
-          }
+          // move own root element into the Shadow DOM of the parent instance
+          self.parent.element.parentNode.appendChild( self.root );
 
           // render login form
           $.setContent( self.element, $.html( my.html.login_form, {
-            login: login,
-            loginbox: () => {
-              self.element.querySelector( '#loginbox' ).style.display = 'block';
-              self.element.querySelector( '#signupbox' ).style.display = 'none';
-            },
-            signup: () => {
-              self.element.querySelector( '#loginbox' ).style.display = 'none';
-              self.element.querySelector( '#signupbox' ).style.display = 'block';
+
+            login: () => {
+
+              // get user credentials
+              const username = self.element.querySelector( 'input[name="username"]' ).value;
+              if ( username === null ) return;
+              const password = self.element.querySelector( 'input[name="password"]' ).value;
+              if ( password === null ) return;
+
+              // perform login
+              soap( {
+                domain: 'http://ilias-ccm.bib.h-brs.de',
+                url: 'http://ilias-ccm.bib.h-brs.de/webservice/soap/server.php',
+                method: 'login',
+                params: {
+                  client: 'iliasccm',
+                  username: username,
+                  password: password
+                }
+              }, result => {
+
+                // move own root element back to original position
+                self.root.parentNode.removeChild( self.root );
+                if ( parent ) parent.appendChild( self.root );
+
+                // show content of the parent instance
+                self.parent.element.style.display = "block";
+
+                /**
+                 * security token
+                 * @type {string}
+                 */
+                const token = />([^>]+::.+)<\/sid>/.exec( result )[ 1 ];
+
+                // perform success callback
+                success( { name: username, token: token } );
+
+              }, () => confirm( 'Try again?' ) && lea() );  // render login form again if user credentials are invalid
+
             }
+
           } ) );
 
         }
@@ -637,18 +410,11 @@
         function success( response ) {
 
           // hold user data
-          dataset = $.filterProperties( response, 'user', 'token' );
+          dataset = $.filterProperties( response, 'id', 'token', 'name', 'email' );
 
-          // is not a standalone instance? => abort
-          if ( parent ) {
-
-            // move own root element back to original position
-            parent.appendChild( self.root );
-
-            // show content of the parent instance
-            self.parent.element.style.display = "block";
-
-          }
+          // missing user name or user identifier? => use default
+          if ( !dataset.id   ) dataset.id = dataset.name;
+          if ( !dataset.name ) dataset.name = dataset.id;
 
           // request is finished
           loading = false;
@@ -684,13 +450,13 @@
         // prevent more than one request on parallel login/logout calls
         if ( loading ) { waitlist.push( [ self.logout, callback ] ); return self; }
 
-        // choose authentication mode and proceed logout
-        switch ( my.realm ) {
+        // choose sign on and proceed logout
+        switch ( my.sign_on ) {
           case 'guest':
             success();
             break;
           case 'demo':
-            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', params: { realm: 'ccm-demo', token: dataset.token } } );
+            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', method: 'JSONP', params: { realm: 'ccm', token: dataset.token } } );
             success();
             break;
           case 'hbrsinfkaul':
@@ -758,15 +524,15 @@
       };
 
       /**
-       * returns authentication mode
+       * returns sign-on
        * @returns {string}
        */
-      this.getRealm = () => {
+      this.getSignOn = () => {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.getRealm();
+        if ( my.context ) return my.context.getSignOn();
 
-        return my.realm;
+        return my.sign_on;
       };
 
       /**
@@ -816,14 +582,15 @@
 
         // prepare request data for SOAP
         const xml = `<?xml version="1.0" encoding="utf-8"?>
-        <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
-          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-        <SOAP-ENV:Body>
-          <m:${settings.method} xmlns:m="${settings.domain}">
-             ${params}
-          </m:${settings.method}>
-        </SOAP-ENV:Body>
-      </SOAP-ENV:Envelope>`;
+<SOAP-ENV:Envelope
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <m:${settings.method} xmlns:m="${settings.domain}">
+      ${params}
+    </m:${settings.method}>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>`;
 
         // prepare request object for SOAP
         const request = new XMLHttpRequest();
