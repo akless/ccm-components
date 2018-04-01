@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (4.0.0)
  * @changes
- * version 4.0.0 (26.03.2018):
+ * version 4.0.0 (29.03.2018):
  * - uses ccm v16.0.0
  * - uses ccm-cloud v3.0.0
  * - 'realm' instead of 'sign_on'
