@@ -9,6 +9,7 @@
  * - uses ccm-cloud v3.0.0
  * - 'realm' instead of 'sign_on'
  * - updated LEA sign-on
+ * - 'ccm-demo' instead of 'demo'
  * version 3.1.0 (26.02.2018):
  * - login form for LEA sign-on
  * version 3.0.0 (17.01.2018):
@@ -536,7 +537,7 @@
           case 'guest':
             success( { id: my.guest } );
             break;
-          case 'demo':
+          case 'ccm-demo':
             self.ccm.load( 'https://ccm2.inf.h-brs.de', success );
             break;
           case 'hbrsinfkaul':
@@ -686,7 +687,7 @@
           case 'guest':
             success();
             break;
-          case 'demo':
+          case 'ccm-demo':
             self.ccm.load( { url: 'https://ccm.inf.h-brs.de', params: { realm: 'ccm-demo', token: dataset.token } } );
             success();
             break;
