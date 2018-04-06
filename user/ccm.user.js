@@ -535,13 +535,13 @@
         // choose authentication mode and proceed login
         switch ( my.realm ) {
           case 'guest':
-            success( { id: my.guest } );
+            success( { user: my.guest, token: my.guest } );
             break;
-          case 'ccm-demo':
-            self.ccm.load( 'https://ccm2.inf.h-brs.de', success );
+          case 'demo':
+            self.ccm.load( { url: 'https://ccm2.inf.h-brs.de', method: 'JSONP', params: { realm: my.realm } }, success );
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: 'hbrsinfkaul' } }, success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: my.realm } }, success );
             break;
           case 'LEA':  // experimental
             lea();
@@ -687,12 +687,12 @@
           case 'guest':
             success();
             break;
-          case 'ccm-demo':
-            self.ccm.load( { url: 'https://ccm.inf.h-brs.de', params: { realm: 'ccm-demo', token: dataset.token } } );
+          case 'demo':
+            self.ccm.load( { url: 'https://ccm2.inf.h-brs.de', method: 'JSONP', params: { realm: my.realm, token: self.data().token } } );
             success();
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/logout.php', method: 'JSONP', params: { realm: 'hbrsinfkaul' } } );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/logout.php', method: 'JSONP', params: { realm: my.realm } } );
             success();
             break;
           case 'LEA':   // experimental
