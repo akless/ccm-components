@@ -2,7 +2,7 @@
  * @overview ccm component for rendering a predefined content
  * @author André Kless <andre.kless@web.de> 2016-2018
  * @license The MIT License (MIT)
- * @version latest (3.1.0)
+ * @version 3.1.0
  * @changes
  * version 3.1.0 (06.04.2018):
  * - standard configurations specified in component dependencies are considered
@@ -20,9 +20,6 @@
  * - <source> tag for URL of inner used ccm elements
  * - accept ccm HTML data for config property "inner"
  * version 1.0.0 (28.07.2017)
- * TODO: docu comments -> API
- * TODO: more unit tests
- * TODO: factory
  */
 
 {
@@ -35,10 +32,20 @@
     name: 'content',
 
     /**
-     * recommended used framework version
-     * @type {string}
+     * component version
+     * @type {number[]}
      */
-    ccm: 'https://akless.github.io/ccm/ccm.js',
+    version: [ 3, 1, 0 ],
+
+    /**
+     * reference to used framework version
+     * @type {object}
+     */
+    ccm: {
+      url: 'https://akless.github.io/ccm/version/ccm-15.0.2.min.js',
+      integrity: 'sha384-4X0IFdACgz2SAKu0knklA+SRQ6OVU4GipKhm7p6l7e7k/CIM8cjCFprWmM4qkbQz',
+      crossorigin: 'anonymous'
+    },
 
     /**
      * default instance configuration
