@@ -9,7 +9,7 @@
  * - uses ccm-cloud v3.0.0
  * - 'realm' instead of 'sign_on'
  * - updated LEA sign-on
- * - 'ccm-demo' instead of 'demo'
+ * - user and token for realm hbrsinfkaul summarized
  * version 3.1.0 (26.02.2018):
  * - login form for LEA sign-on
  * version 3.0.0 (17.01.2018):
@@ -541,7 +541,7 @@
             self.ccm.load( { url: 'https://ccm2.inf.h-brs.de', method: 'JSONP', params: { realm: my.realm } }, success );
             break;
           case 'hbrsinfkaul':
-            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: my.realm } }, success );
+            self.ccm.load( { url: 'https://kaul.inf.h-brs.de/login/login.php', method: 'JSONP', params: { realm: my.realm } }, response => { response.token = response.user + '#' + response.token; success( response ); } );
             break;
           case 'LEA':  // experimental
             lea();
