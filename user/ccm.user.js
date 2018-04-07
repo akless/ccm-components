@@ -759,10 +759,10 @@
        * returns authentication mode
        * @returns {string}
        */
-      this.realm = () => {
+      this.getRealm = () => {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.realm();
+        if ( my.context ) return my.context.getRealm();
 
         return my.realm;
       };
