@@ -4,12 +4,11 @@
  * @license The MIT License (MIT)
  * @version 4.0.0
  * @changes
- * version 4.0.0 (29.03.2018):
+ * version 4.0.0 (07.04.2018):
  * - uses ccm v16.0.0
  * - uses ccm-cloud v3.0.0
  * - 'realm' instead of 'sign_on'
  * - updated LEA sign-on
- * - 'ccm-demo' instead of 'demo'
  * version 3.1.0 (26.02.2018):
  * - login form for LEA sign-on
  * version 3.0.0 (17.01.2018):
@@ -762,10 +761,10 @@
        * returns authentication mode
        * @returns {string}
        */
-      this.getRealm = () => {
+      this.realm = () => {
 
         // context mode? => delegate method call
-        if ( my.context ) return my.context.getRealm();
+        if ( my.context ) return my.context.realm();
 
         return my.realm;
       };
