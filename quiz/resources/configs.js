@@ -59,7 +59,7 @@ ccm.files[ 'configs.js' ] = {
     "onfinish": { "restart": true }
   },
   "local": {
-    "css": [ "ccm.load", "resources/weblysleek.css", { "context": "head", "url": "../libs/weblysleekui/font.css" } ],
+    "css": [ "ccm.load", "../quiz/resources/weblysleek.css", { "context": "head", "url": "../libs/weblysleekui/font.css" } ],
     "user": [ "ccm.instance", "../user/ccm.user.js" ],
     "logger": [ "ccm.instance", "../log/ccm.log.js", [ "ccm.get", "../log/resources/configs.js", "greedy" ] ],
     "questions": [
