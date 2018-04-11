@@ -54,9 +54,9 @@ ccm.component( /** @lends ccm.components.market */ {
       selected:      1
     } ],
     publish_form:    [ ccm.component, './resources/input.min.js', {
-      style:       [ ccm.load, './resources/input.css' ],
-      store:       [ ccm.store, './resources/inputs.json' ],
-      key:         'publication'
+      style:         [ ccm.load, './resources/input.css' ],
+      store:         [ ccm.store, './resources/inputs.json' ],
+      key:           'publication'
     } ],
     rating:          [ ccm.component, './resources/rating.min.js', {
       style:         [ ccm.load, './resources/rating.css' ],
