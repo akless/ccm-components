@@ -21,12 +21,12 @@ ccm.component( /** @lends ccm.components.market */ {
    */
   config: {
 
-    html:            [ ccm.store, '../market/data/templates.json' ],
-    style:           [ ccm.load, '../market/styles/market.css' ],
-    store:           [ ccm.store, { store: 'market_components', url: 'https://ccm.inf.h-brs.de/index.js' } ],
-    user:            [ ccm.instance, 'https://kaul.inf.h-brs.de/ccm/components/user.js', {
+    html:            [ ccm.store, './resources/templates.json' ],
+    style:           [ ccm.load, './resources/market.css' ],
+    store:           [ ccm.store, { store: 'market_components', url: 'https://ccm.inf.h-brs.de' } ],
+    user:            [ ccm.instance, './resources/user.min.js', {
       element: 'name',
-      style: [ ccm.load, 'https://kaul.inf.h-brs.de/ccm/css/user_hbrs.css' ],
+      style: [ ccm.load, './resources/user_hbrs.css' ],
       texts: {
         login: '<span class="fa fa-sign-in"></span>',
         login_title: 'Login',
@@ -35,38 +35,35 @@ ccm.component( /** @lends ccm.components.market */ {
         username_title: 'this is your username'
       }
     } ],
-    icons:           [ ccm.load, 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' ],
-
-    sidemenu:        [ ccm.instance, 'https://akless.github.io/ccm-components/resources/menu/ccm.menu.js', {
-      style:         [ ccm.load, '../market/styles/sidemenu.css' ],
+    icons:           [ ccm.load, './resources/font-awesome.min.css' /* https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css */ ],
+    sidemenu:        [ ccm.instance, './resources/ccm.menu.min.js', {
+      style:         [ ccm.load, './resources/sidemenu.css' ],
       classes:       'ccm-menu_market_sidemenu',
       data: {
-        store:       [ ccm.store, '../market/data/menu.json' ],
+        store:       [ ccm.store, './resources/menu.json' ],
         key:         'sidemenu'
       }
     } ],
-    tabmenu:         [ ccm.instance, 'https://akless.github.io/ccm-components/resources/menu/ccm.menu.js', {
-      style:         [ ccm.load, 'https://akless.github.io/ccm-components/resources/menu/layouts/tabs.css' ],
+    tabmenu:         [ ccm.instance, './resources/ccm.menu.min.js', {
+      style:         [ ccm.load, './resources/tabs.css' ],
       classes:       'ccm-menu_tabs',
       data: {
-        store:       [ ccm.store, '../market/data/menu.json' ],
+        store:       [ ccm.store, './resources/menu.json' ],
         key:         'tabmenu'
       },
       selected:      1
     } ],
-    publish_form:    [ ccm.component, 'https://akless.github.io/ccm-components/resources/input/ccm.input.js', {
-      data: {
-        store:       [ ccm.store, '../market/data/inputs.json' ],
-        key:         'publication'
-      }
+    publish_form:    [ ccm.component, './resources/input.min.js', {
+      style:       [ ccm.load, './resources/input.css' ],
+      store:       [ ccm.store, './resources/inputs.json' ],
+      key:         'publication'
     } ],
-    rating:          [ ccm.component, 'https://kaul.inf.h-brs.de/ccm/components/rating.js', {
-      style:         [ ccm.load, '../market/styles/rating.css' ],
+    rating:          [ ccm.component, './resources/rating.min.js', {
+      style:         [ ccm.load, './resources/rating.css' ],
       classes:       'ccm-rating_market',
-      store:         [ ccm.store, { store: 'market_ratings', url: 'wss://ccm.inf.h-brs.de/index.js' } ],
+      store:         [ ccm.store, { store: 'market_ratings', url: 'https://ccm.inf.h-brs.de' } ],
       mode:          'stars'
     } ],
-
     title:           'Market place for <i>ccm</i> components',
     icon: {
       menu:          'bars',

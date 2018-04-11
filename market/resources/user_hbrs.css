@@ -1,0 +1,32 @@
+
+div.ccm-user {
+
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  white-space: nowrap;
+
+}
+
+div.ccm-user > span {
+
+  font-size: 0.8em;
+  color: #009ee0;
+
+}
+
+div.ccm-user > button {
+
+  border: 0;
+  background: transparent;
+  padding: 0 0.3em;
+  font-family: inherit;
+  font-size: 100%;
+  cursor: pointer;
+  color: #009ee0;
+
+}
+
+div.ccm-user > button:hover {
+
+  color: #00698b;
+
+}
