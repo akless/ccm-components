@@ -23,7 +23,7 @@ ccm.component( /** @lends ccm.components.market */ {
 
     html:            [ ccm.store, './resources/templates.json' ],
     style:           [ ccm.load, './resources/market.css' ],
-    store:           [ ccm.store, { store: 'market_components', url: 'https://ccm.inf.h-brs.de' } ],
+    store:           [ ccm.store, { store: 'we_ss18_market_components', url: 'https://ccm.inf.h-brs.de' } ],
     user:            [ ccm.instance, './resources/user.min.js', {
       element: 'name',
       style: [ ccm.load, './resources/user_hbrs.css' ],
@@ -61,7 +61,7 @@ ccm.component( /** @lends ccm.components.market */ {
     rating:          [ ccm.component, './resources/rating.min.js', {
       style:         [ ccm.load, './resources/rating.css' ],
       classes:       'ccm-rating_market',
-      store:         [ ccm.store, { store: 'market_ratings', url: 'https://ccm.inf.h-brs.de' } ],
+      store:         [ ccm.store, { store: 'we_ss18_market_ratings', url: 'https://ccm.inf.h-brs.de' } ],
       mode:          'stars'
     } ],
     title:           'Market place for <i>ccm</i> components',
