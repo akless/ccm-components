@@ -36,7 +36,7 @@ ccm.component( /** @lends ccm.components.market */ {
       }
     } ],
     icons:           [ ccm.load, './resources/font-awesome.min.css' /* https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css */ ],
-    sidemenu:        [ ccm.instance, './resources/ccm.menu.min.js', {
+    sidemenu:        [ ccm.instance, './resources/menu.min.js', {
       style:         [ ccm.load, './resources/sidemenu.css' ],
       classes:       'ccm-menu_market_sidemenu',
       data: {
@@ -44,7 +44,7 @@ ccm.component( /** @lends ccm.components.market */ {
         key:         'sidemenu'
       }
     } ],
-    tabmenu:         [ ccm.instance, './resources/ccm.menu.min.js', {
+    tabmenu:         [ ccm.instance, './resources/menu.min.js', {
       style:         [ ccm.load, './resources/tabs.css' ],
       classes:       'ccm-menu_tabs',
       data: {
