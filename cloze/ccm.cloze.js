@@ -124,7 +124,7 @@
         }
       },
       "css": [ "ccm.load", "../cloze/resources/default.css" ],
-      "text": "Hello, [[(W)o(rl)d]]!",
+      "text": "Hello, *(W)o(rl)d*!",
       "captions": {
         "start": "Start",
         "cancel": "Cancel",
@@ -213,21 +213,21 @@
         // privatize all possible instance members
         my = $.privatize( self );
 
-        const regex_keyword   = /\[\[.+?\]\]/g;  // regular expression for finding all gaps/keywords in the text
+        const regex_keyword   = /\*.+?\*/g;  // regular expression for finding all gaps/keywords in the text
         const regex_given     = /\(.+?\)/g;      // regular expression for finding all given characters of a keyword
         const regex_reference = /^#(\d+)$/;      // regular expression for finding a gap reference
 
         // iterate all keywords in the text to determine the information data for each keyword
         ( my.text.match( regex_keyword ) || [] ).map( keyword => {
 
-          // remove distinguishing characteristic '[[' and ']]'
-          keyword = keyword.substr( 2, keyword.length - 4 );
+          // remove distinguishing characteristic '*'
+          keyword = keyword.substr( 1, keyword.length - 2 );
 
           // the same as a previous gap? => use reference of previous gap
           if ( regex_reference.test( keyword ) ) return keywords.push( keywords[ keyword.substr( 1 ) - 1 ] );
 
           const entry = [];
-          keyword.split( '|' ).map( keyword => entry.push( determineKeywordData( keyword.trim() ) ) );
+          keyword.split( '/' ).map( keyword => entry.push( determineKeywordData( keyword.trim() ) ) );
           keywords.push( entry );
 
           function determineKeywordData( keyword ) {
