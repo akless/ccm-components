@@ -434,7 +434,7 @@ ccm.component( /** @lends ccm.components.market */ {
 
           // integrate username and full name of developer in resulting dataset
           result.user = my.user.data().key;
-          result.developer = my.user.data().name;
+          result.developer = my.user.data().key;
 
           /**
            * filename of the component
