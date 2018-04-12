@@ -21,8 +21,8 @@
             "inner": [
               {
                 "tag": "div",
-                "class": "icon fa fa-%icon% fa-fw fa-lg",
-                "onclick": "%click_icon%"
+                "data-class": "icon fa fa-%icon% fa-fw fa-lg",
+                "data-onclick": "%click_icon%"
               },
               {
                 "tag": "div",

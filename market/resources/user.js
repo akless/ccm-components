@@ -282,9 +282,11 @@ ccm.component( /** @lends ccm.components.user */ {
           name:  name
 
         };
-        
+
         while ( waitlist.length > 0 )
           ccm.helper.action( waitlist.shift() );
+
+        loading = false;
 
         // (re)render own content
         if ( ccm.helper.isInDOM( self ) ) self.render();
@@ -321,7 +323,7 @@ ccm.component( /** @lends ccm.components.user */ {
           break;
 
         case 'hbrsinfkaul':
-          ccm.load( [ 'https://logout@kaul.inf.h-brs.de/login/logout.php', { realm: 'hbrsinfkaul' } ] );
+          ccm.load( [ 'https://kaul.inf.h-brs.de/login/logout.php', { realm: 'hbrsinfkaul' } ] );
           success();
           break;
 

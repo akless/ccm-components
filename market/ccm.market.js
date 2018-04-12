@@ -352,7 +352,7 @@ ccm.component( /** @lends ccm.components.market */ {
 
       // render component entries
       for ( var i = 0; i < components.length; i++ )
-        if ( show_not_quality_proved && !components[ i ].checked || !show_not_quality_proved && components[ i ].checked )
+        //if ( show_not_quality_proved && !components[ i ].checked || !show_not_quality_proved && components[ i ].checked )
           renderEntry( components[ i ] );
 
       /**
