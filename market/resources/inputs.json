@@ -45,13 +45,8 @@
           { "value": "MIT License", "selected": true },
           { "value": "Other" }
         ]
-      },
-      {
-        "label": "HTTPS only",
-        "name": "https",
-        "input": "checkbox",
-        "title": "Only if component and all dependent resources are HTTPS or WSS."
       }
-    ]
+    ],
+    "form": true
   }
 }

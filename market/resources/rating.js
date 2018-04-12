@@ -197,6 +197,7 @@ ccm.component( {
           if ( !dataset.star_vote ) dataset.star_vote = '0';
 
           var rating_div = ccm.helper.find( self, '.rating' );
+          rating_div.html( '' );
           var star;
           var rating = Math.round( dataset.star_vote );
 

@@ -23,7 +23,7 @@ ccm.component( /** @lends ccm.components.market */ {
 
     html:            [ ccm.store, './resources/templates.json' ],
     style:           [ ccm.load, './resources/market.css' ],
-    store:           [ ccm.store, { store: 'we_ss18_market_components', url: 'https://ccm.inf.h-brs.de' } ],
+    store:           [ ccm.store, { store: 'we_ss18_market_components', url: 'https://ccm.inf.h-brs.de' } ],  // old store: market_components
     user:            [ ccm.instance, './resources/user.min.js', {
       element: 'name',
       style: [ ccm.load, './resources/user_hbrs.css' ],
@@ -35,7 +35,7 @@ ccm.component( /** @lends ccm.components.market */ {
         username_title: 'this is your username'
       }
     } ],
-    icons:           [ ccm.load, './resources/font-awesome.min.css' /* https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css */ ],
+    icons:           [ ccm.load, './resources/font-awesome.min.css' ],                     // remote source: https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css
     sidemenu:        [ ccm.instance, './resources/ccm.menu.min.js', {
       style:         [ ccm.load, './resources/sidemenu.css' ],
       classes:       'ccm-menu_market_sidemenu',
@@ -55,13 +55,15 @@ ccm.component( /** @lends ccm.components.market */ {
     } ],
     publish_form:    [ ccm.component, './resources/input.min.js', {
       style:         [ ccm.load, './resources/input.css' ],
-      store:         [ ccm.store, './resources/inputs.json' ],
-      key:           'publication'
+      data: {
+        store:         [ ccm.store, './resources/inputs.json' ],
+        key:           'publication'
+      }
     } ],
     rating:          [ ccm.component, './resources/rating.min.js', {
       style:         [ ccm.load, './resources/rating.css' ],
       classes:       'ccm-rating_market',
-      store:         [ ccm.store, { store: 'we_ss18_market_ratings', url: 'https://ccm.inf.h-brs.de' } ],
+      store:         [ ccm.store, { store: 'we_ss18_market_ratings', url: 'https://ccm.inf.h-brs.de' } ],  // old store: market_ratings
       mode:          'stars'
     } ],
     title:           'Market place for <i>ccm</i> components',
