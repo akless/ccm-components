@@ -181,7 +181,8 @@ ccm.component( /** @lends ccm.components.market */ {
          * renders component demo
          */
         function renderDemo() {
-          var html_string = '<script src="' + component.url + '"></script><ccm-' + component.key + '></ccm-' + component.key + '>';
+          var index = component.key.replace( /\./g, '-' );
+          var html_string = '<script src="' + component.url + '"></script><ccm-' + index + '></ccm-' + index + '>';
           $content.html( '<iframe>' );
           $content.find( 'iframe' ).css( { width: '100%', border: '0' } )[ 0 ].src = "data:text/html;charset=utf-8," + html_string;
         }
@@ -482,7 +483,7 @@ ccm.component( /** @lends ccm.components.market */ {
             function proceed() {
 
               // component successful published/edited
-              alert( 'Saved!' + ( component ? '' : ' You find your published component in the "Not Quality Proved" section until it\'s quality checked.' ) );
+              alert( 'Saved!' /*+ ( component ? '' : ' You find your published component in the "Not Quality Proved" section until it\'s quality checked.' )*/ );
 
               // (re)render component market place
               self.render();
