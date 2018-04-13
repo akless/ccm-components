@@ -151,7 +151,8 @@ ccm.component( /** @lends ccm.components.market */ {
         // perform action for clicked menu entry
         switch ( entry.nr ) {
           case 1: renderDetails(); break;
-          case 2: ccm.render( component.url, $content ); break;
+        //case 2: ccm.render( component.url, $content ); break;
+          case 2: renderDemo(); break;
           case 3: renderConfiguration(); break;
         }
 
@@ -174,6 +175,15 @@ ccm.component( /** @lends ccm.components.market */ {
             $section.find( '.content' ).html( content );
             ccm.helper.find( instance, '.details' ).append( $section );
           }
+        }
+
+        /**
+         * renders component demo
+         */
+        function renderDemo() {
+          var html_string = '<script src="' + component.url + '"></script><ccm-' + component.key + '></ccm-' + component.key + '>';
+          $content.html( '<iframe>' );
+          $content.find( 'iframe' ).css( { width: '100%', border: '0' } )[ 0 ].src = "data:text/html;charset=utf-8," + html_string;
         }
 
         /**
