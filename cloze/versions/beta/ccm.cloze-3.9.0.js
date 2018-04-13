@@ -2,41 +2,13 @@
  * @overview ccm component for rendering a fill-in-the-blank text
  * @author André Kless <andre.kless@web.de> 2017-2018
  * @license The MIT License (MIT)
- * @version 3.9.0
+ * @version 4.0.0
  * @changes
- * version 3.9.0 (15.01.2018):
- * - strikethrough of solution words
- * - uses ccm v15.0.2 (beta)
- * version 3.8.0 (15.01.2018): input fields for gaps are customizable
- * version 3.7.0 (09.01.2018):
- * - support of retry after submit
- * - length of an input field also adapts when pasting
- * - adding of getValue()
- * version 3.6.0 (08.01.2018):
- * - use .trim() from the beginning for solution words
- * - disable auto correction and auto capitalization for input fields
- * - uses ccm v14.3.0
- * version 3.5.0 (18.12.2017):
- * - updates in default HTML templates
- * version 3.4.0 (27.11.2017):
- * - resizable input fields by typing (pull request by Tea Kless)
- * version 3.3.0 (18.11.2017):
- * - reference text gaps like [[#1]]
- * - reference text gaps with more than one solution word are only correct if each user input is different
- * - bugfix for 'validation' callback
- * - event data contains more informations
- * - outgoing event data is always cloned (except for 'validation' callback)
- * version 3.2.1 (17.11.2017):
- * - bugfix for length of text gaps
- * - no cleared text gap on correctness only feedback
- * version 3.2.0 (13.11.2017):
- * - customizable caption for start button
- * version 3.1.0 (10.11.2017):
- * - more than one solution word for a gap
- * version 3.0.0 (10.11.2017):
- * - uses ECMAScript 6 syntax
- * - uses ccm v12.12.0
- * (for older version changes see ccm.cloze.js-2.2.0.js)
+ * version 4.0.0 (13.04.2018): changed marking of gaps
+ * - '*' instead of '[[' and ']]' (more easy to find on keyboards)
+ * - '/' instead of '|' (more easy to find on keyboards)
+ * - configurable character that marks a gap
+ * (for older version changes see ccm.cloze.js-3.9.0.js)
  */
 
 {
@@ -52,7 +24,7 @@
      * component version
      * @type {number[]}
      */
-    version: [ 3, 9, 0 ],
+    version: [ 4, 0, 0 ],
 
     /**
      * reference to used framework version
@@ -130,7 +102,8 @@
         }
       },
       "css": [ "ccm.load", "https://akless.github.io/ccm-components/cloze/resources/default.css" ],
-      "text": "Hello, [[(W)o(rl)d]]!",
+      "mark": "*",
+      "text": "Hello, *(W)o(rl)d*!",
       "captions": {
         "start": "Start",
         "cancel": "Cancel",
@@ -219,21 +192,21 @@
         // privatize all possible instance members
         my = $.privatize( self );
 
-        const regex_keyword   = /\[\[.+?\]\]/g;  // regular expression for finding all gaps/keywords in the text
-        const regex_given     = /\(.+?\)/g;      // regular expression for finding all given characters of a keyword
-        const regex_reference = /^#(\d+)$/;      // regular expression for finding a gap reference
+        const regex_keyword   = new RegExp( '\\' + my.mark + '.+?\\' + my.mark, 'g' );  // regular expression for finding all gaps/keywords in the text
+        const regex_given     = /\(.+?\)/g;                                             // regular expression for finding all given characters of a keyword
+        const regex_reference = /^#(\d+)$/;                                             // regular expression for finding a gap reference
 
         // iterate all keywords in the text to determine the information data for each keyword
         ( my.text.match( regex_keyword ) || [] ).map( keyword => {
 
-          // remove distinguishing characteristic '[[' and ']]'
-          keyword = keyword.substr( 2, keyword.length - 4 );
+          // remove distinguishing characteristic '*'
+          keyword = keyword.substr( 1, keyword.length - 2 );
 
           // the same as a previous gap? => use reference of previous gap
           if ( regex_reference.test( keyword ) ) return keywords.push( keywords[ keyword.substr( 1 ) - 1 ] );
 
           const entry = [];
-          keyword.split( '|' ).map( keyword => entry.push( determineKeywordData( keyword.trim() ) ) );
+          keyword.split( '/' ).map( keyword => entry.push( determineKeywordData( keyword.trim() ) ) );
           keywords.push( entry );
 
           function determineKeywordData( keyword ) {
