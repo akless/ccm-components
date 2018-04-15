@@ -1,5 +1,5 @@
 /**
- * @overview ccm component for a listing
+ * @overview ccm component for rendering a list of all submitted solutions
  * @author André Kless <andre.kless@web.de> 2018
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
@@ -12,7 +12,7 @@
      * unique component name
      * @type {string}
      */
-    name: 'listing',
+    name: 'show_solutions',
 
     /**
      * recommended used framework version
@@ -25,7 +25,11 @@
      * @type {Object}
      */
     config: {
-      message: 'Nothing to display.'
+      "data": {
+        "store": [ "ccm.store" ],
+        "key": "{}"
+      },
+      "message": "Nothing to display."
     },
 
     /**
@@ -53,10 +57,10 @@
       let $;
 
       /**
-       * entry datasets
+       * submitted solutions
        * @type {Object[]}
        */
-      let entries;
+      let solutions;
 
       /**
        * is called once after all dependencies are solved and is then deleted
@@ -74,48 +78,45 @@
       };
 
       /**
-       * is called once after the initialization and is then deleted
-       * @param {function} callback - called after all synchronous and asynchronous operations are complete
-       */
-      this.ready = callback => {
-
-        callback();
-      };
-
-      /**
        * starts the instance
        * @param {function} [callback] - called after all synchronous and asynchronous operations are complete
        */
       this.start = callback => {
 
+        // clear own website area
         $.setContent( self.element, '' );
-        $.dataset( my.data, result => {
-          entries = result;
-          if ( !Array.isArray( entries ) || entries.length === 0 ) {
+
+        // get submitted solutions
+        $.dataset( my.data, result => { solutions = result;
+
+          // no given solutions?
+          if ( !Array.isArray( solutions ) || solutions.length === 0 ) {
+
+            // render message that there is nothing to display
             $.setContent( self.element, my.message );
+
+            // perform callback and abort
             return callback && callback();
+
           }
-          const div = document.createElement( 'div' );
-          self.element.appendChild( div );
-          console.log( entries );
 
-          const table_head = [];
-          for ( let i = 0; i < Object.keys( entries[ 0 ] ).length - 4; i++ )
-            table_head.push( 'a' + ( i + 1 ) );
-          table_head.push( 'created_at' );
-          table_head.push( 'updated_at' );
+          // iterate over each submitted solution
+          solutions.map( solution => {
 
-          //table_head: [ "header-1", "header-2", "header-3" ],
-          //col_settings: [
-          //  { "type": "number", "placeholder": "Tel: 049..." },
-          //  { "disabled": "true", "inner": "max.musterman@mail.com" },
-          //  { "type": "date", "foo": "bar" }
-          //],
+            // remove not relevant solution properties
+            delete solution.created_at; delete solution.updated_at; delete solution._;
 
-          my.target.start( { root: div, data: entries, table_head: table_head } );
-          $.setContent( self.element, div );
+          } );
 
-          callback && callback();
+          /**
+           * headlines of table columns
+           * @type {string[]}
+           */
+          const table_head = Object.keys( solutions[ 0 ] );
+
+          // render list of submitted solutions
+          my.target.start( { root: self.element, data: solutions, table_head: table_head }, () => callback && callback() );
+
         } );
 
       };
@@ -124,7 +125,7 @@
        * returns the current result data
        * @returns {Object[]} current result data
        */
-      this.getValue = () => $.clone( entries );
+      this.getValue = () => $.clone( solutions );
 
     }
 
