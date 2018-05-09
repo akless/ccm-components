@@ -1,10 +1,10 @@
 /**
- * @overview default layout for <i>ccm</i> component for menus
- * @author André Kless <andre.kless@web.de.de> 2015-2016
+ * @overview default layout of ccm component for rendering a menu
+ * @author André Kless <andre.kless@web.de> 2015-2016, 2018
  * @license The MIT License (MIT)
  */
 
-.ccm-menu > .entries {
+#entries {
   display: flex;
   display: -webkit-flex;
   justify-content: space-between;
@@ -19,7 +19,7 @@
   color: white;
 }
 
-.ccm-menu > .entries > .entry {
+.entry {
   flex-grow: 1;
   -webkit-flex-grow: 1;
 
@@ -32,14 +32,14 @@
   cursor: pointer;
 }
 
-.ccm-menu > .entries > .entry:not( .selected ) {
+.entry:not( .selected ) {
   background-color: #DDD;
 }
 
-.ccm-menu > .entries > .selected {
+.entry.selected {
   background-color: #0095DD;
 }
 
-.ccm-menu > .entries > .entry:hover {
+.entry:hover {
   background-color: #64f8ff;
 }
