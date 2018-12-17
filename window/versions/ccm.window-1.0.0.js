@@ -13,7 +13,9 @@
 
     name: 'window',
 
-    ccm: 'https://ccmjs.github.io/ccm/ccm.js',
+    version: [ 1, 0, 0 ],
+
+    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-18.6.5.js',
 
     config: {
 

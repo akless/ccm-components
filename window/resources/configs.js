@@ -9,13 +9,15 @@ ccm.files[ 'configs.js' ] = {
   "local": {
     "key": "local",
     "css": [ "ccm.load", "../window/resources/default.css" ],
-    "app": [ "ccm.instance", "../blank/ccm.blank.js" ],
-    "icon": "../../digital-maker-space/dms/resources/component.png"
+    "app": [ "ccm.start", "../../akless-components/blank/ccm.blank.js" ],
+    "icon": "../../akless-components/dms/resources/component.png",
+    "compact": false,
+    "hidden": false
   },
 
   "demo": {
     "key": "demo",
-    "app": [ "ccm.instance", "https://ccmjs.github.io/akless-components/blank/ccm.blank.js" ]
+    "app": [ "ccm.start", "https://ccmjs.github.io/akless-components/blank/ccm.blank.js" ]
   }
 
 };

@@ -8,41 +8,45 @@
   position: fixed;
 }
 
-#title {
+.title {
   font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
   white-space: nowrap;
 }
 
-#window {
+#window:not(.hidden) {
   border: 2px solid gray;
   border-radius: 5px;
   overflow: hidden;
 }
 
-#window #head {
+#window-head {
   display: flex;
   border-bottom: 2px solid gray;
   background-color: lightgrey;
 }
 
-#window #draggable {
+#window.hidden #window-head {
+  display: none;
+}
+
+#window-draggable {
   flex-grow: 9;
   cursor: move;
   min-width: 1em;
 }
 
-#window #title {
+#window-title {
   display: inline;
   font-size: small;
   padding: 0 0.2em;
   overflow: hidden;
 }
 
-#window #menu {
+#window-menu {
   display: flex;
 }
 
-#window .icon {
+#window-menu .icon {
   width: 1em;
   border-left: 2px solid gray;
   background-color: cyan;
@@ -51,24 +55,26 @@
   cursor: pointer;
 }
 
-#window .icon:hover {
+#window-menu .icon:hover {
   background-color: lime;
 }
 
-#window #body {
-  background-color: white;
-  min-height: 1em;
-}
-
-#window a, a:visited, a:hover, a:active {
+#window-menu a, a:visited, a:hover, a:active {
   color: black;
   text-decoration: none;
+}
+
+#window-body {
+  background-color: white;
+  min-height: 1em;
 }
 
 #compact {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0.5em;
+  padding: 0.2em;
 }
 
 #compact:hover {
@@ -77,25 +83,22 @@
   cursor: pointer;
 }
 
-#compact #icon {
+#compact-icon {
   border-radius: 5px;
   background-color: white;
-  overflow: hidden;
 }
 
-#compact #icon img {
+#compact-icon img {
   width: 3em;
   height: 3em;
 }
 
-#compact #title {
+#compact-title {
   background-color: white;
   border-radius: 5px;
-  width: 5em;
 }
 
-#compact #title > div {
-  margin: 0.2em;
+#compact-title > div {
   font-size: x-small;
   text-align: center;
   overflow: hidden;
